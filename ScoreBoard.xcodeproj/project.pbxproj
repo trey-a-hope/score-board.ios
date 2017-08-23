@@ -8,12 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		0C6DC5911F4DD9F200F9A061 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6DC5901F4DD9F200F9A061 /* AppDelegate.swift */; };
-		0C6DC5931F4DD9F200F9A061 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6DC5921F4DD9F200F9A061 /* HomeViewController.swift */; };
+		0C6DC5931F4DD9F200F9A061 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6DC5921F4DD9F200F9A061 /* LoginViewController.swift */; };
 		0C6DC5961F4DD9F200F9A061 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C6DC5941F4DD9F200F9A061 /* Main.storyboard */; };
 		0C6DC5981F4DD9F200F9A061 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C6DC5971F4DD9F200F9A061 /* Assets.xcassets */; };
 		0C6DC59B1F4DD9F200F9A061 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C6DC5991F4DD9F200F9A061 /* LaunchScreen.storyboard */; };
 		0C6DC5A61F4DD9F200F9A061 /* ScoreBoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6DC5A51F4DD9F200F9A061 /* ScoreBoardTests.swift */; };
 		0C6DC5B11F4DD9F200F9A061 /* ScoreBoardUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6DC5B01F4DD9F200F9A061 /* ScoreBoardUITests.swift */; };
+		0CC563711F4DF9070088057C /* HomeTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC563701F4DF9070088057C /* HomeTabBarController.swift */; };
+		0CC563731F4DFD480088057C /* GamesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC563721F4DFD480088057C /* GamesViewController.swift */; };
+		0CC563751F4DFD9A0088057C /* ModalService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC563741F4DFD9A0088057C /* ModalService.swift */; };
+		0CC563771F4DFE430088057C /* FirebaseObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC563761F4DFE430088057C /* FirebaseObject.swift */; };
+		0CC563791F4DFEC70088057C /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC563781F4DFEC70088057C /* SignupViewController.swift */; };
 		0CFC24611F4DEB0A003F97B5 /* MyFirebaseRef.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CFC24601F4DEB0A003F97B5 /* MyFirebaseRef.swift */; };
 		0CFC24641F4DEB7F003F97B5 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CFC24631F4DEB7F003F97B5 /* Game.swift */; };
 		A755D61690469DFE9676903E /* Pods_ScoreBoard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF29027401D1C20BACED85FA /* Pods_ScoreBoard.framework */; };
@@ -41,7 +46,7 @@
 /* Begin PBXFileReference section */
 		0C6DC58D1F4DD9F200F9A061 /* ScoreBoard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScoreBoard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C6DC5901F4DD9F200F9A061 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		0C6DC5921F4DD9F200F9A061 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		0C6DC5921F4DD9F200F9A061 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		0C6DC5951F4DD9F200F9A061 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0C6DC5971F4DD9F200F9A061 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0C6DC59A1F4DD9F200F9A061 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -52,6 +57,11 @@
 		0C6DC5AC1F4DD9F200F9A061 /* ScoreBoardUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScoreBoardUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C6DC5B01F4DD9F200F9A061 /* ScoreBoardUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreBoardUITests.swift; sourceTree = "<group>"; };
 		0C6DC5B21F4DD9F200F9A061 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0CC563701F4DF9070088057C /* HomeTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTabBarController.swift; sourceTree = "<group>"; };
+		0CC563721F4DFD480088057C /* GamesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GamesViewController.swift; sourceTree = "<group>"; };
+		0CC563741F4DFD9A0088057C /* ModalService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalService.swift; sourceTree = "<group>"; };
+		0CC563761F4DFE430088057C /* FirebaseObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseObject.swift; sourceTree = "<group>"; };
+		0CC563781F4DFEC70088057C /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		0CFC24601F4DEB0A003F97B5 /* MyFirebaseRef.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyFirebaseRef.swift; sourceTree = "<group>"; };
 		0CFC24631F4DEB7F003F97B5 /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		125A389106492EB412D82C4D /* Pods_ScoreBoardUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ScoreBoardUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -118,6 +128,7 @@
 		0C6DC58F1F4DD9F200F9A061 /* ScoreBoard */ = {
 			isa = PBXGroup;
 			children = (
+				0CC5636F1F4DF8ED0088057C /* Authentication */,
 				0CFC24621F4DEB77003F97B5 /* Models */,
 				0CFC245F1F4DEAE8003F97B5 /* Services */,
 				0CFC245E1F4DEAA8003F97B5 /* Profile */,
@@ -150,10 +161,19 @@
 			path = ScoreBoardUITests;
 			sourceTree = "<group>";
 		};
+		0CC5636F1F4DF8ED0088057C /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				0C6DC5921F4DD9F200F9A061 /* LoginViewController.swift */,
+				0CC563781F4DFEC70088057C /* SignupViewController.swift */,
+			);
+			name = Authentication;
+			sourceTree = "<group>";
+		};
 		0CFC245C1F4DE7F8003F97B5 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				0C6DC5921F4DD9F200F9A061 /* HomeViewController.swift */,
+				0CC563701F4DF9070088057C /* HomeTabBarController.swift */,
 			);
 			name = Home;
 			sourceTree = "<group>";
@@ -161,6 +181,7 @@
 		0CFC245D1F4DEAA2003F97B5 /* Games */ = {
 			isa = PBXGroup;
 			children = (
+				0CC563721F4DFD480088057C /* GamesViewController.swift */,
 			);
 			name = Games;
 			sourceTree = "<group>";
@@ -176,6 +197,7 @@
 			isa = PBXGroup;
 			children = (
 				0CFC24601F4DEB0A003F97B5 /* MyFirebaseRef.swift */,
+				0CC563741F4DFD9A0088057C /* ModalService.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -184,6 +206,7 @@
 			isa = PBXGroup;
 			children = (
 				0CFC24631F4DEB7F003F97B5 /* Game.swift */,
+				0CC563761F4DFE430088057C /* FirebaseObject.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -556,10 +579,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C6DC5931F4DD9F200F9A061 /* HomeViewController.swift in Sources */,
+				0CC563791F4DFEC70088057C /* SignupViewController.swift in Sources */,
+				0C6DC5931F4DD9F200F9A061 /* LoginViewController.swift in Sources */,
 				0CFC24641F4DEB7F003F97B5 /* Game.swift in Sources */,
 				0C6DC5911F4DD9F200F9A061 /* AppDelegate.swift in Sources */,
 				0CFC24611F4DEB0A003F97B5 /* MyFirebaseRef.swift in Sources */,
+				0CC563731F4DFD480088057C /* GamesViewController.swift in Sources */,
+				0CC563751F4DFD9A0088057C /* ModalService.swift in Sources */,
+				0CC563711F4DF9070088057C /* HomeTabBarController.swift in Sources */,
+				0CC563771F4DFE430088057C /* FirebaseObject.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
