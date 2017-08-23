@@ -1,3 +1,5 @@
 import UIKit
 
-class HomeTabBarController : UITabBarController {}
+class HomeTabBarController : UITabBarController {
+
+}

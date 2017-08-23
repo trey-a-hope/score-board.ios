@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C43D0551F4E33C100C285A5 /* GameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C43D0531F4E33C100C285A5 /* GameTableViewCell.swift */; };
+		0C43D0561F4E33C100C285A5 /* GameTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C43D0541F4E33C100C285A5 /* GameTableViewCell.xib */; };
+		0C5F3A381F4E0EBB00516CFB /* ConversionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5F3A371F4E0EBB00516CFB /* ConversionService.swift */; };
+		0C5F3A3A1F4E0EFD00516CFB /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5F3A391F4E0EFD00516CFB /* Extensions.swift */; };
+		0C5F3A3D1F4E11C200516CFB /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5F3A3C1F4E11C200516CFB /* SessionManager.swift */; };
+		0C5F3A3F1F4E123D00516CFB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0C5F3A3E1F4E123D00516CFB /* GoogleService-Info.plist */; };
+		0C5F3A421F4E15D900516CFB /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5F3A411F4E15D900516CFB /* ProfileViewController.swift */; };
+		0C5F3A451F4E163200516CFB /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5F3A441F4E163200516CFB /* SettingsViewController.swift */; };
 		0C6DC5911F4DD9F200F9A061 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6DC5901F4DD9F200F9A061 /* AppDelegate.swift */; };
 		0C6DC5931F4DD9F200F9A061 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6DC5921F4DD9F200F9A061 /* LoginViewController.swift */; };
 		0C6DC5961F4DD9F200F9A061 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C6DC5941F4DD9F200F9A061 /* Main.storyboard */; };
@@ -44,6 +52,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0C43D0531F4E33C100C285A5 /* GameTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameTableViewCell.swift; sourceTree = "<group>"; };
+		0C43D0541F4E33C100C285A5 /* GameTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameTableViewCell.xib; sourceTree = "<group>"; };
+		0C5F3A371F4E0EBB00516CFB /* ConversionService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversionService.swift; sourceTree = "<group>"; };
+		0C5F3A391F4E0EFD00516CFB /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		0C5F3A3C1F4E11C200516CFB /* SessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
+		0C5F3A3E1F4E123D00516CFB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		0C5F3A411F4E15D900516CFB /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		0C5F3A441F4E163200516CFB /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		0C6DC58D1F4DD9F200F9A061 /* ScoreBoard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScoreBoard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C6DC5901F4DD9F200F9A061 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0C6DC5921F4DD9F200F9A061 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -103,6 +119,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C5F3A3B1F4E0F2100516CFB /* Miscellaneous */ = {
+			isa = PBXGroup;
+			children = (
+				0C5F3A391F4E0EFD00516CFB /* Extensions.swift */,
+			);
+			name = Miscellaneous;
+			sourceTree = "<group>";
+		};
+		0C5F3A401F4E15C600516CFB /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				0C5F3A411F4E15D900516CFB /* ProfileViewController.swift */,
+			);
+			name = Profile;
+			sourceTree = "<group>";
+		};
+		0C5F3A431F4E162800516CFB /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				0C5F3A441F4E163200516CFB /* SettingsViewController.swift */,
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
 		0C6DC5841F4DD9F200F9A061 = {
 			isa = PBXGroup;
 			children = (
@@ -128,17 +168,21 @@
 		0C6DC58F1F4DD9F200F9A061 /* ScoreBoard */ = {
 			isa = PBXGroup;
 			children = (
+				0C5F3A3E1F4E123D00516CFB /* GoogleService-Info.plist */,
+				0C6DC59C1F4DD9F200F9A061 /* Info.plist */,
+				0C6DC5901F4DD9F200F9A061 /* AppDelegate.swift */,
+				0C6DC5971F4DD9F200F9A061 /* Assets.xcassets */,
 				0CC5636F1F4DF8ED0088057C /* Authentication */,
-				0CFC24621F4DEB77003F97B5 /* Models */,
-				0CFC245F1F4DEAE8003F97B5 /* Services */,
-				0CFC245E1F4DEAA8003F97B5 /* Profile */,
 				0CFC245D1F4DEAA2003F97B5 /* Games */,
 				0CFC245C1F4DE7F8003F97B5 /* Home */,
-				0C6DC5901F4DD9F200F9A061 /* AppDelegate.swift */,
-				0C6DC5941F4DD9F200F9A061 /* Main.storyboard */,
-				0C6DC5971F4DD9F200F9A061 /* Assets.xcassets */,
 				0C6DC5991F4DD9F200F9A061 /* LaunchScreen.storyboard */,
-				0C6DC59C1F4DD9F200F9A061 /* Info.plist */,
+				0C6DC5941F4DD9F200F9A061 /* Main.storyboard */,
+				0C5F3A3B1F4E0F2100516CFB /* Miscellaneous */,
+				0CFC24621F4DEB77003F97B5 /* Models */,
+				0C5F3A401F4E15C600516CFB /* Profile */,
+				0CFC245E1F4DEAA8003F97B5 /* Profile */,
+				0CFC245F1F4DEAE8003F97B5 /* Services */,
+				0C5F3A431F4E162800516CFB /* Settings */,
 			);
 			path = ScoreBoard;
 			sourceTree = "<group>";
@@ -182,6 +226,8 @@
 			isa = PBXGroup;
 			children = (
 				0CC563721F4DFD480088057C /* GamesViewController.swift */,
+				0C43D0531F4E33C100C285A5 /* GameTableViewCell.swift */,
+				0C43D0541F4E33C100C285A5 /* GameTableViewCell.xib */,
 			);
 			name = Games;
 			sourceTree = "<group>";
@@ -198,6 +244,8 @@
 			children = (
 				0CFC24601F4DEB0A003F97B5 /* MyFirebaseRef.swift */,
 				0CC563741F4DFD9A0088057C /* ModalService.swift */,
+				0C5F3A371F4E0EBB00516CFB /* ConversionService.swift */,
+				0C5F3A3C1F4E11C200516CFB /* SessionManager.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -354,6 +402,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				0C6DC59B1F4DD9F200F9A061 /* LaunchScreen.storyboard in Resources */,
+				0C43D0561F4E33C100C285A5 /* GameTableViewCell.xib in Resources */,
+				0C5F3A3F1F4E123D00516CFB /* GoogleService-Info.plist in Resources */,
 				0C6DC5981F4DD9F200F9A061 /* Assets.xcassets in Resources */,
 				0C6DC5961F4DD9F200F9A061 /* Main.storyboard in Resources */,
 			);
@@ -579,14 +629,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C43D0551F4E33C100C285A5 /* GameTableViewCell.swift in Sources */,
 				0CC563791F4DFEC70088057C /* SignupViewController.swift in Sources */,
+				0C5F3A381F4E0EBB00516CFB /* ConversionService.swift in Sources */,
+				0C5F3A3D1F4E11C200516CFB /* SessionManager.swift in Sources */,
 				0C6DC5931F4DD9F200F9A061 /* LoginViewController.swift in Sources */,
 				0CFC24641F4DEB7F003F97B5 /* Game.swift in Sources */,
 				0C6DC5911F4DD9F200F9A061 /* AppDelegate.swift in Sources */,
 				0CFC24611F4DEB0A003F97B5 /* MyFirebaseRef.swift in Sources */,
 				0CC563731F4DFD480088057C /* GamesViewController.swift in Sources */,
 				0CC563751F4DFD9A0088057C /* ModalService.swift in Sources */,
+				0C5F3A451F4E163200516CFB /* SettingsViewController.swift in Sources */,
 				0CC563711F4DF9070088057C /* HomeTabBarController.swift in Sources */,
+				0C5F3A421F4E15D900516CFB /* ProfileViewController.swift in Sources */,
+				0C5F3A3A1F4E0EFD00516CFB /* Extensions.swift in Sources */,
 				0CC563771F4DFE430088057C /* FirebaseObject.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
