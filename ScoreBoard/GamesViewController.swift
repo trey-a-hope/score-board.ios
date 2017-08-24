@@ -65,7 +65,10 @@ extension GamesViewController : UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let game: Game = games[indexPath.row]
-        print(game.id)
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        let fullGameViewController = storyBoard.instantiateViewController(withIdentifier: "FullGameViewController") as! FullGameViewController
+        fullGameViewController.gameId = game.id
+        self.navigationController?.pushViewController(fullGameViewController, animated: true)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

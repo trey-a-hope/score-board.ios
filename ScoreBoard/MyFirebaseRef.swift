@@ -40,6 +40,25 @@ class MyFirebaseRef {
         }
     }
     
+    /* Returns a single game. */
+    class func getGame(gameId: String) -> Promise<Game>{
+        return Promise { fulfill, reject in
+            ref.child(Table.Games).child(gameId).observeSingleEvent(of: .value, with: { (gameSnapshot) in
+                let value = gameSnapshot.value as! [String:Any]
+                let game: Game = Game()
+                
+                game.id = value["id"] as! String
+                game.awayTeamId = value["awayTeamId"] as! Int
+                game.homeTeamId = value["homeTeamId"] as! Int
+                game.startDateTime = ConversionService.convertStringToDate(value["startDateTime"] as! String)
+                game.timeZoneOffSet = value["timeZoneOffSet"] as! Int
+                game.postDateTime = ConversionService.convertStringToDate(value["postDateTime"] as! String)
+                
+                fulfill(game)
+            })
+        }
+    }
+    
     /* Returns user that matches facebook uid, (may return null). */
     class func getUserByEmail(email: String) -> Promise<User>{
         return Promise{ fulfill, reject in

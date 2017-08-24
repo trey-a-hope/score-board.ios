@@ -392,6 +392,97 @@
             </objects>
             <point key="canvasLocation" x="807" y="985"/>
         </scene>
+        <!--Full Game View Controller-->
+        <scene sceneID="DCB-Fh-GV1">
+            <objects>
+                <viewController storyboardIdentifier="FullGameViewController" id="m4m-US-MJw" customClass="FullGameViewController" customModule="ScoreBoard" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="N3L-s3-E0w"/>
+                        <viewControllerLayoutGuide type="bottom" id="nt9-nv-hqy"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="CqP-qa-wf9">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="1000"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uBF-rx-Z0m">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="1000"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xhq-44-ydi" userLabel="Info View">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="200" id="tcq-Va-3jW"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xba-Hf-S8J" userLabel="Current Bets View">
+                                        <rect key="frame" x="0.0" y="200" width="375" height="300"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Bets" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kMt-pF-Fhd">
+                                                <rect key="frame" x="0.0" y="20" width="375" height="26.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="kMt-pF-Fhd" secondAttribute="trailing" id="7TP-cQ-jda"/>
+                                            <constraint firstItem="kMt-pF-Fhd" firstAttribute="leading" secondItem="Xba-Hf-S8J" secondAttribute="leading" id="b2R-QX-IE0"/>
+                                            <constraint firstItem="kMt-pF-Fhd" firstAttribute="top" secondItem="Xba-Hf-S8J" secondAttribute="top" constant="20" id="l1n-Sy-VrX"/>
+                                            <constraint firstAttribute="height" constant="300" id="xwd-pS-Nut"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MLe-4F-XqE" userLabel="Place Bet View">
+                                        <rect key="frame" x="0.0" y="500" width="375" height="300"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Place A Bet" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A1F-od-wvo">
+                                                <rect key="frame" x="0.0" y="20" width="375" height="24"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="A1F-od-wvo" firstAttribute="leading" secondItem="MLe-4F-XqE" secondAttribute="leading" id="Ikg-JY-DBb"/>
+                                            <constraint firstAttribute="height" constant="300" id="igd-zC-bse"/>
+                                            <constraint firstAttribute="trailing" secondItem="A1F-od-wvo" secondAttribute="trailing" id="kdv-zQ-y8k"/>
+                                            <constraint firstItem="A1F-od-wvo" firstAttribute="top" secondItem="MLe-4F-XqE" secondAttribute="top" constant="20" id="nmf-eq-fsC"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="xhq-44-ydi" firstAttribute="top" secondItem="uBF-rx-Z0m" secondAttribute="top" id="4kv-q0-QSA"/>
+                                    <constraint firstItem="Xba-Hf-S8J" firstAttribute="leading" secondItem="uBF-rx-Z0m" secondAttribute="leading" id="9CX-QZ-pkd"/>
+                                    <constraint firstAttribute="trailing" secondItem="MLe-4F-XqE" secondAttribute="trailing" id="Ham-oE-Eej"/>
+                                    <constraint firstAttribute="trailing" secondItem="xhq-44-ydi" secondAttribute="trailing" id="LRh-Oy-wEm"/>
+                                    <constraint firstItem="Xba-Hf-S8J" firstAttribute="top" secondItem="xhq-44-ydi" secondAttribute="bottom" id="RMj-3k-kIl"/>
+                                    <constraint firstItem="Xba-Hf-S8J" firstAttribute="width" secondItem="uBF-rx-Z0m" secondAttribute="width" id="S0x-Rc-3aK"/>
+                                    <constraint firstItem="xhq-44-ydi" firstAttribute="leading" secondItem="uBF-rx-Z0m" secondAttribute="leading" id="aXt-MA-AqY"/>
+                                    <constraint firstItem="MLe-4F-XqE" firstAttribute="leading" secondItem="uBF-rx-Z0m" secondAttribute="leading" id="hQZ-KN-Egd"/>
+                                    <constraint firstAttribute="trailing" secondItem="Xba-Hf-S8J" secondAttribute="trailing" id="iUA-9N-a2u"/>
+                                    <constraint firstItem="MLe-4F-XqE" firstAttribute="top" secondItem="Xba-Hf-S8J" secondAttribute="bottom" id="jdP-yw-ynB"/>
+                                    <constraint firstAttribute="bottom" secondItem="MLe-4F-XqE" secondAttribute="bottom" id="nEL-dn-Qev"/>
+                                    <constraint firstItem="MLe-4F-XqE" firstAttribute="width" secondItem="uBF-rx-Z0m" secondAttribute="width" id="oKv-GQ-95g"/>
+                                    <constraint firstItem="xhq-44-ydi" firstAttribute="width" secondItem="uBF-rx-Z0m" secondAttribute="width" id="shS-tt-KId"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="uBF-rx-Z0m" secondAttribute="trailing" id="IYL-GL-Q1m"/>
+                            <constraint firstItem="nt9-nv-hqy" firstAttribute="top" secondItem="uBF-rx-Z0m" secondAttribute="bottom" id="JOY-Ly-bbH"/>
+                            <constraint firstItem="uBF-rx-Z0m" firstAttribute="top" secondItem="CqP-qa-wf9" secondAttribute="top" id="dBi-DU-W5q"/>
+                            <constraint firstItem="uBF-rx-Z0m" firstAttribute="leading" secondItem="CqP-qa-wf9" secondAttribute="leading" id="qjQ-Yn-7kk"/>
+                        </constraints>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="375" height="1000"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lop-wq-XAD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="805.60000000000002" y="1820.6896551724139"/>
+        </scene>
         <!--Home Tab Bar Controller-->
         <scene sceneID="pfr-Za-9UH">
             <objects>
@@ -418,7 +509,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="wcM-79-Tpg" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="TDY-Q8-dp9">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="TDY-Q8-dp9">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
