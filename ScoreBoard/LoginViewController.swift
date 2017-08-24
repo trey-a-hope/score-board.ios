@@ -14,12 +14,18 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if(SessionManager.isLoggedIn()){
-            goToHome()
-        }
+
         
         initUI()
 
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if(SessionManager.isLoggedIn()){
+            goToHome()
+        }
     }
     
     func initUI() -> Void {
@@ -83,11 +89,11 @@ class LoginViewController: UIViewController {
     func goToHome() -> Void {
         if let nav = self.navigationController {
             var stack: [UIViewController] = nav.viewControllers
-            stack.removeAll()
-            nav.setViewControllers(stack, animated: true)
+            stack.remove(at: 0)
             let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
             let homeTabBarController = storyBoard.instantiateViewController(withIdentifier: "HomeTabBarController") as! HomeTabBarController
             nav.pushViewController(homeTabBarController, animated: true)
+            nav.setViewControllers([homeTabBarController], animated: true)
         }
     }
 }

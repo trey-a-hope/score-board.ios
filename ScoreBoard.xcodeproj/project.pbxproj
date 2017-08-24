@@ -10,6 +10,7 @@
 		0C03B4401F4E76F40020FB2A /* ValidityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C03B43F1F4E76F40020FB2A /* ValidityService.swift */; };
 		0C03B4421F4E809C0020FB2A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C03B4411F4E809C0020FB2A /* User.swift */; };
 		0C03B4441F4EAE090020FB2A /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C03B4431F4EAE090020FB2A /* HomeViewController.swift */; };
+		0C3ABE8C1F4F28D800AE5CF9 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ABE8B1F4F28D800AE5CF9 /* SearchViewController.swift */; };
 		0C43D0551F4E33C100C285A5 /* GameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C43D0531F4E33C100C285A5 /* GameTableViewCell.swift */; };
 		0C43D0561F4E33C100C285A5 /* GameTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C43D0541F4E33C100C285A5 /* GameTableViewCell.xib */; };
 		0C5F3A381F4E0EBB00516CFB /* ConversionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5F3A371F4E0EBB00516CFB /* ConversionService.swift */; };
@@ -58,6 +59,7 @@
 		0C03B43F1F4E76F40020FB2A /* ValidityService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidityService.swift; sourceTree = "<group>"; };
 		0C03B4411F4E809C0020FB2A /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		0C03B4431F4EAE090020FB2A /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		0C3ABE8B1F4F28D800AE5CF9 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		0C43D0531F4E33C100C285A5 /* GameTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameTableViewCell.swift; sourceTree = "<group>"; };
 		0C43D0541F4E33C100C285A5 /* GameTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameTableViewCell.xib; sourceTree = "<group>"; };
 		0C5F3A371F4E0EBB00516CFB /* ConversionService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversionService.swift; sourceTree = "<group>"; };
@@ -125,6 +127,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C3ABE8A1F4F28C000AE5CF9 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				0C3ABE8B1F4F28D800AE5CF9 /* SearchViewController.swift */,
+			);
+			name = Search;
+			sourceTree = "<group>";
+		};
 		0C5F3A3B1F4E0F2100516CFB /* Miscellaneous */ = {
 			isa = PBXGroup;
 			children = (
@@ -174,18 +184,19 @@
 		0C6DC58F1F4DD9F200F9A061 /* ScoreBoard */ = {
 			isa = PBXGroup;
 			children = (
-				0C5F3A3E1F4E123D00516CFB /* GoogleService-Info.plist */,
-				0C6DC59C1F4DD9F200F9A061 /* Info.plist */,
 				0C6DC5901F4DD9F200F9A061 /* AppDelegate.swift */,
 				0C6DC5971F4DD9F200F9A061 /* Assets.xcassets */,
 				0CC5636F1F4DF8ED0088057C /* Authentication */,
 				0CFC245D1F4DEAA2003F97B5 /* Games */,
+				0C5F3A3E1F4E123D00516CFB /* GoogleService-Info.plist */,
 				0CFC245C1F4DE7F8003F97B5 /* Home */,
+				0C6DC59C1F4DD9F200F9A061 /* Info.plist */,
 				0C6DC5991F4DD9F200F9A061 /* LaunchScreen.storyboard */,
 				0C6DC5941F4DD9F200F9A061 /* Main.storyboard */,
 				0C5F3A3B1F4E0F2100516CFB /* Miscellaneous */,
 				0CFC24621F4DEB77003F97B5 /* Models */,
 				0C5F3A401F4E15C600516CFB /* Profile */,
+				0C3ABE8A1F4F28C000AE5CF9 /* Search */,
 				0CFC245F1F4DEAE8003F97B5 /* Services */,
 				0C5F3A431F4E162800516CFB /* Settings */,
 			);
@@ -634,6 +645,7 @@
 				0CC563791F4DFEC70088057C /* SignupViewController.swift in Sources */,
 				0C5F3A381F4E0EBB00516CFB /* ConversionService.swift in Sources */,
 				0C5F3A3D1F4E11C200516CFB /* SessionManager.swift in Sources */,
+				0C3ABE8C1F4F28D800AE5CF9 /* SearchViewController.swift in Sources */,
 				0C6DC5931F4DD9F200F9A061 /* LoginViewController.swift in Sources */,
 				0C03B4441F4EAE090020FB2A /* HomeViewController.swift in Sources */,
 				0C03B4401F4E76F40020FB2A /* ValidityService.swift in Sources */,

@@ -23,7 +23,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qVL-uF-Ylb">
-                                <rect key="frame" x="26" y="233" width="323" height="200"/>
+                                <rect key="frame" x="26" y="208" width="323" height="250"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KR1-WH-fnw" customClass="TextField" customModule="Material">
                                         <rect key="frame" x="20" y="40" width="283" height="30"/>
@@ -45,10 +45,10 @@
                                         </userDefinedRuntimeAttributes>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zDU-Ui-X7w">
-                                        <rect key="frame" x="20" y="140" width="283" height="40"/>
+                                        <rect key="frame" x="20" y="190" width="283" height="40"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="vcH-AT-LqW"/>
+                                            <constraint firstAttribute="height" constant="40" id="Cru-A1-833"/>
                                         </constraints>
                                         <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" title="Signup"/>
@@ -58,19 +58,32 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </button>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qRX-ab-IOV" customClass="TextField" customModule="Material">
+                                        <rect key="frame" x="20" y="140" width="283" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Username"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </textField>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="KR1-WH-fnw" firstAttribute="top" secondItem="qVL-uF-Ylb" secondAttribute="top" constant="40" id="7TC-5Z-eJB"/>
                                     <constraint firstItem="KR1-WH-fnw" firstAttribute="leading" secondItem="qVL-uF-Ylb" secondAttribute="leading" constant="20" id="7np-fs-kmt"/>
                                     <constraint firstItem="0cz-Ux-dI7" firstAttribute="leading" secondItem="qVL-uF-Ylb" secondAttribute="leading" constant="20" id="8hM-5F-7ex"/>
-                                    <constraint firstItem="zDU-Ui-X7w" firstAttribute="top" secondItem="0cz-Ux-dI7" secondAttribute="bottom" constant="20" id="Nrd-NA-1tJ"/>
-                                    <constraint firstAttribute="trailing" secondItem="zDU-Ui-X7w" secondAttribute="trailing" constant="20" id="PJZ-2C-0Af"/>
+                                    <constraint firstItem="zDU-Ui-X7w" firstAttribute="centerX" secondItem="qVL-uF-Ylb" secondAttribute="centerX" id="Imd-S7-SJA"/>
+                                    <constraint firstItem="zDU-Ui-X7w" firstAttribute="top" secondItem="qRX-ab-IOV" secondAttribute="bottom" constant="20" id="P3x-Ue-ONO"/>
+                                    <constraint firstAttribute="trailing" secondItem="qRX-ab-IOV" secondAttribute="trailing" constant="20" id="Wa2-uA-KAq"/>
+                                    <constraint firstItem="zDU-Ui-X7w" firstAttribute="leading" secondItem="qVL-uF-Ylb" secondAttribute="leading" constant="20" id="XUx-2A-LMl"/>
+                                    <constraint firstItem="qRX-ab-IOV" firstAttribute="top" secondItem="0cz-Ux-dI7" secondAttribute="bottom" constant="20" id="be9-UG-eIg"/>
+                                    <constraint firstItem="qRX-ab-IOV" firstAttribute="leading" secondItem="qVL-uF-Ylb" secondAttribute="leading" constant="20" id="dEj-x7-2Uu"/>
                                     <constraint firstAttribute="trailing" secondItem="KR1-WH-fnw" secondAttribute="trailing" constant="20" id="hET-At-zmo"/>
                                     <constraint firstAttribute="trailing" secondItem="0cz-Ux-dI7" secondAttribute="trailing" constant="20" id="iPh-07-L9z"/>
                                     <constraint firstItem="0cz-Ux-dI7" firstAttribute="top" secondItem="KR1-WH-fnw" secondAttribute="bottom" constant="20" id="rP6-xl-mVA"/>
-                                    <constraint firstAttribute="height" constant="200" id="uoG-Ii-bdR"/>
-                                    <constraint firstItem="zDU-Ui-X7w" firstAttribute="leading" secondItem="qVL-uF-Ylb" secondAttribute="leading" constant="20" id="wK9-8g-uzG"/>
+                                    <constraint firstAttribute="height" constant="250" id="uoG-Ii-bdR"/>
+                                    <constraint firstAttribute="trailing" secondItem="zDU-Ui-X7w" secondAttribute="trailing" constant="20" id="yHY-YN-PI1"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -91,6 +104,7 @@
                         <outlet property="emailText" destination="KR1-WH-fnw" id="f7e-kh-9Ur"/>
                         <outlet property="passwordText" destination="0cz-Ux-dI7" id="xae-TB-sbS"/>
                         <outlet property="signupButton" destination="zDU-Ui-X7w" id="oHq-Yz-9Hw"/>
+                        <outlet property="usernameText" destination="qRX-ab-IOV" id="Wyf-fh-tii"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0XO-d7-C3f" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -236,7 +250,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lr2-OR-elF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2018" y="985"/>
+            <point key="canvasLocation" x="1518" y="985"/>
         </scene>
         <!--Settings-->
         <scene sceneID="f9F-kb-XxA">
@@ -281,7 +295,26 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cgW-Xu-aIp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2708" y="985"/>
+            <point key="canvasLocation" x="2970" y="985"/>
+        </scene>
+        <!--Search-->
+        <scene sceneID="upu-NK-51h">
+            <objects>
+                <viewController storyboardIdentifier="SearchViewController" title="Search" id="OsC-cW-iRp" customClass="SearchViewController" customModule="ScoreBoard" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="uJx-vG-he2"/>
+                        <viewControllerLayoutGuide type="bottom" id="Xgp-9N-ejK"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="wX4-jp-tIh">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Search" id="a2i-8o-bF3"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="H6z-tj-qef" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2217" y="985"/>
         </scene>
         <!--ScorBord-->
         <scene sceneID="hku-8A-JeA">
@@ -312,7 +345,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9sG-2Z-KPN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="653.60000000000002" y="984.55772113943033"/>
+            <point key="canvasLocation" x="66" y="985"/>
         </scene>
         <!--Games-->
         <scene sceneID="Efk-Vi-EY9">
@@ -357,7 +390,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="z69-9n-7o2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1358" y="985"/>
+            <point key="canvasLocation" x="807" y="985"/>
         </scene>
         <!--Home Tab Bar Controller-->
         <scene sceneID="pfr-Za-9UH">
@@ -372,6 +405,7 @@
                         <segue destination="JI7-9u-x6m" kind="relationship" relationship="viewControllers" id="7yW-um-ZZ3"/>
                         <segue destination="5g0-I3-K58" kind="relationship" relationship="viewControllers" id="gca-54-lyH"/>
                         <segue destination="vgH-B3-v9g" kind="relationship" relationship="viewControllers" id="cpz-X5-FeO"/>
+                        <segue destination="OsC-cW-iRp" kind="relationship" relationship="viewControllers" id="Jxz-ZY-gUo"/>
                         <segue destination="YHy-YG-gSS" kind="relationship" relationship="viewControllers" id="kUj-Fs-eQm"/>
                     </connections>
                 </tabBarController>

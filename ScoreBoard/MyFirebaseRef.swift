@@ -90,10 +90,12 @@ class MyFirebaseRef {
             // Create user data.
             let newUserData: [String : Any] = [
                 "id"                : newUserRef.key,
+                "uid"               : user.uid,
                 "userName"          : user.userName,
                 "email"             : user.email,
+                "chips"             : 50,
                 "postDateTime"      : ConversionService.convertDateToFirebaseString(now),
-                "chips"             : 50
+                "timeZoneOffSet"    : now.getTimeZoneOffset()
             ]
             
             newUserRef.setValue(newUserData)
