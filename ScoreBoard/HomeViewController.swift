@@ -1,6 +1,6 @@
 import UIKit
 
-class ProfileViewController: UIViewController {
+class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -13,12 +13,12 @@ class ProfileViewController: UIViewController {
         
         reInitUI()
     }
-
+    
     func initUI() -> Void {
     }
     
     func reInitUI() -> Void {
-        self.navigationController?.visibleViewController?.title = "Profile"
+        self.navigationController?.visibleViewController?.title = "ScorBord"
     }
 }
 

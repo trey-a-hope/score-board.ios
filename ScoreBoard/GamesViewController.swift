@@ -31,11 +31,10 @@ class GamesViewController: UIViewController {
     
     func reInitUI() -> Void {
         //Set title of view.
-        self.tabBarController?.navigationItem.title = "Games"
+        self.navigationController?.visibleViewController?.title = "Games"
     }
     
     func getGames() -> Void {
-        SwiftSpinner.show("Loading games...")
         MyFirebaseRef.getGames()
             .then{ (games) -> Void in
             self.games = games
@@ -44,7 +43,6 @@ class GamesViewController: UIViewController {
     
         }
         .always {
-            SwiftSpinner.hide()
         }
     }
 }

@@ -7,11 +7,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     let userDefaults = UserDefaults.standard
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         /* Prepare Firebase */
         FirebaseApp.configure()
+        
+        /* Log user out of Auth if id and role not set. */
+        if(userDefaults.object(forKey: "id") == nil){
+            //SessionManager.signOut()
+        }
         
         return true
     }
