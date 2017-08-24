@@ -14,8 +14,6 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
-        
         initUI()
 
     }
@@ -64,11 +62,12 @@ class LoginViewController: UIViewController {
                     return
                 }
                 
-                MyFirebaseRef.getUserByEmail(email: email).then{ (user) -> Void in
-                    SessionManager.setUserId(user.id)
-                    ModalService.displayAlert(title: "Success", message: "Proceed to Login", vc: self)
-                    //_ = self.navigationController?.popViewController(animated: true)
-                    }.catch{ (error) in
+                MyFirebaseRef.getUserByEmail(email: email)
+                    .then{ (user) -> Void in
+                        SessionManager.setUserId(user.id)
+                        self.goToHome()
+                    }
+                    .catch{ (error) in
                         Auth.auth().currentUser?.delete(completion: { (err) in
                             if err != nil {
                                 ModalService.displayAlert(title: "Error", message: (err?.localizedDescription)!, vc: self)
@@ -80,9 +79,6 @@ class LoginViewController: UIViewController {
                 }
             })
         }
-        
-        print(email)
-        print(password)
     }
     
     

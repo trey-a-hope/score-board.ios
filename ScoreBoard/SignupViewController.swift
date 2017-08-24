@@ -54,6 +54,7 @@ class SignupViewController: UIViewController {
                 
                 MyFirebaseRef.createNewUser(newUser)
                     .then{ (newUserId) -> Void in
+                        SessionManager.setUserId(newUserId)
                         //Return to login screen.
                         _ = self.navigationController?.popViewController(animated: true)
                     }.catch{ (error) in

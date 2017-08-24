@@ -8,8 +8,13 @@ class GamesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        initUI()
-        getGames()
+        if(ConnectionManager.isConnectedToInternet()){
+            initUI()
+            getGames()
+        }else{
+            ModalService.displayNoInternetAlert(vc: self)
+        }
+
 
     }
     

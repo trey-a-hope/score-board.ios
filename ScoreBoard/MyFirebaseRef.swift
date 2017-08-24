@@ -71,7 +71,7 @@ class MyFirebaseRef {
                 let value = data.value as! [String:Any]
                 let user: User = User()
                 user.id = value["id"] as! String
-                user.fcmToken = value["fcmToken"] as! String
+                //user.fcmToken = value["fcmToken"] as! String
                 user.chips = value["chips"] as! Int
                 user.userName = value["userName"] as! String
                 user.email = value["email"] as! String

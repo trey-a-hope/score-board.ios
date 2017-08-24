@@ -6,7 +6,11 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        initUI()
+        if(ConnectionManager.isConnectedToInternet()){
+            initUI()
+        }else{
+            ModalService.displayNoInternetAlert(vc: self)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

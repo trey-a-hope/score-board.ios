@@ -18,4 +18,8 @@ class ModalService  {
         ToastView.appearance().backgroundColor = backgroundColor
         Toast(text: text).show()
     }
+    
+    static func displayNoInternetAlert(vc: UIViewController) -> Void {
+        self.displayAlert(title: "No Internet", message: "Try again later.", vc: vc)
+    }
 }

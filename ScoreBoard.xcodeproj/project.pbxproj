@@ -26,6 +26,7 @@
 		0C6DC59B1F4DD9F200F9A061 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C6DC5991F4DD9F200F9A061 /* LaunchScreen.storyboard */; };
 		0C6DC5A61F4DD9F200F9A061 /* ScoreBoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6DC5A51F4DD9F200F9A061 /* ScoreBoardTests.swift */; };
 		0C6DC5B11F4DD9F200F9A061 /* ScoreBoardUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6DC5B01F4DD9F200F9A061 /* ScoreBoardUITests.swift */; };
+		0C71C82D1F4F58790028D814 /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C71C82C1F4F58790028D814 /* ConnectionManager.swift */; };
 		0CC563711F4DF9070088057C /* HomeTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC563701F4DF9070088057C /* HomeTabBarController.swift */; };
 		0CC563731F4DFD480088057C /* GamesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC563721F4DFD480088057C /* GamesViewController.swift */; };
 		0CC563751F4DFD9A0088057C /* ModalService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC563741F4DFD9A0088057C /* ModalService.swift */; };
@@ -81,6 +82,7 @@
 		0C6DC5AC1F4DD9F200F9A061 /* ScoreBoardUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScoreBoardUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C6DC5B01F4DD9F200F9A061 /* ScoreBoardUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreBoardUITests.swift; sourceTree = "<group>"; };
 		0C6DC5B21F4DD9F200F9A061 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0C71C82C1F4F58790028D814 /* ConnectionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionManager.swift; sourceTree = "<group>"; };
 		0CC563701F4DF9070088057C /* HomeTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTabBarController.swift; sourceTree = "<group>"; };
 		0CC563721F4DFD480088057C /* GamesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GamesViewController.swift; sourceTree = "<group>"; };
 		0CC563741F4DFD9A0088057C /* ModalService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalService.swift; sourceTree = "<group>"; };
@@ -257,6 +259,7 @@
 				0C5F3A371F4E0EBB00516CFB /* ConversionService.swift */,
 				0C5F3A3C1F4E11C200516CFB /* SessionManager.swift */,
 				0C03B43F1F4E76F40020FB2A /* ValidityService.swift */,
+				0C71C82C1F4F58790028D814 /* ConnectionManager.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -646,6 +649,7 @@
 				0C5F3A381F4E0EBB00516CFB /* ConversionService.swift in Sources */,
 				0C5F3A3D1F4E11C200516CFB /* SessionManager.swift in Sources */,
 				0C3ABE8C1F4F28D800AE5CF9 /* SearchViewController.swift in Sources */,
+				0C71C82D1F4F58790028D814 /* ConnectionManager.swift in Sources */,
 				0C6DC5931F4DD9F200F9A061 /* LoginViewController.swift in Sources */,
 				0C03B4441F4EAE090020FB2A /* HomeViewController.swift in Sources */,
 				0C03B4401F4E76F40020FB2A /* ValidityService.swift in Sources */,
