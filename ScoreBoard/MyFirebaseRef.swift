@@ -94,6 +94,7 @@ class MyFirebaseRef {
                 user.chips = value["chips"] as! Int
                 user.userName = value["userName"] as! String
                 user.email = value["email"] as! String
+                user.imageDownloadUrl = value["imageDownloadUrl"] as! String
                 user.timeZoneOffSet = value["timeZoneOffSet"] as! Int
                 user.postDateTime = ConversionService.convertStringToDate(value["postDateTime"] as! String)
                 fulfill(user)
