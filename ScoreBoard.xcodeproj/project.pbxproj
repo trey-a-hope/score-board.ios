@@ -28,6 +28,8 @@
 		0C6DC5B11F4DD9F200F9A061 /* ScoreBoardUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6DC5B01F4DD9F200F9A061 /* ScoreBoardUITests.swift */; };
 		0C71C82D1F4F58790028D814 /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C71C82C1F4F58790028D814 /* ConnectionManager.swift */; };
 		0C72DE451F4F7ABF00361234 /* FullGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C72DE441F4F7ABF00361234 /* FullGameViewController.swift */; };
+		0CA5BF301F5F1B13009D0236 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA5BF2F1F5F1B13009D0236 /* Constants.swift */; };
+		0CA5BF331F5F1BB7009D0236 /* NBATeam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA5BF321F5F1BB7009D0236 /* NBATeam.swift */; };
 		0CC563711F4DF9070088057C /* HomeTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC563701F4DF9070088057C /* HomeTabBarController.swift */; };
 		0CC563731F4DFD480088057C /* GamesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC563721F4DFD480088057C /* GamesViewController.swift */; };
 		0CC563751F4DFD9A0088057C /* ModalService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC563741F4DFD9A0088057C /* ModalService.swift */; };
@@ -85,6 +87,8 @@
 		0C6DC5B21F4DD9F200F9A061 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0C71C82C1F4F58790028D814 /* ConnectionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionManager.swift; sourceTree = "<group>"; };
 		0C72DE441F4F7ABF00361234 /* FullGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullGameViewController.swift; sourceTree = "<group>"; };
+		0CA5BF2F1F5F1B13009D0236 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		0CA5BF321F5F1BB7009D0236 /* NBATeam.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NBATeam.swift; sourceTree = "<group>"; };
 		0CC563701F4DF9070088057C /* HomeTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTabBarController.swift; sourceTree = "<group>"; };
 		0CC563721F4DFD480088057C /* GamesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GamesViewController.swift; sourceTree = "<group>"; };
 		0CC563741F4DFD9A0088057C /* ModalService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalService.swift; sourceTree = "<group>"; };
@@ -188,13 +192,15 @@
 		0C6DC58F1F4DD9F200F9A061 /* ScoreBoard */ = {
 			isa = PBXGroup;
 			children = (
+				0C5F3A3E1F4E123D00516CFB /* GoogleService-Info.plist */,
+				0C6DC59C1F4DD9F200F9A061 /* Info.plist */,
 				0C6DC5901F4DD9F200F9A061 /* AppDelegate.swift */,
 				0C6DC5971F4DD9F200F9A061 /* Assets.xcassets */,
 				0CC5636F1F4DF8ED0088057C /* Authentication */,
+				0CA5BF2E1F5F1B07009D0236 /* Constants */,
+				0CA5BF311F5F1B81009D0236 /* Enums */,
 				0CFC245D1F4DEAA2003F97B5 /* Games */,
-				0C5F3A3E1F4E123D00516CFB /* GoogleService-Info.plist */,
 				0CFC245C1F4DE7F8003F97B5 /* Home */,
-				0C6DC59C1F4DD9F200F9A061 /* Info.plist */,
 				0C6DC5991F4DD9F200F9A061 /* LaunchScreen.storyboard */,
 				0C6DC5941F4DD9F200F9A061 /* Main.storyboard */,
 				0C5F3A3B1F4E0F2100516CFB /* Miscellaneous */,
@@ -223,6 +229,22 @@
 				0C6DC5B21F4DD9F200F9A061 /* Info.plist */,
 			);
 			path = ScoreBoardUITests;
+			sourceTree = "<group>";
+		};
+		0CA5BF2E1F5F1B07009D0236 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				0CA5BF2F1F5F1B13009D0236 /* Constants.swift */,
+			);
+			name = Constants;
+			sourceTree = "<group>";
+		};
+		0CA5BF311F5F1B81009D0236 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				0CA5BF321F5F1BB7009D0236 /* NBATeam.swift */,
+			);
+			name = Enums;
 			sourceTree = "<group>";
 		};
 		0CC5636F1F4DF8ED0088057C /* Authentication */ = {
@@ -648,11 +670,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				0C72DE451F4F7ABF00361234 /* FullGameViewController.swift in Sources */,
+				0CA5BF301F5F1B13009D0236 /* Constants.swift in Sources */,
 				0C43D0551F4E33C100C285A5 /* GameTableViewCell.swift in Sources */,
 				0CC563791F4DFEC70088057C /* SignupViewController.swift in Sources */,
 				0C5F3A381F4E0EBB00516CFB /* ConversionService.swift in Sources */,
 				0C5F3A3D1F4E11C200516CFB /* SessionManager.swift in Sources */,
 				0C3ABE8C1F4F28D800AE5CF9 /* SearchViewController.swift in Sources */,
+				0CA5BF331F5F1BB7009D0236 /* NBATeam.swift in Sources */,
 				0C71C82D1F4F58790028D814 /* ConnectionManager.swift in Sources */,
 				0C6DC5931F4DD9F200F9A061 /* LoginViewController.swift in Sources */,
 				0C03B4441F4EAE090020FB2A /* HomeViewController.swift in Sources */,
