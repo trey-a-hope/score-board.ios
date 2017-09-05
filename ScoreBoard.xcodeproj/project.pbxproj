@@ -18,7 +18,7 @@
 		0C5F3A3D1F4E11C200516CFB /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5F3A3C1F4E11C200516CFB /* SessionManager.swift */; };
 		0C5F3A3F1F4E123D00516CFB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0C5F3A3E1F4E123D00516CFB /* GoogleService-Info.plist */; };
 		0C5F3A421F4E15D900516CFB /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5F3A411F4E15D900516CFB /* ProfileViewController.swift */; };
-		0C5F3A451F4E163200516CFB /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5F3A441F4E163200516CFB /* SettingsViewController.swift */; };
+		0C5F3A451F4E163200516CFB /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5F3A441F4E163200516CFB /* SettingsTableViewController.swift */; };
 		0C6DC5911F4DD9F200F9A061 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6DC5901F4DD9F200F9A061 /* AppDelegate.swift */; };
 		0C6DC5931F4DD9F200F9A061 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6DC5921F4DD9F200F9A061 /* LoginViewController.swift */; };
 		0C6DC5961F4DD9F200F9A061 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C6DC5941F4DD9F200F9A061 /* Main.storyboard */; };
@@ -71,7 +71,7 @@
 		0C5F3A3C1F4E11C200516CFB /* SessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
 		0C5F3A3E1F4E123D00516CFB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0C5F3A411F4E15D900516CFB /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
-		0C5F3A441F4E163200516CFB /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		0C5F3A441F4E163200516CFB /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		0C6DC58D1F4DD9F200F9A061 /* ScoreBoard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScoreBoard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C6DC5901F4DD9F200F9A061 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0C6DC5921F4DD9F200F9A061 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -162,7 +162,7 @@
 		0C5F3A431F4E162800516CFB /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				0C5F3A441F4E163200516CFB /* SettingsViewController.swift */,
+				0C5F3A441F4E163200516CFB /* SettingsTableViewController.swift */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -687,7 +687,7 @@
 				0CFC24611F4DEB0A003F97B5 /* MyFirebaseRef.swift in Sources */,
 				0CC563731F4DFD480088057C /* GamesViewController.swift in Sources */,
 				0CC563751F4DFD9A0088057C /* ModalService.swift in Sources */,
-				0C5F3A451F4E163200516CFB /* SettingsViewController.swift in Sources */,
+				0C5F3A451F4E163200516CFB /* SettingsTableViewController.swift in Sources */,
 				0CC563711F4DF9070088057C /* HomeTabBarController.swift in Sources */,
 				0C5F3A421F4E15D900516CFB /* ProfileViewController.swift in Sources */,
 				0C5F3A3A1F4E0EFD00516CFB /* Extensions.swift in Sources */,

@@ -1,7 +1,8 @@
 import UIKit
 
 class GameTableViewCell: UITableViewCell {
-    @IBOutlet weak var test: UILabel!
+    @IBOutlet weak var title: UILabel!
+    @IBOutlet weak var start: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()

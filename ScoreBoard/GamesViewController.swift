@@ -14,13 +14,10 @@ class GamesViewController: UIViewController {
         }else{
             ModalService.displayNoInternetAlert(vc: self)
         }
-
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         reInitUI()
     }
     
@@ -32,6 +29,9 @@ class GamesViewController: UIViewController {
         //Set delegate and data source.
         tableView.dataSource = self
         tableView.delegate = self
+        
+        //Add refresh control.
+        tableView.addSubview(self.refreshControl)
     }
     
     func reInitUI() -> Void {
@@ -39,15 +39,26 @@ class GamesViewController: UIViewController {
         self.navigationController?.visibleViewController?.title = "Games"
     }
     
+    //Method is called when the table view is pulled down; refreshes data.
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(GamesViewController.getGames), for: UIControlEvents.valueChanged)
+        
+        return refreshControl
+    }()
+    
     func getGames() -> Void {
+        SwiftSpinner.show("Getting games...")
         MyFirebaseRef.getGames()
             .then{ (games) -> Void in
             self.games = games
             self.tableView.reloadData()
         }.catch{ (error) in
-    
+            ModalService.displayAlert(title: "Error", message: error.localizedDescription, vc: self)
         }
         .always {
+            self.refreshControl.endRefreshing()
+            SwiftSpinner.hide()
         }
     }
 }
@@ -76,7 +87,9 @@ extension GamesViewController : UITableViewDataSource, UITableViewDelegate {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "GameTableViewCell", for: indexPath as IndexPath) as? GameTableViewCell{
             let game: Game = games[indexPath.row]
 
-            cell.test.text = "Hawks vs. Celtics"
+            cell.title.text = NBATeamService.getNBATeamName(id: game.homeTeamId) + " vs. " + NBATeamService.getNBATeamName(id: game.awayTeamId)
+            cell.start.text = ConversionService.convertDateToString(game.startDateTime, DateFormatter.Style.long)
+            
             return cell
         }
         fatalError("Unable to Dequeue Reusable Supplementary View")

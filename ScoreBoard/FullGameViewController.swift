@@ -17,7 +17,6 @@ class FullGameViewController: UIViewController {
     }
     
     func initUI() -> Void {
-        self.title = "Hawks vs. Celtics"
     }
     
     func getGame() -> Void {
@@ -25,13 +24,16 @@ class FullGameViewController: UIViewController {
         MyFirebaseRef.getGame(gameId: gameId!)
             .then{ (game) -> Void in
                 self.game = game
-                print(self.game)
+                self.setTitle()
             }.catch{ (error) in
-                
             }
             .always {
                 SwiftSpinner.hide()
             }
+    }
+    
+    func setTitle() -> Void {
+        self.title = NBATeamService.getNBATeamName(id: game.homeTeamId) + " vs. " + NBATeamService.getNBATeamName(id: game.awayTeamId)
     }
 }
 

@@ -19,20 +19,29 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="79.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S7t-xQ-Typ">
-                        <rect key="frame" x="8" y="29.5" width="42" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S7t-xQ-Typ">
+                        <rect key="frame" x="143" y="18" width="34" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start Date Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lPS-13-xcc">
+                        <rect key="frame" x="112.5" y="44" width="95.5" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="S7t-xQ-Typ" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="rvc-pR-Lb8"/>
-                    <constraint firstItem="S7t-xQ-Typ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="tu4-OG-FAL"/>
+                    <constraint firstItem="lPS-13-xcc" firstAttribute="top" secondItem="S7t-xQ-Typ" secondAttribute="bottom" constant="5" id="0hw-3w-Pkw"/>
+                    <constraint firstItem="S7t-xQ-Typ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="10" id="HfB-RC-Cai"/>
+                    <constraint firstItem="lPS-13-xcc" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="Yho-NY-jdC"/>
+                    <constraint firstItem="S7t-xQ-Typ" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="bu0-42-xsr"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="test" destination="S7t-xQ-Typ" id="pHg-g4-KK7"/>
+                <outlet property="start" destination="lPS-13-xcc" id="rwH-QV-qzU"/>
+                <outlet property="title" destination="S7t-xQ-Typ" id="mpu-JD-pk5"/>
             </connections>
         </tableViewCell>
     </objects>
