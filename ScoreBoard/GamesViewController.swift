@@ -83,8 +83,11 @@ extension GamesViewController : UITableViewDataSource, UITableViewDelegate {
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "GameTableViewCell", for: indexPath as IndexPath) as? GameTableViewCell{
             let game: Game = games[indexPath.row]
+            
+            let homeTeam: NBATeam = NBATeamService.instance.getTeam(id: game.homeTeamId)
+            let awayTeam: NBATeam = NBATeamService.instance.getTeam(id: game.awayTeamId)
 
-            cell.title.text = NBATeamService.getNBATeamName(id: game.homeTeamId) + " vs. " + NBATeamService.getNBATeamName(id: game.awayTeamId)
+            cell.title.text = homeTeam.name + " vs. " + awayTeam.name
             cell.start.text = ConversionService.convertDateToString(game.startDateTime, DateFormatter.Style.long)
             
             return cell
