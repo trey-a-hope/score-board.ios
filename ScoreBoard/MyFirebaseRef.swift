@@ -16,23 +16,19 @@ class MyFirebaseRef {
         static let Users: String = "Users"
     }
     
+//      ____
+//     / ___|   __ _   _ __ ___     ___   ___
+//    | |  _   / _` | | '_ ` _ \   / _ \ / __|
+//    | |_| | | (_| | | | | | | | |  __/ \__ \
+//     \____|  \__,_| |_| |_| |_|  \___| |___/
+    
     /* Returns an array of all games. */
     class func getGames() -> Promise<[Game]>{
         return Promise { fulfill, reject in
             ref.child(Table.Games).observeSingleEvent(of: .value, with: { (gameSnapshots) in
                 var games: [Game] = []
                 gameSnapshots.children.allObjects.forEach({ (gameSnapshot) in
-                    let data = gameSnapshot as! DataSnapshot
-                    let value = data.value as! [String:Any]
-                    let game: Game = Game()
-                    
-                    game.id = value["id"] as! String
-                    game.awayTeamId = value["awayTeamId"] as! Int
-                    game.homeTeamId = value["homeTeamId"] as! Int
-                    game.startDateTime = ConversionService.convertStringToDate(value["startDateTime"] as! String)
-                    game.timeZoneOffSet = value["timeZoneOffSet"] as! Int
-                    game.postDateTime = ConversionService.convertStringToDate(value["postDateTime"] as! String)
-                    games.append(game)
+                    games.append(extractGameData(gameSnapshot: gameSnapshot as! DataSnapshot))
                 })
                 /* Return camps */
                 fulfill(games)
@@ -44,20 +40,64 @@ class MyFirebaseRef {
     class func getGame(gameId: String) -> Promise<Game>{
         return Promise { fulfill, reject in
             ref.child(Table.Games).child(gameId).observeSingleEvent(of: .value, with: { (gameSnapshot) in
-                let value = gameSnapshot.value as! [String:Any]
-                let game: Game = Game()
-                
-                game.id = value["id"] as! String
-                game.awayTeamId = value["awayTeamId"] as! Int
-                game.homeTeamId = value["homeTeamId"] as! Int
-                game.startDateTime = ConversionService.convertStringToDate(value["startDateTime"] as! String)
-                game.timeZoneOffSet = value["timeZoneOffSet"] as! Int
-                game.postDateTime = ConversionService.convertStringToDate(value["postDateTime"] as! String)
-                
-                fulfill(game)
+                fulfill(extractGameData(gameSnapshot: gameSnapshot))
             })
         }
     }
+    
+    //Converts a dataSnapshot to a Game object.
+    private class func extractGameData(gameSnapshot: DataSnapshot) -> Game {
+        let value = gameSnapshot.value as! [String:Any]
+        let game: Game = Game()
+        game.id = value["id"] as! String
+        game.timeZoneOffSet = value["timeZoneOffSet"] as! Int
+        game.postDateTime = ConversionService.convertStringToDate(value["postDateTime"] as! String)
+        game.awayTeamId = value["awayTeamId"] as! Int
+        game.homeTeamId = value["homeTeamId"] as! Int
+        game.startDateTime = ConversionService.convertStringToDate(value["startDateTime"] as! String)
+        return game
+    }
+    
+//     ____           _
+//    | __ )    ___  | |_   ___
+//    |  _ \   / _ \ | __| / __|
+//    | |_) | |  __/ | |_  \__ \
+//    |____/   \___|  \__| |___/
+    
+    /* Returns an array of all bets for a game. */
+    class func getBets(gameId: String) -> Promise<[Bet]>{
+        return Promise { fulfill, reject in
+            ref.child(Table.Games).child(gameId).child("bets").observeSingleEvent(of: .value, with: { (betSnapshots) in
+                var bets: [Bet] = []
+                betSnapshots.children.allObjects.forEach({ (betSnapshot) in
+                    bets.append(extractBetData(betSnapshot: betSnapshot as! DataSnapshot))
+                })
+                /* Return bets */
+                fulfill(bets)
+            })
+        }
+    }
+    
+    //Converts a dataSnapshot to a Bet object.
+    private class func extractBetData(betSnapshot: DataSnapshot) -> Bet {
+        let value = betSnapshot.value as! [String:Any]
+        let bet: Bet = Bet()
+        bet.id = value["id"] as! String
+        bet.timeZoneOffSet = value["timeZoneOffSet"] as! Int
+        bet.postDateTime = ConversionService.convertStringToDate(value["postDateTime"] as! String)
+        bet.awayDigit = value["awayDigit"] as! Int
+        bet.homeDigit = value["homeDigit"] as! Int
+        bet.userId = value["userId"] as! String
+        bet.userImageDownloadUrl = value["userImageDownloadUrl"] as! String
+        bet.userName = value["userName"] as! String
+        return bet
+    }
+    
+//     _   _
+//    | | | |  ___    ___   _ __   ___
+//    | | | | / __|  / _ \ | '__| / __|
+//    | |_| | \__ \ |  __/ | |    \__ \
+//     \___/  |___/  \___| |_|    |___/
     
     /* Returns user that matches facebook uid, (may return null). */
     class func getUserByEmail(email: String) -> Promise<User>{
@@ -65,15 +105,7 @@ class MyFirebaseRef {
             ref.child(Table.Users).queryOrdered(byChild: "email").queryEqual(toValue: email).observeSingleEvent(of: .value, with: { (userSnapShots) in
                 if(userSnapShots.exists()){
                     userSnapShots.children.allObjects.forEach({ (userSnapShot) in
-                        let data = userSnapShot as! DataSnapshot
-                        let value = data.value as! [String:Any]
-                        let user: User = User()
-                        user.id = value["id"] as! String
-                        user.userName = value["userName"] as! String
-                        user.email = value["email"] as! String
-                        user.timeZoneOffSet = value["timeZoneOffSet"] as! Int
-                        user.postDateTime = ConversionService.convertStringToDate(value["postDateTime"] as! String)
-                        fulfill(user)
+                        fulfill(extractUserData(userSnapshot: userSnapShot as! DataSnapshot))
                     })
                 }else{
                     reject(NSError(domain:"", code: 505, userInfo:nil))
@@ -86,20 +118,24 @@ class MyFirebaseRef {
     class func getUserByID(id: String) -> Promise<User>{
         return Promise{ fulfill, reject in
             ref.child(Table.Users).child(id).observeSingleEvent(of: .value, with: { (userSnapShot) in
-                let data = userSnapShot
-                let value = data.value as! [String:Any]
-                let user: User = User()
-                user.id = value["id"] as! String
-                //user.fcmToken = value["fcmToken"] as! String
-                user.chips = value["chips"] as! Int
-                user.userName = value["userName"] as! String
-                user.email = value["email"] as! String
-                user.imageDownloadUrl = value["imageDownloadUrl"] as! String
-                user.timeZoneOffSet = value["timeZoneOffSet"] as! Int
-                user.postDateTime = ConversionService.convertStringToDate(value["postDateTime"] as! String)
-                fulfill(user)
+                fulfill(extractUserData(userSnapshot: userSnapShot))
             })
         }
+    }
+    
+    //Converts a dataSnapshot to a user object.
+    private class func extractUserData(userSnapshot: DataSnapshot) -> User {
+        let value = userSnapshot.value as! [String:Any]
+        let user: User = User()
+        user.id = value["id"] as! String
+        user.timeZoneOffSet = value["timeZoneOffSet"] as! Int
+        user.postDateTime = ConversionService.convertStringToDate(value["postDateTime"] as! String)
+        user.fcmToken = value["fcmToken"] as? String
+        user.chips = value["chips"] as? Int
+        user.userName = value["userName"] as? String
+        user.email = value["email"] as? String
+        user.imageDownloadUrl = value["imageDownloadUrl"] as? String
+        return user
     }
     
     /* Returns id of new user after insertion. */

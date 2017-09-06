@@ -12,7 +12,7 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var chipsLabel: UILabel!
     
-    var user: User = User()
+    lazy var user: User = User()
     let FONT_AWESOME_ATTRIBUTES: [String : Any] = [NSFontAttributeName: UIFont.fontAwesome(ofSize: 20)] as [String: Any]
     
     override func viewDidLoad() {

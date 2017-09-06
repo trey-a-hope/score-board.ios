@@ -4,6 +4,11 @@ import UIKit
 class GamesViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     var games: [Game] = [Game]()
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(GamesViewController.getGames), for: UIControlEvents.valueChanged)
+        return refreshControl
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,14 +43,6 @@ class GamesViewController: UIViewController {
         //Set title of view.
         self.navigationController?.visibleViewController?.title = "Games"
     }
-    
-    //Method is called when the table view is pulled down; refreshes data.
-    lazy var refreshControl: UIRefreshControl = {
-        let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(GamesViewController.getGames), for: UIControlEvents.valueChanged)
-        
-        return refreshControl
-    }()
     
     func getGames() -> Void {
         SwiftSpinner.show("Getting games...")

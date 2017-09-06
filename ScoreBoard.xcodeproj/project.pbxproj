@@ -28,6 +28,9 @@
 		0C6DC5B11F4DD9F200F9A061 /* ScoreBoardUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6DC5B01F4DD9F200F9A061 /* ScoreBoardUITests.swift */; };
 		0C71C82D1F4F58790028D814 /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C71C82C1F4F58790028D814 /* ConnectionManager.swift */; };
 		0C72DE451F4F7ABF00361234 /* FullGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C72DE441F4F7ABF00361234 /* FullGameViewController.swift */; };
+		0C98D22F1F5FA86C00D8BBAD /* Bet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C98D22E1F5FA86C00D8BBAD /* Bet.swift */; };
+		0C98D2341F5FAF2600D8BBAD /* BetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C98D2321F5FAF2600D8BBAD /* BetCell.swift */; };
+		0C98D2351F5FAF2600D8BBAD /* BetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C98D2331F5FAF2600D8BBAD /* BetCell.xib */; };
 		0CA5BF301F5F1B13009D0236 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA5BF2F1F5F1B13009D0236 /* Constants.swift */; };
 		0CA5BF331F5F1BB7009D0236 /* NBATeam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA5BF321F5F1BB7009D0236 /* NBATeam.swift */; };
 		0CC563711F4DF9070088057C /* HomeTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC563701F4DF9070088057C /* HomeTabBarController.swift */; };
@@ -87,6 +90,9 @@
 		0C6DC5B21F4DD9F200F9A061 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0C71C82C1F4F58790028D814 /* ConnectionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionManager.swift; sourceTree = "<group>"; };
 		0C72DE441F4F7ABF00361234 /* FullGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullGameViewController.swift; sourceTree = "<group>"; };
+		0C98D22E1F5FA86C00D8BBAD /* Bet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bet.swift; sourceTree = "<group>"; };
+		0C98D2321F5FAF2600D8BBAD /* BetCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BetCell.swift; sourceTree = "<group>"; };
+		0C98D2331F5FAF2600D8BBAD /* BetCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BetCell.xib; sourceTree = "<group>"; };
 		0CA5BF2F1F5F1B13009D0236 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		0CA5BF321F5F1BB7009D0236 /* NBATeam.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NBATeam.swift; sourceTree = "<group>"; };
 		0CC563701F4DF9070088057C /* HomeTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTabBarController.swift; sourceTree = "<group>"; };
@@ -192,15 +198,16 @@
 		0C6DC58F1F4DD9F200F9A061 /* ScoreBoard */ = {
 			isa = PBXGroup;
 			children = (
-				0C5F3A3E1F4E123D00516CFB /* GoogleService-Info.plist */,
-				0C6DC59C1F4DD9F200F9A061 /* Info.plist */,
 				0C6DC5901F4DD9F200F9A061 /* AppDelegate.swift */,
 				0C6DC5971F4DD9F200F9A061 /* Assets.xcassets */,
 				0CC5636F1F4DF8ED0088057C /* Authentication */,
+				0C98D2301F5FAF0B00D8BBAD /* Bets */,
 				0CA5BF2E1F5F1B07009D0236 /* Constants */,
 				0CA5BF311F5F1B81009D0236 /* Enums */,
 				0CFC245D1F4DEAA2003F97B5 /* Games */,
+				0C5F3A3E1F4E123D00516CFB /* GoogleService-Info.plist */,
 				0CFC245C1F4DE7F8003F97B5 /* Home */,
+				0C6DC59C1F4DD9F200F9A061 /* Info.plist */,
 				0C6DC5991F4DD9F200F9A061 /* LaunchScreen.storyboard */,
 				0C6DC5941F4DD9F200F9A061 /* Main.storyboard */,
 				0C5F3A3B1F4E0F2100516CFB /* Miscellaneous */,
@@ -229,6 +236,15 @@
 				0C6DC5B21F4DD9F200F9A061 /* Info.plist */,
 			);
 			path = ScoreBoardUITests;
+			sourceTree = "<group>";
+		};
+		0C98D2301F5FAF0B00D8BBAD /* Bets */ = {
+			isa = PBXGroup;
+			children = (
+				0C98D2321F5FAF2600D8BBAD /* BetCell.swift */,
+				0C98D2331F5FAF2600D8BBAD /* BetCell.xib */,
+			);
+			name = Bets;
 			sourceTree = "<group>";
 		};
 		0CA5BF2E1F5F1B07009D0236 /* Constants */ = {
@@ -295,6 +311,7 @@
 				0CFC24631F4DEB7F003F97B5 /* Game.swift */,
 				0CC563761F4DFE430088057C /* FirebaseObject.swift */,
 				0C03B4411F4E809C0020FB2A /* User.swift */,
+				0C98D22E1F5FA86C00D8BBAD /* Bet.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -444,6 +461,7 @@
 				0C6DC59B1F4DD9F200F9A061 /* LaunchScreen.storyboard in Resources */,
 				0C43D0561F4E33C100C285A5 /* GameTableViewCell.xib in Resources */,
 				0C5F3A3F1F4E123D00516CFB /* GoogleService-Info.plist in Resources */,
+				0C98D2351F5FAF2600D8BBAD /* BetCell.xib in Resources */,
 				0C6DC5981F4DD9F200F9A061 /* Assets.xcassets in Resources */,
 				0C6DC5961F4DD9F200F9A061 /* Main.storyboard in Resources */,
 			);
@@ -674,8 +692,10 @@
 				0C43D0551F4E33C100C285A5 /* GameTableViewCell.swift in Sources */,
 				0CC563791F4DFEC70088057C /* SignupViewController.swift in Sources */,
 				0C5F3A381F4E0EBB00516CFB /* ConversionService.swift in Sources */,
+				0C98D2341F5FAF2600D8BBAD /* BetCell.swift in Sources */,
 				0C5F3A3D1F4E11C200516CFB /* SessionManager.swift in Sources */,
 				0C3ABE8C1F4F28D800AE5CF9 /* SearchViewController.swift in Sources */,
+				0C98D22F1F5FA86C00D8BBAD /* Bet.swift in Sources */,
 				0CA5BF331F5F1BB7009D0236 /* NBATeam.swift in Sources */,
 				0C71C82D1F4F58790028D814 /* ConnectionManager.swift in Sources */,
 				0C6DC5931F4DD9F200F9A061 /* LoginViewController.swift in Sources */,
