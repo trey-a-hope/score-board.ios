@@ -3,11 +3,15 @@ import UIKit
 
 class FullGameViewController: UIViewController {
     @IBOutlet weak var homeTeamImage: UIImageView!
+    @IBOutlet weak var homeTeamView: UIView!
     @IBOutlet weak var homeTeamCity: UILabel!
     @IBOutlet weak var homeTeamName: UILabel!
+    @IBOutlet weak var homeTeamDigit: UILabel!
     @IBOutlet weak var awayTeamImage: UIImageView!
+    @IBOutlet weak var awayTeamView: UIView!
     @IBOutlet weak var awayTeamCity: UILabel!
     @IBOutlet weak var awayTeamName: UILabel!
+    @IBOutlet weak var awayTeamDigit: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var betTitle: UILabel!
     let CellIdentifier: String = "Cell"
@@ -66,6 +70,9 @@ class FullGameViewController: UIViewController {
                 //Set bet count for label.
                 if(self.bets.count == 0){
                     self.betTitle.text = "No Bets"
+                }
+                else if(self.bets.count == 1){
+                    self.betTitle.text = String(describing: self.bets.count) + " Bet"
                 }else{
                     self.betTitle.text = String(describing: self.bets.count) + " Bets"
                 }
@@ -74,33 +81,53 @@ class FullGameViewController: UIViewController {
                 ModalService.displayAlert(title: "Error", message: error.localizedDescription, vc: self)
             }.always{
                 self.setUI()
+                SwiftSpinner.hide()
         }
     }
     
     func setUI() -> Void {
+        let homeScore: Int = 75
+        let awayScore: Int = 34
+        
+        self.navigationController?.visibleViewController?.title = String(describing: homeScore) + " - " + String(describing: awayScore)
+        
+        //Home Team Digit
+        homeTeamDigit.text = "5"
+        
         //Home Team Image
-        homeTeamImage.layer.cornerRadius = homeTeamImage.frame.size.width / 2;
-        homeTeamImage.clipsToBounds = true;
-        homeTeamImage.layer.borderWidth = 2.0
+        homeTeamImage.round(0, UIColor.black)
         homeTeamImage.kf.setImage(with: URL(string: homeTeam!.imageDownloadUrl))
         homeTeamImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(openTeamWebsite)))
         homeTeamImage.isUserInteractionEnabled = true
+        
         //Home Team City
-        homeTeamCity.text = homeTeam!.city
+        homeTeamCity.text = "Home - " + homeTeam!.city
+        
         //Home Team Name
         homeTeamName.text = homeTeam!.name
+        
+        //Home Team View
+        homeTeamView.backgroundColor = homeTeam?.backgroundColor
+        
+        
+        //Away Team Digit
+        awayTeamDigit.text = "4"
+        
         //Away Team Image
-        awayTeamImage.layer.cornerRadius = awayTeamImage.frame.size.width / 2;
-        awayTeamImage.clipsToBounds = true;
-        awayTeamImage.layer.borderWidth = 2.0
+        awayTeamImage.round(0, UIColor.black)
         awayTeamImage.kf.setImage(with: URL(string: (awayTeam!.imageDownloadUrl)!))
         awayTeamImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(openTeamWebsite)))
         awayTeamImage.isUserInteractionEnabled = true
+        
         //Away Team City
-        awayTeamCity.text = awayTeam!.city
+        awayTeamCity.text = "Away - " + awayTeam!.city
+        
         //Away Team Name
         awayTeamName.text = awayTeam!.name
-        SwiftSpinner.hide()
+        
+        //Away Team View
+        awayTeamView.backgroundColor = awayTeam?.backgroundColor
+
     }
     
     func openTeamWebsite() -> Void {
@@ -168,6 +195,14 @@ extension FullGameViewController: UICollectionViewDataSource {
             
             let selectedBet: Bet = bets[indexPath.row]
             cell.userName.text = selectedBet.userName
+            cell.userImage.kf.setImage(with: URL(string: selectedBet.userImageDownloadUrl))
+            cell.userImage.round(1, UIColor.black)
+            cell.homeTeamImage.kf.setImage(with: URL(string: homeTeam!.imageDownloadUrl))
+            cell.homeTeamImage.round(1, UIColor.black)
+            cell.homeTeamDigit.text = String(describing: selectedBet.homeDigit!)
+            cell.awayTeamImage.kf.setImage(with: URL(string: awayTeam!.imageDownloadUrl))
+            cell.awayTeamImage.round(1, UIColor.black)
+            cell.awayTeamDigit.text = String(describing: selectedBet.awayDigit!)
             
             return cell
         }
@@ -176,4 +211,4 @@ extension FullGameViewController: UICollectionViewDataSource {
     
 }
 
-//http://www.sportslogos.net/teams/list_by_league/6/National_Basketball_Association/NBA/logos/
+
