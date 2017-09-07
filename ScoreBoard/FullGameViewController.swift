@@ -204,6 +204,9 @@ extension FullGameViewController: UICollectionViewDataSource {
             cell.awayTeamImage.round(1, UIColor.black)
             cell.awayTeamDigit.text = String(describing: selectedBet.awayDigit!)
             
+            let d: Date = ConversionService.getDateInTimeZone(date: selectedBet.postDateTime, timeZoneOffset: selectedBet.timeZoneOffSet)
+            cell.posted.text = ConversionService.timeAgoSinceDate(date: d)
+            
             return cell
         }
         fatalError("Unable to Dequeue Reusable Cell View")

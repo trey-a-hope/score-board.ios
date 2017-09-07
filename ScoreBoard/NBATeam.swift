@@ -67,6 +67,22 @@ class NBATeamService {
         teams.append(NBATeam(id: 21, name: "Thunder", city: "Oklahoma City", conference: "Northwest", imageDownloadUrl: "https://firebasestorage.googleapis.com/v0/b/project-4262310415987696317.appspot.com/o/Images%2FNBATeams%2FThunder.png?alt=media&token=519bcc5b-63a7-4b50-bc83-fe763a7f48c1", hexColor: "FF0000"))
         //Orlando Magic
         teams.append(NBATeam(id: 22, name: "Magic", city: "Orlando", conference: "Southeast", imageDownloadUrl: "https://firebasestorage.googleapis.com/v0/b/project-4262310415987696317.appspot.com/o/Images%2FNBATeams%2FMagic.jpeg?alt=media&token=d7325828-43ac-4227-ac82-78b9c0965c6a", hexColor: "FF0000"))
+        //Philadelphia 76ers
+        teams.append(NBATeam(id: 23, name: "76ers", city: "Philadelphia", conference: "Atlantic", imageDownloadUrl: "https://firebasestorage.googleapis.com/v0/b/project-4262310415987696317.appspot.com/o/Images%2FNBATeams%2F76ers.png?alt=media&token=3130f767-a63d-450e-8e4e-862b139850fc", hexColor: "FF0000"))
+        //Phoenix Suns
+        teams.append(NBATeam(id: 24, name: "Suns", city: "Phoenix", conference: "Pacific", imageDownloadUrl: "https://firebasestorage.googleapis.com/v0/b/project-4262310415987696317.appspot.com/o/Images%2FNBATeams%2FSuns.png?alt=media&token=33a5fc75-5c05-4f3f-b31a-14717d1ec81a", hexColor: "FF0000"))
+        //Portland TrailBlazers
+        teams.append(NBATeam(id: 25, name: "Trail Blazers", city: "Portland", conference: "Northwest", imageDownloadUrl: "https://firebasestorage.googleapis.com/v0/b/project-4262310415987696317.appspot.com/o/Images%2FNBATeams%2FTrailBlazers.jpg?alt=media&token=83cc1654-aa94-4fc4-b24c-ce7546c967a9", hexColor: "FF0000"))
+        //Sacramento Kings
+        teams.append(NBATeam(id: 26, name: "Kings", city: "Sacramento", conference: "Pacific", imageDownloadUrl: "https://firebasestorage.googleapis.com/v0/b/project-4262310415987696317.appspot.com/o/Images%2FNBATeams%2FKings.png?alt=media&token=7ec05bbc-b596-4ad5-b58d-f195d31cf9d8", hexColor: "FF0000"))
+        //San Antonio Spurs
+        teams.append(NBATeam(id: 27, name: "Spurs", city: "San Antonio", conference: "Southwest", imageDownloadUrl: "https://firebasestorage.googleapis.com/v0/b/project-4262310415987696317.appspot.com/o/Images%2FNBATeams%2FSpurs.png?alt=media&token=a32a1c18-9db2-431f-9c67-44cd3aff9e4a", hexColor: "FF0000"))
+        //Toronto Raptors
+        teams.append(NBATeam(id: 28, name: "Raptors", city: "Toronto", conference: "Atlantic", imageDownloadUrl: "https://firebasestorage.googleapis.com/v0/b/project-4262310415987696317.appspot.com/o/Images%2FNBATeams%2FRaptors.png?alt=media&token=b8db4dd0-90b6-4545-813b-59800abc5286", hexColor: "FF0000"))
+        //Utah Jazz
+        teams.append(NBATeam(id: 29, name: "Jazz", city: "Utah", conference: "Northwest", imageDownloadUrl: "https://firebasestorage.googleapis.com/v0/b/project-4262310415987696317.appspot.com/o/Images%2FNBATeams%2FJazz.jpg?alt=media&token=510bb7b7-3cf2-4747-af7e-203fbbeddf5f", hexColor: "FF0000"))
+        //Washington Wizards
+        teams.append(NBATeam(id: 30, name: "Wizards", city: "Washington", conference: "Southeast", imageDownloadUrl: "https://firebasestorage.googleapis.com/v0/b/project-4262310415987696317.appspot.com/o/Images%2FNBATeams%2FWizards.png?alt=media&token=b0068f69-01ae-46de-ac39-cd01ea202cfb", hexColor: "FF0000"))
     }
     
     //Id - 1 is the same as position in array.
@@ -76,134 +92,3 @@ class NBATeamService {
 }
 
 //http://www.sportslogos.net/teams/list_by_league/6/National_Basketball_Association/NBA/logos/
-
-
-//    struct _76ers {
-//        static let id: Int = 23
-//        static let name: String = "76ers"
-//        static let city: String = "Philadelphia"
-//        static let conference: String = "Atlantic"
-//    }
-//    struct Suns {
-//        static let id: Int = 24
-//        static let name: String = "Suns"
-//        static let city: String = "Phoenix"
-//        static let conference: String = "Pacific"
-//    }
-//    struct TrailBlazers {
-//        static let id: Int = 25
-//        static let name: String = "Trail Blazers"
-//        static let city: String = "Portland"
-//        static let conference: String = "Northwest"
-//    }
-//    struct Kings {
-//        static let id: Int = 26
-//        static let name: String = "Kings"
-//        static let city: String = "Sacramento"
-//        static let conference: String = "Pacific"
-//    }
-//    struct Spurs {
-//        static let id: Int = 27
-//        static let name: String = "Spurs"
-//        static let city: String = "San Antonio"
-//        static let conference: String = "Southwest"
-//    }
-//    struct Raptors {
-//        static let id: Int = 28
-//        static let name: String = "Raptors"
-//        static let city: String = "Toronto"
-//        static let conference: String = "Atlantic"
-//    }
-//    struct Jazz {
-//        static let id: Int = 29
-//        static let name: String = "Jazz"
-//        static let city: String = "Utah"
-//        static let conference: String = "Northwest"
-//    }
-//    struct Wizards {
-//        static let id: Int = 30
-//        static let name: String = "Wizards"
-//        static let city: String = "Washington"
-//        static let conference: String = "Southeast"
-//    }
-//}
-
-//class NBATeamService {
-//    static func getNBATeamImage(id: Int) -> String {
-//        switch (id) {
-//        case NBATeam.Hawks.id:
-//            return NBATeam.Hawks.imageDownloadUrl
-//        case NBATeam.Celtics.id:
-//            return NBATeam.Celtics.imageDownloadUrl
-//        default:
-//            return ""
-//        }
-//    }
-//    
-//    static func getNBATeamName(id: Int) -> String {
-//        switch (id) {
-//        case NBATeam.Hawks.id:
-//            return NBATeam.Hawks.name
-//        case NBATeam.Celtics.id:
-//            return NBATeam.Celtics.name
-//        case NBATeam.Nets.id:
-//            return NBATeam.Nets.name
-//        case NBATeam.Hornets.id:
-//            return NBATeam.Hornets.name
-//        case NBATeam.Bulls.id:
-//            return NBATeam.Bulls.name
-//        case NBATeam.Cavaliers.id:
-//            return NBATeam.Cavaliers.name
-//        case NBATeam.Mavericks.id:
-//            return NBATeam.Mavericks.name
-//        case NBATeam.Nuggets.id:
-//            return NBATeam.Nuggets.name
-//        case NBATeam.Pistons.id:
-//            return NBATeam.Pistons.name
-//        case NBATeam.Warriors.id:
-//            return NBATeam.Warriors.name
-//        case NBATeam.Rockets.id:
-//            return NBATeam.Rockets.name
-//        case NBATeam.Pacers.id:
-//            return NBATeam.Pacers.name
-//        case NBATeam.Clippers.id:
-//            return NBATeam.Clippers.name
-//        case NBATeam.Lakers.id:
-//            return NBATeam.Lakers.name
-//        case NBATeam.Grizzlies.id:
-//            return NBATeam.Grizzlies.name
-//        case NBATeam.Heat.id:
-//            return NBATeam.Heat.name
-//        case NBATeam.Bucks.id:
-//            return NBATeam.Bucks.name
-//        case NBATeam.Timberwolves.id:
-//            return NBATeam.Timberwolves.name
-//        case NBATeam.Pelicans.id:
-//            return NBATeam.Pelicans.name
-//        case NBATeam.Knicks.id:
-//            return NBATeam.Knicks.name
-//        case NBATeam.Thunder.id:
-//            return NBATeam.Thunder.name
-//        case NBATeam.Magic.id:
-//            return NBATeam.Magic.name
-//        case NBATeam._76ers.id:
-//            return NBATeam._76ers.name
-//        case NBATeam.Suns.id:
-//            return NBATeam.Suns.name
-//        case NBATeam.TrailBlazers.id:
-//            return NBATeam.TrailBlazers.name
-//        case NBATeam.Kings.id:
-//            return NBATeam.Kings.name
-//        case NBATeam.Spurs.id:
-//            return NBATeam.Spurs.name
-//        case NBATeam.Raptors.id:
-//            return NBATeam.Raptors.name
-//        case NBATeam.Jazz.id:
-//            return NBATeam.Jazz.name
-//        case NBATeam.Wizards.id:
-//            return NBATeam.Wizards.name
-//        default:
-//            return "Team Name Not Found"
-//        }
-//    }
-//}

@@ -23,7 +23,7 @@ class ConversionService  {
         return string
     }
     
-    static func getDateInTimeZone(_ date: Date, _ timeZoneOffset: Int) -> Date {
+    static func getDateInTimeZone(date: Date, timeZoneOffset: Int) -> Date {
         //Get timezone offset of this device.
         let myTimeZoneOffset: Int = Date().getTimeZoneOffset()
         //Subtract the offset of the comparing device.
@@ -33,7 +33,7 @@ class ConversionService  {
         return newDate
     }
     
-    static func timeAgoSinceDate(_ date:Date, numericDates:Bool = false) -> String {
+    static func timeAgoSinceDate(date:Date, numericDates:Bool = false) -> String {
         let calendar = NSCalendar.current
         let unitFlags: Set<Calendar.Component> = [.minute, .hour, .day, .weekOfYear, .month, .year, .second]
         let now = Date()

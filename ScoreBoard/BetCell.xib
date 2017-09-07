@@ -28,8 +28,8 @@
                                     <constraint firstAttribute="height" constant="35" id="Yhj-iQ-dsh"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Home Team" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YjT-3d-Wpn">
-                                <rect key="frame" x="50" y="17" width="115" height="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YjT-3d-Wpn">
+                                <rect key="frame" x="50" y="17" width="7" height="17"/>
                                 <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -41,43 +41,50 @@
                                     <constraint firstAttribute="height" constant="35" id="Uhn-hn-IOk"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Away Team" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="68O-gL-kEh">
-                                <rect key="frame" x="50" y="64" width="115" height="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="68O-gL-kEh">
+                                <rect key="frame" x="50" y="64" width="7" height="17"/>
                                 <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="20L-ai-Iyp">
-                                <rect key="frame" x="10" y="95" width="60" height="60"/>
+                                <rect key="frame" x="80" y="10" width="80" height="80"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="Lh0-tX-Bp8"/>
-                                    <constraint firstAttribute="width" constant="60" id="mHN-nH-DnG"/>
+                                    <constraint firstAttribute="height" constant="80" id="TWM-hX-2Yp"/>
+                                    <constraint firstAttribute="width" constant="80" id="o8M-FQ-mtY"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3om-uq-Uif">
-                                <rect key="frame" x="75" y="119" width="90" height="24.5"/>
+                                <rect key="frame" x="10" y="100" width="150" height="24.5"/>
                                 <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Posted" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GvG-hd-7C2">
+                                <rect key="frame" x="10" y="129.5" width="150" height="21.5"/>
+                                <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="15"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="20L-ai-Iyp" firstAttribute="top" secondItem="r8F-Fa-Tvy" secondAttribute="top" constant="10" id="12N-Wr-LXn"/>
                             <constraint firstItem="ugA-3A-NY0" firstAttribute="top" secondItem="Rv3-4N-di9" secondAttribute="bottom" constant="10" id="3ef-kq-Aq1"/>
                             <constraint firstItem="68O-gL-kEh" firstAttribute="leading" secondItem="ugA-3A-NY0" secondAttribute="trailing" constant="5" id="DIH-SQ-zNO"/>
+                            <constraint firstItem="3om-uq-Uif" firstAttribute="leading" secondItem="r8F-Fa-Tvy" secondAttribute="leading" constant="10" id="DUK-Qk-Zvn"/>
                             <constraint firstItem="Rv3-4N-di9" firstAttribute="top" secondItem="r8F-Fa-Tvy" secondAttribute="top" constant="10" id="Kie-QN-Glx"/>
                             <constraint firstItem="68O-gL-kEh" firstAttribute="top" secondItem="YjT-3d-Wpn" secondAttribute="bottom" constant="30.5" id="LJM-fo-ODb"/>
                             <constraint firstItem="ugA-3A-NY0" firstAttribute="leading" secondItem="r8F-Fa-Tvy" secondAttribute="leading" constant="10" id="PYc-qc-Xke"/>
-                            <constraint firstAttribute="trailing" secondItem="68O-gL-kEh" secondAttribute="trailing" constant="5" id="Udj-1E-bzY"/>
+                            <constraint firstItem="3om-uq-Uif" firstAttribute="top" secondItem="20L-ai-Iyp" secondAttribute="bottom" constant="10" id="V2A-fp-R1q"/>
+                            <constraint firstItem="GvG-hd-7C2" firstAttribute="top" secondItem="3om-uq-Uif" secondAttribute="bottom" constant="5" id="VHq-16-MGL"/>
                             <constraint firstItem="Rv3-4N-di9" firstAttribute="leading" secondItem="r8F-Fa-Tvy" secondAttribute="leading" constant="10" id="VSF-Xu-hYp"/>
                             <constraint firstItem="YjT-3d-Wpn" firstAttribute="leading" secondItem="Rv3-4N-di9" secondAttribute="trailing" constant="5" id="YNH-oh-wpb"/>
-                            <constraint firstAttribute="trailing" secondItem="3om-uq-Uif" secondAttribute="trailing" constant="5" id="bo6-C6-EvA"/>
+                            <constraint firstAttribute="trailing" secondItem="20L-ai-Iyp" secondAttribute="trailing" constant="10" id="bMt-1z-pNS"/>
                             <constraint firstItem="YjT-3d-Wpn" firstAttribute="top" secondItem="r8F-Fa-Tvy" secondAttribute="top" constant="17" id="btt-Lm-wLA"/>
-                            <constraint firstItem="3om-uq-Uif" firstAttribute="top" secondItem="68O-gL-kEh" secondAttribute="bottom" constant="38" id="fAQ-hX-tZA"/>
-                            <constraint firstAttribute="trailing" secondItem="YjT-3d-Wpn" secondAttribute="trailing" constant="5" id="kCi-XI-8VA"/>
-                            <constraint firstItem="3om-uq-Uif" firstAttribute="leading" secondItem="20L-ai-Iyp" secondAttribute="trailing" constant="5" id="lGB-tk-4xk"/>
-                            <constraint firstItem="20L-ai-Iyp" firstAttribute="leading" secondItem="r8F-Fa-Tvy" secondAttribute="leading" constant="10" id="tH4-w7-8xd"/>
-                            <constraint firstAttribute="bottom" secondItem="20L-ai-Iyp" secondAttribute="bottom" constant="10" id="zh9-7N-YNm"/>
+                            <constraint firstAttribute="trailing" secondItem="GvG-hd-7C2" secondAttribute="trailing" constant="10" id="gBj-iO-R9y"/>
+                            <constraint firstItem="GvG-hd-7C2" firstAttribute="leading" secondItem="r8F-Fa-Tvy" secondAttribute="leading" constant="10" id="m8b-5y-MZ4"/>
+                            <constraint firstAttribute="trailing" secondItem="3om-uq-Uif" secondAttribute="trailing" constant="10" id="ux8-9C-qlx"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -100,6 +107,7 @@
                 <outlet property="awayTeamImage" destination="ugA-3A-NY0" id="9VP-yL-keW"/>
                 <outlet property="homeTeamDigit" destination="YjT-3d-Wpn" id="BGS-YY-QMr"/>
                 <outlet property="homeTeamImage" destination="Rv3-4N-di9" id="m7H-Mp-DMe"/>
+                <outlet property="posted" destination="GvG-hd-7C2" id="XHj-Kn-0rL"/>
                 <outlet property="userImage" destination="20L-ai-Iyp" id="xof-bP-zXM"/>
                 <outlet property="userName" destination="3om-uq-Uif" id="Hxo-8D-BGK"/>
             </connections>
