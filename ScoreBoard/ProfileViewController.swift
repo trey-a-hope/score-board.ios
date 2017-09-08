@@ -10,9 +10,12 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     @IBOutlet weak var profileImage: UIImageView!
+    @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var chipsLabel: UILabel!
-    
-    lazy var user: User = User()
+    @IBOutlet weak var currentBetsLabel: UILabel!
+    @IBOutlet weak var betsWonLabel: UILabel!
+    var userId: String?
+    var user: User = User()
     let FONT_AWESOME_ATTRIBUTES: [String : Any] = [NSFontAttributeName: UIFont.fontAwesome(ofSize: 20)] as [String: Any]
     
     override func viewDidLoad() {
@@ -30,8 +33,15 @@ class ProfileViewController: UIViewController {
     }
     
     func getUser() -> Void {
+        //If viewing another person's profile.
+        if let _ = userId {
+        }else{
+            self.navigationController?.visibleViewController?.title = "Profile"
+            userId = SessionManager.getUserId()
+        }
+        
         SwiftSpinner.show("Loading...")
-        MyFirebaseRef.getUserByID(id: SessionManager.getUserId())
+        MyFirebaseRef.getUserByID(id: userId!)
             .then{ (user) -> Void in
                 self.user = user
                 self.setUI()
@@ -60,7 +70,7 @@ class ProfileViewController: UIViewController {
         )
         editProfileButton.setTitleTextAttributes(FONT_AWESOME_ATTRIBUTES, for: .normal)
         editProfileButton.title = String.fontAwesomeIcon(name: .pencil)
-        editProfileButton.tintColor = .white
+        editProfileButton.tintColor = .green
         /* Messages Button */
         let messagesButton = UIBarButtonItem(
             title: "Add",
@@ -70,17 +80,23 @@ class ProfileViewController: UIViewController {
         )
         messagesButton.setTitleTextAttributes(FONT_AWESOME_ATTRIBUTES, for: .normal)
         messagesButton.title = String.fontAwesomeIcon(name: .envelope)
-        messagesButton.tintColor = .white
+        messagesButton.tintColor = .green
         /* Apply buttons to navbar. */
         self.navigationController?.navigationItem.setRightBarButtonItems([editProfileButton, messagesButton], animated: true)
         
         setUserName()
         setProfileImage()
         setChips()
+        setCurrentBets()
+        setBetsWon()
     }
 
     func setUserName() -> Void {
-        self.navigationController?.visibleViewController?.title = user.userName
+        if let _ = user.userName {
+            userNameLabel.text = user.userName
+        }else{
+            chipsLabel.text = "User Name Not Set"
+        }
     }
     
     func setProfileImage() -> Void {
@@ -98,11 +114,19 @@ class ProfileViewController: UIViewController {
     }
     
     func setChips() -> Void {
-        if let chips = user.chips {
-            chipsLabel.text = chips.withCommas() + " chips"
+        if let _ = user.chips {
+            chipsLabel.text = user.chips.withCommas()
         }else{
-            chipsLabel.text = "0 chips"
+            chipsLabel.text = "0"
         }
+    }
+    
+    func setCurrentBets() -> Void {
+        currentBetsLabel.text = "12"
+    }
+    
+    func setBetsWon() -> Void {
+        betsWonLabel.text = "6"
     }
 }
 

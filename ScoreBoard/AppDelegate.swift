@@ -17,6 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             //SessionManager.signOut()
         }
         
+
+        
         return true
     }
 

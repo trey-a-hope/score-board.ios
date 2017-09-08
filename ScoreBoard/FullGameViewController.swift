@@ -1,7 +1,9 @@
+import PopupDialog
 import SwiftSpinner
 import UIKit
 
 class FullGameViewController: UIViewController {
+    //Info
     @IBOutlet weak var homeTeamImage: UIImageView!
     @IBOutlet weak var homeTeamView: UIView!
     @IBOutlet weak var homeTeamCity: UILabel!
@@ -12,8 +14,17 @@ class FullGameViewController: UIViewController {
     @IBOutlet weak var awayTeamCity: UILabel!
     @IBOutlet weak var awayTeamName: UILabel!
     @IBOutlet weak var awayTeamDigit: UILabel!
+    //Current Bets
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var betTitle: UILabel!
+    //Place New Bet
+    @IBOutlet weak var newBetHomeTeamImage: UIImageView!
+    @IBOutlet weak var newBetAwayTeamImage: UIImageView!
+    @IBOutlet weak var newBetAwayDigitStepper: UIStepper!
+    @IBOutlet weak var newBetHomeDigitStepper: UIStepper!
+    @IBOutlet weak var newBetHomeDigit: UILabel!
+    @IBOutlet weak var newBetAwayDigit: UILabel!
+
     let CellIdentifier: String = "Cell"
     let BetCellWidth: CGFloat = CGFloat(175)
     var game: Game = Game()
@@ -86,10 +97,7 @@ class FullGameViewController: UIViewController {
     }
     
     func setUI() -> Void {
-        let homeScore: Int = 75
-        let awayScore: Int = 34
-        
-        self.navigationController?.visibleViewController?.title = String(describing: homeScore) + " - " + String(describing: awayScore)
+        self.navigationController?.visibleViewController?.title = homeTeam!.name + " vs. " + awayTeam!.name
         
         //Home Team Digit
         homeTeamDigit.text = "5"
@@ -99,6 +107,8 @@ class FullGameViewController: UIViewController {
         homeTeamImage.kf.setImage(with: URL(string: homeTeam!.imageDownloadUrl))
         homeTeamImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(openTeamWebsite)))
         homeTeamImage.isUserInteractionEnabled = true
+        newBetHomeTeamImage.round(0, UIColor.black)
+        newBetHomeTeamImage.kf.setImage(with: URL(string: homeTeam!.imageDownloadUrl))
         
         //Home Team City
         homeTeamCity.text = "Home - " + homeTeam!.city
@@ -107,7 +117,7 @@ class FullGameViewController: UIViewController {
         homeTeamName.text = homeTeam!.name
         
         //Home Team View
-        homeTeamView.backgroundColor = homeTeam?.backgroundColor
+        homeTeamView.backgroundColor = homeTeam!.backgroundColor
         
         
         //Away Team Digit
@@ -118,6 +128,8 @@ class FullGameViewController: UIViewController {
         awayTeamImage.kf.setImage(with: URL(string: (awayTeam!.imageDownloadUrl)!))
         awayTeamImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(openTeamWebsite)))
         awayTeamImage.isUserInteractionEnabled = true
+        newBetAwayTeamImage.round(0, UIColor.black)
+        newBetAwayTeamImage.kf.setImage(with: URL(string: awayTeam!.imageDownloadUrl))
         
         //Away Team City
         awayTeamCity.text = "Away - " + awayTeam!.city
@@ -126,12 +138,80 @@ class FullGameViewController: UIViewController {
         awayTeamName.text = awayTeam!.name
         
         //Away Team View
-        awayTeamView.backgroundColor = awayTeam?.backgroundColor
+        awayTeamView.backgroundColor = awayTeam!.backgroundColor
 
     }
     
     func openTeamWebsite() -> Void {
         ModalService.displayAlert(title: "Alert", message: "This will go to the teams website.", vc: self)
+    }
+    
+    @IBAction func submitAction(_ sender: UIButton) {
+        let newBetHomeDigit: Int = Int(self.newBetHomeDigitStepper.value)
+        let newBetAwayDigit: Int = Int(self.newBetAwayDigitStepper.value)
+        //Validate bet is not already taken.
+        if(betTaken(homeDigit: newBetHomeDigit, awayDigit: newBetAwayDigit)){
+            ModalService.displayAlert(title: "Sorry", message: "That bet is already taken.", vc: self)
+        }else{
+            //Prompt user's bet before submitting.
+            let title: String = "Place Bet"
+            let message: String = "You are betting that the " + homeTeam!.name + " score will end with " + String(describing: newBetHomeDigit) + ", and the " + awayTeam!.name + " score will end with " + String(describing: newBetAwayDigit) + "."
+            let popup = PopupDialog(title: title, message: message)
+            popup.addButtons([
+                DefaultButton(title: "Confirm") {
+                    SwiftSpinner.show("Placing Bet...")
+                    //Get user information.
+                    MyFirebaseRef.getUserByID(id: SessionManager.getUserId())
+                        .then{ (user) -> Void in
+                            //Create bet.
+                            let bet: Bet = Bet()
+                            bet.userId = user.id
+                            bet.userName = user.userName
+                            bet.userImageDownloadUrl = user.imageDownloadUrl
+                            bet.homeDigit = newBetHomeDigit
+                            bet.awayDigit = newBetAwayDigit
+                            MyFirebaseRef.createNewBet(gameId: self.game.id, bet: bet)
+                                .then{ (betId) -> Void in
+                                    self.getBets()
+                                    ModalService.displayAlert(title: "Success", message: "Your bet has been placed.", vc: self)
+                                }.catch{ (error) in
+                                    ModalService.displayAlert(title: "Error", message: error.localizedDescription, vc: self)
+                                }.always{
+                                    SwiftSpinner.hide()
+                            }
+                            
+                        }.catch {(error) in
+                            ModalService.displayAlert(title: "Error", message: error.localizedDescription, vc: self)
+                            SwiftSpinner.hide()
+                        }.always{
+                            
+                    }
+                },
+                CancelButton(title: "Cancel") {}
+                ])
+            self.present(popup, animated: true, completion: nil)
+        }
+    }
+    
+    @IBAction func refreshBetsAction(sender: UIButton) {
+        self.getBets()
+    }
+    
+    @IBAction func homeDigitStepperAction(sender: UIStepper) {
+        newBetHomeDigit.text = "\(Int(newBetHomeDigitStepper.value))"
+    }
+    
+    @IBAction func awayDigitStepperAction(sender: UIStepper) {
+        newBetAwayDigit.text = "\(Int(newBetAwayDigitStepper.value))"
+    }
+    
+    func betTaken(homeDigit: Int, awayDigit: Int) -> Bool {
+        for bet in bets {
+            if(bet.homeDigit == homeDigit && bet.awayDigit == awayDigit){
+                return true
+            }
+        }
+        return false
     }
 }
 
@@ -179,14 +259,10 @@ extension FullGameViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selectedBet: Bet = bets[indexPath.row]
-        
-        ModalService.displayAlert(title: selectedBet.userId, message: selectedBet.userName, vc: self)
-//        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-//        let fullCampViewController = storyBoard.instantiateViewController(withIdentifier: "FullCampViewController") as! FullCampViewController
-//        fullCampViewController._camp = selectedCamp
-//        fullCampViewController._relatedCamps = RandomService.getRelatedCamps(camp, relatedCamps)
-//        fullCampViewController.transitioningFromProfileView = false
-//        self.navigationController!.pushViewController(fullCampViewController, animated: true)
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        let profileViewController = storyBoard.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
+        profileViewController.userId = selectedBet.userId
+        self.navigationController!.pushViewController(profileViewController, animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

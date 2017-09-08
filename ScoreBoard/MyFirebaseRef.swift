@@ -78,6 +78,15 @@ class MyFirebaseRef {
         }
     }
     
+    /* Returns a single bet. */
+    class func getBet(gameId: String, betId: String) -> Promise<Bet>{
+        return Promise { fulfill, reject in
+            ref.child(Table.Games).child(gameId).child("bets").child(betId).observeSingleEvent(of: .value, with: { (betSnapshot) in
+                fulfill(extractBetData(betSnapshot: betSnapshot))
+            })
+        }
+    }
+    
     //Converts a dataSnapshot to a Bet object.
     private class func extractBetData(betSnapshot: DataSnapshot) -> Bet {
         let value = betSnapshot.value as! [String:Any]
@@ -91,6 +100,28 @@ class MyFirebaseRef {
         bet.userImageDownloadUrl = value["userImageDownloadUrl"] as! String
         bet.userName = value["userName"] as! String
         return bet
+    }
+    
+    /* Returns id of new user after insertion. */
+    class func createNewBet(gameId: String, bet: Bet) -> Promise<String> {
+        return Promise{ fulfill, reject in
+            let newBetRef: DatabaseReference = ref.child(Table.Games).child(gameId).child("bets").childByAutoId()
+            let now: Date = Date()
+            // Create bet data.
+            let newBetData: [String : Any] = [
+                "id"                    : newBetRef.key,
+                "awayDigit"             : bet.awayDigit,
+                "homeDigit"             : bet.homeDigit,
+                "userId"                : bet.userId,
+                "userImageDownloadUrl"  : bet.userImageDownloadUrl,
+                "userName"              : bet.userName,
+                "postDateTime"          : ConversionService.convertDateToFirebaseString(now),
+                "timeZoneOffSet"        : now.getTimeZoneOffset()
+            ]
+            
+            newBetRef.setValue(newBetData)
+            fulfill(newBetRef.key)
+        }
     }
     
 //     _   _
