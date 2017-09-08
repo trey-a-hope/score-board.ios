@@ -31,15 +31,35 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BqY-5i-y0Y">
+                        <rect key="frame" x="252" y="14" width="50" height="50"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="50" id="KW5-OK-bAK"/>
+                            <constraint firstAttribute="height" constant="50" id="P8S-zZ-WS4"/>
+                        </constraints>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ydc-d4-GRt">
+                        <rect key="frame" x="18" y="15" width="50" height="50"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="50" id="FuB-Y9-EPN"/>
+                            <constraint firstAttribute="height" constant="50" id="l1h-Qb-YDW"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="lPS-13-xcc" firstAttribute="top" secondItem="S7t-xQ-Typ" secondAttribute="bottom" constant="5" id="0hw-3w-Pkw"/>
+                    <constraint firstItem="ydc-d4-GRt" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="9QM-CQ-aB6"/>
                     <constraint firstItem="S7t-xQ-Typ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="10" id="HfB-RC-Cai"/>
+                    <constraint firstItem="ydc-d4-GRt" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="KIf-KC-7zO"/>
+                    <constraint firstItem="BqY-5i-y0Y" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="LiI-Gh-21S"/>
                     <constraint firstItem="lPS-13-xcc" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="Yho-NY-jdC"/>
                     <constraint firstItem="S7t-xQ-Typ" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="bu0-42-xsr"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="BqY-5i-y0Y" secondAttribute="trailing" constant="10" id="jBp-yP-xWr"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="awayTeamImage" destination="BqY-5i-y0Y" id="RFT-dX-xF2"/>
+                <outlet property="homeTeamImage" destination="ydc-d4-GRt" id="0hu-ZH-BhL"/>
                 <outlet property="start" destination="lPS-13-xcc" id="rwH-QV-qzU"/>
                 <outlet property="title" destination="S7t-xQ-Typ" id="mpu-JD-pk5"/>
             </connections>

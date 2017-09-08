@@ -8,7 +8,7 @@ class HomeViewController: UIViewController {
         if(ConnectionManager.isConnectedToInternet()){
             initUI()
         }else{
-            ModalService.displayNoInternetAlert(vc: self)
+            ModalService.showError(title: "Error", message: "No internet connection.")
         }
     }
     
@@ -23,6 +23,11 @@ class HomeViewController: UIViewController {
     
     func reInitUI() -> Void {
         self.navigationController?.visibleViewController?.title = "ScorBord"
+        setNavBarButtons()
+    }
+    
+    func setNavBarButtons() -> Void {
+        self.navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([], animated: true)
     }
 }
 

@@ -38,6 +38,8 @@
 		0CC563751F4DFD9A0088057C /* ModalService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC563741F4DFD9A0088057C /* ModalService.swift */; };
 		0CC563771F4DFE430088057C /* FirebaseObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC563761F4DFE430088057C /* FirebaseObject.swift */; };
 		0CC563791F4DFEC70088057C /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC563781F4DFEC70088057C /* SignupViewController.swift */; };
+		0CF611661F62EA5A00A46EB0 /* GMPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF611651F62EA5A00A46EB0 /* GMPalette.swift */; };
+		0CF611681F62EA7600A46EB0 /* GMColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF611671F62EA7600A46EB0 /* GMColor.swift */; };
 		0CFC24611F4DEB0A003F97B5 /* MyFirebaseRef.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CFC24601F4DEB0A003F97B5 /* MyFirebaseRef.swift */; };
 		0CFC24641F4DEB7F003F97B5 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CFC24631F4DEB7F003F97B5 /* Game.swift */; };
 		A755D61690469DFE9676903E /* Pods_ScoreBoard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF29027401D1C20BACED85FA /* Pods_ScoreBoard.framework */; };
@@ -100,6 +102,8 @@
 		0CC563741F4DFD9A0088057C /* ModalService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalService.swift; sourceTree = "<group>"; };
 		0CC563761F4DFE430088057C /* FirebaseObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseObject.swift; sourceTree = "<group>"; };
 		0CC563781F4DFEC70088057C /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
+		0CF611651F62EA5A00A46EB0 /* GMPalette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GMPalette.swift; sourceTree = "<group>"; };
+		0CF611671F62EA7600A46EB0 /* GMColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GMColor.swift; sourceTree = "<group>"; };
 		0CFC24601F4DEB0A003F97B5 /* MyFirebaseRef.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyFirebaseRef.swift; sourceTree = "<group>"; };
 		0CFC24631F4DEB7F003F97B5 /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		125A389106492EB412D82C4D /* Pods_ScoreBoardUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ScoreBoardUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -153,6 +157,8 @@
 			isa = PBXGroup;
 			children = (
 				0C5F3A391F4E0EFD00516CFB /* Extensions.swift */,
+				0CF611651F62EA5A00A46EB0 /* GMPalette.swift */,
+				0CF611671F62EA7600A46EB0 /* GMColor.swift */,
 			);
 			name = Miscellaneous;
 			sourceTree = "<group>";
@@ -627,6 +633,7 @@
 				"${BUILT_PRODUCTS_DIR}/PopupDialog/PopupDialog.framework",
 				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/SCLAlertView/SCLAlertView.framework",
 				"${BUILT_PRODUCTS_DIR}/Spring/Spring.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftSpinner/SwiftSpinner.framework",
 				"${BUILT_PRODUCTS_DIR}/Toaster/Toaster.framework",
@@ -654,6 +661,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PopupDialog.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SCLAlertView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Spring.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftSpinner.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toaster.framework",
@@ -689,11 +697,13 @@
 			files = (
 				0C72DE451F4F7ABF00361234 /* FullGameViewController.swift in Sources */,
 				0CA5BF301F5F1B13009D0236 /* Constants.swift in Sources */,
+				0CF611681F62EA7600A46EB0 /* GMColor.swift in Sources */,
 				0C43D0551F4E33C100C285A5 /* GameTableViewCell.swift in Sources */,
 				0CC563791F4DFEC70088057C /* SignupViewController.swift in Sources */,
 				0C5F3A381F4E0EBB00516CFB /* ConversionService.swift in Sources */,
 				0C98D2341F5FAF2600D8BBAD /* BetCell.swift in Sources */,
 				0C5F3A3D1F4E11C200516CFB /* SessionManager.swift in Sources */,
+				0CF611661F62EA5A00A46EB0 /* GMPalette.swift in Sources */,
 				0C3ABE8C1F4F28D800AE5CF9 /* SearchViewController.swift in Sources */,
 				0C98D22F1F5FA86C00D8BBAD /* Bet.swift in Sources */,
 				0CA5BF331F5F1BB7009D0236 /* NBATeam.swift in Sources */,

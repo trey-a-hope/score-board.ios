@@ -17,7 +17,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             //SessionManager.signOut()
         }
         
-
+        //Tab Bar
+        UITabBar.appearance().barTintColor = Constants.primaryColor
+        UITabBar.appearance().tintColor = .white
+        //Nav Bar
+        UINavigationBar.appearance().barTintColor = Constants.primaryColor
+        UINavigationBar.appearance().tintColor = UIColor.white
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName:UIColor.white]
+        //Status Bar
+        UIApplication.shared.statusBarStyle = .lightContent
+        
         
         return true
     }

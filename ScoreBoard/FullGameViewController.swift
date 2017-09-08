@@ -40,7 +40,7 @@ class FullGameViewController: UIViewController {
             initUI()
             getGame()
         }else{
-            ModalService.displayNoInternetAlert(vc: self)
+            ModalService.showError(title: "Error", message: "No internet connection.")
         }
     }
     
@@ -89,7 +89,7 @@ class FullGameViewController: UIViewController {
                 }
                 self.collectionView.reloadData()
             }.catch{ (error) in
-                ModalService.displayAlert(title: "Error", message: error.localizedDescription, vc: self)
+                ModalService.showError(title: "Error", message: error.localizedDescription)
             }.always{
                 self.setUI()
                 SwiftSpinner.hide()
@@ -97,7 +97,7 @@ class FullGameViewController: UIViewController {
     }
     
     func setUI() -> Void {
-        self.navigationController?.visibleViewController?.title = homeTeam!.name + " vs. " + awayTeam!.name
+        //self.navigationController?.visibleViewController?.title = homeTeam!.name + " vs. " + awayTeam!.name
         
         //Home Team Digit
         homeTeamDigit.text = "5"
@@ -143,7 +143,7 @@ class FullGameViewController: UIViewController {
     }
     
     func openTeamWebsite() -> Void {
-        ModalService.displayAlert(title: "Alert", message: "This will go to the teams website.", vc: self)
+        ModalService.showInfo(title: "Alert", message: "This will go to the teams website.")
     }
     
     @IBAction func submitAction(_ sender: UIButton) {
@@ -151,14 +151,13 @@ class FullGameViewController: UIViewController {
         let newBetAwayDigit: Int = Int(self.newBetAwayDigitStepper.value)
         //Validate bet is not already taken.
         if(betTaken(homeDigit: newBetHomeDigit, awayDigit: newBetAwayDigit)){
-            ModalService.displayAlert(title: "Sorry", message: "That bet is already taken.", vc: self)
+            ModalService.showError(title: "Sorry", message: "That bet is already taken.")
         }else{
             //Prompt user's bet before submitting.
             let title: String = "Place Bet"
             let message: String = "You are betting that the " + homeTeam!.name + " score will end with " + String(describing: newBetHomeDigit) + ", and the " + awayTeam!.name + " score will end with " + String(describing: newBetAwayDigit) + "."
-            let popup = PopupDialog(title: title, message: message)
-            popup.addButtons([
-                DefaultButton(title: "Confirm") {
+            ModalService.showConfirm(title: title, message: message, confirmText: "Confirm", cancelText: "Cancel")
+                .then{() -> Void in
                     SwiftSpinner.show("Placing Bet...")
                     //Get user information.
                     MyFirebaseRef.getUserByID(id: SessionManager.getUserId())
@@ -173,23 +172,22 @@ class FullGameViewController: UIViewController {
                             MyFirebaseRef.createNewBet(gameId: self.game.id, bet: bet)
                                 .then{ (betId) -> Void in
                                     self.getBets()
-                                    ModalService.displayAlert(title: "Success", message: "Your bet has been placed.", vc: self)
+                                    ModalService.showSuccess(title: "Success", message: "Your bet has been placed.")
                                 }.catch{ (error) in
-                                    ModalService.displayAlert(title: "Error", message: error.localizedDescription, vc: self)
+                                    ModalService.showError(title: "Error", message: error.localizedDescription)
                                 }.always{
                                     SwiftSpinner.hide()
                             }
                             
                         }.catch {(error) in
-                            ModalService.displayAlert(title: "Error", message: error.localizedDescription, vc: self)
+                            ModalService.showError(title: "Error", message: error.localizedDescription)
                             SwiftSpinner.hide()
                         }.always{
                             
-                    }
-                },
-                CancelButton(title: "Cancel") {}
-                ])
-            self.present(popup, animated: true, completion: nil)
+                        }
+                }.catch{ (error) in
+                }.always {
+                }
         }
     }
     

@@ -34,7 +34,7 @@ class SignupViewController: UIViewController {
         let username: String = usernameText.text!
         
         if(!ValidityService.isValidEmail(email)){
-            ModalService.displayAlert(title: "Error", message: "Invalid email", vc: self)
+            ModalService.showError(title: "Error", message: "Invalid email.")
         }
         else{
             SwiftSpinner.show("Signing up...")
@@ -42,7 +42,7 @@ class SignupViewController: UIViewController {
                 //If error, display message.
                 if error != nil {
                     SwiftSpinner.hide()
-                    ModalService.displayAlert(title: "Error", message: (error?.localizedDescription)!, vc: self)
+                    ModalService.showError(title: "Error", message: (error?.localizedDescription)!)
                     return
                 }
                 

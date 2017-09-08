@@ -3,6 +3,8 @@ import UIKit
 
 class GamesViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
+
     var games: [Game] = [Game]()
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
@@ -17,7 +19,7 @@ class GamesViewController: UIViewController {
             initUI()
             getGames()
         }else{
-            ModalService.displayNoInternetAlert(vc: self)
+            ModalService.showError(title: "Error", message: "No internet connection.")
         }
     }
     
@@ -37,11 +39,14 @@ class GamesViewController: UIViewController {
         
         //Add refresh control.
         tableView.addSubview(self.refreshControl)
+        
+        segmentedControl.tintColor = Constants.primaryColor
     }
     
     func reInitUI() -> Void {
         //Set title of view.
         self.navigationController?.visibleViewController?.title = "Games"
+        setNavBarButtons()
     }
     
     func getGames() -> Void {
@@ -51,12 +56,16 @@ class GamesViewController: UIViewController {
             self.games = games
             self.tableView.reloadData()
         }.catch{ (error) in
-            ModalService.displayAlert(title: "Error", message: error.localizedDescription, vc: self)
+            ModalService.showError(title: "Error", message: error.localizedDescription)
         }
         .always {
             self.refreshControl.endRefreshing()
             SwiftSpinner.hide()
         }
+    }
+    
+    func setNavBarButtons() -> Void {
+        self.navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([], animated: true)
     }
 }
 
@@ -89,6 +98,10 @@ extension GamesViewController : UITableViewDataSource, UITableViewDelegate {
 
             cell.title.text = homeTeam.name + " vs. " + awayTeam.name
             cell.start.text = ConversionService.convertDateToString(game.startDateTime, DateFormatter.Style.long)
+            cell.homeTeamImage.round(0, UIColor.black)
+            cell.homeTeamImage.kf.setImage(with: URL(string: homeTeam.imageDownloadUrl))
+            cell.awayTeamImage.round(0, UIColor.black)
+            cell.awayTeamImage.kf.setImage(with: URL(string: awayTeam.imageDownloadUrl))
             
             return cell
         }

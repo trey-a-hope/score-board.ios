@@ -50,7 +50,7 @@ class LoginViewController: UIViewController {
         let password: String = passwordText.text!
         
         if(!ValidityService.isValidEmail(email)){
-            ModalService.displayAlert(title: "Error", message: "Invalid email", vc: self)
+            ModalService.showError(title: "Error", message: "Invalid email.")
         }
         else{
             SwiftSpinner.show("Logging in...")
@@ -58,7 +58,7 @@ class LoginViewController: UIViewController {
                 /* If error, display message. */
                 if error != nil {
                     SwiftSpinner.hide()
-                    ModalService.displayAlert(title: "Error", message: (error?.localizedDescription)!, vc: self)
+                    ModalService.showError(title: "Error", message: (error?.localizedDescription)!)
                     return
                 }
                 
@@ -70,10 +70,11 @@ class LoginViewController: UIViewController {
                     .catch{ (error) in
                         Auth.auth().currentUser?.delete(completion: { (err) in
                             if err != nil {
-                                ModalService.displayAlert(title: "Error", message: (err?.localizedDescription)!, vc: self)
+                                ModalService.showError(title: "Error", message: error.localizedDescription)
                             }
                         })
-                        ModalService.displayAlert(title: "Could not find profile.", message: "Please sign up first.", vc: self)
+                        ModalService.showError(title: "Error", message: "Could not find profile.")
+
                     }.always{
                         SwiftSpinner.hide()
                 }

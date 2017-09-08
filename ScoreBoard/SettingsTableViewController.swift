@@ -1,4 +1,3 @@
-import PopupDialog
 import UIKit
 
 class SettingsTableViewController: UITableViewController {
@@ -9,7 +8,7 @@ class SettingsTableViewController: UITableViewController {
         if(ConnectionManager.isConnectedToInternet()){
             initUI()
         }else{
-            ModalService.displayNoInternetAlert(vc: self)
+            ModalService.showError(title: "Error", message: "No internet connection.")
         }
     }
     
@@ -24,6 +23,11 @@ class SettingsTableViewController: UITableViewController {
     
     func reInitUI() -> Void {
         self.navigationController?.visibleViewController?.title = "Settings"
+        setNavBarButtons()
+    }
+    
+    func setNavBarButtons() -> Void {
+        self.navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([], animated: true)
     }
     
     func signout() -> Void {
@@ -44,14 +48,12 @@ class SettingsTableViewController: UITableViewController {
                 switch (indexPath.row) {
                     /* Log Out */
                     case 0:
-                        let popup = PopupDialog(title: "Log out", message: "Are you sure?")
-                        popup.addButtons([
-                            DefaultButton(title: "YES") {
+                        ModalService.showConfirm(title: "Log out", message: "Are you sure?", confirmText: "Yes", cancelText: "No")
+                            .then{() -> Void in
                                 self.signout()
-                            },
-                            CancelButton(title: "CANCEL") {}
-                        ])
-                        self.present(popup, animated: true, completion: nil)
+                            }.catch{ (error) in
+                            }.always {
+                            }
                     default: break
                 }
             default: break

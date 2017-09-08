@@ -23,20 +23,23 @@ class ProfileViewController: UIViewController {
         if(ConnectionManager.isConnectedToInternet()){
             getUser()
         }else{
-            ModalService.displayNoInternetAlert(vc: self)
+            ModalService.showError(title: "Error", message: "No internet connection.")
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.setUserName()
+        self.navigationController?.visibleViewController?.title = "Profile"
+        //If currently viewing your own profile, add "edit profile" and "message" buttons.
+        if(userId == SessionManager.getUserId()){
+            setNavBarButtons()
+        }
     }
     
     func getUser() -> Void {
         //If viewing another person's profile.
         if let _ = userId {
         }else{
-            self.navigationController?.visibleViewController?.title = "Profile"
             userId = SessionManager.getUserId()
         }
         
@@ -53,14 +56,22 @@ class ProfileViewController: UIViewController {
     }
     
     func editProfile() -> Void {
-        ModalService.displayNoInternetAlert(vc: self)
+        ModalService.showError(title: "Error", message: "No internet connection.")
     }
     
     func messages() -> Void {
-        ModalService.displayNoInternetAlert(vc: self)
+        ModalService.showError(title: "Error", message: "No internet connection.")
     }
     
     func setUI() -> Void {
+        setUserName()
+        setProfileImage()
+        setChips()
+        setCurrentBets()
+        setBetsWon()
+    }
+    
+    func setNavBarButtons() -> Void {
         /* Edit Profile Button */
         let editProfileButton = UIBarButtonItem(
             title: "Add",
@@ -70,7 +81,7 @@ class ProfileViewController: UIViewController {
         )
         editProfileButton.setTitleTextAttributes(FONT_AWESOME_ATTRIBUTES, for: .normal)
         editProfileButton.title = String.fontAwesomeIcon(name: .pencil)
-        editProfileButton.tintColor = .green
+        editProfileButton.tintColor = .white
         /* Messages Button */
         let messagesButton = UIBarButtonItem(
             title: "Add",
@@ -80,15 +91,9 @@ class ProfileViewController: UIViewController {
         )
         messagesButton.setTitleTextAttributes(FONT_AWESOME_ATTRIBUTES, for: .normal)
         messagesButton.title = String.fontAwesomeIcon(name: .envelope)
-        messagesButton.tintColor = .green
+        messagesButton.tintColor = .white
         /* Apply buttons to navbar. */
-        self.navigationController?.navigationItem.setRightBarButtonItems([editProfileButton, messagesButton], animated: true)
-        
-        setUserName()
-        setProfileImage()
-        setChips()
-        setCurrentBets()
-        setBetsWon()
+        self.navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([editProfileButton, messagesButton], animated: true)
     }
 
     func setUserName() -> Void {

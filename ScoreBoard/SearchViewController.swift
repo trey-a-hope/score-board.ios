@@ -8,7 +8,7 @@ class SearchViewController: UIViewController {
         if(ConnectionManager.isConnectedToInternet()){
             initUI()
         }else{
-            ModalService.displayNoInternetAlert(vc: self)
+            ModalService.showError(title: "Error", message: "No internet connection.")
         }
     }
     
@@ -23,6 +23,11 @@ class SearchViewController: UIViewController {
     
     func reInitUI() -> Void {
         self.navigationController?.visibleViewController?.title = "Search"
+        setNavBarButtons()
+    }
+    
+    func setNavBarButtons() -> Void {
+        self.navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([], animated: true)
     }
 }
 
