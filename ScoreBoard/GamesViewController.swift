@@ -4,9 +4,7 @@ import UIKit
 class GamesViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
-    
-
-    var games: [(game: Game, betCount: Int)] = [(game: Game, betCount: Int)]()
+    var games: [(game: Game, bets: [Bet])] = [(game: Game, bets: [Bet])]()
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(GamesViewController.getGames), for: UIControlEvents.valueChanged)
@@ -105,7 +103,7 @@ extension GamesViewController : UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let game: (game: Game, betCount: Int) = games[indexPath.row]
+        let game: (game: Game, bets: [Bet]) = games[indexPath.row]
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
         let fullGameViewController = storyBoard.instantiateViewController(withIdentifier: "FullGameViewController") as! FullGameViewController
         fullGameViewController.gameId = game.game.id
@@ -115,7 +113,7 @@ extension GamesViewController : UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "GameTableViewCell", for: indexPath as IndexPath) as? GameTableViewCell{
-            let game: (game: Game, betCount: Int) = games[indexPath.row]
+            let game: (game: Game, bets: [Bet]) = games[indexPath.row]
             
             let homeTeam: NBATeam = NBATeamService.instance.getTeam(id: game.game.homeTeamId)
             let awayTeam: NBATeam = NBATeamService.instance.getTeam(id: game.game.awayTeamId)
@@ -126,7 +124,7 @@ extension GamesViewController : UITableViewDataSource, UITableViewDelegate {
             cell.homeTeamImage.kf.setImage(with: URL(string: homeTeam.imageDownloadUrl))
             cell.awayTeamImage.round(0, UIColor.black)
             cell.awayTeamImage.kf.setImage(with: URL(string: awayTeam.imageDownloadUrl))
-            cell.betCount.text = String(describing: game.betCount) + " bets"
+            cell.betCount.text = String(describing: game.bets.count) + " bets"
             
             return cell
         }
@@ -134,7 +132,7 @@ extension GamesViewController : UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt: IndexPath) -> [UITableViewRowAction]? {
-        let game: (game: Game, betCount: Int) = games[editActionsForRowAt.row]
+        let game: (game: Game, bets: [Bet]) = games[editActionsForRowAt.row]
         
         //Mute conversation button.
         let mute = UITableViewRowAction(style: .normal, title: "Mute") { action, index in

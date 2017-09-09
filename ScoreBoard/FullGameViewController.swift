@@ -3,6 +3,7 @@ import SwiftSpinner
 import UIKit
 
 class FullGameViewController: UIViewController {
+    @IBOutlet weak var scrollView: UIScrollView!
     //Info
     @IBOutlet weak var homeTeamImage: UIImageView!
     @IBOutlet weak var homeTeamView: UIView!
@@ -27,7 +28,12 @@ class FullGameViewController: UIViewController {
     @IBOutlet weak var newBetHomeDigit: UILabel!
     @IBOutlet weak var newBetAwayDigit: UILabel!
     @IBOutlet weak var submit: UIButton!
-
+    
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(FullGameViewController.getGame), for: UIControlEvents.valueChanged)
+        return refreshControl
+    }()
 
     let CellIdentifier: String = "Cell"
     let BetCellWidth: CGFloat = CGFloat(175)
@@ -49,6 +55,8 @@ class FullGameViewController: UIViewController {
     }
     
     func initUI() -> Void {
+        self.scrollView.addSubview(self.refreshControl)
+        
         collectionView.delegate = self
         collectionView.dataSource = self
         
@@ -57,13 +65,13 @@ class FullGameViewController: UIViewController {
         
         /* Refresh Button */
         let refreshButton = UIBarButtonItem(
-            title: "Refresh",
+            title: "Share",
             style: .plain,
             target: self,
-            action: #selector(FullGameViewController.getGame)
+            action: #selector(FullGameViewController.share)
         )
         refreshButton.setTitleTextAttributes(Constants.FONT_AWESOME_ATTRIBUTES, for: .normal)
-        refreshButton.title = String.fontAwesomeIcon(name: .refresh)
+        refreshButton.title = String.fontAwesomeIcon(name: .shareAlt)
         refreshButton.tintColor = .white
         /* Add buttons to nav bar */
         navigationItem.setRightBarButtonItems([refreshButton], animated: false)
@@ -108,7 +116,7 @@ class FullGameViewController: UIViewController {
                     self.betTitle.text = String(describing: self.bets.count) + " Bets"
                 }
                 
-                //Calculate bet cost.
+                //Calculate bet cost (1 + ( 2 * numberOfBets) ).
                 self.betCost = 1.00
                 for bet in self.bets{
                     if(bet.userId == SessionManager.getUserId()){
@@ -116,11 +124,15 @@ class FullGameViewController: UIViewController {
                     }
                 }
                 
+                //Sort Bets by time.
+                self.bets = self.bets.sorted(by: { $0.postDateTime > $1.postDateTime })
+                
                 self.collectionView.reloadData()
             }.catch{ (error) in
                 ModalService.showError(title: "Error", message: error.localizedDescription)
             }.always{
                 self.setUI()
+                self.refreshControl.endRefreshing()
                 SwiftSpinner.hide()
         }
     }
@@ -174,6 +186,10 @@ class FullGameViewController: UIViewController {
     
     func openTeamWebsite() -> Void {
         ModalService.showInfo(title: "Alert", message: "This will go to the teams website.")
+    }
+    
+    func share() -> Void {
+        ModalService.showInfo(title: "Share", message: "Coming Soon.")
     }
     
     @IBAction func submitAction(_ sender: UIButton) {

@@ -23,10 +23,10 @@ class MyFirebaseRef {
 //     \____|  \__,_| |_| |_| |_|  \___| |___/
     
     /* Returns an array of all games and their number of bets */
-    class func getGames() -> Promise<[(game: Game, betCount: Int)]>{
+    class func getGames() -> Promise<[(game: Game, bets: [Bet])]>{
         return Promise { fulfill, reject in
             ref.child(Table.Games).observeSingleEvent(of: .value, with: { (gameSnapshots) in
-                var games: [(game: Game, betCount: Int)] = []
+                var games: [(game: Game, bets: [Bet])] = []
                 gameSnapshots.children.allObjects.forEach({ (gameSnapshot) in
                     games.append(extractGameData(gameSnapshot: gameSnapshot as! DataSnapshot))
                 })
@@ -37,7 +37,7 @@ class MyFirebaseRef {
     }
     
     /* Returns a single game and the number of bets. */
-    class func getGame(gameId: String) -> Promise<(game: Game, betCount: Int)>{
+    class func getGame(gameId: String) -> Promise<(game: Game, bets: [Bet])>{
         return Promise { fulfill, reject in
             ref.child(Table.Games).child(gameId).observeSingleEvent(of: .value, with: { (gameSnapshot) in
                 fulfill(extractGameData(gameSnapshot: gameSnapshot))
@@ -46,9 +46,11 @@ class MyFirebaseRef {
     }
     
     //Converts a dataSnapshot to a tuple of the game and the number of bets.
-    private class func extractGameData(gameSnapshot: DataSnapshot) -> (game: Game, betCount: Int) {
+    private class func extractGameData(gameSnapshot: DataSnapshot) -> (game: Game, bets: [Bet]) {
         let value = gameSnapshot.value as! [String:Any]
         let game: Game = Game()
+        var bets: [Bet] = [Bet]()
+        
         game.id = value["id"] as! String
         game.timeZoneOffSet = value["timeZoneOffSet"] as! Int
         game.postDateTime = ConversionService.convertStringToDate(value["postDateTime"] as! String)
@@ -56,15 +58,52 @@ class MyFirebaseRef {
         game.homeTeamId = value["homeTeamId"] as! Int
         game.startDateTime = ConversionService.convertStringToDate(value["startDateTime"] as! String)
         game.activeCode = value["activeCode"] as! Int
-        let bets = value["bets"] as? [String:Any]
-        var betCount: Int = 0
+        let betSnapshots = value["bets"] as? [String:Any]
         
-        if let _ = bets {
-            betCount = bets!.count
+        //If this game has bets currently...
+        if let _ = betSnapshots {
+            
+            for betSnapshot in betSnapshots! {
+                let betSnapshot = betSnapshot.value as! [String:Any]
+                let newBet: Bet = Bet()
+                newBet.id = betSnapshot["id"] as! String
+                newBet.postDateTime = ConversionService.convertStringToDate(betSnapshot["postDateTime"] as! String)
+                newBet.timeZoneOffSet = value["timeZoneOffSet"] as! Int
+                newBet.userId = betSnapshot["userId"] as! String
+                newBet.userName = betSnapshot["userName"] as! String
+                newBet.userImageDownloadUrl = betSnapshot["userImageDownloadUrl"] as! String
+                newBet.awayDigit = betSnapshot["awayDigit"] as! Int
+                newBet.homeDigit = betSnapshot["homeDigit"] as! Int
+
+                bets.append(newBet)
+            }
+            
+            return (game, bets)
+
         }
         
-        return (game, betCount)
+        return (game, [])
     }
+    
+//    private class func extractGameData2(gameSnapshot: DataSnapshot) -> (game: Game, bets: [Bet]) {
+//        let value = gameSnapshot.value as! [String:Any]
+//        let game: Game = Game()
+//        game.id = value["id"] as! String
+//        game.timeZoneOffSet = value["timeZoneOffSet"] as! Int
+//        game.postDateTime = ConversionService.convertStringToDate(value["postDateTime"] as! String)
+//        game.awayTeamId = value["awayTeamId"] as! Int
+//        game.homeTeamId = value["homeTeamId"] as! Int
+//        game.startDateTime = ConversionService.convertStringToDate(value["startDateTime"] as! String)
+//        game.activeCode = value["activeCode"] as! Int
+//        let bets = value["bets"] as? [String:Any]
+//        var betCount: Int = 0
+//        
+//        if let _ = bets {
+//            betCount = bets!.count
+//        }
+//        
+//        return (game, betCount)
+//    }
     
 //     ____           _
 //    | __ )    ___  | |_   ___
