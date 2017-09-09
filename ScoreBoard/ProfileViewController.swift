@@ -16,7 +16,6 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var betsWonLabel: UILabel!
     var userId: String?
     var user: User = User()
-    let FONT_AWESOME_ATTRIBUTES: [String : Any] = [NSFontAttributeName: UIFont.fontAwesome(ofSize: 20)] as [String: Any]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,7 +78,7 @@ class ProfileViewController: UIViewController {
             target: self,
             action: #selector(ProfileViewController.editProfile)
         )
-        editProfileButton.setTitleTextAttributes(FONT_AWESOME_ATTRIBUTES, for: .normal)
+        editProfileButton.setTitleTextAttributes(Constants.FONT_AWESOME_ATTRIBUTES, for: .normal)
         editProfileButton.title = String.fontAwesomeIcon(name: .pencil)
         editProfileButton.tintColor = .white
         /* Messages Button */
@@ -89,7 +88,7 @@ class ProfileViewController: UIViewController {
             target: self,
             action: #selector(ProfileViewController.messages)
         )
-        messagesButton.setTitleTextAttributes(FONT_AWESOME_ATTRIBUTES, for: .normal)
+        messagesButton.setTitleTextAttributes(Constants.FONT_AWESOME_ATTRIBUTES, for: .normal)
         messagesButton.title = String.fontAwesomeIcon(name: .envelope)
         messagesButton.tintColor = .white
         /* Apply buttons to navbar. */

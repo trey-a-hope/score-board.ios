@@ -20,13 +20,13 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S7t-xQ-Typ">
-                        <rect key="frame" x="143" y="18" width="34" height="21"/>
+                        <rect key="frame" x="143" y="6" width="34" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start Date Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lPS-13-xcc">
-                        <rect key="frame" x="112.5" y="44" width="95.5" height="16"/>
+                        <rect key="frame" x="112.5" y="32" width="95.5" height="16"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -45,20 +45,29 @@
                             <constraint firstAttribute="height" constant="50" id="l1h-Qb-YDW"/>
                         </constraints>
                     </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bet Count" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1qg-Xf-klx">
+                        <rect key="frame" x="129.5" y="53" width="61" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="lPS-13-xcc" firstAttribute="top" secondItem="S7t-xQ-Typ" secondAttribute="bottom" constant="5" id="0hw-3w-Pkw"/>
+                    <constraint firstItem="1qg-Xf-klx" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="0nW-cT-Um0"/>
+                    <constraint firstItem="lPS-13-xcc" firstAttribute="top" secondItem="S7t-xQ-Typ" secondAttribute="bottom" constant="5" id="5I9-jB-c1d"/>
+                    <constraint firstItem="1qg-Xf-klx" firstAttribute="top" secondItem="lPS-13-xcc" secondAttribute="bottom" constant="5" id="7cw-z6-wAO"/>
                     <constraint firstItem="ydc-d4-GRt" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="9QM-CQ-aB6"/>
-                    <constraint firstItem="S7t-xQ-Typ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="10" id="HfB-RC-Cai"/>
+                    <constraint firstItem="lPS-13-xcc" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="ICa-69-kXs"/>
                     <constraint firstItem="ydc-d4-GRt" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="KIf-KC-7zO"/>
                     <constraint firstItem="BqY-5i-y0Y" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="LiI-Gh-21S"/>
-                    <constraint firstItem="lPS-13-xcc" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="Yho-NY-jdC"/>
-                    <constraint firstItem="S7t-xQ-Typ" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="bu0-42-xsr"/>
+                    <constraint firstItem="S7t-xQ-Typ" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="SvH-O9-rtB"/>
+                    <constraint firstItem="lPS-13-xcc" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="hx5-fX-2ob"/>
                     <constraint firstAttribute="trailingMargin" secondItem="BqY-5i-y0Y" secondAttribute="trailing" constant="10" id="jBp-yP-xWr"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="awayTeamImage" destination="BqY-5i-y0Y" id="RFT-dX-xF2"/>
+                <outlet property="betCount" destination="1qg-Xf-klx" id="MkC-kV-voI"/>
                 <outlet property="homeTeamImage" destination="ydc-d4-GRt" id="0hu-ZH-BhL"/>
                 <outlet property="start" destination="lPS-13-xcc" id="rwH-QV-qzU"/>
                 <outlet property="title" destination="S7t-xQ-Typ" id="mpu-JD-pk5"/>

@@ -48,6 +48,35 @@ class ModalService  {
 
         }
     }
+    
+    static func showResetEmail(title: String, message: String) -> Promise<String> {
+        return Promise{ fulfill, reject in
+
+            let appearance = SCLAlertView.SCLAppearance(
+                showCloseButton: false
+            )
+        
+            let alertView: SCLAlertView = SCLAlertView(appearance: appearance)
+        
+            let email: UITextField = alertView.addTextField("Email")
+        
+            alertView.addButton("Confirm"){
+                if(ValidityService.isValidEmail(email.text!)){
+                    print(email.text!)
+                    fulfill(email.text!)
+                }else{
+                    showError(title: "Error", message: "Invalid Email")
+                    reject(MyError.SomeError())
+                }
+            }
+        
+            alertView.addButton("Cancel"){
+                reject(MyError.SomeError())
+            }
+        
+            alertView.showInfo(title, subTitle: message)
+        }
+    }
 }
 
 public enum MyError : Error {

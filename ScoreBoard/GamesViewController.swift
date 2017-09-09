@@ -4,8 +4,9 @@ import UIKit
 class GamesViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
+    
 
-    var games: [Game] = [Game]()
+    var games: [(game: Game, betCount: Int)] = [(game: Game, betCount: Int)]()
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(GamesViewController.getGames), for: UIControlEvents.valueChanged)
@@ -41,6 +42,7 @@ class GamesViewController: UIViewController {
         tableView.addSubview(self.refreshControl)
         
         segmentedControl.tintColor = Constants.primaryColor
+        segmentedControl.addTarget(self, action: #selector(segmentedControlValueChanged), for:.allEvents)
     }
     
     func reInitUI() -> Void {
@@ -54,6 +56,24 @@ class GamesViewController: UIViewController {
         MyFirebaseRef.getGames()
             .then{ (games) -> Void in
             self.games = games
+                
+            //Filter games by active code.
+            switch self.segmentedControl.selectedSegmentIndex {
+                //Pre Games
+                case 0:
+                    self.games = self.games.filter { $0.game.activeCode == 0 }
+                    break
+                //Active Games
+                case 1:
+                    self.games = self.games.filter { $0.game.activeCode == 1 }
+                    break
+                //Post Games
+                case 2:
+                    self.games = self.games.filter { $0.game.activeCode == 2 }
+                    break
+                default:break
+            }
+                
             self.tableView.reloadData()
         }.catch{ (error) in
             ModalService.showError(title: "Error", message: error.localizedDescription)
@@ -66,6 +86,10 @@ class GamesViewController: UIViewController {
     
     func setNavBarButtons() -> Void {
         self.navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([], animated: true)
+    }
+    
+    func segmentedControlValueChanged() -> Void {
+        getGames()
     }
 }
 
@@ -81,27 +105,28 @@ extension GamesViewController : UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let game: Game = games[indexPath.row]
+        let game: (game: Game, betCount: Int) = games[indexPath.row]
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
         let fullGameViewController = storyBoard.instantiateViewController(withIdentifier: "FullGameViewController") as! FullGameViewController
-        fullGameViewController.gameId = game.id
+        fullGameViewController.gameId = game.game.id
         self.navigationController?.pushViewController(fullGameViewController, animated: true)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "GameTableViewCell", for: indexPath as IndexPath) as? GameTableViewCell{
-            let game: Game = games[indexPath.row]
+            let game: (game: Game, betCount: Int) = games[indexPath.row]
             
-            let homeTeam: NBATeam = NBATeamService.instance.getTeam(id: game.homeTeamId)
-            let awayTeam: NBATeam = NBATeamService.instance.getTeam(id: game.awayTeamId)
+            let homeTeam: NBATeam = NBATeamService.instance.getTeam(id: game.game.homeTeamId)
+            let awayTeam: NBATeam = NBATeamService.instance.getTeam(id: game.game.awayTeamId)
 
             cell.title.text = homeTeam.name + " vs. " + awayTeam.name
-            cell.start.text = ConversionService.convertDateToString(game.startDateTime, DateFormatter.Style.long)
+            cell.start.text = ConversionService.convertDateToString(game.game.startDateTime, DateFormatter.Style.long)
             cell.homeTeamImage.round(0, UIColor.black)
             cell.homeTeamImage.kf.setImage(with: URL(string: homeTeam.imageDownloadUrl))
             cell.awayTeamImage.round(0, UIColor.black)
             cell.awayTeamImage.kf.setImage(with: URL(string: awayTeam.imageDownloadUrl))
+            cell.betCount.text = String(describing: game.betCount) + " bets"
             
             return cell
         }
@@ -109,7 +134,7 @@ extension GamesViewController : UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt: IndexPath) -> [UITableViewRowAction]? {
-        let game: Game = games[editActionsForRowAt.row]
+        let game: (game: Game, betCount: Int) = games[editActionsForRowAt.row]
         
         //Mute conversation button.
         let mute = UITableViewRowAction(style: .normal, title: "Mute") { action, index in

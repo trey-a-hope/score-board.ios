@@ -8,9 +8,10 @@ class LoginViewController: UIViewController {
 
     @IBOutlet weak var emailText: TextField!
     @IBOutlet weak var passwordText: TextField!
+    @IBOutlet weak var forgotPassword: UILabel!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var signupLabel: UILabel!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -29,14 +30,11 @@ class LoginViewController: UIViewController {
     func initUI() -> Void {
         self.hideKeyboardWhenTappedAround()
         
-        loginButton.addTarget(
-            self,
-            action: #selector(LoginViewController.login),
-            for: UIControlEvents.touchUpInside
-        )
-        
         signupLabel.isUserInteractionEnabled = true
         signupLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(LoginViewController.goToSignup)))
+        
+        forgotPassword.isUserInteractionEnabled = true
+        forgotPassword.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(LoginViewController.goToForgotPassword)))
     }
     
     func goToSignup() -> Void {
@@ -45,7 +43,25 @@ class LoginViewController: UIViewController {
         self.navigationController!.pushViewController(signupViewController, animated: true)
     }
     
-    func login() -> Void {
+    func goToForgotPassword() -> Void {
+        ModalService.showResetEmail(title: "Reset Password?", message: "We will send an email with instructions on reseting your password.")
+            .then{(email) -> Void in
+                SwiftSpinner.show("Sending Email...")
+                print(email)
+                Auth.auth().sendPasswordReset(withEmail: email) { error in
+                    if error != nil {
+                        ModalService.showSuccess(title: "Sorry", message: (error?.localizedDescription)!)
+                    }else{
+                        ModalService.showSuccess(title: "Sent", message: "Check your inbox to reset your password.")
+                    }
+                        SwiftSpinner.hide()
+                }
+            }.catch{ (error) in
+            }.always {
+            }
+    }
+    
+     @IBAction func loginAction(_ sender: UIButton) -> Void {
         let email: String = emailText.text!
         let password: String = passwordText.text!
         
@@ -74,14 +90,13 @@ class LoginViewController: UIViewController {
                             }
                         })
                         ModalService.showError(title: "Error", message: "Could not find profile.")
-
+                        
                     }.always{
                         SwiftSpinner.hide()
                 }
             })
         }
     }
-    
     
     func goToHome() -> Void {
         if let nav = self.navigationController {

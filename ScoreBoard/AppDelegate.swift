@@ -1,4 +1,5 @@
 import Firebase
+import Material
 import UIKit
 
 @UIApplicationMain
@@ -26,7 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName:UIColor.white]
         //Status Bar
         UIApplication.shared.statusBarStyle = .lightContent
-        
+        //Text-View aka UITextField
+        TextField.appearance().tintColor = UIColor.lightGray
         
         return true
     }

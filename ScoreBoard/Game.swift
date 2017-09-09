@@ -6,4 +6,5 @@ class Game : FirebaseObject {
     var homeTeamScore: Int!
     var homeTeamId: Int!
     var startDateTime: Date!
+    var activeCode: Int!
 }

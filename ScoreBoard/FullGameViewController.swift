@@ -18,12 +18,16 @@ class FullGameViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var betTitle: UILabel!
     //Place New Bet
+    var betCost: Double = 1.00
+    @IBOutlet weak var betCostLabel: UILabel!
     @IBOutlet weak var newBetHomeTeamImage: UIImageView!
     @IBOutlet weak var newBetAwayTeamImage: UIImageView!
     @IBOutlet weak var newBetAwayDigitStepper: UIStepper!
     @IBOutlet weak var newBetHomeDigitStepper: UIStepper!
     @IBOutlet weak var newBetHomeDigit: UILabel!
     @IBOutlet weak var newBetAwayDigit: UILabel!
+    @IBOutlet weak var submit: UIButton!
+
 
     let CellIdentifier: String = "Cell"
     let BetCellWidth: CGFloat = CGFloat(175)
@@ -31,7 +35,7 @@ class FullGameViewController: UIViewController {
     var homeTeam: NBATeam?
     var awayTeam: NBATeam?
     var bets: [Bet] = [Bet]()
-    public var gameId: String?
+    public var gameId: String?//Passed from the GamesViewController.
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,6 +54,20 @@ class FullGameViewController: UIViewController {
         
         let XIBCell = UINib.init(nibName: "BetCell", bundle: nil)
         collectionView.register(XIBCell, forCellWithReuseIdentifier: CellIdentifier)
+        
+        /* Refresh Button */
+        let refreshButton = UIBarButtonItem(
+            title: "Refresh",
+            style: .plain,
+            target: self,
+            action: #selector(FullGameViewController.getGame)
+        )
+        refreshButton.setTitleTextAttributes(Constants.FONT_AWESOME_ATTRIBUTES, for: .normal)
+        refreshButton.title = String.fontAwesomeIcon(name: .refresh)
+        refreshButton.tintColor = .white
+        /* Add buttons to nav bar */
+        navigationItem.setRightBarButtonItems([refreshButton], animated: false)
+        
     }
     
     func getGame() -> Void {
@@ -57,11 +75,11 @@ class FullGameViewController: UIViewController {
         SwiftSpinner.show("Loading game...")
         MyFirebaseRef.getGame(gameId: gameId!)
             .then{ (game) -> Void in
-                self.game = game
+                self.game = game.game
                 
                 //Set home/away teams
-                self.homeTeam = NBATeamService.instance.getTeam(id: game.homeTeamId)
-                self.awayTeam = NBATeamService.instance.getTeam(id: game.awayTeamId)
+                self.homeTeam = NBATeamService.instance.getTeam(id: self.game.homeTeamId)
+                self.awayTeam = NBATeamService.instance.getTeam(id: self.game.awayTeamId)
 
                 self.getBets()
             }.catch{ (error) in
@@ -77,7 +95,9 @@ class FullGameViewController: UIViewController {
         
         MyFirebaseRef.getBets(gameId: game.id)
             .then{ (bets) -> Void in
+                
                 self.bets = bets
+                
                 //Set bet count for label.
                 if(self.bets.count == 0){
                     self.betTitle.text = "No Bets"
@@ -87,6 +107,15 @@ class FullGameViewController: UIViewController {
                 }else{
                     self.betTitle.text = String(describing: self.bets.count) + " Bets"
                 }
+                
+                //Calculate bet cost.
+                self.betCost = 1.00
+                for bet in self.bets{
+                    if(bet.userId == SessionManager.getUserId()){
+                        self.betCost += 2
+                    }
+                }
+                
                 self.collectionView.reloadData()
             }.catch{ (error) in
                 ModalService.showError(title: "Error", message: error.localizedDescription)
@@ -97,8 +126,9 @@ class FullGameViewController: UIViewController {
     }
     
     func setUI() -> Void {
-        //self.navigationController?.visibleViewController?.title = homeTeam!.name + " vs. " + awayTeam!.name
-        
+        //Set Bet Cost
+        betCostLabel.text = String(format: "$%.02f", betCost)
+
         //Home Team Digit
         homeTeamDigit.text = "5"
         
@@ -147,52 +177,55 @@ class FullGameViewController: UIViewController {
     }
     
     @IBAction func submitAction(_ sender: UIButton) {
-        let newBetHomeDigit: Int = Int(self.newBetHomeDigitStepper.value)
-        let newBetAwayDigit: Int = Int(self.newBetAwayDigitStepper.value)
-        //Validate bet is not already taken.
-        if(betTaken(homeDigit: newBetHomeDigit, awayDigit: newBetAwayDigit)){
-            ModalService.showError(title: "Sorry", message: "That bet is already taken.")
+        if(game.activeCode == 2){
+            ModalService.showError(title: "Game Has Ended", message: "You can only bet on 'Pre' games.")
+        }else if(game.activeCode == 1){
+            ModalService.showError(title: "Game Is In Progress", message: "You can only bet on 'Pre' games.")
         }else{
-            //Prompt user's bet before submitting.
-            let title: String = "Place Bet"
-            let message: String = "You are betting that the " + homeTeam!.name + " score will end with " + String(describing: newBetHomeDigit) + ", and the " + awayTeam!.name + " score will end with " + String(describing: newBetAwayDigit) + "."
-            ModalService.showConfirm(title: title, message: message, confirmText: "Confirm", cancelText: "Cancel")
-                .then{() -> Void in
-                    SwiftSpinner.show("Placing Bet...")
-                    //Get user information.
-                    MyFirebaseRef.getUserByID(id: SessionManager.getUserId())
-                        .then{ (user) -> Void in
-                            //Create bet.
-                            let bet: Bet = Bet()
-                            bet.userId = user.id
-                            bet.userName = user.userName
-                            bet.userImageDownloadUrl = user.imageDownloadUrl
-                            bet.homeDigit = newBetHomeDigit
-                            bet.awayDigit = newBetAwayDigit
-                            MyFirebaseRef.createNewBet(gameId: self.game.id, bet: bet)
-                                .then{ (betId) -> Void in
-                                    self.getBets()
-                                    ModalService.showSuccess(title: "Success", message: "Your bet has been placed.")
-                                }.catch{ (error) in
-                                    ModalService.showError(title: "Error", message: error.localizedDescription)
-                                }.always{
-                                    SwiftSpinner.hide()
-                            }
-                            
-                        }.catch {(error) in
-                            ModalService.showError(title: "Error", message: error.localizedDescription)
-                            SwiftSpinner.hide()
-                        }.always{
-                            
+            let newBetHomeDigit: Int = Int(self.newBetHomeDigitStepper.value)
+            let newBetAwayDigit: Int = Int(self.newBetAwayDigitStepper.value)
+            //Validate bet is not already taken.
+            if(betTaken(homeDigit: newBetHomeDigit, awayDigit: newBetAwayDigit)){
+                ModalService.showError(title: "Sorry", message: "That bet is already taken.")
+            }else{
+                //Prompt user's bet before submitting.
+                let title: String = "Place Bet"
+                let message: String = "You are betting that the " + homeTeam!.name + " score will end with " + String(describing: newBetHomeDigit) + ", and the " + awayTeam!.name + " score will end with " + String(describing: newBetAwayDigit) + ". This bet costs " + String(format: "$%.02f", betCost)
+
+                ModalService.showConfirm(title: title, message: message, confirmText: "Confirm", cancelText: "Cancel")
+                    .then{() -> Void in
+                        SwiftSpinner.show("Placing Bet...")
+                        //Get user information.
+                        MyFirebaseRef.getUserByID(id: SessionManager.getUserId())
+                            .then{ (user) -> Void in
+                                //Create bet.
+                                let bet: Bet = Bet()
+                                bet.userId = user.id
+                                bet.userName = user.userName
+                                bet.userImageDownloadUrl = user.imageDownloadUrl
+                                bet.homeDigit = newBetHomeDigit
+                                bet.awayDigit = newBetAwayDigit
+                                MyFirebaseRef.createNewBet(gameId: self.game.id, bet: bet)
+                                    .then{ (betId) -> Void in
+                                        self.getBets()
+                                        ModalService.showSuccess(title: "Success", message: "Your bet has been placed.")
+                                    }.catch{ (error) in
+                                        ModalService.showError(title: "Error", message: error.localizedDescription)
+                                    }.always{
+                                        SwiftSpinner.hide()
+                                }
+                                
+                            }.catch {(error) in
+                                ModalService.showError(title: "Error", message: error.localizedDescription)
+                                SwiftSpinner.hide()
+                            }.always{
+                                
                         }
-                }.catch{ (error) in
-                }.always {
+                    }.catch{ (error) in
+                    }.always {
                 }
+            }
         }
-    }
-    
-    @IBAction func refreshBetsAction(sender: UIButton) {
-        self.getBets()
     }
     
     @IBAction func homeDigitStepperAction(sender: UIStepper) {

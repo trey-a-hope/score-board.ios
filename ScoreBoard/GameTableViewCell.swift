@@ -5,6 +5,7 @@ class GameTableViewCell: UITableViewCell {
     @IBOutlet weak var start: UILabel!
     @IBOutlet weak var homeTeamImage: UIImageView!
     @IBOutlet weak var awayTeamImage: UIImageView!
+    @IBOutlet weak var betCount: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
