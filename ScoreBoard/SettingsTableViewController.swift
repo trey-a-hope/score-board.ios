@@ -1,3 +1,4 @@
+import SwiftSpinner
 import UIKit
 
 class SettingsTableViewController: UITableViewController {
@@ -30,14 +31,6 @@ class SettingsTableViewController: UITableViewController {
         self.navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([], animated: true)
     }
     
-    func signout() -> Void {
-        SessionManager.signOut()
-        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-        let loginViewController = storyBoard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
-        self.navigationController!.pushViewController(loginViewController, animated: true)
-        self.navigationController?.setViewControllers([loginViewController], animated: true)
-    }
-    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         tableView.deselectRow(at: indexPath as IndexPath, animated: true)
@@ -50,10 +43,37 @@ class SettingsTableViewController: UITableViewController {
                     case 0:
                         ModalService.showConfirm(title: "Log out", message: "Are you sure?", confirmText: "Yes", cancelText: "No")
                             .then{() -> Void in
-                                self.signout()
+                                SessionManager.signOut()
+                                let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+                                let loginViewController = storyBoard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+                                self.navigationController!.pushViewController(loginViewController, animated: true)
+                                self.navigationController?.setViewControllers([loginViewController], animated: true)
                             }.catch{ (error) in
                             }.always {
                             }
+                        break
+                    //Delete Account
+                    case 1:
+                        ModalService.showConfirm(title: "Delete Account", message: "Are you sure?", confirmText: "Yes", cancelText: "No")
+                            .then{() -> Void in
+                                
+                                SwiftSpinner.show("Deleting Profile...")
+                                MyFirebaseRef.deleteUser(userId: SessionManager.getUserId())
+                                    .then{ () -> Void in
+                                        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+                                        let loginViewController = storyBoard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+                                        self.navigationController!.pushViewController(loginViewController, animated: true)
+                                        self.navigationController?.setViewControllers([loginViewController], animated: true)
+                                    }.catch{ (error) in
+                                        ModalService.showError(title: "Sorry", message: error.localizedDescription)
+                                    }.always {
+                                        SwiftSpinner.hide()
+                                }
+                                
+                            }.catch{ (error) in
+                            }.always {
+                        }
+                        break
                     default: break
                 }
             default: break

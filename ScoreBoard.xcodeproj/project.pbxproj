@@ -38,6 +38,9 @@
 		0CC563751F4DFD9A0088057C /* ModalService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC563741F4DFD9A0088057C /* ModalService.swift */; };
 		0CC563771F4DFE430088057C /* FirebaseObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC563761F4DFE430088057C /* FirebaseObject.swift */; };
 		0CC563791F4DFEC70088057C /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC563781F4DFEC70088057C /* SignupViewController.swift */; };
+		0CD969FD1F6501EB00B183C8 /* CropperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD969FC1F6501EB00B183C8 /* CropperViewController.swift */; };
+		0CD969FF1F6501F700B183C8 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD969FE1F6501F700B183C8 /* ImageViewController.swift */; };
+		0CD96A011F65020300B183C8 /* CustomImageCropperOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD96A001F65020300B183C8 /* CustomImageCropperOverlayView.swift */; };
 		0CF611661F62EA5A00A46EB0 /* GMPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF611651F62EA5A00A46EB0 /* GMPalette.swift */; };
 		0CF611681F62EA7600A46EB0 /* GMColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF611671F62EA7600A46EB0 /* GMColor.swift */; };
 		0CFC24611F4DEB0A003F97B5 /* MyFirebaseRef.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CFC24601F4DEB0A003F97B5 /* MyFirebaseRef.swift */; };
@@ -102,6 +105,9 @@
 		0CC563741F4DFD9A0088057C /* ModalService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalService.swift; sourceTree = "<group>"; };
 		0CC563761F4DFE430088057C /* FirebaseObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseObject.swift; sourceTree = "<group>"; };
 		0CC563781F4DFEC70088057C /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
+		0CD969FC1F6501EB00B183C8 /* CropperViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropperViewController.swift; sourceTree = "<group>"; };
+		0CD969FE1F6501F700B183C8 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
+		0CD96A001F65020300B183C8 /* CustomImageCropperOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomImageCropperOverlayView.swift; sourceTree = "<group>"; };
 		0CF611651F62EA5A00A46EB0 /* GMPalette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GMPalette.swift; sourceTree = "<group>"; };
 		0CF611671F62EA7600A46EB0 /* GMColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GMColor.swift; sourceTree = "<group>"; };
 		0CFC24601F4DEB0A003F97B5 /* MyFirebaseRef.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyFirebaseRef.swift; sourceTree = "<group>"; };
@@ -156,6 +162,7 @@
 		0C5F3A3B1F4E0F2100516CFB /* Miscellaneous */ = {
 			isa = PBXGroup;
 			children = (
+				0CD969FB1F6501D200B183C8 /* Image Cropping */,
 				0C5F3A391F4E0EFD00516CFB /* Extensions.swift */,
 				0CF611651F62EA5A00A46EB0 /* GMPalette.swift */,
 				0CF611671F62EA7600A46EB0 /* GMColor.swift */,
@@ -276,6 +283,16 @@
 				0CC563781F4DFEC70088057C /* SignupViewController.swift */,
 			);
 			name = Authentication;
+			sourceTree = "<group>";
+		};
+		0CD969FB1F6501D200B183C8 /* Image Cropping */ = {
+			isa = PBXGroup;
+			children = (
+				0CD969FC1F6501EB00B183C8 /* CropperViewController.swift */,
+				0CD969FE1F6501F700B183C8 /* ImageViewController.swift */,
+				0CD96A001F65020300B183C8 /* CustomImageCropperOverlayView.swift */,
+			);
+			name = "Image Cropping";
 			sourceTree = "<group>";
 		};
 		0CFC245C1F4DE7F8003F97B5 /* Home */ = {
@@ -614,6 +631,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-ScoreBoard/Pods-ScoreBoard-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AKImageCropperView/AKImageCropperView.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/EasyAnimation/EasyAnimation.framework",
@@ -642,6 +660,7 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AKImageCropperView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EasyAnimation.framework",
@@ -699,6 +718,7 @@
 				0CA5BF301F5F1B13009D0236 /* Constants.swift in Sources */,
 				0CF611681F62EA7600A46EB0 /* GMColor.swift in Sources */,
 				0C43D0551F4E33C100C285A5 /* GameTableViewCell.swift in Sources */,
+				0CD96A011F65020300B183C8 /* CustomImageCropperOverlayView.swift in Sources */,
 				0CC563791F4DFEC70088057C /* SignupViewController.swift in Sources */,
 				0C5F3A381F4E0EBB00516CFB /* ConversionService.swift in Sources */,
 				0C98D2341F5FAF2600D8BBAD /* BetCell.swift in Sources */,
@@ -715,6 +735,7 @@
 				0C03B4421F4E809C0020FB2A /* User.swift in Sources */,
 				0C6DC5911F4DD9F200F9A061 /* AppDelegate.swift in Sources */,
 				0CFC24611F4DEB0A003F97B5 /* MyFirebaseRef.swift in Sources */,
+				0CD969FD1F6501EB00B183C8 /* CropperViewController.swift in Sources */,
 				0CC563731F4DFD480088057C /* GamesViewController.swift in Sources */,
 				0CC563751F4DFD9A0088057C /* ModalService.swift in Sources */,
 				0C5F3A451F4E163200516CFB /* SettingsTableViewController.swift in Sources */,
@@ -722,6 +743,7 @@
 				0C5F3A421F4E15D900516CFB /* ProfileViewController.swift in Sources */,
 				0C5F3A3A1F4E0EFD00516CFB /* Extensions.swift in Sources */,
 				0CC563771F4DFE430088057C /* FirebaseObject.swift in Sources */,
+				0CD969FF1F6501F700B183C8 /* ImageViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

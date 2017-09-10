@@ -1,4 +1,5 @@
 import PopupDialog
+import PromiseKit
 import SwiftSpinner
 import UIKit
 
@@ -82,64 +83,85 @@ class FullGameViewController: UIViewController {
         //Get game.
         SwiftSpinner.show("Loading game...")
         MyFirebaseRef.getGame(gameId: gameId!)
-            .then{ (game) -> Void in
-                self.game = game.game
+            .then{ (gameBundle) -> Void in
+                self.game = gameBundle.game
+                self.bets = gameBundle.bets
                 
                 //Set home/away teams
                 self.homeTeam = NBATeamService.instance.getTeam(id: self.game.homeTeamId)
                 self.awayTeam = NBATeamService.instance.getTeam(id: self.game.awayTeamId)
 
-                self.getBets()
+                SwiftSpinner.show("Getting bets...")
+                self.getUsersInfoForBets()
+                    .then{ () -> Void in
+                        self.setUI()
+                    }.catch{ (error) in
+                        
+                    }.always{
+                        self.refreshControl.endRefreshing()
+                        SwiftSpinner.hide()
+                    }
             }.catch{ (error) in
+                ModalService.showError(title: "Sorry", message: error.localizedDescription)
             }
             .always {
                 SwiftSpinner.hide()
             }
     }
     
-    func getBets() -> Void {
+    func getUsersInfoForBets() -> Promise<Void> {
         //Get bets for game.
         SwiftSpinner.show("Getting bets...")
-        
-        MyFirebaseRef.getBets(gameId: game.id)
-            .then{ (bets) -> Void in
-                
-                self.bets = bets
-                
-                //Set bet count for label.
-                if(self.bets.count == 0){
-                    self.betTitle.text = "No Bets"
-                }
-                else if(self.bets.count == 1){
-                    self.betTitle.text = String(describing: self.bets.count) + " Bet"
-                }else{
-                    self.betTitle.text = String(describing: self.bets.count) + " Bets"
-                }
-                
-                //Calculate bet cost (1 + ( 2 * numberOfBets) ).
-                self.betCost = 1.00
-                for bet in self.bets{
-                    if(bet.userId == SessionManager.getUserId()){
-                        self.betCost += 2
+        return Promise { fulfill, reject in
+            if(self.bets.isEmpty){
+                fulfill()
+            }
+            
+            var count: Int = 0
+            for bet in self.bets {
+                MyFirebaseRef.getUserByID(id: bet.userId)
+                    .then{ (user) -> Void in
+                        bet.user = user
+                        
+                    }.catch{ (error) in
+                        
+                    }.always{
+                        count += 1
+
+                        if(count == self.bets.count){
+                            fulfill()
+                        }
                     }
-                }
-                
-                //Sort Bets by time.
-                self.bets = self.bets.sorted(by: { $0.postDateTime > $1.postDateTime })
-                
-                self.collectionView.reloadData()
-            }.catch{ (error) in
-                ModalService.showError(title: "Error", message: error.localizedDescription)
-            }.always{
-                self.setUI()
-                self.refreshControl.endRefreshing()
-                SwiftSpinner.hide()
+            }
         }
     }
     
     func setUI() -> Void {
+        //Set bet count for label.
+        if(self.bets.count == 0){
+            self.betTitle.text = "No Bets"
+        }
+        else if(self.bets.count == 1){
+            self.betTitle.text = String(describing: self.bets.count) + " Bet"
+        }else{
+            self.betTitle.text = String(describing: self.bets.count) + " Bets"
+        }
+        
+        //Calculate bet cost (1 + ( 2 * numberOfBets) ).
+        self.betCost = 1.00
+        for bet in self.bets{
+            if(bet.userId == SessionManager.getUserId()){
+                self.betCost += 2
+            }
+        }
+        
         //Set Bet Cost
         betCostLabel.text = String(format: "$%.02f", betCost)
+        
+        //Sort Bets by time.
+        self.bets = self.bets.sorted(by: { $0.postDateTime > $1.postDateTime })
+        
+        self.collectionView.reloadData()
 
         //Home Team Digit
         homeTeamDigit.text = "5"
@@ -211,32 +233,30 @@ class FullGameViewController: UIViewController {
                 ModalService.showConfirm(title: title, message: message, confirmText: "Confirm", cancelText: "Cancel")
                     .then{() -> Void in
                         SwiftSpinner.show("Placing Bet...")
-                        //Get user information.
-                        MyFirebaseRef.getUserByID(id: SessionManager.getUserId())
-                            .then{ (user) -> Void in
-                                //Create bet.
-                                let bet: Bet = Bet()
-                                bet.userId = user.id
-                                bet.userName = user.userName
-                                bet.userImageDownloadUrl = user.imageDownloadUrl
-                                bet.homeDigit = newBetHomeDigit
-                                bet.awayDigit = newBetAwayDigit
+                        //Create bet.
+                        let bet: Bet = Bet()
+                        bet.userId = SessionManager.getUserId()
+                        bet.homeDigit = newBetHomeDigit
+                        bet.awayDigit = newBetAwayDigit
+                        
+                        //Charge user account.
+                        MyFirebaseRef.subtractCashToUser(userId: SessionManager.getUserId(), cashToSubtract: self.betCost)
+                            .then{ () -> Void in
                                 MyFirebaseRef.createNewBet(gameId: self.game.id, bet: bet)
                                     .then{ (betId) -> Void in
-                                        self.getBets()
+                                        self.getGame()
                                         ModalService.showSuccess(title: "Success", message: "Your bet has been placed.")
                                     }.catch{ (error) in
                                         ModalService.showError(title: "Error", message: error.localizedDescription)
                                     }.always{
                                         SwiftSpinner.hide()
                                 }
-                                
-                            }.catch {(error) in
-                                ModalService.showError(title: "Error", message: error.localizedDescription)
+                            }.catch{ (error) in
+                                ModalService.showError(title: "Sorry", message: "You need more money to place this bet.")
                                 SwiftSpinner.hide()
-                            }.always{
+                            }.always {
                                 
-                        }
+                            }
                     }.catch{ (error) in
                     }.always {
                 }
@@ -317,8 +337,8 @@ extension FullGameViewController: UICollectionViewDataSource {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellIdentifier, for: indexPath) as? BetCell{
             
             let selectedBet: Bet = bets[indexPath.row]
-            cell.userName.text = selectedBet.userName
-            cell.userImage.kf.setImage(with: URL(string: selectedBet.userImageDownloadUrl))
+            cell.userName.text = selectedBet.user.userName
+            cell.userImage.kf.setImage(with: URL(string: selectedBet.user.imageDownloadUrl))
             cell.userImage.round(1, UIColor.black)
             cell.homeTeamImage.kf.setImage(with: URL(string: homeTeam!.imageDownloadUrl))
             cell.homeTeamImage.round(1, UIColor.black)
@@ -327,8 +347,8 @@ extension FullGameViewController: UICollectionViewDataSource {
             cell.awayTeamImage.round(1, UIColor.black)
             cell.awayTeamDigit.text = String(describing: selectedBet.awayDigit!)
             
-            let d: Date = ConversionService.getDateInTimeZone(date: selectedBet.postDateTime, timeZoneOffset: selectedBet.timeZoneOffSet)
-            cell.posted.text = ConversionService.timeAgoSinceDate(date: d)
+            let postDateTime: Date = ConversionService.getDateInTimeZone(date: selectedBet.postDateTime, timeZoneOffset: selectedBet.timeZoneOffSet)
+            cell.posted.text = ConversionService.timeAgoSinceDate(date: postDateTime)
             
             return cell
         }

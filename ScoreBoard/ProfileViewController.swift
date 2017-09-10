@@ -4,6 +4,7 @@ import FontAwesome_swift
 import Foundation
 import Material
 import PopupDialog
+import PromiseKit
 import Kingfisher
 import SwiftSpinner
 import UIKit
@@ -13,14 +14,15 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var userNameLabel: UILabel!
-    @IBOutlet weak var chipsLabel: UILabel!
+    @IBOutlet weak var cashLabel: UILabel!
     @IBOutlet weak var currentBetsLabel: UILabel!
     @IBOutlet weak var betsWonLabel: UILabel!
     
+    let imagePicker = UIImagePickerController()
     let BetCellWidth: CGFloat = CGFloat(175)
     let CellIdentifier: String = "Cell"
     var userId: String?
-    private var user: User?
+    var user: User?
     fileprivate var myBets: [BetView] = [BetView]()
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
@@ -41,15 +43,23 @@ class ProfileViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        //Display navbar on return from image picker.
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        
         self.navigationController?.visibleViewController?.title = "Profile"
         
         //If currently viewing your own profile, add "edit profile" and "message" buttons.
         if(userId == SessionManager.getUserId()){
             setNavBarButtons()
         }
+        
+
+        getUser()
     }
 
     func initUI() -> Void {
+        imagePicker.delegate = self
+        
         self.scrollView.addSubview(self.refreshControl)
         
         self.collectionView.dataSource = self
@@ -74,7 +84,7 @@ class ProfileViewController: UIViewController {
             .then{ (user) -> Void in
                 
                 self.user = user
-                self.getMyBets()
+                self.getBets()
                 
             }.catch{ (error) in
                 
@@ -83,14 +93,15 @@ class ProfileViewController: UIViewController {
             }
     }
     
-    func getMyBets() -> Void {
+    
+    func getBets() -> Void {
         SwiftSpinner.show("Getting bets...")
         MyFirebaseRef.getGames()
             .then{ (gameBundles) -> Void in
-                
+    
                 //Clear bets.
                 self.myBets.removeAll()
-                
+                    
                 //Determine which bets are mines.
                 for gameBundle in gameBundles {
                     for bet in gameBundle.bets {
@@ -105,54 +116,63 @@ class ProfileViewController: UIViewController {
                         }
                     }
                 }
-                
+                    
                 //Sort Bets by time.
                 self.myBets = self.myBets.sorted(by: { $0.bet.postDateTime > $1.bet.postDateTime })
                 
                 self.setUI()
-                
+                    
             }.catch{ (error) in
-                
+                    
             }.always{
-                
+                    
                 self.collectionView.reloadData()
                 self.refreshControl.endRefreshing()
                 SwiftSpinner.hide()
-                
+                    
         }
     }
     
+    func addCash() -> Void {
+        SwiftSpinner.show("Adding Cash...")
+        MyFirebaseRef.addCashToUser(userId: SessionManager.getUserId(), cashToAdd: 10.00)
+            .then{ () -> Void in
+                ModalService.showSuccess(title: "Success", message: "Added $10 to your account, (refresh page).")
+            }.catch{ (error) in
+                ModalService.showError(title: "Sorry", message: "Could not add money to your account.")
+            }.always{
+                SwiftSpinner.hide()
+            }
+    }
+    
     func editProfile() -> Void {
-        ModalService.showInfo(title: "Edit Profile", message: "Coming Soon")
+        ModalService.showInfo(title: "Edit Profile", message: "Coming Soon...")
     }
     
     func messages() -> Void {
-        ModalService.showInfo(title: "Messages", message: "Coming Soon")
+        ModalService.showInfo(title: "Messages", message: "Coming Soon...")
     }
     
     func updateProfilePicture() -> Void {
-        ModalService.showInfo(title: "Update Profile Image", message: "Coming Soon")
+        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum){
+            imagePicker.sourceType = .photoLibrary;
+            imagePicker.allowsEditing = false
+            self.present(imagePicker, animated: true, completion: nil)
+        }else{
+            ModalService.showError(title: "Sorry", message: "Image Picker Not Available")
+        }
     }
     
     func setUI() -> Void {
         setUserName()
         setProfileImage()
-        setChips()
+        setCash()
         setCurrentBets()
         setBetsWon()
     }
     
     func setNavBarButtons() -> Void {
-        /* Edit Profile Button */
-        let editProfileButton = UIBarButtonItem(
-            title: "Add",
-            style: .plain,
-            target: self,
-            action: #selector(ProfileViewController.editProfile)
-        )
-        editProfileButton.setTitleTextAttributes(Constants.FONT_AWESOME_ATTRIBUTES, for: .normal)
-        editProfileButton.title = String.fontAwesomeIcon(name: .pencil)
-        editProfileButton.tintColor = .white
+
         /* Messages Button */
         let messagesButton = UIBarButtonItem(
             title: "Add",
@@ -163,15 +183,35 @@ class ProfileViewController: UIViewController {
         messagesButton.setTitleTextAttributes(Constants.FONT_AWESOME_ATTRIBUTES, for: .normal)
         messagesButton.title = String.fontAwesomeIcon(name: .envelope)
         messagesButton.tintColor = .white
+        /* Edit Profile Button */
+        let editProfileButton = UIBarButtonItem(
+            title: "Add",
+            style: .plain,
+            target: self,
+            action: #selector(ProfileViewController.editProfile)
+        )
+        editProfileButton.setTitleTextAttributes(Constants.FONT_AWESOME_ATTRIBUTES, for: .normal)
+        editProfileButton.title = String.fontAwesomeIcon(name: .pencil)
+        editProfileButton.tintColor = .white
+        /* Add Cash Button */
+        let addCashButton = UIBarButtonItem(
+            title: "Add",
+            style: .plain,
+            target: self,
+            action: #selector(ProfileViewController.addCash)
+        )
+        addCashButton.setTitleTextAttributes(Constants.FONT_AWESOME_ATTRIBUTES, for: .normal)
+        addCashButton.title = String.fontAwesomeIcon(name: .money)
+        addCashButton.tintColor = .white
         /* Apply buttons to navbar. */
-        self.navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([messagesButton, editProfileButton], animated: true)
+        self.navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([messagesButton, editProfileButton, addCashButton], animated: true)
     }
 
     func setUserName() -> Void {
         if let _ = user!.userName {
             userNameLabel.text = user!.userName
         }else{
-            chipsLabel.text = "User Name Not Set"
+            userNameLabel.text = "User Name Not Set"
         }
     }
     
@@ -189,11 +229,11 @@ class ProfileViewController: UIViewController {
         }
     }
     
-    func setChips() -> Void {
-        if let _ = user!.chips {
-            chipsLabel.text = user!.chips.withCommas()
+    func setCash() -> Void {
+        if let _ = user!.cash {
+            cashLabel.text = String(format: "$%.02f", user!.cash)
         }else{
-            chipsLabel.text = "0"
+            cashLabel.text = String(format: "$%.02f", 0)
         }
     }
     
@@ -202,7 +242,7 @@ class ProfileViewController: UIViewController {
     }
     
     func setBetsWon() -> Void {
-        betsWonLabel.text = "6"
+        betsWonLabel.text = "0"
     }
 }
 
@@ -260,8 +300,8 @@ extension ProfileViewController: UICollectionViewDataSource {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellIdentifier, for: indexPath) as? BetCell{
             
             let selectedBet: Bet = myBets[indexPath.row].bet!
-            cell.userName.text = selectedBet.userName
-            cell.userImage.kf.setImage(with: URL(string: selectedBet.userImageDownloadUrl))
+            cell.userName.text = self.user!.userName
+            cell.userImage.kf.setImage(with: URL(string: self.user!.imageDownloadUrl))
             cell.userImage.round(1, UIColor.black)
             cell.homeTeamImage.kf.setImage(with: URL(string: myBets[indexPath.row].homeTeam.imageDownloadUrl))
             cell.homeTeamImage.round(1, UIColor.black)
@@ -278,6 +318,24 @@ extension ProfileViewController: UICollectionViewDataSource {
         fatalError("Unable to Dequeue Reusable Cell View")
     }
     
+}
+
+extension ProfileViewController : UIImagePickerControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) -> Void {
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            dismiss(animated: true, completion: nil)
+            let cropperViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CropperViewController") as! CropperViewController
+            cropperViewController.image = image
+            navigationController?.pushViewController(cropperViewController, animated: true)
+        }else{
+            picker.dismiss(animated: true, completion: nil);
+        }
+    }
+    
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) -> Void {
+        dismiss(animated: true, completion: nil)
+    }
 }
 
 //Custom view to hold home team and away team since there are multiple games bought back on this view.

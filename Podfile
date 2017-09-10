@@ -19,6 +19,7 @@ target 'ScoreBoard' do
 
 end
 
+pod 'AKImageCropperView'
 pod 'Alamofire'
 pod 'EasyAnimation'
 pod 'FacebookCore'

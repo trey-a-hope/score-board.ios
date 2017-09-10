@@ -16,6 +16,13 @@ class MyFirebaseRef {
         static let Users: String = "Users"
     }
     
+    private class var storageRef: StorageReference {
+        // Get a reference to the storage service using the default Firebase App
+        let storage = Storage.storage()
+        // Create a storage reference from our storage service
+        return storage.reference()
+    }
+    
 //      ____
 //     / ___|   __ _   _ __ ___     ___   ___
 //    | |  _   / _` | | '_ ` _ \   / _ \ / __|
@@ -70,8 +77,6 @@ class MyFirebaseRef {
                 newBet.postDateTime = ConversionService.convertStringToDate(betSnapshot["postDateTime"] as! String)
                 newBet.timeZoneOffSet = value["timeZoneOffSet"] as! Int
                 newBet.userId = betSnapshot["userId"] as! String
-                newBet.userName = betSnapshot["userName"] as! String
-                newBet.userImageDownloadUrl = betSnapshot["userImageDownloadUrl"] as! String
                 newBet.awayDigit = betSnapshot["awayDigit"] as! Int
                 newBet.homeDigit = betSnapshot["homeDigit"] as! Int
 
@@ -144,8 +149,6 @@ class MyFirebaseRef {
         bet.awayDigit = value["awayDigit"] as! Int
         bet.homeDigit = value["homeDigit"] as! Int
         bet.userId = value["userId"] as! String
-        bet.userImageDownloadUrl = value["userImageDownloadUrl"] as! String
-        bet.userName = value["userName"] as! String
         return bet
     }
     
@@ -160,8 +163,6 @@ class MyFirebaseRef {
                 "awayDigit"             : bet.awayDigit,
                 "homeDigit"             : bet.homeDigit,
                 "userId"                : bet.userId,
-                "userImageDownloadUrl"  : bet.userImageDownloadUrl,
-                "userName"              : bet.userName,
                 "postDateTime"          : ConversionService.convertDateToFirebaseString(now),
                 "timeZoneOffSet"        : now.getTimeZoneOffset()
             ]
@@ -209,7 +210,7 @@ class MyFirebaseRef {
         user.timeZoneOffSet = value["timeZoneOffSet"] as! Int
         user.postDateTime = ConversionService.convertStringToDate(value["postDateTime"] as! String)
         user.fcmToken = value["fcmToken"] as? String
-        user.chips = value["chips"] as? Int
+        user.cash = value["cash"] as? Double
         user.userName = value["userName"] as? String
         user.email = value["email"] as? String
         user.imageDownloadUrl = value["imageDownloadUrl"] as? String
@@ -227,13 +228,59 @@ class MyFirebaseRef {
                 "uid"               : user.uid,
                 "userName"          : user.userName,
                 "email"             : user.email,
-                "chips"             : 50,
+                "cash"              : 25.00,
+                "imageDownloadUrl"  : "https://web.usask.ca/images/profile.jpg", //upload own "unwknown" image url.
                 "postDateTime"      : ConversionService.convertDateToFirebaseString(now),
                 "timeZoneOffSet"    : now.getTimeZoneOffset()
             ]
             
             newUserRef.setValue(newUserData)
             fulfill(newUserRef.key)
+        }
+    }
+    
+    //Remove a user from authentication, storage, and database.
+    class func deleteUser(userId: String) -> Promise<Void> {
+        return Promise { fulfill, reject in
+            Auth.auth().currentUser?.delete(completion: { (err) in
+                if err != nil {
+                    reject(err!)
+                }else{
+                    //Remove user information from database.
+                    ref.child(Table.Users).child(userId).setValue(nil)
+                    //Remove user image from storage.
+                    storageRef.child("Images/Users/" + userId).delete { error in
+                        if let error = error {
+                            print(error.localizedDescription)
+                            //Most likely, the user never uploaded an image.
+                        }
+                        fulfill()
+                    }
+                }
+            })
+        }
+    }
+    
+    class func updateProfilePicture(userId: String, image: UIImage) -> Promise<Void> {
+        return Promise { fulfill, reject in
+            var data: Data = Data()
+            data = UIImageJPEGRepresentation(image, 0.8)!
+            // set upload path
+            let filePath = "Images/Users/" + userId
+            let metaData = StorageMetadata()
+            metaData.contentType = "image/jpg"
+            
+            storageRef.child(filePath).putData(data, metadata: metaData){(metaData,error) in
+                if let error = error {
+                    reject(error)
+                }else{
+                    //Store download url.
+                    let imageDownloadUrl = metaData!.downloadURL()!.absoluteString
+                    //Store download url into database.
+                    ref.child(Table.Users).child(userId).child("imageDownloadUrl").setValue(imageDownloadUrl)
+                    fulfill()
+                }
+            }
         }
     }
     
@@ -259,6 +306,48 @@ class MyFirebaseRef {
         }
     }
 
+    class func addCashToUser(userId: String, cashToAdd: Double) -> Promise<Void> {
+        return Promise { fulfill, reject in
+            ref.child(Table.Users).child(userId).child("cash").runTransactionBlock({ (currentData: MutableData) -> TransactionResult in
+                if let currentCashAmount = currentData.value as? Double {
+                    currentData.value = currentCashAmount + cashToAdd
+                    return TransactionResult.success(withValue: currentData)
+                }else{
+                    return TransactionResult.success(withValue: currentData)
+                }
+            }, andCompletionBlock: {(error, completion, snap) in
+                if completion {
+                    fulfill()
+                }else{
+                    reject(MyError.SomeError())
+                }
+            })
+        }
+    }
+    
+    class func subtractCashToUser(userId: String, cashToSubtract: Double) -> Promise<Void> {
+        return Promise { fulfill, reject in
+            ref.child(Table.Users).child(userId).child("cash").runTransactionBlock({ (currentData: MutableData) -> TransactionResult in
+                if let currentCashAmount = currentData.value as? Double {
+                    //Validate the user will not go in the negatives with this transaction.
+                    if(currentCashAmount - cashToSubtract >= 0.00){
+                        currentData.value = currentCashAmount - cashToSubtract
+                        return TransactionResult.success(withValue: currentData)
+                    }else{
+                        return TransactionResult.abort()
+                    }
+                }else{
+                    return TransactionResult.success(withValue: currentData)
+                }
+            }, andCompletionBlock: {(error, completion, snap) in
+                if completion {
+                    fulfill()
+                }else{
+                    reject(MyError.SomeError())
+                }
+            })
+        }
+    }
     
 }
 

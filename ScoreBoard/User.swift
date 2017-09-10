@@ -6,5 +6,5 @@ class User : FirebaseObject {
     var email: String!
     var fcmToken: String!
     var imageDownloadUrl: String!
-    var chips: Int!
+    var cash: Double!
 }

@@ -4,6 +4,10 @@
 <dict>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Used to upload images to Camp Central</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Used to upload images to Camp Central</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>

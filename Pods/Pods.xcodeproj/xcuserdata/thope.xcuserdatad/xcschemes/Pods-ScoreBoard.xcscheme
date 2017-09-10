@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "ED270D58B55F35E0BFA517FA1D924E33"
+               BlueprintIdentifier = "3D51FC44EE0923EC22BD9B91CFB972C4"
                BuildableName = "Pods_ScoreBoard.framework"
                BlueprintName = "Pods-ScoreBoard"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "ED270D58B55F35E0BFA517FA1D924E33"
+            BlueprintIdentifier = "3D51FC44EE0923EC22BD9B91CFB972C4"
             BuildableName = "Pods_ScoreBoard.framework"
             BlueprintName = "Pods-ScoreBoard"
             ReferencedContainer = "container:Pods.xcodeproj">
