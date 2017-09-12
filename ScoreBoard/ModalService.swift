@@ -62,7 +62,6 @@ class ModalService  {
         
             alertView.addButton("Confirm"){
                 if(ValidityService.isValidEmail(email.text!)){
-                    print(email.text!)
                     fulfill(email.text!)
                 }else{
                     showError(title: "Error", message: "Invalid Email")

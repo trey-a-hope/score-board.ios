@@ -20,9 +20,9 @@ class SessionManager {
         let firebaseAuth = Auth.auth()
         do {
             try firebaseAuth.signOut()
-            print ("Successfully Logged Out")
+            //print ("Successfully Logged Out")
         } catch let signOutError as NSError {
-            print ("Error signing out: %@", signOutError)
+            //print ("Error signing out: %@", signOutError)
         }
     }
     

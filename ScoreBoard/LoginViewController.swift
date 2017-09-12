@@ -47,7 +47,6 @@ class LoginViewController: UIViewController {
         ModalService.showResetEmail(title: "Reset Password?", message: "We will send an email with instructions on reseting your password.")
             .then{(email) -> Void in
                 SwiftSpinner.show("Sending Email...")
-                print(email)
                 Auth.auth().sendPasswordReset(withEmail: email) { error in
                     if error != nil {
                         ModalService.showSuccess(title: "Sorry", message: (error?.localizedDescription)!)

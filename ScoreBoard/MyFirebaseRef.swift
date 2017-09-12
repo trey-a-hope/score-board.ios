@@ -7,9 +7,9 @@ class MyFirebaseRef {
         return Database.database().reference()
     }
     
-//    private class var notificationService: NotificationService{
-//        return NotificationService()
-//    }
+    private class var notificationService: NotificationService{
+        return NotificationService()
+    }
     
     private struct Table {
         static let Games: String = "Games"
@@ -251,7 +251,6 @@ class MyFirebaseRef {
                     //Remove user image from storage.
                     storageRef.child("Images/Users/" + userId).delete { error in
                         if let error = error {
-                            print(error.localizedDescription)
                             //Most likely, the user never uploaded an image.
                         }
                         fulfill()
@@ -289,7 +288,6 @@ class MyFirebaseRef {
         return Promise { fulfill, reject in
             let token = Messaging.messaging().fcmToken
             ref.child(Table.Users).child(userId).child("fcmToken").setValue(token)
-            print("updateUserFCMToken: " + String(describing: token))
             fulfill(())
         }
     }
@@ -300,7 +298,6 @@ class MyFirebaseRef {
             ref.child(Table.Users).child(userId).child("fcmToken").observeSingleEvent(of: .value, with: { (fcmTokenSnapshot) in
                 let data = fcmTokenSnapshot
                 let value = data.value as! String
-                print("getUserFCMToken: " + String(describing: value))
                 fulfill(value)
             })
         }

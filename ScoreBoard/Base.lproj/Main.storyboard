@@ -989,7 +989,7 @@
         <!--Crop View-->
         <scene sceneID="xml-Sx-bby">
             <objects>
-                <viewController storyboardIdentifier="CropperViewController" automaticallyAdjustsScrollViewInsets="NO" id="l9x-uW-ENh" customClass="CropperViewController" customModule="CampCentral" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CropperViewController" automaticallyAdjustsScrollViewInsets="NO" id="l9x-uW-ENh" customClass="CropperViewController" customModule="ScoreBoard" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="DFO-mG-fUw"/>
                         <viewControllerLayoutGuide type="bottom" id="Jei-bJ-nY9"/>
@@ -1063,7 +1063,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bZS-q3-0yW">
-                                        <rect key="frame" x="179.5" y="9" width="16" height="22"/>
+                                        <rect key="frame" x="176.5" y="9" width="22" height="22"/>
                                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" image="overlay"/>
                                         <connections>
@@ -1123,7 +1123,7 @@
         <!--Cropped Image-->
         <scene sceneID="RdS-Or-GrP">
             <objects>
-                <viewController storyboardIdentifier="ImageViewController" id="ggG-Ta-48c" customClass="ImageViewController" customModule="CampCentral" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ImageViewController" id="ggG-Ta-48c" customClass="ImageViewController" customModule="ScoreBoard" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="s73-5j-0HU"/>
                         <viewControllerLayoutGuide type="bottom" id="rtP-c5-0iA"/>
@@ -1216,7 +1216,7 @@
     </scenes>
     <resources>
         <image name="demo-logo" width="318" height="384"/>
-        <image name="overlay" width="16" height="16"/>
-        <image name="rotate" width="16" height="16"/>
+        <image name="overlay" width="22" height="22"/>
+        <image name="rotate" width="22" height="22"/>
     </resources>
 </document>
