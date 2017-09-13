@@ -286,8 +286,8 @@ class MyFirebaseRef {
     /* Updates the current user's fcm token. */
     class func updateUserFCMToken(userId: String) -> Promise<Void> {
         return Promise { fulfill, reject in
-            let token = Messaging.messaging().fcmToken
-            ref.child(Table.Users).child(userId).child("fcmToken").setValue(token)
+            let fcmToken = Messaging.messaging().fcmToken
+            ref.child(Table.Users).child(userId).child("fcmToken").setValue(fcmToken)
             fulfill(())
         }
     }

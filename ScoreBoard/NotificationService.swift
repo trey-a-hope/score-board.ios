@@ -3,7 +3,6 @@ import Foundation
 import FirebaseMessaging
 import PromiseKit
 
-//TODO: HANDLE RECEIVING NOTIFICATIONS IN THE FOREGROUND
 //TODO: but you still need to add "remote-notification" to the list of your supported UIBackgroundModes in your Info.plist.
 class NotificationService {
     
