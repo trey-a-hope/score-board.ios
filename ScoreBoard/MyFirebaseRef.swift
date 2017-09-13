@@ -234,6 +234,9 @@ class MyFirebaseRef {
                 "timeZoneOffSet"    : now.getTimeZoneOffset()
             ]
             
+            //Subscribe to all topics by default.
+            NotificationService.subscribeToTopic(Topics.Games.NewGame)
+            
             newUserRef.setValue(newUserData)
             fulfill(newUserRef.key)
         }
@@ -241,6 +244,7 @@ class MyFirebaseRef {
     
     //Remove a user from authentication, storage, and database.
     class func deleteUser(userId: String) -> Promise<Void> {
+        //TODO: Delete all bets when a user deletes their account.
         return Promise { fulfill, reject in
             Auth.auth().currentUser?.delete(completion: { (err) in
                 if err != nil {

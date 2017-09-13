@@ -64,7 +64,7 @@ class NotificationService {
     
 }
 
-/* Groups that a user can subscribe to. */
+/* Groups that a user can subscribe to. Topics must be exact between Web, iOS, and Android */
 struct Topics {
     struct Games {
         static let NewGame: String = "NEW_GAME"

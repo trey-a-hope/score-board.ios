@@ -75,7 +75,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         Messaging.messaging().setAPNSToken(deviceToken, type: MessagingAPNSTokenType.sandbox)
         Messaging.messaging().setAPNSToken(deviceToken, type: MessagingAPNSTokenType.prod)
     }
-
 }
 
 extension AppDelegate : MessagingDelegate {
