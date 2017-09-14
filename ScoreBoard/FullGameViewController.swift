@@ -18,7 +18,6 @@ class FullGameViewController: UIViewController {
     @IBOutlet weak var awayTeamDigit: UILabel!
     //Current Bets
     @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var betTitle: UILabel!
     //Place New Bet
     var betCost: Double = 1.00
     @IBOutlet weak var betCostLabel: UILabel!
@@ -64,18 +63,18 @@ class FullGameViewController: UIViewController {
         let XIBCell = UINib.init(nibName: "BetCell", bundle: nil)
         collectionView.register(XIBCell, forCellWithReuseIdentifier: CellIdentifier)
         
-        /* Refresh Button */
-        let refreshButton = UIBarButtonItem(
+        /* Share Button */
+        let shareButton = UIBarButtonItem(
             title: "Share",
             style: .plain,
             target: self,
             action: #selector(FullGameViewController.share)
         )
-        refreshButton.setTitleTextAttributes(Constants.FONT_AWESOME_ATTRIBUTES, for: .normal)
-        refreshButton.title = String.fontAwesomeIcon(name: .shareAlt)
-        refreshButton.tintColor = .white
+        shareButton.setTitleTextAttributes(Constants.FONT_AWESOME_ATTRIBUTES, for: .normal)
+        shareButton.title = String.fontAwesomeIcon(name: .shareAlt)
+        shareButton.tintColor = .white
         /* Add buttons to nav bar */
-        navigationItem.setRightBarButtonItems([refreshButton], animated: false)
+        navigationItem.setRightBarButtonItems([shareButton], animated: false)
         
     }
     
@@ -138,22 +137,22 @@ class FullGameViewController: UIViewController {
     
     func setUI() -> Void {
         //Set bet count for label.
-        if(self.bets.count == 0){
-            self.betTitle.text = "No Bets"
-        }
-        else if(self.bets.count == 1){
-            self.betTitle.text = String(describing: self.bets.count) + " Bet"
-        }else{
-            self.betTitle.text = String(describing: self.bets.count) + " Bets"
-        }
-        
-        //Calculate bet cost (1 + ( 2 * numberOfBets) ).
-        self.betCost = 1.00
-        for bet in self.bets{
-            if(bet.userId == SessionManager.getUserId()){
-                self.betCost += 2
-            }
-        }
+//        if(self.bets.count == 0){
+//            self.betTitle.text = "No Bets"
+//        }
+//        else if(self.bets.count == 1){
+//            self.betTitle.text = String(describing: self.bets.count) + " Bet"
+//        }else{
+//            self.betTitle.text = String(describing: self.bets.count) + " Bets"
+//        }
+//        
+//        //Calculate bet cost (1 + ( 2 * numberOfBets) ).
+//        self.betCost = 1.00
+//        for bet in self.bets{
+//            if(bet.userId == SessionManager.getUserId()){
+//                self.betCost += 2
+//            }
+//        }
         
         //Set Bet Cost
         betCostLabel.text = String(format: "$%.02f", betCost)

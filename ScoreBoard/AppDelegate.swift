@@ -2,6 +2,8 @@ import UIKit
 import Firebase
 import UserNotifications
 
+//https://makeappicon.com/ (for icons)
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     
