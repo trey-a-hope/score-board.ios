@@ -32,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         UITabBar.appearance().tintColor = .white
         //Nav Bar
         UINavigationBar.appearance().barTintColor = Constants.primaryColor
-        UINavigationBar.appearance().tintColor = UIColor.white
+        UINavigationBar.appearance().tintColor = .white
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName:UIColor.white]
         //Status Bar
         UIApplication.shared.statusBarStyle = .lightContent
