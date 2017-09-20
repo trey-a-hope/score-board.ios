@@ -426,7 +426,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ScoreBoard/HomeTabBarController.swift"
-            timestampString = "527572819.455098"
+            timestampString = "527610921.603956"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "9"
@@ -500,7 +500,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ScoreBoard/HomeTabBarController.swift"
-            timestampString = "527572819.455453"
+            timestampString = "527610921.604467"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "11"
@@ -710,6 +710,22 @@
             startingLineNumber = "72"
             endingLineNumber = "72"
             landmarkName = "messaging(_:didRefreshRegistrationToken:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ScoreBoard/SearchViewController.swift"
+            timestampString = "527610921.605033"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "65"
+            endingLineNumber = "65"
+            landmarkName = "showSearchBar(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
