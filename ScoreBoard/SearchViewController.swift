@@ -1,7 +1,7 @@
 import UIKit
 
 class SearchViewController: UIViewController {
-    let searchController = UISearchController(searchResultsController: nil)
+    let searchBar: UISearchBar = UISearchBar()
     var searchButton: UIBarButtonItem!
     var thisViewController: UIViewController{
         return (self.navigationController?.visibleViewController)!
@@ -30,12 +30,14 @@ class SearchViewController: UIViewController {
         )
         
         //Configure searchbar.
-        searchController.searchResultsUpdater = self
-        searchController.searchBar.delegate = self
-        searchController.dimsBackgroundDuringPresentation = false
-        searchController.searchBar.showsCancelButton = true
-        searchController.searchBar.placeholder = "Search"
-        searchController.hidesNavigationBarDuringPresentation = false;
+        let frame = CGRect(x: 0, y: 0, width: 200, height: 40)
+        let titleView = UIView(frame: frame)
+        searchBar.delegate = self
+        searchBar.showsCancelButton = true
+        searchBar.placeholder = "Search"
+        searchBar.backgroundImage = UIImage()
+        searchBar.frame = frame
+        titleView.addSubview(searchBar)
     }
     
     func reInitUI() -> Void {
@@ -45,46 +47,37 @@ class SearchViewController: UIViewController {
     }
 }
 
-extension SearchViewController : UISearchResultsUpdating {
-    
-    func filterContentForSearchText(_ searchText: String, _ scope: String = "All") {
-        //        filteredHighSchools = highSchools.filter { highSchool in
-        //            return highSchool.name.lowercased().range(of: searchText.lowercased()) != nil
-        //        }
-        //        self.collectionView.reloadData()
-    }
-    
-    func updateSearchResults(for searchController: UISearchController) {
-        self.filterContentForSearchText(searchController.searchBar.text!)
-    }
-}
-
 extension SearchViewController : UISearchBarDelegate {
-    /* Show search bar. */
+    //Show search bar
     func showSearchBar(_ sender: UIBarButtonItem!) -> Void {
-        searchController.searchBar.setShowsCancelButton(true, animated: true)
         thisViewController.navigationItem.setHidesBackButton(true, animated:true)
-        thisViewController.navigationItem.titleView = searchController.searchBar
+        thisViewController.navigationItem.titleView = searchBar
         thisViewController.navigationItem.rightBarButtonItems = nil
         thisViewController.navigationItem.leftBarButtonItems = nil
     }
     
-    /* Hide search bar. */
+    //Hide search bar
     func hideSearchBar() -> Void {
         /* Add buttons to navbar. */
         thisViewController.navigationItem.setRightBarButtonItems([searchButton], animated: true)
         thisViewController.navigationItem.titleView = nil
-        searchController.searchBar.text = ""
-        searchController.searchBar.endEditing(true)
+        searchBar.text = ""
+        searchBar.endEditing(true)
     }
     
-    /* Cancel button function. */
+    //Cancel button function
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         self.hideSearchBar()
     }
     
-    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
-        self.filterContentForSearchText(searchBar.text!)
+    //Text on change function for searchbar.
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) -> Void {
+        self.filterContentForSearchText(searchText)
+    }
+    
+    //Filter data in tableview.
+    func filterContentForSearchText(_ searchText: String) -> Void {
+        //TODO:
     }
 }
 
