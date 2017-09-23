@@ -6,7 +6,6 @@
 //  Website: http://www.artemkrachulov.com/
 //
 
-import SwiftSpinner
 import UIKit
 
 final class ImageViewController: UIViewController {
@@ -33,14 +32,14 @@ final class ImageViewController: UIViewController {
     }
     
     @IBAction func doneAction(_ sender: UIButton) {
-        SwiftSpinner.show("Uploading image...")
+        //SwiftSpinner.show("Uploading image...")
         MyFirebaseRef.updateProfilePicture(userId: SessionManager.getUserId(), image: image)
             .then{ () -> Void in
                 _ = self.navigationController?.popToViewController(self.navigationController!.viewControllers[0], animated: true)
             }.catch{ (error) in
                 ModalService.showError(title: "Error", message: error.localizedDescription)
             }.always{
-                SwiftSpinner.hide()
+                //SwiftSpinner.hide()
         }
     }
     

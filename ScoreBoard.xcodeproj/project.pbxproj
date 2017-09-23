@@ -35,6 +35,7 @@
 		0C98D2351F5FAF2600D8BBAD /* BetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C98D2331F5FAF2600D8BBAD /* BetCell.xib */; };
 		0CA5BF301F5F1B13009D0236 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA5BF2F1F5F1B13009D0236 /* Constants.swift */; };
 		0CA5BF331F5F1BB7009D0236 /* NBATeam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA5BF321F5F1BB7009D0236 /* NBATeam.swift */; };
+		0CAB26DA1F770D6D00B8EBC1 /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CAB26D91F770D6D00B8EBC1 /* MessagesViewController.swift */; };
 		0CC563711F4DF9070088057C /* HomeTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC563701F4DF9070088057C /* HomeTabBarController.swift */; };
 		0CC563731F4DFD480088057C /* GamesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC563721F4DFD480088057C /* GamesViewController.swift */; };
 		0CC563751F4DFD9A0088057C /* ModalService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC563741F4DFD9A0088057C /* ModalService.swift */; };
@@ -106,6 +107,7 @@
 		0C98D2331F5FAF2600D8BBAD /* BetCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BetCell.xib; sourceTree = "<group>"; };
 		0CA5BF2F1F5F1B13009D0236 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		0CA5BF321F5F1BB7009D0236 /* NBATeam.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NBATeam.swift; sourceTree = "<group>"; };
+		0CAB26D91F770D6D00B8EBC1 /* MessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
 		0CC563701F4DF9070088057C /* HomeTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTabBarController.swift; sourceTree = "<group>"; };
 		0CC563721F4DFD480088057C /* GamesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GamesViewController.swift; sourceTree = "<group>"; };
 		0CC563741F4DFD9A0088057C /* ModalService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalService.swift; sourceTree = "<group>"; };
@@ -185,6 +187,7 @@
 		0C5F3A401F4E15C600516CFB /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				0CAB26D81F770D5D00B8EBC1 /* Messages */,
 				0C5F3A411F4E15D900516CFB /* ProfileViewController.swift */,
 			);
 			name = Profile;
@@ -287,6 +290,14 @@
 				0CA5BF321F5F1BB7009D0236 /* NBATeam.swift */,
 			);
 			name = Enums;
+			sourceTree = "<group>";
+		};
+		0CAB26D81F770D5D00B8EBC1 /* Messages */ = {
+			isa = PBXGroup;
+			children = (
+				0CAB26D91F770D6D00B8EBC1 /* MessagesViewController.swift */,
+			);
+			name = Messages;
 			sourceTree = "<group>";
 		};
 		0CC5636F1F4DF8ED0088057C /* Authentication */ = {
@@ -677,7 +688,6 @@
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SCLAlertView/SCLAlertView.framework",
 				"${BUILT_PRODUCTS_DIR}/Spring/Spring.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftSpinner/SwiftSpinner.framework",
 				"${BUILT_PRODUCTS_DIR}/Toaster/Toaster.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
@@ -706,7 +716,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SCLAlertView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Spring.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftSpinner.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toaster.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
@@ -747,6 +756,7 @@
 				0CC563791F4DFEC70088057C /* SignupViewController.swift in Sources */,
 				0C5F3A381F4E0EBB00516CFB /* ConversionService.swift in Sources */,
 				0CD96A041F65A11500B183C8 /* NotificationService.swift in Sources */,
+				0CAB26DA1F770D6D00B8EBC1 /* MessagesViewController.swift in Sources */,
 				0C98D2341F5FAF2600D8BBAD /* BetCell.swift in Sources */,
 				0C5F3A3D1F4E11C200516CFB /* SessionManager.swift in Sources */,
 				0CF611661F62EA5A00A46EB0 /* GMPalette.swift in Sources */,
@@ -927,7 +937,7 @@
 				CODE_SIGN_ENTITLEMENTS = ScoreBoard/ScoreBoard.entitlements;
 				DEVELOPMENT_TEAM = AYXEVPG9Z5;
 				INFOPLIST_FILE = ScoreBoard/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = CPP.ScoreBoard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -944,7 +954,7 @@
 				CODE_SIGN_ENTITLEMENTS = ScoreBoard/ScoreBoard.entitlements;
 				DEVELOPMENT_TEAM = AYXEVPG9Z5;
 				INFOPLIST_FILE = ScoreBoard/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = CPP.ScoreBoard;
 				PRODUCT_NAME = "$(TARGET_NAME)";

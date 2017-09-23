@@ -6,7 +6,6 @@ import Material
 import PopupDialog
 import PromiseKit
 import Kingfisher
-import SwiftSpinner
 import UIKit
 
 class ProfileViewController: UIViewController {
@@ -18,12 +17,20 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var currentBetsLabel: UILabel!
     @IBOutlet weak var betsWonLabel: UILabel!
     
+    //Navbar buttons
+    var messagesButton: UIBarButtonItem!
+    var editProfileButton: UIBarButtonItem!
+    var addCashButton: UIBarButtonItem!
+    
     let imagePicker = UIImagePickerController()
     let BetCellWidth: CGFloat = CGFloat(175)
     let CellIdentifier: String = "Cell"
     var userId: String?
     var user: User?
-    fileprivate var myBets: [BetView] = [BetView]()
+    var myBets: [BetView] = [BetView]()
+    
+    let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+    
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(ProfileViewController.getUser), for: UIControlEvents.valueChanged)
@@ -46,111 +53,131 @@ class ProfileViewController: UIViewController {
         //Display navbar on return from image picker.
         navigationController?.setNavigationBarHidden(false, animated: true)
         
-        self.navigationController?.visibleViewController?.title = "Profile"
+        navigationController?.visibleViewController?.title = "Profile"
         
         //If currently viewing your own profile, add "edit profile" and "message" buttons.
         if(userId == SessionManager.getUserId()){
             setNavBarButtons()
         }
         
-
         getUser()
     }
 
     func initUI() -> Void {
+        //Configure imagepicker.
         imagePicker.delegate = self
         
+        //Add refresh control.
         self.scrollView.addSubview(self.refreshControl)
         
+        //Configure collection view.
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
-        
         let XIBCell = UINib.init(nibName: "BetCell", bundle: nil)
         collectionView.register(XIBCell, forCellWithReuseIdentifier: CellIdentifier)
         
+        //Configure profile imageview.
         profileImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(updateProfilePicture)))
         profileImage.isUserInteractionEnabled = true
+        
+        //Messages Button
+        messagesButton = UIBarButtonItem(
+            title: "Add",
+            style: .plain,
+            target: self,
+            action: #selector(ProfileViewController.openMessages)
+        )
+        messagesButton.setTitleTextAttributes(Constants.FONT_AWESOME_ATTRIBUTES, for: .normal)
+        messagesButton.title = String.fontAwesomeIcon(name: .envelope)
+        messagesButton.tintColor = .white
+        
+        //Edit Profile Button
+        editProfileButton = UIBarButtonItem(
+            title: "Add",
+            style: .plain,
+            target: self,
+            action: #selector(ProfileViewController.openEditProfile)
+        )
+        editProfileButton.setTitleTextAttributes(Constants.FONT_AWESOME_ATTRIBUTES, for: .normal)
+        editProfileButton.title = String.fontAwesomeIcon(name: .pencil)
+        editProfileButton.tintColor = .white
+        
+        //Add Cash Button
+        addCashButton = UIBarButtonItem(
+            title: "Add",
+            style: .plain,
+            target: self,
+            action: #selector(ProfileViewController.addCash)
+        )
+        addCashButton.setTitleTextAttributes(Constants.FONT_AWESOME_ATTRIBUTES, for: .normal)
+        addCashButton.title = String.fontAwesomeIcon(name: .money)
+        addCashButton.tintColor = .white
     }
     
     func getUser() -> Void {
-        //If viewing another person's profile.
+        //If viewing another person's profile, user their userId. Otherwise, use yours.
         if let _ = userId {}
-        else{
-            userId = SessionManager.getUserId()
-        }
+        else{userId = SessionManager.getUserId()}
         
-        SwiftSpinner.show("Loading...")
+        //SwiftSpinner.show("Loading...")
         MyFirebaseRef.getUserByID(id: userId!)
             .then{ (user) -> Void in
-                
                 self.user = user
                 self.getBets()
-                
-            }.catch{ (error) in
-                
             }.always{
-                SwiftSpinner.hide()
+                //SwiftSpinner.hide()
             }
     }
     
-    
     func getBets() -> Void {
-        SwiftSpinner.show("Getting bets...")
+        //SwiftSpinner.show("Getting bets...")
         MyFirebaseRef.getGames()
-            .then{ (gameBundles) -> Void in
-    
+            .then{ (games) -> Void in
                 //Clear bets.
                 self.myBets.removeAll()
-                    
                 //Determine which bets are mines.
-                for gameBundle in gameBundles {
-                    for bet in gameBundle.bets {
+                for game in games {
+                    for bet in game.bets {
                         if(bet.userId == self.userId){
                             self.myBets.append(
                                 BetView(
-                                    homeTeam: NBATeamService.instance.getTeam(id: gameBundle.game.homeTeamId ),
-                                    awayTeam: NBATeamService.instance.getTeam(id: gameBundle.game.awayTeamId ),
+                                    homeTeam: NBATeamService.instance.getTeam(id: game.homeTeamId ),
+                                    awayTeam: NBATeamService.instance.getTeam(id: game.awayTeamId ),
                                     bet: bet,
-                                    gameId: gameBundle.game.id)
+                                    gameId: game.id)
                                 )
                         }
                     }
                 }
-                    
                 //Sort Bets by time.
                 self.myBets = self.myBets.sorted(by: { $0.bet.postDateTime > $1.bet.postDateTime })
-                
                 self.setUI()
-                    
-            }.catch{ (error) in
-                    
             }.always{
-                    
                 self.collectionView.reloadData()
                 self.refreshControl.endRefreshing()
-                SwiftSpinner.hide()
-                    
+                //SwiftSpinner.hide()
         }
     }
     
     func addCash() -> Void {
-        SwiftSpinner.show("Adding Cash...")
+        //SwiftSpinner.show("Adding Cash...")
         MyFirebaseRef.addCashToUser(userId: SessionManager.getUserId(), cashToAdd: 10.00)
             .then{ () -> Void in
                 ModalService.showSuccess(title: "Success", message: "Added $10 to your account, (refresh page).")
             }.catch{ (error) in
                 ModalService.showError(title: "Sorry", message: "Could not add money to your account.")
             }.always{
-                SwiftSpinner.hide()
+                //SwiftSpinner.hide()
             }
     }
     
-    func editProfile() -> Void {
+    func openEditProfile() -> Void {
         ModalService.showInfo(title: "Edit Profile", message: "Coming Soon...")
     }
     
-    func messages() -> Void {
-        ModalService.showInfo(title: "Messages", message: "Coming Soon...")
+    func openMessages() -> Void {
+        let messagesViewController = storyBoard.instantiateViewController(withIdentifier: "MessagesViewController") as! MessagesViewController
+        navigationController?.pushViewController(messagesViewController, animated: true)
     }
     
     func updateProfilePicture() -> Void {
@@ -172,39 +199,8 @@ class ProfileViewController: UIViewController {
     }
     
     func setNavBarButtons() -> Void {
-
-        /* Messages Button */
-        let messagesButton = UIBarButtonItem(
-            title: "Add",
-            style: .plain,
-            target: self,
-            action: #selector(ProfileViewController.messages)
-        )
-        messagesButton.setTitleTextAttributes(Constants.FONT_AWESOME_ATTRIBUTES, for: .normal)
-        messagesButton.title = String.fontAwesomeIcon(name: .envelope)
-        messagesButton.tintColor = .white
-        /* Edit Profile Button */
-        let editProfileButton = UIBarButtonItem(
-            title: "Add",
-            style: .plain,
-            target: self,
-            action: #selector(ProfileViewController.editProfile)
-        )
-        editProfileButton.setTitleTextAttributes(Constants.FONT_AWESOME_ATTRIBUTES, for: .normal)
-        editProfileButton.title = String.fontAwesomeIcon(name: .pencil)
-        editProfileButton.tintColor = .white
-        /* Add Cash Button */
-        let addCashButton = UIBarButtonItem(
-            title: "Add",
-            style: .plain,
-            target: self,
-            action: #selector(ProfileViewController.addCash)
-        )
-        addCashButton.setTitleTextAttributes(Constants.FONT_AWESOME_ATTRIBUTES, for: .normal)
-        addCashButton.title = String.fontAwesomeIcon(name: .money)
-        addCashButton.tintColor = .white
         /* Apply buttons to navbar. */
-        self.navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([messagesButton, editProfileButton, addCashButton], animated: true)
+        navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([messagesButton, editProfileButton, addCashButton], animated: true)
     }
 
     func setUserName() -> Void {

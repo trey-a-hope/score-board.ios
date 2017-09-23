@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3D51FC44EE0923EC22BD9B91CFB972C4"
+               BlueprintIdentifier = "BBB085E32DE24725C6D0E19525979FBB"
                BuildableName = "Pods_ScoreBoard.framework"
                BlueprintName = "Pods-ScoreBoard"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -26,6 +26,7 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      language = ""
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
@@ -36,6 +37,7 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      language = ""
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
@@ -45,7 +47,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3D51FC44EE0923EC22BD9B91CFB972C4"
+            BlueprintIdentifier = "BBB085E32DE24725C6D0E19525979FBB"
             BuildableName = "Pods_ScoreBoard.framework"
             BlueprintName = "Pods-ScoreBoard"
             ReferencedContainer = "container:Pods.xcodeproj">

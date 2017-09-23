@@ -1,4 +1,3 @@
-import SwiftSpinner
 import UIKit
 
 class SettingsTableViewController: UITableViewController {
@@ -57,7 +56,7 @@ class SettingsTableViewController: UITableViewController {
                         ModalService.showConfirm(title: "Delete Account", message: "Are you sure?", confirmText: "Yes", cancelText: "No")
                             .then{() -> Void in
                                 
-                                SwiftSpinner.show("Deleting Profile...")
+                                //SwiftSpinner.show("Deleting Profile...")
                                 MyFirebaseRef.deleteUser(userId: SessionManager.getUserId())
                                     .then{ () -> Void in
                                         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
@@ -67,7 +66,7 @@ class SettingsTableViewController: UITableViewController {
                                     }.catch{ (error) in
                                         ModalService.showError(title: "Sorry", message: error.localizedDescription)
                                     }.always {
-                                        SwiftSpinner.hide()
+                                        //SwiftSpinner.hide()
                                 }
                                 
                             }.catch{ (error) in

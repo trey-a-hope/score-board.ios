@@ -1,10 +1,11 @@
 import PopupDialog
 import PromiseKit
-import SwiftSpinner
 import UIKit
 
 class FullGameViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    
     //Info
     @IBOutlet weak var homeTeamImage: UIImageView!
     @IBOutlet weak var homeTeamView: UIView!
@@ -16,8 +17,10 @@ class FullGameViewController: UIViewController {
     @IBOutlet weak var awayTeamCity: UILabel!
     @IBOutlet weak var awayTeamName: UILabel!
     @IBOutlet weak var awayTeamDigit: UILabel!
+    
     //Current Bets
     @IBOutlet weak var collectionView: UICollectionView!
+    
     //Place New Bet
     var betCost: Double = 1.00
     @IBOutlet weak var betCostLabel: UILabel!
@@ -29,19 +32,20 @@ class FullGameViewController: UIViewController {
     @IBOutlet weak var newBetAwayDigit: UILabel!
     @IBOutlet weak var submit: UIButton!
     
+    //Navbar buttons
+    var shareButton: UIBarButtonItem!
+    
+    var homeTeam: NBATeam!
+    var awayTeam: NBATeam!
+    var gameId: String!
+    var game: Game = Game()
+    let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+    
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(FullGameViewController.getGame), for: UIControlEvents.valueChanged)
         return refreshControl
     }()
-
-    let CellIdentifier: String = "Cell"
-    let BetCellWidth: CGFloat = CGFloat(175)
-    var game: Game = Game()
-    var homeTeam: NBATeam?
-    var awayTeam: NBATeam?
-    var bets: [Bet] = [Bet]()
-    public var gameId: String?//Passed from the GamesViewController.
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,10 +65,10 @@ class FullGameViewController: UIViewController {
         collectionView.dataSource = self
         
         let XIBCell = UINib.init(nibName: "BetCell", bundle: nil)
-        collectionView.register(XIBCell, forCellWithReuseIdentifier: CellIdentifier)
+        collectionView.register(XIBCell, forCellWithReuseIdentifier: "Cell")
         
-        /* Share Button */
-        let shareButton = UIBarButtonItem(
+        //Share Button
+        shareButton = UIBarButtonItem(
             title: "Share",
             style: .plain,
             target: self,
@@ -73,51 +77,39 @@ class FullGameViewController: UIViewController {
         shareButton.setTitleTextAttributes(Constants.FONT_AWESOME_ATTRIBUTES, for: .normal)
         shareButton.title = String.fontAwesomeIcon(name: .shareAlt)
         shareButton.tintColor = .white
-        /* Add buttons to nav bar */
-        navigationItem.setRightBarButtonItems([shareButton], animated: false)
         
+        //Add buttons to nav bar
+        navigationItem.setRightBarButtonItems([shareButton], animated: false)
     }
     
     func getGame() -> Void {
-        //Get game.
-        SwiftSpinner.show("Loading game...")
+        spinner.startAnimating()
         MyFirebaseRef.getGame(gameId: gameId!)
-            .then{ (gameBundle) -> Void in
-                self.game = gameBundle.game
-                self.bets = gameBundle.bets
+            .then{ (game) -> Void in
+                self.game = game
                 
                 //Set home/away teams
                 self.homeTeam = NBATeamService.instance.getTeam(id: self.game.homeTeamId)
                 self.awayTeam = NBATeamService.instance.getTeam(id: self.game.awayTeamId)
 
-                SwiftSpinner.show("Getting bets...")
                 self.getUsersInfoForBets()
                     .then{ () -> Void in
                         self.setUI()
-                    }.catch{ (error) in
-                        
-                    }.always{
                         self.refreshControl.endRefreshing()
-                        SwiftSpinner.hide()
-                    }
-            }.catch{ (error) in
-                ModalService.showError(title: "Sorry", message: error.localizedDescription)
-            }
-            .always {
-                SwiftSpinner.hide()
-            }
+                        self.spinner.stopAnimating()
+                        self.spinner.isHidden = true
+                    }.always{}
+            }.always {}
     }
     
     func getUsersInfoForBets() -> Promise<Void> {
-        //Get bets for game.
-        SwiftSpinner.show("Getting bets...")
         return Promise { fulfill, reject in
-            if(self.bets.isEmpty){
+            if(game.bets.isEmpty){
                 fulfill()
             }
             
             var count: Int = 0
-            for bet in self.bets {
+            for bet in self.game.bets {
                 MyFirebaseRef.getUserByID(id: bet.userId)
                     .then{ (user) -> Void in
                         bet.user = user
@@ -127,7 +119,7 @@ class FullGameViewController: UIViewController {
                     }.always{
                         count += 1
 
-                        if(count == self.bets.count){
+                        if(count == self.game.bets.count){
                             fulfill()
                         }
                     }
@@ -145,22 +137,22 @@ class FullGameViewController: UIViewController {
 //        }else{
 //            self.betTitle.text = String(describing: self.bets.count) + " Bets"
 //        }
-//        
-//        //Calculate bet cost (1 + ( 2 * numberOfBets) ).
-//        self.betCost = 1.00
-//        for bet in self.bets{
-//            if(bet.userId == SessionManager.getUserId()){
-//                self.betCost += 2
-//            }
-//        }
+        
+        //Calculate bet cost (1 + ( 2 * numberOfBets) ).
+        self.betCost = 1.00
+        for bet in game.bets{
+            if(bet.userId == SessionManager.getUserId()){
+                self.betCost += 2
+            }
+        }
         
         //Set Bet Cost
         betCostLabel.text = String(format: "$%.02f", betCost)
         
         //Sort Bets by time.
-        self.bets = self.bets.sorted(by: { $0.postDateTime > $1.postDateTime })
+        game.bets = game.bets.sorted(by: { $0.postDateTime > $1.postDateTime })
         
-        self.collectionView.reloadData()
+        collectionView.reloadData()
 
         //Home Team Digit
         homeTeamDigit.text = "5"
@@ -231,7 +223,7 @@ class FullGameViewController: UIViewController {
 
                 ModalService.showConfirm(title: title, message: message, confirmText: "Confirm", cancelText: "Cancel")
                     .then{() -> Void in
-                        SwiftSpinner.show("Placing Bet...")
+                        //SwiftSpinner.show("Placing Bet...")
                         //Create bet.
                         let bet: Bet = Bet()
                         bet.userId = SessionManager.getUserId()
@@ -248,11 +240,11 @@ class FullGameViewController: UIViewController {
                                     }.catch{ (error) in
                                         ModalService.showError(title: "Error", message: error.localizedDescription)
                                     }.always{
-                                        SwiftSpinner.hide()
+                                        //SwiftSpinner.hide()
                                 }
                             }.catch{ (error) in
                                 ModalService.showError(title: "Sorry", message: "You need more money to place this bet.")
-                                SwiftSpinner.hide()
+                                //SwiftSpinner.hide()
                             }.always {
                                 
                             }
@@ -272,7 +264,7 @@ class FullGameViewController: UIViewController {
     }
     
     func betTaken(homeDigit: Int, awayDigit: Int) -> Bool {
-        for bet in bets {
+        for bet in game.bets {
             if(bet.homeDigit == homeDigit && bet.awayDigit == awayDigit){
                 return true
             }
@@ -282,13 +274,13 @@ class FullGameViewController: UIViewController {
 }
 
 extension FullGameViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-    /* Child section dimensions. */
+    //Child section dimensions.
     func collectionView(
         _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        /* NOTE: Height here should always equal height in XIB file. */
-        return CGSize(width: BetCellWidth, height: collectionView.bounds.height)
+        //NOTE: Height here should always equal height in XIB file.
+        return CGSize(width: CGFloat(175), height: collectionView.bounds.height)
     }
     
     func collectionView(
@@ -314,18 +306,17 @@ extension FullGameViewController: UICollectionViewDelegate, UICollectionViewDele
 }
 
 extension FullGameViewController: UICollectionViewDataSource {
-    /* Collection View Data Source Methods. */
+    //Collection View Data Source Methods.
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return bets.count
+        return game.bets.count
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let selectedBet: Bet = bets[indexPath.row]
-        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        let selectedBet: Bet = game.bets[indexPath.row]
         let profileViewController = storyBoard.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
         profileViewController.userId = selectedBet.userId
         self.navigationController!.pushViewController(profileViewController, animated: true)
@@ -333,9 +324,9 @@ extension FullGameViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellIdentifier, for: indexPath) as? BetCell{
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as? BetCell{
             
-            let selectedBet: Bet = bets[indexPath.row]
+            let selectedBet: Bet = game.bets[indexPath.row]
             cell.userName.text = selectedBet.user.userName
             cell.userImage.kf.setImage(with: URL(string: selectedBet.user.imageDownloadUrl))
             cell.userImage.round(1, UIColor.black)

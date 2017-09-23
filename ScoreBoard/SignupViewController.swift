@@ -2,11 +2,9 @@ import Material
 import Firebase
 import FirebaseDatabase
 import Material
-import SwiftSpinner
 import UIKit
 
 class SignupViewController: UIViewController {
-    
     @IBOutlet weak var emailText: TextField!
     @IBOutlet weak var passwordText: TextField!
     @IBOutlet weak var usernameText: TextField!
@@ -14,7 +12,6 @@ class SignupViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         initUI()
     }
     
@@ -37,11 +34,11 @@ class SignupViewController: UIViewController {
             ModalService.showError(title: "Error", message: "Invalid email.")
         }
         else{
-            SwiftSpinner.show("Signing up...")
+            //SwiftSpinner.show("Signing up...")
             Auth.auth().createUser(withEmail: email, password: password, completion: { (user, error) in
                 //If error, display message.
                 if error != nil {
-                    SwiftSpinner.hide()
+                    //SwiftSpinner.hide()
                     ModalService.showError(title: "Error", message: (error?.localizedDescription)!)
                     return
                 }
@@ -60,7 +57,7 @@ class SignupViewController: UIViewController {
                     }.catch{ (error) in
                         SessionManager.signOut()
                     }.always{
-                        SwiftSpinner.hide()
+                        //SwiftSpinner.hide()
                     }
             })
         }

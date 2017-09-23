@@ -1,4 +1,3 @@
-import SwiftSpinner
 import UIKit
 
 class HomeViewController: UIViewController {
@@ -6,11 +5,11 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var awayTeamImage: UIImageView!
     @IBOutlet weak var scrollView: UIScrollView!
     
-    var gameBundles: [(game: Game, bets: [Bet])]!
+    var games: [Game]!
     
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(HomeViewController.loadHomeData), for: UIControlEvents.valueChanged)
+        refreshControl.addTarget(self, action: #selector(HomeViewController.getGames), for: UIControlEvents.valueChanged)
         return refreshControl
     }()
     
@@ -18,7 +17,8 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         
         if(ConnectionManager.isConnectedToInternet()){
-            loadHomeData()
+            self.scrollView.addSubview(self.refreshControl)
+            getGames()
         }else{
             ModalService.showError(title: "Error", message: "No internet connection.")
         }
@@ -26,36 +26,29 @@ class HomeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         reInitUI()
     }
     
-    func loadHomeData() -> Void {
-        SwiftSpinner.show("Loading Home Page...")
-        
-        self.scrollView.addSubview(self.refreshControl)
-        getGameBundles()
-    }
     
-    func getGameBundles() -> Void {
+    func getGames() -> Void {
         
         MyFirebaseRef.getGames()
-            .then{ (gameBundles) -> Void in
-                self.gameBundles = gameBundles
+            .then{ (games) -> Void in
+                self.games = games
                 
                 self.initUI()
             }.catch{ (error) in
                 
             }.always{
-                SwiftSpinner.hide()
+                //SwiftSpinner.hide()
                 self.refreshControl.endRefreshing()
             }
         
     }
     
     func initUI() -> Void {
-        let randomNum:UInt32 = arc4random_uniform(UInt32(self.gameBundles.count)) // range is 0 to 99
-        let topGame: Game = self.gameBundles[Int(randomNum)].game
+        let randomNum: UInt32 = arc4random_uniform(UInt32(self.games.count))
+        let topGame: Game = self.games[Int(randomNum)]
         
         let homeTeam = NBATeamService.instance.getTeam(id: topGame.homeTeamId)
         let awayTeam = NBATeamService.instance.getTeam(id: topGame.awayTeamId)
@@ -68,7 +61,7 @@ class HomeViewController: UIViewController {
     }
     
     func reInitUI() -> Void {
-        self.navigationController?.visibleViewController?.title = "ScorBord"
+        navigationController?.visibleViewController?.title = "ScorBord"
         setNavBarButtons()
     }
     

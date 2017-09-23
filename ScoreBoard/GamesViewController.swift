@@ -1,10 +1,11 @@
-import SwiftSpinner
 import UIKit
 
 class GamesViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
-    var games: [(game: Game, bets: [Bet])] = [(game: Game, bets: [Bet])]()
+    
+    var games: [Game] = [Game]()
+    
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(GamesViewController.getGames), for: UIControlEvents.valueChanged)
@@ -50,7 +51,7 @@ class GamesViewController: UIViewController {
     }
     
     func getGames() -> Void {
-        SwiftSpinner.show("Getting games...")
+        //SwiftSpinner.show("Getting games...")
         MyFirebaseRef.getGames()
             .then{ (games) -> Void in
             self.games = games
@@ -59,15 +60,15 @@ class GamesViewController: UIViewController {
             switch self.segmentedControl.selectedSegmentIndex {
                 //Pre Games
                 case 0:
-                    self.games = self.games.filter { $0.game.activeCode == 0 }
+                    self.games = self.games.filter { $0.activeCode == 0 }
                     break
                 //Active Games
                 case 1:
-                    self.games = self.games.filter { $0.game.activeCode == 1 }
+                    self.games = self.games.filter { $0.activeCode == 1 }
                     break
                 //Post Games
                 case 2:
-                    self.games = self.games.filter { $0.game.activeCode == 2 }
+                    self.games = self.games.filter { $0.activeCode == 2 }
                     break
                 default:break
             }
@@ -78,7 +79,7 @@ class GamesViewController: UIViewController {
         }
         .always {
             self.refreshControl.endRefreshing()
-            SwiftSpinner.hide()
+            //SwiftSpinner.hide()
         }
     }
     
@@ -103,23 +104,23 @@ extension GamesViewController : UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let game: (game: Game, bets: [Bet]) = games[indexPath.row]
+        let game: Game = games[indexPath.row]
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
         let fullGameViewController = storyBoard.instantiateViewController(withIdentifier: "FullGameViewController") as! FullGameViewController
-        fullGameViewController.gameId = game.game.id
+        fullGameViewController.gameId = game.id
         self.navigationController?.pushViewController(fullGameViewController, animated: true)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "GameTableViewCell", for: indexPath as IndexPath) as? GameTableViewCell{
-            let game: (game: Game, bets: [Bet]) = games[indexPath.row]
+            let game: Game = games[indexPath.row]
             
-            let homeTeam: NBATeam = NBATeamService.instance.getTeam(id: game.game.homeTeamId)
-            let awayTeam: NBATeam = NBATeamService.instance.getTeam(id: game.game.awayTeamId)
+            let homeTeam: NBATeam = NBATeamService.instance.getTeam(id: game.homeTeamId)
+            let awayTeam: NBATeam = NBATeamService.instance.getTeam(id: game.awayTeamId)
 
             cell.title.text = homeTeam.name + " vs. " + awayTeam.name
-            cell.start.text = ConversionService.convertDateToString(game.game.startDateTime, DateFormatter.Style.long)
+            cell.start.text = ConversionService.convertDateToString(game.startDateTime, DateFormatter.Style.long)
             cell.homeTeamImage.round(0, UIColor.black)
             cell.homeTeamImage.kf.setImage(with: URL(string: homeTeam.imageDownloadUrl))
             cell.awayTeamImage.round(0, UIColor.black)
@@ -132,7 +133,7 @@ extension GamesViewController : UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt: IndexPath) -> [UITableViewRowAction]? {
-        let game: (game: Game, bets: [Bet]) = games[editActionsForRowAt.row]
+        let game: Game = games[editActionsForRowAt.row]
         
         //Mute conversation button.
         let mute = UITableViewRowAction(style: .normal, title: "Mute") { action, index in

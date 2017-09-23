@@ -29,22 +29,22 @@ class MyFirebaseRef {
 //    | |_| | | (_| | | | | | | | |  __/ \__ \
 //     \____|  \__,_| |_| |_| |_|  \___| |___/
     
-    /* Returns an array of all games and their number of bets */
-    class func getGames() -> Promise<[(game: Game, bets: [Bet])]>{
+    //Returns an array of all games and their number of bets
+    class func getGames() -> Promise<[Game]>{
         return Promise { fulfill, reject in
             ref.child(Table.Games).observeSingleEvent(of: .value, with: { (gameSnapshots) in
-                var games: [(game: Game, bets: [Bet])] = []
+                var games: [Game] = []
                 gameSnapshots.children.allObjects.forEach({ (gameSnapshot) in
                     games.append(extractGameData(gameSnapshot: gameSnapshot as! DataSnapshot))
                 })
-                /* Return camps */
+                //Return games
                 fulfill(games)
             })
         }
     }
     
-    /* Returns a single game and the number of bets. */
-    class func getGame(gameId: String) -> Promise<(game: Game, bets: [Bet])>{
+    //Returns a single game and the number of bets.
+    class func getGame(gameId: String) -> Promise<Game>{
         return Promise { fulfill, reject in
             ref.child(Table.Games).child(gameId).observeSingleEvent(of: .value, with: { (gameSnapshot) in
                 fulfill(extractGameData(gameSnapshot: gameSnapshot))
@@ -53,10 +53,9 @@ class MyFirebaseRef {
     }
     
     //Converts a dataSnapshot to a tuple of the game and the number of bets.
-    private class func extractGameData(gameSnapshot: DataSnapshot) -> (game: Game, bets: [Bet]) {
+    private class func extractGameData(gameSnapshot: DataSnapshot) -> Game {
         let value = gameSnapshot.value as! [String:Any]
         let game: Game = Game()
-        var bets: [Bet] = [Bet]()
         
         game.id = value["id"] as! String
         game.timeZoneOffSet = value["timeZoneOffSet"] as! Int
@@ -65,6 +64,7 @@ class MyFirebaseRef {
         game.homeTeamId = value["homeTeamId"] as! Int
         game.startDateTime = ConversionService.convertStringToDate(value["startDateTime"] as! String)
         game.activeCode = value["activeCode"] as! Int
+        
         let betSnapshots = value["bets"] as? [String:Any]
         
         //If this game has bets currently...
@@ -72,51 +72,31 @@ class MyFirebaseRef {
             
             for betSnapshot in betSnapshots! {
                 let betSnapshot = betSnapshot.value as! [String:Any]
-                let newBet: Bet = Bet()
-                newBet.id = betSnapshot["id"] as! String
-                newBet.postDateTime = ConversionService.convertStringToDate(betSnapshot["postDateTime"] as! String)
-                newBet.timeZoneOffSet = value["timeZoneOffSet"] as! Int
-                newBet.userId = betSnapshot["userId"] as! String
-                newBet.awayDigit = betSnapshot["awayDigit"] as! Int
-                newBet.homeDigit = betSnapshot["homeDigit"] as! Int
-
-                bets.append(newBet)
+                let bet: Bet = Bet()
+                bet.id = betSnapshot["id"] as! String
+                bet.postDateTime = ConversionService.convertStringToDate(betSnapshot["postDateTime"] as! String)
+                bet.timeZoneOffSet = value["timeZoneOffSet"] as! Int
+                bet.userId = betSnapshot["userId"] as! String
+                bet.awayDigit = betSnapshot["awayDigit"] as! Int
+                bet.homeDigit = betSnapshot["homeDigit"] as! Int
+                
+                game.bets.append(bet)
             }
             
-            return (game, bets)
+            return (game)
 
         }
         
-        return (game, [])
+        return (game)
     }
-    
-//    private class func extractGameData2(gameSnapshot: DataSnapshot) -> (game: Game, bets: [Bet]) {
-//        let value = gameSnapshot.value as! [String:Any]
-//        let game: Game = Game()
-//        game.id = value["id"] as! String
-//        game.timeZoneOffSet = value["timeZoneOffSet"] as! Int
-//        game.postDateTime = ConversionService.convertStringToDate(value["postDateTime"] as! String)
-//        game.awayTeamId = value["awayTeamId"] as! Int
-//        game.homeTeamId = value["homeTeamId"] as! Int
-//        game.startDateTime = ConversionService.convertStringToDate(value["startDateTime"] as! String)
-//        game.activeCode = value["activeCode"] as! Int
-//        let bets = value["bets"] as? [String:Any]
-//        var betCount: Int = 0
-//        
-//        if let _ = bets {
-//            betCount = bets!.count
-//        }
-//        
-//        return (game, betCount)
-//    }
-    
+
 //     ____           _
 //    | __ )    ___  | |_   ___
 //    |  _ \   / _ \ | __| / __|
 //    | |_) | |  __/ | |_  \__ \
 //    |____/   \___|  \__| |___/
     
-    /* Returns an array of all bets for a game. */
+    //Returns an array of all bets for a game.
     class func getBets(gameId: String) -> Promise<[Bet]>{
         return Promise { fulfill, reject in
             ref.child(Table.Games).child(gameId).child("bets").observeSingleEvent(of: .value, with: { (betSnapshots) in
@@ -124,13 +104,13 @@ class MyFirebaseRef {
                 betSnapshots.children.allObjects.forEach({ (betSnapshot) in
                     bets.append(extractBetData(betSnapshot: betSnapshot as! DataSnapshot))
                 })
-                /* Return bets */
+                //Return bets
                 fulfill(bets)
             })
         }
     }
     
-    /* Returns a single bet. */
+    //Returns a single bet.
     class func getBet(gameId: String, betId: String) -> Promise<Bet>{
         return Promise { fulfill, reject in
             ref.child(Table.Games).child(gameId).child("bets").child(betId).observeSingleEvent(of: .value, with: { (betSnapshot) in
@@ -152,7 +132,7 @@ class MyFirebaseRef {
         return bet
     }
     
-    /* Returns id of new user after insertion. */
+    //Returns id of new user after insertion.
     class func createNewBet(gameId: String, bet: Bet) -> Promise<String> {
         return Promise{ fulfill, reject in
             let newBetRef: DatabaseReference = ref.child(Table.Games).child(gameId).child("bets").childByAutoId()
@@ -178,7 +158,7 @@ class MyFirebaseRef {
 //    | |_| | \__ \ |  __/ | |    \__ \
 //     \___/  |___/  \___| |_|    |___/
     
-    /* Returns user that matches facebook uid, (may return null). */
+    //Returns user that matches facebook uid, (may return null).
     class func getUserByEmail(email: String) -> Promise<User>{
         return Promise{ fulfill, reject in
             ref.child(Table.Users).queryOrdered(byChild: "email").queryEqual(toValue: email).observeSingleEvent(of: .value, with: { (userSnapShots) in
@@ -193,7 +173,7 @@ class MyFirebaseRef {
         }
     }
     
-    /* Params: ID | Returns: User */
+    //Params: ID | Returns: User
     class func getUserByID(id: String) -> Promise<User>{
         return Promise{ fulfill, reject in
             ref.child(Table.Users).child(id).observeSingleEvent(of: .value, with: { (userSnapShot) in
@@ -217,7 +197,7 @@ class MyFirebaseRef {
         return user
     }
     
-    /* Returns id of new user after insertion. */
+    //Returns id of new user after insertion.
     class func createNewUser(_ user: User) -> Promise<String> {
         return Promise{ fulfill, reject in
             let newUserRef: DatabaseReference = ref.child(Table.Users).childByAutoId()
@@ -287,7 +267,7 @@ class MyFirebaseRef {
         }
     }
     
-    /* Updates the current user's fcm token. */
+    //Updates the current user's fcm token.
     class func updateUserFCMToken(userId: String) -> Promise<Void> {
         return Promise { fulfill, reject in
             let fcmToken = Messaging.messaging().fcmToken
@@ -296,7 +276,7 @@ class MyFirebaseRef {
         }
     }
     
-    /* Returns a user's fcm token for push notifications. */
+    //Returns a user's fcm token for push notifications.
     class func getUserFCMToken(userId: String) -> Promise<String> {
         return Promise { fulfill, reject in
             ref.child(Table.Users).child(userId).child("fcmToken").observeSingleEvent(of: .value, with: { (fcmTokenSnapshot) in
