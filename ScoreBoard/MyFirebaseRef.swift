@@ -235,6 +235,7 @@ class MyFirebaseRef {
                     //Remove user image from storage.
                     storageRef.child("Images/Users/" + userId).delete { error in
                         if let error = error {
+                            print(error.localizedDescription)
                             //Most likely, the user never uploaded an image.
                         }
                         fulfill()

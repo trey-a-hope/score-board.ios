@@ -133,7 +133,7 @@ extension GamesViewController : UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt: IndexPath) -> [UITableViewRowAction]? {
-        let game: Game = games[editActionsForRowAt.row]
+        //let game: Game = games[editActionsForRowAt.row]
         
         //Mute conversation button.
         let mute = UITableViewRowAction(style: .normal, title: "Mute") { action, index in

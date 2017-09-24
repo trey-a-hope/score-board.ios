@@ -1,6 +1,8 @@
 import UIKit
 
 class SearchViewController: UIViewController {
+    @IBOutlet weak var tableView: UITableView!
+    
     let searchBar: UISearchBar = UISearchBar()
     var searchButton: UIBarButtonItem!
     var thisViewController: UIViewController{

@@ -329,7 +329,7 @@ extension ProfileViewController : UIImagePickerControllerDelegate {
         }
     }
     
-    func imagePickerControllerDidCancel(picker: UIImagePickerController) -> Void {
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) -> Void {
         dismiss(animated: true, completion: nil)
     }
 }
