@@ -306,7 +306,7 @@ extension ProfileViewController: UICollectionViewDataSource {
             cell.awayTeamImage.round(1, UIColor.black)
             cell.awayTeamDigit.text = String(describing: selectedBet.awayDigit!)
             
-            let d: Date = ConversionService.getDateInTimeZone(date: selectedBet.postDateTime, timeZoneOffset: selectedBet.timeZoneOffSet)
+            let d: Date = ConversionService.getDateInTimeZone(date: selectedBet.postDateTime, timeZoneOffset: selectedBet.postTimeZoneOffSet)
             cell.posted.text = ConversionService.timeAgoSinceDate(date: d)
             
             return cell

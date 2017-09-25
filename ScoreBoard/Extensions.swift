@@ -43,10 +43,17 @@ extension UIColor {
     }
 }
 
+//https://forbrains.co.uk/international_tools/earth_timezones
 extension Date {
+    //This does not account for daylight savings.
     func getTimeZoneOffset() -> Int {
         let seconds: Int = TimeZone.current.secondsFromGMT()
-        let minutes: Int = seconds/60
+        var minutes: Int = seconds/60
+        
+        if(ConversionService.isDaylightSavingTime()){
+            //Either add or subtract one hour.
+        }
+        
         return abs(minutes)
     }
 }

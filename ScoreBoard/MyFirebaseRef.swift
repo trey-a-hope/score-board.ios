@@ -58,12 +58,14 @@ class MyFirebaseRef {
         let game: Game = Game()
         
         game.id = value["id"] as! String
-        game.timeZoneOffSet = value["timeZoneOffSet"] as! Int
+        game.postTimeZoneOffSet = value["postTimeZoneOffSet"] as! Int
         game.postDateTime = ConversionService.convertStringToDate(value["postDateTime"] as! String)
         game.awayTeamId = value["awayTeamId"] as! Int
         game.homeTeamId = value["homeTeamId"] as! Int
+        game.startTimeZoneOffSet = value["startTimeZoneOffSet"] as! Int
         game.startDateTime = ConversionService.convertStringToDate(value["startDateTime"] as! String)
         game.activeCode = value["activeCode"] as! Int
+        game.potAmount = value["potAmount"] as! Double
         
         let betSnapshots = value["bets"] as? [String:Any]
         
@@ -75,7 +77,7 @@ class MyFirebaseRef {
                 let bet: Bet = Bet()
                 bet.id = betSnapshot["id"] as! String
                 bet.postDateTime = ConversionService.convertStringToDate(betSnapshot["postDateTime"] as! String)
-                bet.timeZoneOffSet = value["timeZoneOffSet"] as! Int
+                bet.postTimeZoneOffSet = value["postTimeZoneOffSet"] as! Int
                 bet.userId = betSnapshot["userId"] as! String
                 bet.awayDigit = betSnapshot["awayDigit"] as! Int
                 bet.homeDigit = betSnapshot["homeDigit"] as! Int
@@ -124,7 +126,7 @@ class MyFirebaseRef {
         let value = betSnapshot.value as! [String:Any]
         let bet: Bet = Bet()
         bet.id = value["id"] as! String
-        bet.timeZoneOffSet = value["timeZoneOffSet"] as! Int
+        bet.postTimeZoneOffSet = value["postTimeZoneOffSet"] as! Int
         bet.postDateTime = ConversionService.convertStringToDate(value["postDateTime"] as! String)
         bet.awayDigit = value["awayDigit"] as! Int
         bet.homeDigit = value["homeDigit"] as! Int
@@ -187,7 +189,7 @@ class MyFirebaseRef {
         let value = userSnapshot.value as! [String:Any]
         let user: User = User()
         user.id = value["id"] as! String
-        user.timeZoneOffSet = value["timeZoneOffSet"] as! Int
+        user.postTimeZoneOffSet = value["postTimeZoneOffSet"] as! Int
         user.postDateTime = ConversionService.convertStringToDate(value["postDateTime"] as! String)
         user.fcmToken = value["fcmToken"] as? String
         user.cash = value["cash"] as? Double
@@ -211,7 +213,7 @@ class MyFirebaseRef {
                 "cash"              : 25.00,
                 "imageDownloadUrl"  : "https://web.usask.ca/images/profile.jpg", //upload own "unwknown" image url.
                 "postDateTime"      : ConversionService.convertDateToFirebaseString(now),
-                "timeZoneOffSet"    : now.getTimeZoneOffset()
+                "postTimeZoneOffSet": now.getTimeZoneOffset()
             ]
             
             //Subscribe to all topics by default.
@@ -240,6 +242,18 @@ class MyFirebaseRef {
                         }
                         fulfill()
                     }
+                }
+            })
+        }
+    }
+    
+    class func userExists(id: String) -> Promise<Bool> {
+        return Promise{ fulfill, reject in
+            ref.child(Table.Users).child(id).observeSingleEvent(of: .value, with: { (userSnapshot) in
+                if(userSnapshot.exists()){
+                    fulfill(true)
+                }else{
+                    fulfill(false)
                 }
             })
         }

@@ -120,12 +120,16 @@ extension GamesViewController : UITableViewDataSource, UITableViewDelegate {
             let awayTeam: NBATeam = NBATeamService.instance.getTeam(id: game.awayTeamId)
 
             cell.title.text = homeTeam.name + " vs. " + awayTeam.name
-            cell.start.text = ConversionService.convertDateToString(game.startDateTime, DateFormatter.Style.long)
+            cell.potAmount.text = String(format: "$%.02f", game.potAmount) + " pot"
             cell.homeTeamImage.round(0, UIColor.black)
             cell.homeTeamImage.kf.setImage(with: URL(string: homeTeam.imageDownloadUrl))
             cell.awayTeamImage.round(0, UIColor.black)
             cell.awayTeamImage.kf.setImage(with: URL(string: awayTeam.imageDownloadUrl))
-            cell.betCount.text = String(describing: game.bets.count) + " bets"
+            if(game.bets.count == 1){
+                cell.betCount.text = "1 bet"
+            }else{
+                cell.betCount.text = String(describing: game.bets.count) + " bets"
+            }
             
             return cell
         }

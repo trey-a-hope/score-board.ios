@@ -19,6 +19,12 @@ class FullGameViewController: UIViewController {
     @IBOutlet weak var awayTeamDigit: UILabel!
     
     //Current Bets
+    @IBOutlet weak var startDateTime: UILabel!
+    @IBOutlet weak var totalBetCount: UILabel!
+    @IBOutlet weak var yourBetCount: UILabel!
+    @IBOutlet weak var potAmount: UILabel!
+    @IBOutlet weak var status: UILabel!
+    
     @IBOutlet weak var collectionView: UICollectionView!
     
     //Place New Bet
@@ -128,35 +134,27 @@ class FullGameViewController: UIViewController {
     }
     
     func setUI() -> Void {
-        //Set bet count for label.
-//        if(self.bets.count == 0){
-//            self.betTitle.text = "No Bets"
-//        }
-//        else if(self.bets.count == 1){
-//            self.betTitle.text = String(describing: self.bets.count) + " Bet"
-//        }else{
-//            self.betTitle.text = String(describing: self.bets.count) + " Bets"
-//        }
+        //Calculate bet cost (1 + ( 2 * numberOfBetUserHas) ).
+        betCost = 1.00
+        //Track number of bet the user has
+        var numberOfBetUserHas: Int = 0
         
-        //Calculate bet cost (1 + ( 2 * numberOfBets) ).
-        self.betCost = 1.00
         for bet in game.bets{
             if(bet.userId == SessionManager.getUserId()){
-                self.betCost += 2
+                betCost += 2
+                numberOfBetUserHas += 1
             }
         }
-        
         //Set Bet Cost
         betCostLabel.text = String(format: "$%.02f", betCost)
-        
         //Sort Bets by time.
         game.bets = game.bets.sorted(by: { $0.postDateTime > $1.postDateTime })
         
+        //Refresh table of bets.
         collectionView.reloadData()
 
         //Home Team Digit
         homeTeamDigit.text = "5"
-        
         //Home Team Image
         homeTeamImage.round(0, UIColor.black)
         homeTeamImage.kf.setImage(with: URL(string: homeTeam!.imageDownloadUrl))
@@ -164,20 +162,15 @@ class FullGameViewController: UIViewController {
         homeTeamImage.isUserInteractionEnabled = true
         newBetHomeTeamImage.round(0, UIColor.black)
         newBetHomeTeamImage.kf.setImage(with: URL(string: homeTeam!.imageDownloadUrl))
-        
         //Home Team City
         homeTeamCity.text = "Home - " + homeTeam!.city
-        
         //Home Team Name
         homeTeamName.text = homeTeam!.name
-        
         //Home Team View
         homeTeamView.backgroundColor = homeTeam!.backgroundColor
         
-        
         //Away Team Digit
         awayTeamDigit.text = "4"
-        
         //Away Team Image
         awayTeamImage.round(0, UIColor.black)
         awayTeamImage.kf.setImage(with: URL(string: (awayTeam!.imageDownloadUrl)!))
@@ -185,16 +178,81 @@ class FullGameViewController: UIViewController {
         awayTeamImage.isUserInteractionEnabled = true
         newBetAwayTeamImage.round(0, UIColor.black)
         newBetAwayTeamImage.kf.setImage(with: URL(string: awayTeam!.imageDownloadUrl))
-        
         //Away Team City
         awayTeamCity.text = "Away - " + awayTeam!.city
-        
         //Away Team Name
         awayTeamName.text = awayTeam!.name
-        
         //Away Team View
         awayTeamView.backgroundColor = awayTeam!.backgroundColor
 
+        //Set start date time of game. TODO: Handle timezone conversion with daylight savings. Manage this file, MyFirebaseRef.swift, ConversionService.swift, and Extensions.swift.
+        
+//        Daylight saving time 2017 in California began at 2:00 AM on Sunday , March 12
+//        and ends at 2:00 AM on Sunday, November 5
+        
+        let d: Date = ConversionService.getDateInTimeZone(date: game.startDateTime, timeZoneOffset: game.startTimeZoneOffSet)
+        switch(Date().getTimeZoneOffset()){
+            case 240:
+                if(ConversionService.isDaylightSavingTime()){
+                    startDateTime.text = ConversionService.convertDateToDateAtTimeString(date: d) + " EDT"
+                }else{
+                    
+                }
+                break
+            case 300:
+                if(ConversionService.isDaylightSavingTime()){
+                    startDateTime.text = ConversionService.convertDateToDateAtTimeString(date: d) + " CDT"
+                }else{
+                    startDateTime.text = ConversionService.convertDateToDateAtTimeString(date: d) + " EST"
+                }
+                break
+            case 360:
+                if(ConversionService.isDaylightSavingTime()){
+                    startDateTime.text = ConversionService.convertDateToDateAtTimeString(date: d) + " MDT"
+                }else{
+                    startDateTime.text = ConversionService.convertDateToDateAtTimeString(date: d) + " CST"
+                }
+                break
+            case 420:
+                if(ConversionService.isDaylightSavingTime()){
+                    startDateTime.text = ConversionService.convertDateToDateAtTimeString(date: d) + " PDT"
+                }else{
+                    startDateTime.text = ConversionService.convertDateToDateAtTimeString(date: d) + " MST"
+                }
+                break
+            case 480:
+                if(ConversionService.isDaylightSavingTime()){
+                    
+                }else{
+                    startDateTime.text = ConversionService.convertDateToDateAtTimeString(date: d) + " PST"
+                }
+                break
+            default:break
+        }
+        
+        //Set total bet count.
+        totalBetCount.text = String(describing: game.bets.count)
+        
+        //Set number of bet user has.
+        yourBetCount.text = String(describing: numberOfBetUserHas)
+        
+        //Set pot amount
+        potAmount.text = String(format: "$%.02f", game.potAmount)
+        
+        //Set status of game, (Pre, Active, or Post)
+        switch(game.activeCode){
+            case 0:
+                status.text = "Pre"
+                break
+            case 1:
+                status.text = "Active"
+                break
+            case 2:
+                status.text = "Post"
+                break
+            default:break
+        }
+        
     }
     
     func openTeamWebsite() -> Void {
@@ -213,6 +271,7 @@ class FullGameViewController: UIViewController {
         }else{
             let newBetHomeDigit: Int = Int(self.newBetHomeDigitStepper.value)
             let newBetAwayDigit: Int = Int(self.newBetAwayDigitStepper.value)
+            
             //Validate bet is not already taken.
             if(betTaken(homeDigit: newBetHomeDigit, awayDigit: newBetAwayDigit)){
                 ModalService.showError(title: "Sorry", message: "That bet is already taken.")
@@ -249,8 +308,7 @@ class FullGameViewController: UIViewController {
                                 
                             }
                     }.catch{ (error) in
-                    }.always {
-                }
+                    }.always {}
             }
         }
     }
@@ -336,8 +394,7 @@ extension FullGameViewController: UICollectionViewDataSource {
             cell.awayTeamImage.kf.setImage(with: URL(string: awayTeam!.imageDownloadUrl))
             cell.awayTeamImage.round(1, UIColor.black)
             cell.awayTeamDigit.text = String(describing: selectedBet.awayDigit!)
-            
-            let postDateTime: Date = ConversionService.getDateInTimeZone(date: selectedBet.postDateTime, timeZoneOffset: selectedBet.timeZoneOffSet)
+            let postDateTime: Date = ConversionService.getDateInTimeZone(date: selectedBet.postDateTime, timeZoneOffset: selectedBet.postTimeZoneOffSet)
             cell.posted.text = ConversionService.timeAgoSinceDate(date: postDateTime)
             
             return cell

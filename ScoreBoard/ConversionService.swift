@@ -3,12 +3,20 @@ import UIKit
 
 class ConversionService  {
     private static let dateFormatter: DateFormatter = DateFormatter()
-    private static let format: String = "yyyy-MM-dd'T'HH:mm:ss"
+    private static let firebaseFormat: String = "yyyy-MM-dd'T'HH:mm:ss"
+    private static let dateAtTimeFormat: String = "MMMM d, yyyy @ h:mma"
     
     static func convertStringToDate(_ string: String) -> Date {
-        dateFormatter.dateFormat = format
+        dateFormatter.dateFormat = firebaseFormat
         let date: Date = dateFormatter.date(from: string)!
         return date
+    }
+    
+    //2017-09-24T17:04:00
+    static func convertDateToFirebaseString(_ date: Date) -> String {
+        dateFormatter.dateFormat = firebaseFormat
+        let string: String = dateFormatter.string(from: date)
+        return string
     }
     
     static func convertDateToString(_ date: Date, _ style: DateFormatter.Style) -> String {
@@ -17,8 +25,9 @@ class ConversionService  {
         return string
     }
     
-    static func convertDateToFirebaseString(_ date: Date) -> String {
-        dateFormatter.dateFormat = format
+    //June 4th, 2017 @ 5:00pm
+    static func convertDateToDateAtTimeString(date: Date) -> String {
+        dateFormatter.dateFormat = dateAtTimeFormat
         let string: String = dateFormatter.string(from: date)
         return string
     }
@@ -26,11 +35,18 @@ class ConversionService  {
     static func getDateInTimeZone(date: Date, timeZoneOffset: Int) -> Date {
         //Get timezone offset of this device.
         let myTimeZoneOffset: Int = Date().getTimeZoneOffset()
+        
         //Subtract the offset of the comparing device.
-        let difference: Int = timeZoneOffset - myTimeZoneOffset
+        var difference: Int = timeZoneOffset - myTimeZoneOffset
+ 
         //Multiply the minutes(difference) by 60 to get seconds.
         let newDate: Date = date.addingTimeInterval(TimeInterval(difference * 60))
+        
         return newDate
+    }
+    
+    static func isDaylightSavingTime() -> Bool {
+        return TimeZone.current.isDaylightSavingTime()
     }
     
     static func timeAgoSinceDate(date:Date, numericDates:Bool = false) -> String {

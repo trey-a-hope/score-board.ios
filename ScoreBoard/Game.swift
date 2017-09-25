@@ -6,7 +6,9 @@ class Game : FirebaseObject {
     var homeTeamScore: Int!
     var homeTeamId: Int!
     var startDateTime: Date!
+    var startTimeZoneOffSet: Int!
     var activeCode: Int!
+    var potAmount: Double!
     
     var bets: [Bet] = [Bet]()
 }
