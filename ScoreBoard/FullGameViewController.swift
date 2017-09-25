@@ -185,46 +185,43 @@ class FullGameViewController: UIViewController {
         //Away Team View
         awayTeamView.backgroundColor = awayTeam!.backgroundColor
 
-        //Set start date time of game. TODO: Handle timezone conversion with daylight savings. Manage this file, MyFirebaseRef.swift, ConversionService.swift, and Extensions.swift.
-        
-//        Daylight saving time 2017 in California began at 2:00 AM on Sunday , March 12
-//        and ends at 2:00 AM on Sunday, November 5
-        
+        //Set start date for game.
         let d: Date = ConversionService.getDateInTimeZone(date: game.startDateTime, timeZoneOffset: game.startTimeZoneOffSet)
+        startDateTime.text = ConversionService.convertDateToDateAtTimeString(date: d)
         switch(Date().getTimeZoneOffset()){
             case 240:
                 if(ConversionService.isDaylightSavingTime()){
-                    startDateTime.text = ConversionService.convertDateToDateAtTimeString(date: d) + " EDT"
+                    startDateTime.text = startDateTime.text! + " EDT"
                 }else{
                     
                 }
                 break
             case 300:
                 if(ConversionService.isDaylightSavingTime()){
-                    startDateTime.text = ConversionService.convertDateToDateAtTimeString(date: d) + " CDT"
+                    startDateTime.text = startDateTime.text! + " CDT"
                 }else{
-                    startDateTime.text = ConversionService.convertDateToDateAtTimeString(date: d) + " EST"
+                    startDateTime.text = startDateTime.text! + " EST"
                 }
                 break
             case 360:
                 if(ConversionService.isDaylightSavingTime()){
-                    startDateTime.text = ConversionService.convertDateToDateAtTimeString(date: d) + " MDT"
+                    startDateTime.text = startDateTime.text! + " MDT"
                 }else{
-                    startDateTime.text = ConversionService.convertDateToDateAtTimeString(date: d) + " CST"
+                    startDateTime.text = startDateTime.text! + " CST"
                 }
                 break
             case 420:
                 if(ConversionService.isDaylightSavingTime()){
-                    startDateTime.text = ConversionService.convertDateToDateAtTimeString(date: d) + " PDT"
+                    startDateTime.text = startDateTime.text! + " PDT"
                 }else{
-                    startDateTime.text = ConversionService.convertDateToDateAtTimeString(date: d) + " MST"
+                    startDateTime.text = startDateTime.text! + " MST"
                 }
                 break
             case 480:
                 if(ConversionService.isDaylightSavingTime()){
                     
                 }else{
-                    startDateTime.text = ConversionService.convertDateToDateAtTimeString(date: d) + " PST"
+                    startDateTime.text = startDateTime.text! + " PST"
                 }
                 break
             default:break

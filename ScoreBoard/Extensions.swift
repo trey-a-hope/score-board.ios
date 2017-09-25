@@ -45,14 +45,10 @@ extension UIColor {
 
 //https://forbrains.co.uk/international_tools/earth_timezones
 extension Date {
-    //This does not account for daylight savings.
+    //TODO: Verify this gives the correct timezone offset in November.
     func getTimeZoneOffset() -> Int {
         let seconds: Int = TimeZone.current.secondsFromGMT()
         var minutes: Int = seconds/60
-        
-        if(ConversionService.isDaylightSavingTime()){
-            //Either add or subtract one hour.
-        }
         
         return abs(minutes)
     }

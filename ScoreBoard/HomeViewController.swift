@@ -47,17 +47,17 @@ class HomeViewController: UIViewController {
     }
     
     func initUI() -> Void {
-        let randomNum: UInt32 = arc4random_uniform(UInt32(self.games.count))
-        let topGame: Game = self.games[Int(randomNum)]
-        
-        let homeTeam = NBATeamService.instance.getTeam(id: topGame.homeTeamId)
-        let awayTeam = NBATeamService.instance.getTeam(id: topGame.awayTeamId)
-        
-        homeTeamImage.round(0, UIColor.black)
-        homeTeamImage.kf.setImage(with: URL(string: homeTeam.imageDownloadUrl))
-        
-        awayTeamImage.round(0, UIColor.black)
-        awayTeamImage.kf.setImage(with: URL(string: awayTeam.imageDownloadUrl))
+//        let randomNum: UInt32 = arc4random_uniform(UInt32(self.games.count))
+//        let topGame: Game = self.games[Int(randomNum)]
+//        
+//        let homeTeam = NBATeamService.instance.getTeam(id: topGame.homeTeamId)
+//        let awayTeam = NBATeamService.instance.getTeam(id: topGame.awayTeamId)
+//        
+//        homeTeamImage.round(0, UIColor.black)
+//        homeTeamImage.kf.setImage(with: URL(string: homeTeam.imageDownloadUrl))
+//        
+//        awayTeamImage.round(0, UIColor.black)
+//        awayTeamImage.kf.setImage(with: URL(string: awayTeam.imageDownloadUrl))
     }
     
     func reInitUI() -> Void {

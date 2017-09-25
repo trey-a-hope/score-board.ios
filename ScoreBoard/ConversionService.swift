@@ -34,7 +34,7 @@ class ConversionService  {
     
     static func getDateInTimeZone(date: Date, timeZoneOffset: Int) -> Date {
         //Get timezone offset of this device.
-        let myTimeZoneOffset: Int = Date().getTimeZoneOffset()
+        var myTimeZoneOffset: Int = Date().getTimeZoneOffset()
         
         //Subtract the offset of the comparing device.
         var difference: Int = timeZoneOffset - myTimeZoneOffset
