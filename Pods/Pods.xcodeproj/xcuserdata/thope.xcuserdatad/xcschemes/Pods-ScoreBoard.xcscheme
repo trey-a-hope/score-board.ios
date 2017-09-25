@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0900"
+   LastUpgradeVersion = "0700"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "BBB085E32DE24725C6D0E19525979FBB"
+               BlueprintIdentifier = "AEF34BE332D4E1A13280ADAA1DE30A5A"
                BuildableName = "Pods_ScoreBoard.framework"
                BlueprintName = "Pods-ScoreBoard"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -47,7 +47,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "BBB085E32DE24725C6D0E19525979FBB"
+            BlueprintIdentifier = "AEF34BE332D4E1A13280ADAA1DE30A5A"
             BuildableName = "Pods_ScoreBoard.framework"
             BlueprintName = "Pods-ScoreBoard"
             ReferencedContainer = "container:Pods.xcodeproj">

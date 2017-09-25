@@ -1,4 +1,3 @@
-import PopupDialog
 import PromiseKit
 import UIKit
 

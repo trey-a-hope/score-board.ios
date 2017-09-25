@@ -99,8 +99,6 @@ PODS:
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
-  - PageMenu (2.0.0)
-  - PopupDialog (0.5.4)
   - PromiseKit (4.4.0):
     - PromiseKit/Foundation (= 4.4.0)
     - PromiseKit/QuartzCore (= 4.4.0)
@@ -136,8 +134,6 @@ DEPENDENCIES:
   - Material (~> 2.0)
   - Material/Capture (~> 2.0)
   - Material/Photos (~> 2.0)
-  - PageMenu
-  - PopupDialog (~> 0.5)
   - PromiseKit (~> 4.0)
   - SCLAlertView
   - Spring (from `https://github.com/MengTo/Spring.git`, branch `swift3`)
@@ -181,14 +177,12 @@ SPEC CHECKSUMS:
   leveldb-library: 10fb39c39e243db4af1828441162405bbcec1404
   Material: af607a7ec0e9978ef85cf189a3d8ceeeb650400f
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
-  PageMenu: 9c38fd7e0d9ef4b1408320f55bb907bbc0e538dc
-  PopupDialog: 75cf955693590b0cb2fdde00223fb65d99c57247
   PromiseKit: ecf5fe92275d57ee77c9ede858af47a162e9b97e
   Protobuf: 03eef2ee0b674770735cf79d9c4d3659cf6908e8
   SCLAlertView: 8a14ffc40590c619e183eed2298b854385f30be1
   Spring: 3f02b5dc3308572ef177b3cad0fa7bbc4b0706f7
   Toaster: 8c3225dc465bef4aa57e147a288724576df8e439
 
-PODFILE CHECKSUM: f0027dbd90febd394f2bba0dc005d404f8f58aa7
+PODFILE CHECKSUM: 8a341241fc5f40639d1f9eeef53cd2749cda1ef9
 
 COCOAPODS: 1.3.1

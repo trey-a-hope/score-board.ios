@@ -3,7 +3,6 @@ import FirebaseDatabase
 import FontAwesome_swift
 import Foundation
 import Material
-import PopupDialog
 import PromiseKit
 import Kingfisher
 import UIKit
