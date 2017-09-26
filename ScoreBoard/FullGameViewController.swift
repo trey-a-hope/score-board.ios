@@ -1,9 +1,8 @@
-import PromiseKit
+import Firebase
 import UIKit
 
 class FullGameViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     //Info
     @IBOutlet weak var homeTeamImage: UIImageView!
@@ -40,17 +39,16 @@ class FullGameViewController: UIViewController {
     //Navbar buttons
     var shareButton: UIBarButtonItem!
     
+    var gameId: String!
     var homeTeam: NBATeam!
     var awayTeam: NBATeam!
-    var gameId: String!
     var game: Game = Game()
     let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
     
-    lazy var refreshControl: UIRefreshControl = {
-        let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(FullGameViewController.getGame), for: UIControlEvents.valueChanged)
-        return refreshControl
-    }()
+    //Database reference to this game
+    private var gameRef: DatabaseReference!
+    //Handle that will track any data changes to this game
+    private var gameUpdateRefHandle: DatabaseHandle?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,8 +62,7 @@ class FullGameViewController: UIViewController {
     }
     
     func initUI() -> Void {
-        self.scrollView.addSubview(self.refreshControl)
-        
+        //Set bet collection view delegate and datasource.
         collectionView.delegate = self
         collectionView.dataSource = self
         
@@ -85,51 +82,38 @@ class FullGameViewController: UIViewController {
         
         //Add buttons to nav bar
         navigationItem.setRightBarButtonItems([shareButton], animated: false)
+        
+        //Set database reference for this game.
+        gameRef = Database.database().reference().child("Games").child(gameId)
     }
     
     func getGame() -> Void {
-        spinner.startAnimating()
-        MyFirebaseRef.getGame(gameId: gameId!)
-            .then{ (game) -> Void in
-                self.game = game
-                
-                //Set home/away teams
-                self.homeTeam = NBATeamService.instance.getTeam(id: self.game.homeTeamId)
-                self.awayTeam = NBATeamService.instance.getTeam(id: self.game.awayTeamId)
-
-                self.getUsersInfoForBets()
-                    .then{ () -> Void in
-                        self.setUI()
-                        self.refreshControl.endRefreshing()
-                        self.spinner.stopAnimating()
-                        self.spinner.isHidden = true
-                    }.always{}
-            }.always {}
-    }
-    
-    func getUsersInfoForBets() -> Promise<Void> {
-        return Promise { fulfill, reject in
-            if(game.bets.isEmpty){
-                fulfill()
-            }
+        //Watch for any changes to this game, (new bet added, status change, etc.)
+        gameUpdateRefHandle = gameRef.observe(.value, with: { (gameSnapshot) -> Void in
+            self.game = MyFirebaseRef.extractGameData(gameSnapshot: gameSnapshot)
             
-            var count: Int = 0
-            for bet in self.game.bets {
-                MyFirebaseRef.getUserByID(id: bet.userId)
-                    .then{ (user) -> Void in
-                        bet.user = user
-                        
-                    }.catch{ (error) in
-                        
-                    }.always{
-                        count += 1
-
-                        if(count == self.game.bets.count){
-                            fulfill()
-                        }
+            self.homeTeam = NBATeamService.instance.getTeam(id: self.game.homeTeamId)
+            self.awayTeam = NBATeamService.instance.getTeam(id: self.game.awayTeamId)
+            
+            //Apply user object to each bet and refresh collection view.
+            if(self.game.bets.isEmpty){
+                self.setUI()
+            }else{
+                var betCount: Int = 0
+                for bet in self.game.bets {
+                    MyFirebaseRef.getUserByID(id: bet.userId)
+                        .then{ (user) -> Void in
+                            bet.user = user
+                        }.always{
+                            betCount += 1
+                            if(betCount == self.game.bets.count){
+                                self.collectionView.reloadData()
+                                self.setUI()
+                            }
                     }
+                }
             }
-        }
+        })
     }
     
     func setUI() -> Void {
@@ -153,7 +137,8 @@ class FullGameViewController: UIViewController {
         collectionView.reloadData()
 
         //Home Team Digit
-        homeTeamDigit.text = "5"
+        let homeDigit: Int = game.homeTeamScore % 10
+        homeTeamDigit.text = "\(homeDigit)"
         //Home Team Image
         homeTeamImage.round(0, UIColor.black)
         homeTeamImage.kf.setImage(with: URL(string: homeTeam!.imageDownloadUrl))
@@ -169,7 +154,8 @@ class FullGameViewController: UIViewController {
         homeTeamView.backgroundColor = homeTeam!.backgroundColor
         
         //Away Team Digit
-        awayTeamDigit.text = "4"
+        let awayDigit: Int = game.awayTeamScore % 10
+        awayTeamDigit.text = "\(awayDigit)"
         //Away Team Image
         awayTeamImage.round(0, UIColor.black)
         awayTeamImage.kf.setImage(with: URL(string: (awayTeam!.imageDownloadUrl)!))
@@ -278,7 +264,6 @@ class FullGameViewController: UIViewController {
 
                 ModalService.showConfirm(title: title, message: message, confirmText: "Confirm", cancelText: "Cancel")
                     .then{() -> Void in
-                        //SwiftSpinner.show("Placing Bet...")
                         //Create bet.
                         let bet: Bet = Bet()
                         bet.userId = SessionManager.getUserId()
@@ -292,18 +277,8 @@ class FullGameViewController: UIViewController {
                                     .then{ (betId) -> Void in
                                         self.getGame()
                                         ModalService.showSuccess(title: "Success", message: "Your bet has been placed.")
-                                    }.catch{ (error) in
-                                        ModalService.showError(title: "Error", message: error.localizedDescription)
-                                    }.always{
-                                        //SwiftSpinner.hide()
-                                }
-                            }.catch{ (error) in
-                                ModalService.showError(title: "Sorry", message: "You need more money to place this bet.")
-                                //SwiftSpinner.hide()
-                            }.always {
-                                
-                            }
-                    }.catch{ (error) in
+                                    }.always{}
+                            }.always {}
                     }.always {}
             }
         }
@@ -317,6 +292,7 @@ class FullGameViewController: UIViewController {
         newBetAwayDigit.text = "\(Int(newBetAwayDigitStepper.value))"
     }
     
+    //Return true if the bet is already occupied.
     func betTaken(homeDigit: Int, awayDigit: Int) -> Bool {
         for bet in game.bets {
             if(bet.homeDigit == homeDigit && bet.awayDigit == awayDigit){
@@ -324,6 +300,12 @@ class FullGameViewController: UIViewController {
             }
         }
         return false
+    }
+    
+    deinit {
+        if let refHandle = gameUpdateRefHandle {
+            gameRef.removeObserver(withHandle: refHandle)
+        }
     }
 }
 

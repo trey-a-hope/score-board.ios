@@ -53,7 +53,7 @@ class MyFirebaseRef {
     }
     
     //Converts a dataSnapshot to a tuple of the game and the number of bets.
-    private class func extractGameData(gameSnapshot: DataSnapshot) -> Game {
+    public class func extractGameData(gameSnapshot: DataSnapshot) -> Game {
         let value = gameSnapshot.value as! [String:Any]
         let game: Game = Game()
         
@@ -61,7 +61,9 @@ class MyFirebaseRef {
         game.postTimeZoneOffSet = value["postTimeZoneOffSet"] as! Int
         game.postDateTime = ConversionService.convertStringToDate(value["postDateTime"] as! String)
         game.awayTeamId = value["awayTeamId"] as! Int
+        game.awayTeamScore = value["awayTeamScore"] as! Int
         game.homeTeamId = value["homeTeamId"] as! Int
+        game.homeTeamScore = value["homeTeamScore"] as! Int
         game.startTimeZoneOffSet = value["startTimeZoneOffSet"] as! Int
         game.startDateTime = ConversionService.convertStringToDate(value["startDateTime"] as! String)
         game.activeCode = value["activeCode"] as! Int
@@ -71,7 +73,6 @@ class MyFirebaseRef {
         
         //If this game has bets currently...
         if let _ = betSnapshots {
-            
             for betSnapshot in betSnapshots! {
                 let betSnapshot = betSnapshot.value as! [String:Any]
                 let bet: Bet = Bet()
@@ -84,9 +85,6 @@ class MyFirebaseRef {
                 
                 game.bets.append(bet)
             }
-            
-            return (game)
-
         }
         
         return (game)

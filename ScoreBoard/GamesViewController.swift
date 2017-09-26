@@ -1,3 +1,4 @@
+import Firebase
 import UIKit
 
 class GamesViewController: UIViewController {
@@ -6,11 +7,10 @@ class GamesViewController: UIViewController {
     
     var games: [Game] = [Game]()
     
-    lazy var refreshControl: UIRefreshControl = {
-        let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(GamesViewController.getGames), for: UIControlEvents.valueChanged)
-        return refreshControl
-    }()
+    //Database reference to all games.
+    private var gamesRef: DatabaseReference = Database.database().reference().child("Games")
+    //Handle that will track any data changes to the games.
+    private var gameUpdateRefHandle: DatabaseHandle?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,9 +37,7 @@ class GamesViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         
-        //Add refresh control.
-        tableView.addSubview(self.refreshControl)
-        
+        //Configure UISegmentControl
         segmentedControl.tintColor = Constants.primaryColor
         segmentedControl.addTarget(self, action: #selector(segmentedControlValueChanged), for:.allEvents)
     }
@@ -51,12 +49,14 @@ class GamesViewController: UIViewController {
     }
     
     func getGames() -> Void {
-        //SwiftSpinner.show("Getting games...")
-        MyFirebaseRef.getGames()
-            .then{ (games) -> Void in
-            self.games = games
-                
-            //Filter games by active code.
+        //Fetch games and observe any changes at any time.
+        gameUpdateRefHandle = gamesRef.observe(.value, with: { (gameSnapshots) -> Void in
+            self.games.removeAll()
+            
+            gameSnapshots.children.allObjects.forEach({ (gameSnapshot) in
+                self.games.append(MyFirebaseRef.extractGameData(gameSnapshot: gameSnapshot as! DataSnapshot))
+            })
+
             switch self.segmentedControl.selectedSegmentIndex {
                 //Pre Games
                 case 0:
@@ -72,15 +72,9 @@ class GamesViewController: UIViewController {
                     break
                 default:break
             }
-                
+            
             self.tableView.reloadData()
-        }.catch{ (error) in
-            ModalService.showError(title: "Error", message: error.localizedDescription)
-        }
-        .always {
-            self.refreshControl.endRefreshing()
-            //SwiftSpinner.hide()
-        }
+        })
     }
     
     func setNavBarButtons() -> Void {
@@ -90,12 +84,17 @@ class GamesViewController: UIViewController {
     func segmentedControlValueChanged() -> Void {
         getGames()
     }
+    
+    deinit {
+        if let refHandle = gameUpdateRefHandle {
+            gamesRef.removeObserver(withHandle: refHandle)
+        }
+    }
 }
 
 extension GamesViewController : UITableViewDataSource, UITableViewDelegate {
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int
-    {
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
     
