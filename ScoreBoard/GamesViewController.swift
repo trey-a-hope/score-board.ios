@@ -56,7 +56,7 @@ class GamesViewController: UIViewController {
             gameSnapshots.children.allObjects.forEach({ (gameSnapshot) in
                 self.games.append(MyFirebaseRef.extractGameData(gameSnapshot: gameSnapshot as! DataSnapshot))
             })
-
+            
             switch self.segmentedControl.selectedSegmentIndex {
                 //Pre Games
                 case 0:
@@ -124,6 +124,7 @@ extension GamesViewController : UITableViewDataSource, UITableViewDelegate {
             cell.homeTeamImage.kf.setImage(with: URL(string: homeTeam.imageDownloadUrl))
             cell.awayTeamImage.round(0, UIColor.black)
             cell.awayTeamImage.kf.setImage(with: URL(string: awayTeam.imageDownloadUrl))
+            
             if(game.bets.count == 1){
                 cell.betCount.text = "1 bet"
             }else{
@@ -136,35 +137,15 @@ extension GamesViewController : UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt: IndexPath) -> [UITableViewRowAction]? {
-        //let game: Game = games[editActionsForRowAt.row]
+        let game: Game = games[editActionsForRowAt.row]
         
-        //Mute conversation button.
-        let mute = UITableViewRowAction(style: .normal, title: "Mute") { action, index in
-//            let popup = PopupDialog(title: "Mute Thread with " + conversation.recipientname, message: "Are you sure?")
-//            popup.addButtons([
-//                DefaultButton(title: "YES") {
-//                    ModalService.displayToast("Mute Thread", UIColor.gray)
-//                }, CancelButton(title: "CANCEL") {
-//                }
-//                ])
-//            self.present(popup, animated: true, completion: nil)
+        //Share button.
+        let share = UITableViewRowAction(style: .normal, title: "Share") { action, index in
+            ModalService.showInfo(title: "Share", message: "This game has " + String(describing: game.bets.count) + " bets.")
         }
-        mute.backgroundColor = .gray
-        
-        //Delete conversation button.
-        let delete = UITableViewRowAction(style: .normal, title: "Delete") { action, index in
-//            let popup = PopupDialog(title: "Delete Thread with " + conversation.recipientname, message: "Are you sure?")
-//            popup.addButtons([
-//                DefaultButton(title: "YES") {
-//                    ModalService.displayToast("Delete Thread", UIColor.gray)
-//                }, CancelButton(title: "CANCEL") {
-//                }
-//                ])
-//            self.present(popup, animated: true, completion: nil)
-        }
-        delete.backgroundColor = .red
-        
-        return [delete, mute]
+        share.backgroundColor = .blue
+
+        return [share]
     }
 
 }

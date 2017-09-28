@@ -9,12 +9,14 @@ class FullGameViewController: UIViewController {
     @IBOutlet weak var homeTeamView: UIView!
     @IBOutlet weak var homeTeamCity: UILabel!
     @IBOutlet weak var homeTeamName: UILabel!
-    @IBOutlet weak var homeTeamDigit: UILabel!
+    @IBOutlet weak var homeTeamPreDigit: UILabel!
+    @IBOutlet weak var homeTeamPostDigit: UILabel!
     @IBOutlet weak var awayTeamImage: UIImageView!
     @IBOutlet weak var awayTeamView: UIView!
     @IBOutlet weak var awayTeamCity: UILabel!
     @IBOutlet weak var awayTeamName: UILabel!
-    @IBOutlet weak var awayTeamDigit: UILabel!
+    @IBOutlet weak var awayTeamPreDigit: UILabel!
+    @IBOutlet weak var awayTeamPostDigit: UILabel!
     
     //Current Bets
     @IBOutlet weak var startDateTime: UILabel!
@@ -137,8 +139,8 @@ class FullGameViewController: UIViewController {
         collectionView.reloadData()
 
         //Home Team Digit
-        let homeDigit: Int = game.homeTeamScore % 10
-        homeTeamDigit.text = "\(homeDigit)"
+        homeTeamPreDigit.text = String(describing: game.homeTeamScore / 10)
+        homeTeamPostDigit.text = String(describing: game.homeTeamScore % 10)
         //Home Team Image
         homeTeamImage.round(0, UIColor.black)
         homeTeamImage.kf.setImage(with: URL(string: homeTeam!.imageDownloadUrl))
@@ -154,8 +156,8 @@ class FullGameViewController: UIViewController {
         homeTeamView.backgroundColor = homeTeam!.backgroundColor
         
         //Away Team Digit
-        let awayDigit: Int = game.awayTeamScore % 10
-        awayTeamDigit.text = "\(awayDigit)"
+        awayTeamPreDigit.text = String(describing: game.awayTeamScore / 10)
+        awayTeamPostDigit.text = String(describing: game.awayTeamScore % 10)
         //Away Team Image
         awayTeamImage.round(0, UIColor.black)
         awayTeamImage.kf.setImage(with: URL(string: (awayTeam!.imageDownloadUrl)!))
@@ -363,6 +365,14 @@ extension FullGameViewController: UICollectionViewDataSource {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as? BetCell{
             
             let selectedBet: Bet = game.bets[indexPath.row]
+            
+            //If the current score is this bet, add yellow tint to background
+            if(Int(homeTeamPostDigit.text!)! == selectedBet.homeDigit && Int(awayTeamPostDigit.text!)! == selectedBet.awayDigit){
+                cell.view.backgroundColor = GMColor.amber100Color()
+            }else{
+                cell.view.backgroundColor = GMColor.grey100Color()
+            }
+            
             cell.userName.text = selectedBet.user.userName
             cell.userImage.kf.setImage(with: URL(string: selectedBet.user.imageDownloadUrl))
             cell.userImage.round(1, UIColor.black)

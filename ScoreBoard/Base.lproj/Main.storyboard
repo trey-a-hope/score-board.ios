@@ -876,18 +876,18 @@
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Home Team City" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tsg-6b-HjH">
-                                                        <rect key="frame" x="100" y="25" width="230" height="24.5"/>
+                                                        <rect key="frame" x="100" y="25" width="200" height="24.5"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="width" constant="230" id="ah1-0B-viw"/>
+                                                            <constraint firstAttribute="width" constant="200" id="ah1-0B-viw"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="17"/>
                                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Home Team Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5B2-fv-Ecz">
-                                                        <rect key="frame" x="100" y="49.5" width="230" height="35.5"/>
+                                                        <rect key="frame" x="100" y="49.5" width="200" height="35.5"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="width" constant="230" id="yg6-Ry-oF0"/>
+                                                            <constraint firstAttribute="width" constant="200" id="yg6-Ry-oF0"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="25"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -899,17 +899,25 @@
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cFt-GZ-EsI">
+                                                        <rect key="frame" x="317" y="38.5" width="10" height="24.5"/>
+                                                        <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="17"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstItem="5B2-fv-Ecz" firstAttribute="top" secondItem="tsg-6b-HjH" secondAttribute="bottom" id="2G2-6T-epY"/>
                                                     <constraint firstItem="tsg-6b-HjH" firstAttribute="top" secondItem="55x-uE-PwA" secondAttribute="top" constant="25" id="4Fg-NR-ZVk"/>
                                                     <constraint firstItem="5B2-fv-Ecz" firstAttribute="leading" secondItem="fAL-93-6TT" secondAttribute="trailing" constant="10" id="7nM-2l-Rdq"/>
+                                                    <constraint firstItem="Cxu-HO-zzg" firstAttribute="leading" secondItem="cFt-GZ-EsI" secondAttribute="trailing" constant="5" id="D4S-Pq-Vdc"/>
                                                     <constraint firstItem="fAL-93-6TT" firstAttribute="leading" secondItem="55x-uE-PwA" secondAttribute="leading" constant="10" id="Gyk-g9-Rjj"/>
                                                     <constraint firstItem="tsg-6b-HjH" firstAttribute="leading" secondItem="fAL-93-6TT" secondAttribute="trailing" constant="10" id="OFo-dL-lSi"/>
                                                     <constraint firstItem="Cxu-HO-zzg" firstAttribute="centerY" secondItem="55x-uE-PwA" secondAttribute="centerY" id="UqL-vf-EAB"/>
                                                     <constraint firstItem="fAL-93-6TT" firstAttribute="centerY" secondItem="55x-uE-PwA" secondAttribute="centerY" id="XPm-U9-vbF"/>
                                                     <constraint firstAttribute="trailing" secondItem="Cxu-HO-zzg" secondAttribute="trailing" constant="20" id="gJX-z7-vSp"/>
+                                                    <constraint firstItem="cFt-GZ-EsI" firstAttribute="centerY" secondItem="55x-uE-PwA" secondAttribute="centerY" id="hzJ-f5-ZJ1"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zZO-FG-s7y">
@@ -923,26 +931,32 @@
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Away Team City" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="auM-Wc-wRc">
-                                                        <rect key="frame" x="45" y="25" width="230" height="24.5"/>
+                                                        <rect key="frame" x="75" y="25" width="200" height="24.5"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="width" constant="230" id="uls-BT-v1U"/>
+                                                            <constraint firstAttribute="width" constant="200" id="uls-BT-v1U"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="17"/>
                                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Away Team Name" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x9r-kz-ka6">
-                                                        <rect key="frame" x="45" y="49.5" width="230" height="35.5"/>
+                                                        <rect key="frame" x="75" y="49.5" width="200" height="35.5"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="width" constant="230" id="BkR-Vk-XyL"/>
+                                                            <constraint firstAttribute="width" constant="200" id="BkR-Vk-XyL"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="25"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0JF-qP-cOI">
-                                                        <rect key="frame" x="20" y="21.5" width="23" height="57"/>
+                                                        <rect key="frame" x="35" y="21.5" width="23" height="57"/>
                                                         <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="40"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kvU-3p-zDL">
+                                                        <rect key="frame" x="20" y="38" width="10" height="24.5"/>
+                                                        <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="17"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
@@ -950,12 +964,14 @@
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstItem="x9r-kz-ka6" firstAttribute="top" secondItem="auM-Wc-wRc" secondAttribute="bottom" id="7vj-cp-Lu2"/>
+                                                    <constraint firstItem="kvU-3p-zDL" firstAttribute="leading" secondItem="zZO-FG-s7y" secondAttribute="leading" constant="20" id="99Y-kj-7dk"/>
                                                     <constraint firstAttribute="trailing" secondItem="LoH-jw-qIO" secondAttribute="trailing" constant="10" id="KLK-NY-FT5"/>
                                                     <constraint firstItem="LoH-jw-qIO" firstAttribute="centerY" secondItem="zZO-FG-s7y" secondAttribute="centerY" id="UwZ-vV-IeI"/>
                                                     <constraint firstItem="auM-Wc-wRc" firstAttribute="top" secondItem="zZO-FG-s7y" secondAttribute="top" constant="25" id="Xwt-oh-7Bg"/>
                                                     <constraint firstItem="0JF-qP-cOI" firstAttribute="centerY" secondItem="zZO-FG-s7y" secondAttribute="centerY" id="YII-Fd-SIX"/>
+                                                    <constraint firstItem="kvU-3p-zDL" firstAttribute="centerY" secondItem="zZO-FG-s7y" secondAttribute="centerY" id="Zbg-aB-qnF"/>
                                                     <constraint firstItem="LoH-jw-qIO" firstAttribute="leading" secondItem="x9r-kz-ka6" secondAttribute="trailing" constant="10" id="eKG-Hm-XtD"/>
-                                                    <constraint firstItem="0JF-qP-cOI" firstAttribute="leading" secondItem="zZO-FG-s7y" secondAttribute="leading" constant="20" id="mFY-9T-Ndj"/>
+                                                    <constraint firstItem="0JF-qP-cOI" firstAttribute="leading" secondItem="kvU-3p-zDL" secondAttribute="trailing" constant="5" id="omt-ea-zqa"/>
                                                     <constraint firstItem="LoH-jw-qIO" firstAttribute="leading" secondItem="auM-Wc-wRc" secondAttribute="trailing" constant="10" id="wRJ-IQ-MbX"/>
                                                 </constraints>
                                             </view>
@@ -982,25 +998,25 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Game Starts" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8rt-BA-qdn">
-                                                <rect key="frame" x="130" y="74" width="95.5" height="20.5"/>
+                                                <rect key="frame" x="130" y="76" width="95.5" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="June 24th, 2017 @ 5:30pm EST" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="elA-4e-1jd">
-                                                <rect key="frame" x="56" y="94.5" width="242" height="20.5"/>
+                                                <rect key="frame" x="56" y="96.5" width="242" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="hph-G9-Tsg">
-                                                <rect key="frame" x="0.0" y="145" width="355" height="80"/>
+                                                <rect key="frame" x="0.0" y="149" width="355" height="80"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ghy-qP-O9e">
                                                         <rect key="frame" x="0.0" y="0.0" width="177.5" height="80"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a9V-1S-mv5">
-                                                                <rect key="frame" x="78" y="0.0" width="22.5" height="58.5"/>
+                                                                <rect key="frame" x="78" y="0.0" width="22.5" height="47"/>
                                                                 <fontDescription key="fontDescription" name="TharLon" family="TharLon" pointSize="40"/>
                                                                 <color key="textColor" red="0.50196081400000003" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -1023,7 +1039,7 @@
                                                         <rect key="frame" x="177.5" y="0.0" width="177.5" height="80"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Efe-4z-DBZ">
-                                                                <rect key="frame" x="78" y="0.0" width="22.5" height="58.5"/>
+                                                                <rect key="frame" x="78" y="0.0" width="22.5" height="47"/>
                                                                 <fontDescription key="fontDescription" name="TharLon" family="TharLon" pointSize="40"/>
                                                                 <color key="textColor" red="0.0" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -1047,13 +1063,13 @@
                                                 </constraints>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="byE-sJ-Udu">
-                                                <rect key="frame" x="0.0" y="225" width="355" height="80"/>
+                                                <rect key="frame" x="0.0" y="229" width="355" height="80"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zrR-cA-VvQ">
                                                         <rect key="frame" x="0.0" y="0.0" width="177.5" height="80"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$100.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3FW-Ff-klE">
-                                                                <rect key="frame" x="16.5" y="0.0" width="145" height="58.5"/>
+                                                                <rect key="frame" x="16.5" y="0.0" width="145" height="47"/>
                                                                 <fontDescription key="fontDescription" name="TharLon" family="TharLon" pointSize="40"/>
                                                                 <color key="textColor" red="0.0" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -1075,7 +1091,7 @@
                                                         <rect key="frame" x="177.5" y="0.0" width="177.5" height="80"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Active" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8JE-7a-ECj">
-                                                                <rect key="frame" x="34.5" y="0.0" width="109" height="58.5"/>
+                                                                <rect key="frame" x="34" y="0.0" width="110.5" height="47"/>
                                                                 <fontDescription key="fontDescription" name="TharLon" family="TharLon" pointSize="40"/>
                                                                 <color key="textColor" red="0.50196081400000003" green="0.25098040700000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -1098,27 +1114,53 @@
                                                     <constraint firstAttribute="height" constant="80" id="H3A-FC-3e6"/>
                                                 </constraints>
                                             </stackView>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jqM-4M-tL7">
+                                                <rect key="frame" x="20" y="59" width="315" height="2"/>
+                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="2" id="n8t-fT-WIO"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fm5-5m-Izp">
+                                                <rect key="frame" x="20" y="132" width="315" height="2"/>
+                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="2" id="vqZ-5L-iN3"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="jqM-4M-tL7" secondAttribute="trailing" constant="20" id="02M-cG-zdF"/>
+                                            <constraint firstItem="jqM-4M-tL7" firstAttribute="leading" secondItem="Xba-Hf-S8J" secondAttribute="leading" constant="20" id="6WU-Gg-X82"/>
                                             <constraint firstAttribute="trailing" secondItem="kMt-pF-Fhd" secondAttribute="trailing" constant="20" id="8cA-Qd-9St"/>
                                             <constraint firstItem="byE-sJ-Udu" firstAttribute="top" secondItem="hph-G9-Tsg" secondAttribute="bottom" id="GmA-MR-DqE"/>
                                             <constraint firstItem="byE-sJ-Udu" firstAttribute="leading" secondItem="Xba-Hf-S8J" secondAttribute="leading" id="K2P-0Q-7G0"/>
                                             <constraint firstItem="8rt-BA-qdn" firstAttribute="centerX" secondItem="Xba-Hf-S8J" secondAttribute="centerX" id="LAW-rJ-6EK"/>
                                             <constraint firstItem="elA-4e-1jd" firstAttribute="centerX" secondItem="Xba-Hf-S8J" secondAttribute="centerX" id="RbS-qt-K6B"/>
+                                            <constraint firstItem="jqM-4M-tL7" firstAttribute="top" secondItem="kMt-pF-Fhd" secondAttribute="bottom" constant="15" id="TiF-kH-mzN"/>
+                                            <constraint firstItem="8rt-BA-qdn" firstAttribute="top" secondItem="jqM-4M-tL7" secondAttribute="bottom" constant="15" id="VFZ-G3-o4g"/>
                                             <constraint firstItem="kMt-pF-Fhd" firstAttribute="leading" secondItem="Xba-Hf-S8J" secondAttribute="leading" constant="20" id="b2R-QX-IE0"/>
                                             <constraint firstItem="elA-4e-1jd" firstAttribute="top" secondItem="8rt-BA-qdn" secondAttribute="bottom" id="bUZ-MC-6jl"/>
                                             <constraint firstItem="hph-G9-Tsg" firstAttribute="leading" secondItem="Xba-Hf-S8J" secondAttribute="leading" id="gW3-ID-fPn"/>
                                             <constraint firstAttribute="trailing" secondItem="hph-G9-Tsg" secondAttribute="trailing" id="i1F-ic-Rjo"/>
                                             <constraint firstItem="kMt-pF-Fhd" firstAttribute="top" secondItem="Xba-Hf-S8J" secondAttribute="top" constant="20" id="l1n-Sy-VrX"/>
-                                            <constraint firstItem="8rt-BA-qdn" firstAttribute="top" secondItem="kMt-pF-Fhd" secondAttribute="bottom" constant="30" id="oIH-Ob-ypQ"/>
+                                            <constraint firstAttribute="trailing" secondItem="fm5-5m-Izp" secondAttribute="trailing" constant="20" id="pR8-fB-eBP"/>
+                                            <constraint firstItem="fm5-5m-Izp" firstAttribute="top" secondItem="elA-4e-1jd" secondAttribute="bottom" constant="15" id="rS0-Ht-mfo"/>
                                             <constraint firstAttribute="trailing" secondItem="byE-sJ-Udu" secondAttribute="trailing" id="ser-RE-T3w"/>
-                                            <constraint firstItem="hph-G9-Tsg" firstAttribute="top" secondItem="elA-4e-1jd" secondAttribute="bottom" constant="30" id="vIg-7U-gWV"/>
+                                            <constraint firstItem="hph-G9-Tsg" firstAttribute="top" secondItem="fm5-5m-Izp" secondAttribute="bottom" constant="15" id="uSR-B2-4Zw"/>
+                                            <constraint firstItem="fm5-5m-Izp" firstAttribute="leading" secondItem="Xba-Hf-S8J" secondAttribute="leading" constant="20" id="xnm-zW-FX0"/>
                                             <constraint firstAttribute="height" constant="320" id="xwd-pS-Nut"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                 <integer key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="2"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
@@ -1307,16 +1349,18 @@
                     <size key="freeformSize" width="375" height="1200"/>
                     <connections>
                         <outlet property="awayTeamCity" destination="auM-Wc-wRc" id="hym-Rd-CBS"/>
-                        <outlet property="awayTeamDigit" destination="0JF-qP-cOI" id="d2J-5h-SKa"/>
                         <outlet property="awayTeamImage" destination="LoH-jw-qIO" id="WdE-9n-7pR"/>
                         <outlet property="awayTeamName" destination="x9r-kz-ka6" id="tKn-eg-5r6"/>
+                        <outlet property="awayTeamPostDigit" destination="0JF-qP-cOI" id="ji8-RD-Le7"/>
+                        <outlet property="awayTeamPreDigit" destination="kvU-3p-zDL" id="Bar-qc-l8N"/>
                         <outlet property="awayTeamView" destination="zZO-FG-s7y" id="13d-ky-0D6"/>
                         <outlet property="betCostLabel" destination="Gcl-eR-bUr" id="x0r-8t-rMZ"/>
                         <outlet property="collectionView" destination="0B0-FM-TKl" id="i6t-9F-1n5"/>
                         <outlet property="homeTeamCity" destination="tsg-6b-HjH" id="4cY-Qf-3BJ"/>
-                        <outlet property="homeTeamDigit" destination="Cxu-HO-zzg" id="mFq-Ts-kVV"/>
                         <outlet property="homeTeamImage" destination="fAL-93-6TT" id="HWo-Rb-2XF"/>
                         <outlet property="homeTeamName" destination="5B2-fv-Ecz" id="x6H-vH-vWM"/>
+                        <outlet property="homeTeamPostDigit" destination="Cxu-HO-zzg" id="fmI-c0-PD6"/>
+                        <outlet property="homeTeamPreDigit" destination="cFt-GZ-EsI" id="i7b-eU-bmK"/>
                         <outlet property="homeTeamView" destination="55x-uE-PwA" id="oFb-Ek-jel"/>
                         <outlet property="newBetAwayDigit" destination="wjE-ow-CY2" id="vK4-63-rBn"/>
                         <outlet property="newBetAwayDigitStepper" destination="WAc-D2-5OQ" id="dVV-FU-atx"/>
@@ -1364,7 +1408,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="wcM-79-Tpg" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="TDY-Q8-dp9">
-                        <rect key="frame" x="0.0" y="20" width="375" height="48"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
