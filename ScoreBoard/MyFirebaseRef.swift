@@ -190,10 +190,11 @@ class MyFirebaseRef {
         user.postTimeZoneOffSet = value["postTimeZoneOffSet"] as! Int
         user.postDateTime = ConversionService.convertStringToDate(value["postDateTime"] as! String)
         user.fcmToken = value["fcmToken"] as? String
-        user.cash = value["cash"] as? Double
-        user.userName = value["userName"] as? String
-        user.email = value["email"] as? String
-        user.imageDownloadUrl = value["imageDownloadUrl"] as? String
+        user.points = value["points"] as! Int
+        user.betsWon = value["betsWon"] as! Int
+        user.userName = value["userName"] as! String
+        user.email = value["email"] as! String
+        user.imageDownloadUrl = value["imageDownloadUrl"] as! String
         return user
     }
     
@@ -208,7 +209,8 @@ class MyFirebaseRef {
                 "uid"               : user.uid,
                 "userName"          : user.userName,
                 "email"             : user.email,
-                "cash"              : 25.00,
+                "points"            : 25,
+                "betsWon"           : 0,
                 "imageDownloadUrl"  : "https://web.usask.ca/images/profile.jpg", //upload own "unwknown" image url.
                 "postDateTime"      : ConversionService.convertDateToFirebaseString(now),
                 "postTimeZoneOffSet": now.getTimeZoneOffset()

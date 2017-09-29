@@ -11,15 +11,13 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var profileImage: UIImageView!
-    @IBOutlet weak var userNameLabel: UILabel!
-    @IBOutlet weak var cashLabel: UILabel!
+    @IBOutlet weak var pointsLabel: UILabel!
     @IBOutlet weak var currentBetsLabel: UILabel!
     @IBOutlet weak var betsWonLabel: UILabel!
     
     //Navbar buttons
     var messagesButton: UIBarButtonItem!
     var editProfileButton: UIBarButtonItem!
-    var addCashButton: UIBarButtonItem!
     
     let imagePicker = UIImagePickerController()
     let BetCellWidth: CGFloat = CGFloat(175)
@@ -52,12 +50,15 @@ class ProfileViewController: UIViewController {
         //Display navbar on return from image picker.
         navigationController?.setNavigationBarHidden(false, animated: true)
         
-        navigationController?.visibleViewController?.title = "Profile"
-        
         //If currently viewing your own profile, add "edit profile" and "message" buttons.
         if(userId == SessionManager.getUserId()){
-            setNavBarButtons()
+            navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([messagesButton, editProfileButton], animated: true)
         }
+        //Else, add only message button to message user.
+        else{
+            navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([messagesButton], animated: true)
+        }
+        
         
         getUser()
     }
@@ -100,17 +101,6 @@ class ProfileViewController: UIViewController {
         editProfileButton.setTitleTextAttributes(Constants.FONT_AWESOME_ATTRIBUTES, for: .normal)
         editProfileButton.title = String.fontAwesomeIcon(name: .pencil)
         editProfileButton.tintColor = .white
-        
-        //Add Cash Button
-        addCashButton = UIBarButtonItem(
-            title: "Add",
-            style: .plain,
-            target: self,
-            action: #selector(ProfileViewController.addCash)
-        )
-        addCashButton.setTitleTextAttributes(Constants.FONT_AWESOME_ATTRIBUTES, for: .normal)
-        addCashButton.title = String.fontAwesomeIcon(name: .money)
-        addCashButton.tintColor = .white
     }
     
     func getUser() -> Void {
@@ -118,22 +108,23 @@ class ProfileViewController: UIViewController {
         if let _ = userId {}
         else{userId = SessionManager.getUserId()}
         
-        //SwiftSpinner.show("Loading...")
         MyFirebaseRef.getUserByID(id: userId!)
             .then{ (user) -> Void in
                 self.user = user
+                
+                //Set page title to username
+                self.navigationController?.visibleViewController?.title = self.user?.userName
+                
                 self.getBets()
-            }.always{
-                //SwiftSpinner.hide()
-            }
+            }.always{}
     }
     
     func getBets() -> Void {
-        //SwiftSpinner.show("Getting bets...")
         MyFirebaseRef.getGames()
             .then{ (games) -> Void in
                 //Clear bets.
                 self.myBets.removeAll()
+                
                 //Determine which bets are mines.
                 for game in games {
                     for bet in game.bets {
@@ -148,35 +139,31 @@ class ProfileViewController: UIViewController {
                         }
                     }
                 }
+                
                 //Sort Bets by time.
                 self.myBets = self.myBets.sorted(by: { $0.bet.postDateTime > $1.bet.postDateTime })
                 self.setUI()
             }.always{
                 self.collectionView.reloadData()
                 self.refreshControl.endRefreshing()
-                //SwiftSpinner.hide()
         }
     }
     
-    func addCash() -> Void {
-        //SwiftSpinner.show("Adding Cash...")
-        MyFirebaseRef.addCashToUser(userId: SessionManager.getUserId(), cashToAdd: 10.00)
-            .then{ () -> Void in
-                ModalService.showSuccess(title: "Success", message: "Added $10 to your account, (refresh page).")
-            }.catch{ (error) in
-                ModalService.showError(title: "Sorry", message: "Could not add money to your account.")
-            }.always{
-                //SwiftSpinner.hide()
-            }
-    }
-    
     func openEditProfile() -> Void {
-        ModalService.showInfo(title: "Edit Profile", message: "Coming Soon...")
+        let editProfileViewController = storyBoard.instantiateViewController(withIdentifier: "EditProfileViewController") as! EditProfileViewController
+        navigationController?.pushViewController(editProfileViewController, animated: true)
     }
     
     func openMessages() -> Void {
-        let messagesViewController = storyBoard.instantiateViewController(withIdentifier: "MessagesViewController") as! MessagesViewController
-        navigationController?.pushViewController(messagesViewController, animated: true)
+        //If current user, navigate to list of message.
+        if(userId == SessionManager.getUserId()){
+            let messagesViewController = storyBoard.instantiateViewController(withIdentifier: "MessagesViewController") as! MessagesViewController
+            navigationController?.pushViewController(messagesViewController, animated: true)
+        }
+        //Otherwise, open message view directly to message this user.
+        else{
+            ModalService.showInfo(title: "Message " + (self.user?.userName)!, message: "Coming soon...")
+        }
     }
     
     func updateProfilePicture() -> Void {
@@ -189,65 +176,32 @@ class ProfileViewController: UIViewController {
         }
     }
     
-    func setUI() -> Void {
-        setUserName()
-        setProfileImage()
-        setCash()
-        setCurrentBets()
-        setBetsWon()
-    }
-    
-    func setNavBarButtons() -> Void {
-        /* Apply buttons to navbar. */
-        navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([messagesButton, editProfileButton, addCashButton], animated: true)
-    }
-
-    func setUserName() -> Void {
-        if let _ = user!.userName {
-            userNameLabel.text = user!.userName
-        }else{
-            userNameLabel.text = "User Name Not Set"
-        }
-    }
-    
-    func setProfileImage() -> Void {
+    func setUI() -> Void {        
+        //Profile image
         profileImage.layer.cornerRadius = profileImage.frame.size.width / 2;
         profileImage.clipsToBounds = true;
         profileImage.layer.borderWidth = 2.0
         profileImage.layer.borderColor = UIColor.white.cgColor
-        //profileImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(profileImageClick)))
-        profileImage.isUserInteractionEnabled = true
-        if let imageDownloadUrl = user!.imageDownloadUrl {
-            profileImage.kf.setImage(with: URL(string: imageDownloadUrl))
-        }else{
-            //TODO: Display empty grey box.
-        }
-    }
-    
-    func setCash() -> Void {
-        if let _ = user!.cash {
-            cashLabel.text = String(format: "$%.02f", user!.cash)
-        }else{
-            cashLabel.text = String(format: "$%.02f", 0)
-        }
-    }
-    
-    func setCurrentBets() -> Void {
+        profileImage.kf.setImage(with: URL(string: user!.imageDownloadUrl))
+        
+        //Points
+        pointsLabel.text = String(describing: user!.points!)
+        
+        //Current bets amount
         currentBetsLabel.text = String(describing: myBets.count)
-    }
-    
-    func setBetsWon() -> Void {
-        betsWonLabel.text = "0"
+        
+        //Bets won
+        betsWonLabel.text = String(describing: user!.betsWon!)
     }
 }
 
 extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-    /* Child section dimensions. */
+    //Child section dimensions.
     func collectionView(
         _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        /* NOTE: Height here should always equal height in XIB file. */
+        //NOTE: Height here should always equal height in XIB file.
         return CGSize(width: BetCellWidth, height: collectionView.bounds.height)
     }
     
@@ -274,7 +228,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDeleg
 }
 
 extension ProfileViewController: UICollectionViewDataSource {
-    /* Collection View Data Source Methods. */
+    //Collection View Data Source Methods.
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }

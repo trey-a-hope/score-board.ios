@@ -1,4 +1,5 @@
 import Firebase
+import SafariServices
 import UIKit
 
 class FullGameViewController: UIViewController {
@@ -28,7 +29,7 @@ class FullGameViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     
     //Place New Bet
-    var betCost: Double = 1.00
+    var betCost: Double = 2.00
     @IBOutlet weak var betCostLabel: UILabel!
     @IBOutlet weak var newBetHomeTeamImage: UIImageView!
     @IBOutlet weak var newBetAwayTeamImage: UIImageView!
@@ -36,7 +37,7 @@ class FullGameViewController: UIViewController {
     @IBOutlet weak var newBetHomeDigitStepper: UIStepper!
     @IBOutlet weak var newBetHomeDigit: UILabel!
     @IBOutlet weak var newBetAwayDigit: UILabel!
-    @IBOutlet weak var submit: UIButton!
+    @IBOutlet weak var submitBtn: UIButton!
     
     //Navbar buttons
     var shareButton: UIBarButtonItem!
@@ -109,7 +110,6 @@ class FullGameViewController: UIViewController {
                         }.always{
                             betCount += 1
                             if(betCount == self.game.bets.count){
-                                self.collectionView.reloadData()
                                 self.setUI()
                             }
                     }
@@ -119,33 +119,12 @@ class FullGameViewController: UIViewController {
     }
     
     func setUI() -> Void {
-        //Calculate bet cost (1 + ( 2 * numberOfBetUserHas) ).
-        betCost = 1.00
-        //Track number of bet the user has
-        var numberOfBetUserHas: Int = 0
-        
-        for bet in game.bets{
-            if(bet.userId == SessionManager.getUserId()){
-                betCost += 2
-                numberOfBetUserHas += 1
-            }
-        }
-        //Set Bet Cost
-        betCostLabel.text = String(format: "$%.02f", betCost)
-        //Sort Bets by time.
-        game.bets = game.bets.sorted(by: { $0.postDateTime > $1.postDateTime })
-        
-        //Refresh table of bets.
-        collectionView.reloadData()
-
         //Home Team Digit
         homeTeamPreDigit.text = String(describing: game.homeTeamScore / 10)
         homeTeamPostDigit.text = String(describing: game.homeTeamScore % 10)
         //Home Team Image
         homeTeamImage.round(0, UIColor.black)
         homeTeamImage.kf.setImage(with: URL(string: homeTeam!.imageDownloadUrl))
-        homeTeamImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(openTeamWebsite)))
-        homeTeamImage.isUserInteractionEnabled = true
         newBetHomeTeamImage.round(0, UIColor.black)
         newBetHomeTeamImage.kf.setImage(with: URL(string: homeTeam!.imageDownloadUrl))
         //Home Team City
@@ -161,8 +140,6 @@ class FullGameViewController: UIViewController {
         //Away Team Image
         awayTeamImage.round(0, UIColor.black)
         awayTeamImage.kf.setImage(with: URL(string: (awayTeam!.imageDownloadUrl)!))
-        awayTeamImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(openTeamWebsite)))
-        awayTeamImage.isUserInteractionEnabled = true
         newBetAwayTeamImage.round(0, UIColor.black)
         newBetAwayTeamImage.kf.setImage(with: URL(string: awayTeam!.imageDownloadUrl))
         //Away Team City
@@ -214,6 +191,31 @@ class FullGameViewController: UIViewController {
             default:break
         }
         
+        //Sort Bets by time.
+        game.bets = game.bets.sorted(by: { $0.postDateTime > $1.postDateTime })
+        
+        //Track number of bet the user has
+        var numberOfBetUserHas: Int = 0
+        for bet in game.bets{
+            if(bet.userId == SessionManager.getUserId()){
+                numberOfBetUserHas += 1
+            }
+            
+            //Bring the winning bet to the front of the list.
+            if(isWinningBet(bet: bet)){
+                //Remove bet from list.
+                game.bets = game.bets.filter { $0.id != bet.id }
+                //Then place in front.
+                game.bets.insert(bet, at: 0)
+            }
+        }
+        
+        //Set Bet Cost
+        betCostLabel.text = String(format: "$%.02f", betCost)
+        
+        //Refresh table of bets.
+        collectionView.reloadData()
+        
         //Set total bet count.
         totalBetCount.text = String(describing: game.bets.count)
         
@@ -239,10 +241,6 @@ class FullGameViewController: UIViewController {
         
     }
     
-    func openTeamWebsite() -> Void {
-        ModalService.showInfo(title: "Alert", message: "This will go to the teams website.")
-    }
-    
     func share() -> Void {
         ModalService.showInfo(title: "Share", message: "Coming Soon.")
     }
@@ -262,7 +260,7 @@ class FullGameViewController: UIViewController {
             }else{
                 //Prompt user's bet before submitting.
                 let title: String = "Place Bet"
-                let message: String = "You are betting that the " + homeTeam!.name + " score will end with " + String(describing: newBetHomeDigit) + ", and the " + awayTeam!.name + " score will end with " + String(describing: newBetAwayDigit) + ". This bet costs " + String(format: "$%.02f", betCost)
+                let message: String = "You are betting that the " + homeTeam!.name + " score will end with " + String(describing: newBetHomeDigit) + ", and the " + awayTeam!.name + " score will end with " + String(describing: newBetAwayDigit) + ". " + String(format: "$%.02f", betCost) + " will be charged to your card."
 
                 ModalService.showConfirm(title: title, message: message, confirmText: "Confirm", cancelText: "Cancel")
                     .then{() -> Void in
@@ -272,26 +270,35 @@ class FullGameViewController: UIViewController {
                         bet.homeDigit = newBetHomeDigit
                         bet.awayDigit = newBetAwayDigit
                         
-                        //Charge user account.
-                        MyFirebaseRef.subtractCashToUser(userId: SessionManager.getUserId(), cashToSubtract: self.betCost)
-                            .then{ () -> Void in
-                                MyFirebaseRef.createNewBet(gameId: self.game.id, bet: bet)
-                                    .then{ (betId) -> Void in
-                                        self.getGame()
-                                        ModalService.showSuccess(title: "Success", message: "Your bet has been placed.")
-                                    }.always{}
-                            }.always {}
+                        //TODO: Charge user account with Stripe.
+                        MyFirebaseRef.createNewBet(gameId: self.game.id, bet: bet)
+                            .then{ (betId) -> Void in
+                                self.getGame()
+                                ModalService.showSuccess(title: "Success", message: "Your bet has been placed.")
+                            }.always{}
                     }.always {}
             }
         }
     }
     
     @IBAction func homeDigitStepperAction(sender: UIStepper) {
-        newBetHomeDigit.text = "\(Int(newBetHomeDigitStepper.value))"
+        if(game.activeCode == 2){
+            ModalService.showError(title: "Game Has Ended", message: "You can only bet on 'Pre' games.")
+        }else if(game.activeCode == 1){
+            ModalService.showError(title: "Game Is In Progress", message: "You can only bet on 'Pre' games.")
+        }else{
+            newBetHomeDigit.text = "\(Int(newBetHomeDigitStepper.value))"
+        }
     }
     
     @IBAction func awayDigitStepperAction(sender: UIStepper) {
-        newBetAwayDigit.text = "\(Int(newBetAwayDigitStepper.value))"
+        if(game.activeCode == 2){
+            ModalService.showError(title: "Game Has Ended", message: "You can only bet on 'Pre' games.")
+        }else if(game.activeCode == 1){
+            ModalService.showError(title: "Game Is In Progress", message: "You can only bet on 'Pre' games.")
+        }else{
+            newBetAwayDigit.text = "\(Int(newBetAwayDigitStepper.value))"
+        }
     }
     
     //Return true if the bet is already occupied.
@@ -300,6 +307,14 @@ class FullGameViewController: UIViewController {
             if(bet.homeDigit == homeDigit && bet.awayDigit == awayDigit){
                 return true
             }
+        }
+        return false
+    }
+    
+    //Determines if this bet reflects the current score.
+    func isWinningBet(bet: Bet) -> Bool {
+        if(Int(homeTeamPostDigit.text!)! == bet.homeDigit && Int(awayTeamPostDigit.text!)! == bet.awayDigit){
+            return true
         }
         return false
     }
@@ -344,7 +359,6 @@ extension FullGameViewController: UICollectionViewDelegate, UICollectionViewDele
 }
 
 extension FullGameViewController: UICollectionViewDataSource {
-    //Collection View Data Source Methods.
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -367,7 +381,7 @@ extension FullGameViewController: UICollectionViewDataSource {
             let selectedBet: Bet = game.bets[indexPath.row]
             
             //If the current score is this bet, add yellow tint to background
-            if(Int(homeTeamPostDigit.text!)! == selectedBet.homeDigit && Int(awayTeamPostDigit.text!)! == selectedBet.awayDigit){
+            if(isWinningBet(bet: selectedBet)){
                 cell.view.backgroundColor = GMColor.amber100Color()
             }else{
                 cell.view.backgroundColor = GMColor.grey100Color()
@@ -389,7 +403,19 @@ extension FullGameViewController: UICollectionViewDataSource {
         }
         fatalError("Unable to Dequeue Reusable Cell View")
     }
-    
 }
 
+extension FullGameViewController : SFSafariViewControllerDelegate {
+    func openUrl(url: String) -> Void {
+        let svc = SFSafariViewController(url: NSURL(string: url)! as URL)
+        svc.delegate = self
+        svc.preferredBarTintColor = .red
+        svc.preferredControlTintColor = .white
+        present(svc, animated: true, completion: nil)
+    }
+    
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController) -> Void {
+        controller.dismiss(animated: true, completion: nil)
+    }
+}
 
