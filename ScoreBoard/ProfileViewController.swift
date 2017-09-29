@@ -11,9 +11,12 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var profileImage: UIImageView!
+    @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var pointsLabel: UILabel!
     @IBOutlet weak var currentBetsLabel: UILabel!
     @IBOutlet weak var betsWonLabel: UILabel!
+    @IBOutlet weak var locationLabel: UILabel!
+    @IBOutlet weak var myBetsLabel: UILabel!
     
     //Navbar buttons
     var messagesButton: UIBarButtonItem!
@@ -50,29 +53,34 @@ class ProfileViewController: UIViewController {
         //Display navbar on return from image picker.
         navigationController?.setNavigationBarHidden(false, animated: true)
         
+        //Set page title to username
+        navigationController?.visibleViewController?.title = "Profile"
+        
         //If currently viewing your own profile, add "edit profile" and "message" buttons.
         if(userId == SessionManager.getUserId()){
-            navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([messagesButton, editProfileButton], animated: true)
+            navigationController?.visibleViewController?.navigationItem.setLeftBarButtonItems([editProfileButton], animated: true)
+            navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([messagesButton], animated: true)
         }
         //Else, add only message button to message user.
         else{
+            navigationController?.visibleViewController?.navigationItem.setLeftBarButtonItems([], animated: true)
             navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([messagesButton], animated: true)
         }
-        
         
         getUser()
     }
 
     func initUI() -> Void {
+        
         //Configure imagepicker.
         imagePicker.delegate = self
         
         //Add refresh control.
-        self.scrollView.addSubview(self.refreshControl)
+        scrollView.addSubview(self.refreshControl)
         
         //Configure collection view.
-        self.collectionView.dataSource = self
-        self.collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.delegate = self
         let XIBCell = UINib.init(nibName: "BetCell", bundle: nil)
         collectionView.register(XIBCell, forCellWithReuseIdentifier: CellIdentifier)
         
@@ -111,10 +119,6 @@ class ProfileViewController: UIViewController {
         MyFirebaseRef.getUserByID(id: userId!)
             .then{ (user) -> Void in
                 self.user = user
-                
-                //Set page title to username
-                self.navigationController?.visibleViewController?.title = self.user?.userName
-                
                 self.getBets()
             }.always{}
     }
@@ -149,6 +153,42 @@ class ProfileViewController: UIViewController {
         }
     }
     
+    func setUI() -> Void {
+        //Profile image
+        profileImage.round(borderWidth: 8.0, borderColor: UIColor.white)
+        profileImage.kf.setImage(with: URL(string: user!.imageDownloadUrl))
+        
+        //Location
+        if let _ = user!.city, let _ = user!.stateId {
+            locationLabel.text = user!.city + ", " + StateService.getStateAbbreviation(user!.stateId)
+        }else{
+            locationLabel.text = "No location"
+        }
+        
+        //Username
+        userNameLabel.text = user!.userName
+        
+        //Points
+        pointsLabel.text = String(describing: user!.points!)
+        
+        //Current bets amount
+        currentBetsLabel.text = String(describing: myBets.count)
+        
+        //Bets won
+        betsWonLabel.text = String(describing: user!.betsWon!)
+        
+        //My bets label, gender specific
+        if(userId == SessionManager.getUserId()){
+            myBetsLabel.text = "My bets"
+        }else{
+            if let _ = user!.gender {
+                myBetsLabel.text = user!.gender == "F" ? "Her bets" : "His bets"
+            }else{
+                myBetsLabel.text = "Their bets"
+            }
+        }
+    }
+    
     func openEditProfile() -> Void {
         let editProfileViewController = storyBoard.instantiateViewController(withIdentifier: "EditProfileViewController") as! EditProfileViewController
         navigationController?.pushViewController(editProfileViewController, animated: true)
@@ -160,7 +200,7 @@ class ProfileViewController: UIViewController {
             let messagesViewController = storyBoard.instantiateViewController(withIdentifier: "MessagesViewController") as! MessagesViewController
             navigationController?.pushViewController(messagesViewController, animated: true)
         }
-        //Otherwise, open message view directly to message this user.
+            //Otherwise, open message view directly to message this user.
         else{
             ModalService.showInfo(title: "Message " + (self.user?.userName)!, message: "Coming soon...")
         }
@@ -170,28 +210,10 @@ class ProfileViewController: UIViewController {
         if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum){
             imagePicker.sourceType = .photoLibrary;
             imagePicker.allowsEditing = false
-            self.present(imagePicker, animated: true, completion: nil)
+            present(imagePicker, animated: true, completion: nil)
         }else{
             ModalService.showError(title: "Sorry", message: "Image Picker Not Available")
         }
-    }
-    
-    func setUI() -> Void {        
-        //Profile image
-        profileImage.layer.cornerRadius = profileImage.frame.size.width / 2;
-        profileImage.clipsToBounds = true;
-        profileImage.layer.borderWidth = 2.0
-        profileImage.layer.borderColor = UIColor.white.cgColor
-        profileImage.kf.setImage(with: URL(string: user!.imageDownloadUrl))
-        
-        //Points
-        pointsLabel.text = String(describing: user!.points!)
-        
-        //Current bets amount
-        currentBetsLabel.text = String(describing: myBets.count)
-        
-        //Bets won
-        betsWonLabel.text = String(describing: user!.betsWon!)
     }
 }
 
@@ -251,12 +273,12 @@ extension ProfileViewController: UICollectionViewDataSource {
             let selectedBet: Bet = myBets[indexPath.row].bet!
             cell.userName.text = self.user!.userName
             cell.userImage.kf.setImage(with: URL(string: self.user!.imageDownloadUrl))
-            cell.userImage.round(1, UIColor.black)
+            cell.userImage.round(borderWidth: 1, borderColor: UIColor.black)
             cell.homeTeamImage.kf.setImage(with: URL(string: myBets[indexPath.row].homeTeam.imageDownloadUrl))
-            cell.homeTeamImage.round(1, UIColor.black)
+            cell.homeTeamImage.round(borderWidth: 1, borderColor: UIColor.black)
             cell.homeTeamDigit.text = String(describing: selectedBet.homeDigit!)
             cell.awayTeamImage.kf.setImage(with: URL(string: myBets[indexPath.row].awayTeam.imageDownloadUrl))
-            cell.awayTeamImage.round(1, UIColor.black)
+            cell.awayTeamImage.round(borderWidth: 1, borderColor: UIColor.black)
             cell.awayTeamDigit.text = String(describing: selectedBet.awayDigit!)
             
             let d: Date = ConversionService.getDateInTimeZone(date: selectedBet.postDateTime, timeZoneOffset: selectedBet.postTimeZoneOffSet)
@@ -283,7 +305,7 @@ extension ProfileViewController : UIImagePickerControllerDelegate {
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) -> Void {
-        dismiss(animated: true, completion: nil)
+        picker.dismiss(animated: true, completion: nil)
     }
 }
 

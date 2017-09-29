@@ -78,7 +78,8 @@ class GamesViewController: UIViewController {
     }
     
     func setNavBarButtons() -> Void {
-        self.navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([], animated: true)
+        navigationController?.visibleViewController?.navigationItem.setLeftBarButtonItems([], animated: true)
+        navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([], animated: true)
     }
     
     func segmentedControlValueChanged() -> Void {
@@ -120,9 +121,9 @@ extension GamesViewController : UITableViewDataSource, UITableViewDelegate {
 
             cell.title.text = homeTeam.name + " vs. " + awayTeam.name
             cell.potAmount.text = String(format: "$%.02f", game.potAmount) + " pot"
-            cell.homeTeamImage.round(0, UIColor.black)
+            cell.homeTeamImage.round(borderWidth: 0, borderColor: UIColor.black)
             cell.homeTeamImage.kf.setImage(with: URL(string: homeTeam.imageDownloadUrl))
-            cell.awayTeamImage.round(0, UIColor.black)
+            cell.awayTeamImage.round(borderWidth: 0, borderColor: UIColor.black)
             cell.awayTeamImage.kf.setImage(with: URL(string: awayTeam.imageDownloadUrl))
             
             if(game.bets.count == 1){

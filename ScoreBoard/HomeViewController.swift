@@ -66,7 +66,8 @@ class HomeViewController: UIViewController {
     }
     
     func setNavBarButtons() -> Void {
-        self.navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([], animated: true)
+        navigationController?.visibleViewController?.navigationItem.setLeftBarButtonItems([], animated: true)
+        navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([], animated: true)
     }
 }
 

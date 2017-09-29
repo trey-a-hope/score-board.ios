@@ -27,7 +27,8 @@ class SettingsTableViewController: UITableViewController {
     }
     
     func setNavBarButtons() -> Void {
-        self.navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([], animated: true)
+        navigationItem.setLeftBarButtonItems([], animated: true)
+        navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([], animated: true)
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -4,8 +4,21 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     let searchBar: UISearchBar = UISearchBar()
+    
+    //Navbar buttons
     var searchButton: UIBarButtonItem!
-    var thisViewController: UIViewController{
+    
+    //All search categories
+    var athletes: [User] = [User]()
+    var filteredAthletes: [User] = [User]()
+    var highSchoolCoaches: [User] = [User]()
+    var filteredHighSchoolCoaches: [User] = [User]()
+    var collegeCoaches: [User] = [User]()
+    var filteredCollegeCoaches: [User] = [User]()
+    
+    var categories: [String] = ["Active Games", "Users", "Teams"]
+    
+    var thisVC: UIViewController{
         return (self.navigationController?.visibleViewController)!
     }
     
@@ -32,37 +45,34 @@ class SearchViewController: UIViewController {
         )
         
         //Configure searchbar.
-        let frame = CGRect(x: 0, y: 0, width: 200, height: 40)
-        let titleView = UIView(frame: frame)
-        searchBar.delegate = self
         searchBar.showsCancelButton = true
         searchBar.placeholder = "Search"
-        searchBar.backgroundImage = UIImage()
-        searchBar.frame = frame
-        titleView.addSubview(searchBar)
+        searchBar.delegate = self
     }
     
     func reInitUI() -> Void {
-        thisViewController.title = "Search"
+        thisVC.title = "Search"
         searchButton.isEnabled = ConnectionManager.isConnectedToInternet()
-        thisViewController.navigationItem.setRightBarButtonItems([searchButton], animated: true)
+        thisVC.navigationItem.setLeftBarButtonItems([], animated: true)
+        thisVC.navigationItem.setRightBarButtonItems([searchButton], animated: true)
     }
 }
 
 extension SearchViewController : UISearchBarDelegate {
     //Show search bar
     func showSearchBar(_ sender: UIBarButtonItem!) -> Void {
-        thisViewController.navigationItem.setHidesBackButton(true, animated:true)
-        thisViewController.navigationItem.titleView = searchBar
-        thisViewController.navigationItem.rightBarButtonItems = nil
-        thisViewController.navigationItem.leftBarButtonItems = nil
+        thisVC.navigationItem.setHidesBackButton(true, animated:true)
+        thisVC.navigationItem.titleView = searchBar
+        thisVC.navigationItem.rightBarButtonItems = nil
+        thisVC.navigationItem.leftBarButtonItems = nil
     }
     
     //Hide search bar
     func hideSearchBar() -> Void {
-        /* Add buttons to navbar. */
-        thisViewController.navigationItem.setRightBarButtonItems([searchButton], animated: true)
-        thisViewController.navigationItem.titleView = nil
+        //Add buttons to navbar
+        thisVC.navigationItem.setLeftBarButtonItems([], animated: true)
+        thisVC.navigationItem.setRightBarButtonItems([searchButton], animated: true)
+        thisVC.navigationItem.titleView = nil
         searchBar.text = ""
         searchBar.endEditing(true)
     }

@@ -9,10 +9,16 @@
 import UIKit
 
 final class ImageViewController: UIViewController {
-    
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
     var image: UIImage!
     
-    @IBOutlet weak var imageView: UIImageView!
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        imageView.image = image
+        spinner.isHidden = true
+    }
     
     @IBAction func backAction(_ sender: UIButton) {
         
@@ -32,22 +38,15 @@ final class ImageViewController: UIViewController {
     }
     
     @IBAction func doneAction(_ sender: UIButton) {
-        //SwiftSpinner.show("Uploading image...")
+        spinner.isHidden = false
+        spinner.startAnimating()
         MyFirebaseRef.updateProfilePicture(userId: SessionManager.getUserId(), image: image)
             .then{ () -> Void in
                 _ = self.navigationController?.popToViewController(self.navigationController!.viewControllers[0], animated: true)
             }.catch{ (error) in
                 ModalService.showError(title: "Error", message: error.localizedDescription)
             }.always{
-                //SwiftSpinner.hide()
+                self.spinner.stopAnimating()
         }
-    }
-    
-    // MARK: - Life Cycle
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        imageView.image = image
     }
 }

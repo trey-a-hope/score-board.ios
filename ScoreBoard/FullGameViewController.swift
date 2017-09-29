@@ -123,9 +123,9 @@ class FullGameViewController: UIViewController {
         homeTeamPreDigit.text = String(describing: game.homeTeamScore / 10)
         homeTeamPostDigit.text = String(describing: game.homeTeamScore % 10)
         //Home Team Image
-        homeTeamImage.round(0, UIColor.black)
+        homeTeamImage.round(borderWidth: 0, borderColor: UIColor.black)
         homeTeamImage.kf.setImage(with: URL(string: homeTeam!.imageDownloadUrl))
-        newBetHomeTeamImage.round(0, UIColor.black)
+        newBetHomeTeamImage.round(borderWidth: 0, borderColor: UIColor.black)
         newBetHomeTeamImage.kf.setImage(with: URL(string: homeTeam!.imageDownloadUrl))
         //Home Team City
         homeTeamCity.text = "Home - " + homeTeam!.city
@@ -138,9 +138,9 @@ class FullGameViewController: UIViewController {
         awayTeamPreDigit.text = String(describing: game.awayTeamScore / 10)
         awayTeamPostDigit.text = String(describing: game.awayTeamScore % 10)
         //Away Team Image
-        awayTeamImage.round(0, UIColor.black)
+        awayTeamImage.round(borderWidth: 0, borderColor: UIColor.black)
         awayTeamImage.kf.setImage(with: URL(string: (awayTeam!.imageDownloadUrl)!))
-        newBetAwayTeamImage.round(0, UIColor.black)
+        newBetAwayTeamImage.round(borderWidth: 0, borderColor: UIColor.black)
         newBetAwayTeamImage.kf.setImage(with: URL(string: awayTeam!.imageDownloadUrl))
         //Away Team City
         awayTeamCity.text = "Away - " + awayTeam!.city
@@ -370,6 +370,9 @@ extension FullGameViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selectedBet: Bet = game.bets[indexPath.row]
         let profileViewController = storyBoard.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
+        
+        print(selectedBet.userId)
+        
         profileViewController.userId = selectedBet.userId
         self.navigationController!.pushViewController(profileViewController, animated: true)
     }
@@ -389,12 +392,12 @@ extension FullGameViewController: UICollectionViewDataSource {
             
             cell.userName.text = selectedBet.user.userName
             cell.userImage.kf.setImage(with: URL(string: selectedBet.user.imageDownloadUrl))
-            cell.userImage.round(1, UIColor.black)
+            cell.userImage.round(borderWidth: 1, borderColor: UIColor.black)
             cell.homeTeamImage.kf.setImage(with: URL(string: homeTeam!.imageDownloadUrl))
-            cell.homeTeamImage.round(1, UIColor.black)
+            cell.homeTeamImage.round(borderWidth: 1, borderColor: UIColor.black)
             cell.homeTeamDigit.text = String(describing: selectedBet.homeDigit!)
             cell.awayTeamImage.kf.setImage(with: URL(string: awayTeam!.imageDownloadUrl))
-            cell.awayTeamImage.round(1, UIColor.black)
+            cell.awayTeamImage.round(borderWidth: 1, borderColor: UIColor.black)
             cell.awayTeamDigit.text = String(describing: selectedBet.awayDigit!)
             let postDateTime: Date = ConversionService.getDateInTimeZone(date: selectedBet.postDateTime, timeZoneOffset: selectedBet.postTimeZoneOffSet)
             cell.posted.text = ConversionService.timeAgoSinceDate(date: postDateTime)

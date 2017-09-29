@@ -10,6 +10,8 @@
 		0C03B4401F4E76F40020FB2A /* ValidityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C03B43F1F4E76F40020FB2A /* ValidityService.swift */; };
 		0C03B4421F4E809C0020FB2A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C03B4411F4E809C0020FB2A /* User.swift */; };
 		0C03B4441F4EAE090020FB2A /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C03B4431F4EAE090020FB2A /* HomeViewController.swift */; };
+		0C0D60BB1F7EA355001338F5 /* UIPickerViewOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0D60BA1F7EA355001338F5 /* UIPickerViewOptions.swift */; };
+		0C0D60BD1F7EA412001338F5 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0D60BC1F7EA412001338F5 /* State.swift */; };
 		0C3ABE8C1F4F28D800AE5CF9 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ABE8B1F4F28D800AE5CF9 /* SearchViewController.swift */; };
 		0C43D0551F4E33C100C285A5 /* GameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C43D0531F4E33C100C285A5 /* GameTableViewCell.swift */; };
 		0C43D0561F4E33C100C285A5 /* GameTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C43D0541F4E33C100C285A5 /* GameTableViewCell.xib */; };
@@ -77,6 +79,8 @@
 		0C03B43F1F4E76F40020FB2A /* ValidityService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidityService.swift; sourceTree = "<group>"; };
 		0C03B4411F4E809C0020FB2A /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		0C03B4431F4EAE090020FB2A /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		0C0D60BA1F7EA355001338F5 /* UIPickerViewOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPickerViewOptions.swift; sourceTree = "<group>"; };
+		0C0D60BC1F7EA412001338F5 /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
 		0C3ABE8B1F4F28D800AE5CF9 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		0C43D0531F4E33C100C285A5 /* GameTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameTableViewCell.swift; sourceTree = "<group>"; };
 		0C43D0541F4E33C100C285A5 /* GameTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameTableViewCell.xib; sourceTree = "<group>"; };
@@ -291,6 +295,8 @@
 			isa = PBXGroup;
 			children = (
 				0CA5BF321F5F1BB7009D0236 /* NBATeam.swift */,
+				0C0D60BA1F7EA355001338F5 /* UIPickerViewOptions.swift */,
+				0C0D60BC1F7EA412001338F5 /* State.swift */,
 			);
 			name = Enums;
 			sourceTree = "<group>";
@@ -772,6 +778,7 @@
 				0C03B4401F4E76F40020FB2A /* ValidityService.swift in Sources */,
 				0CFC24641F4DEB7F003F97B5 /* Game.swift in Sources */,
 				0C03B4421F4E809C0020FB2A /* User.swift in Sources */,
+				0C0D60BD1F7EA412001338F5 /* State.swift in Sources */,
 				0C6DC5911F4DD9F200F9A061 /* AppDelegate.swift in Sources */,
 				0CFC24611F4DEB0A003F97B5 /* MyFirebaseRef.swift in Sources */,
 				0CD969FD1F6501EB00B183C8 /* CropperViewController.swift in Sources */,
@@ -779,6 +786,7 @@
 				0CC563751F4DFD9A0088057C /* ModalService.swift in Sources */,
 				0C5F3A451F4E163200516CFB /* SettingsTableViewController.swift in Sources */,
 				0CC563711F4DF9070088057C /* HomeTabBarController.swift in Sources */,
+				0C0D60BB1F7EA355001338F5 /* UIPickerViewOptions.swift in Sources */,
 				0C5F3A421F4E15D900516CFB /* ProfileViewController.swift in Sources */,
 				0C5F3A3A1F4E0EFD00516CFB /* Extensions.swift in Sources */,
 				0CC563771F4DFE430088057C /* FirebaseObject.swift in Sources */,

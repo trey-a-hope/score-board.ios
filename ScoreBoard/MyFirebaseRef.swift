@@ -189,12 +189,16 @@ class MyFirebaseRef {
         user.id = value["id"] as! String
         user.postTimeZoneOffSet = value["postTimeZoneOffSet"] as! Int
         user.postDateTime = ConversionService.convertStringToDate(value["postDateTime"] as! String)
-        user.fcmToken = value["fcmToken"] as? String
         user.points = value["points"] as! Int
         user.betsWon = value["betsWon"] as! Int
         user.userName = value["userName"] as! String
         user.email = value["email"] as! String
         user.imageDownloadUrl = value["imageDownloadUrl"] as! String
+        user.phoneNumber = value["phoneNumber"] as? String
+        user.fcmToken = value["fcmToken"] as? String
+        user.city = value["city"] as? String
+        user.stateId = value["stateId"] as? Int
+        user.gender = value["gender"] as? String
         return user
     }
     

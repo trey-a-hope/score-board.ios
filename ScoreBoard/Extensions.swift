@@ -1,13 +1,13 @@
 import UIKit
 
 extension UIImageView {
-    func round(_ borderWidth: CGFloat, _ borderColor: UIColor) -> Void {
-        //Round image.
-        self.layer.cornerRadius = self.frame.size.width / 2;
-        self.clipsToBounds = true;
-        //Add border.
-        self.layer.borderWidth = borderWidth
-        self.layer.borderColor = borderColor.cgColor
+    func round(borderWidth: CGFloat, borderColor: UIColor) -> Void {
+        //Round image
+        layer.cornerRadius = frame.size.width / 2;
+        clipsToBounds = true;
+        //Add border
+        layer.borderWidth = borderWidth
+        layer.borderColor = borderColor.cgColor
     }
 }
 
