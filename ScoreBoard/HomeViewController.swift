@@ -61,6 +61,7 @@ class HomeViewController: UIViewController {
     }
     
     func reInitUI() -> Void {
+        navigationController?.visibleViewController?.navigationItem.titleView = nil
         navigationController?.visibleViewController?.title = "ScorBord"
         setNavBarButtons()
     }

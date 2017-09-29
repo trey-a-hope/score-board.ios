@@ -22,7 +22,8 @@ class SettingsTableViewController: UITableViewController {
     }
     
     func reInitUI() -> Void {
-        self.navigationController?.visibleViewController?.title = "Settings"
+        navigationController?.visibleViewController?.navigationItem.titleView = nil
+        navigationController?.visibleViewController?.title = "Settings"
         setNavBarButtons()
     }
     

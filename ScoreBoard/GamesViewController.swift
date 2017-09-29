@@ -44,7 +44,8 @@ class GamesViewController: UIViewController {
     
     func reInitUI() -> Void {
         //Set title of view.
-        self.navigationController?.visibleViewController?.title = "Games"
+        navigationController?.visibleViewController?.navigationItem.titleView = nil
+        navigationController?.visibleViewController?.title = "Games"
         setNavBarButtons()
     }
     

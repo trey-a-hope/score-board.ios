@@ -54,6 +54,7 @@ class ProfileViewController: UIViewController {
         navigationController?.setNavigationBarHidden(false, animated: true)
         
         //Set page title to username
+        navigationController?.visibleViewController?.navigationItem.titleView = nil
         navigationController?.visibleViewController?.title = "Profile"
         
         //If currently viewing your own profile, add "edit profile" and "message" buttons.
