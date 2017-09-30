@@ -204,6 +204,7 @@ class MyFirebaseRef {
     
     //Returns id of new user after insertion.
     class func createNewUser(_ user: User) -> Promise<String> {
+        
         return Promise{ fulfill, reject in
             let newUserRef: DatabaseReference = ref.child(Table.Users).childByAutoId()
             let now: Date = Date()
@@ -247,6 +248,19 @@ class MyFirebaseRef {
                         fulfill()
                     }
                 }
+            })
+        }
+    }
+    
+    class func getUsers() -> Promise<[User]> {
+        return Promise { fulfill, reject in
+            ref.child(Table.Users).observeSingleEvent(of: .value, with: { (userSnapshots) in
+                var users: [User] = []
+                userSnapshots.children.allObjects.forEach({ (userSnapshot) in
+                    users.append(extractUserData(userSnapshot: userSnapshot as! DataSnapshot))
+                })
+                //Return users
+                fulfill(users)
             })
         }
     }

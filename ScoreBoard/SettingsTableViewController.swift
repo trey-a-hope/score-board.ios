@@ -28,7 +28,6 @@ class SettingsTableViewController: UITableViewController {
     }
     
     func setNavBarButtons() -> Void {
-        navigationItem.setLeftBarButtonItems([], animated: true)
         navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([], animated: true)
     }
     

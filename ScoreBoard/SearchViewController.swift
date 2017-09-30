@@ -1,6 +1,8 @@
+import PromiseKit
 import SafariServices
 import UIKit
 
+//Represent a search item's information
 class Item {
     var id: String!
     var url: String!
@@ -11,12 +13,9 @@ class Item {
 
 class SearchViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var defaultLabel: UILabel!
     
     let searchBar: UISearchBar = UISearchBar()
-    
-    //Navbar buttons
-    var searchButton: UIBarButtonItem!
+    let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
     
     //All search categories
     var games: [Item] = [Item]()
@@ -34,108 +33,120 @@ class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         if(ConnectionManager.isConnectedToInternet()){
             initUI()
         }else{
             ModalService.showError(title: "Error", message: "No internet connection.")
         }
-        
-//        NotificationCenter.default.addObserver(self, selector: "keyboardWillShow:", name: NSNotification.Name.UIKeyboardWillShow, object: nil)
     }
-    
-//    func keyboardWillShow(_ notification: Notification) {
-//        if let keyboardFrame: NSValue = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue {
-//            let keyboardRectangle = keyboardFrame.cgRectValue
-//            let keyboardHeight = keyboardRectangle.height
-//            print(keyboardHeight) 216 - 48 = 118
-//        }
-//    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        thisVC.title = "Search"
+        thisVC.navigationItem.setRightBarButtonItems([], animated: true)
+        searchBar.text = ""
+        thisVC.navigationItem.titleView = searchBar
         
-        searchButton.isEnabled = ConnectionManager.isConnectedToInternet()
+        self.games = []
+        self.users = []
+        self.teams = []
         
-        thisVC.navigationItem.setLeftBarButtonItems([], animated: true)
-        thisVC.navigationItem.setRightBarButtonItems([searchButton], animated: true)
+        //Fetch games, users, and teams.
+        when(fulfilled: MyFirebaseRef.getGames(), MyFirebaseRef.getUsers())
+            .then{ (result) -> Void in
+                
+                //Set games
+                for game in result.0 {
+                    let homeTeam: NBATeam = NBATeamService.instance.getTeam(id: game.homeTeamId)
+                    let awayTeam: NBATeam = NBATeamService.instance.getTeam(id: game.awayTeamId)
+                    
+                    let gameItem: Item = Item()
+                    gameItem.id = game.id
+                    gameItem.imageDownloadUrl = homeTeam.imageDownloadUrl
+                    gameItem.name = homeTeam.name + " vs. " + awayTeam.name
+                    gameItem.group = self.categories[0]
+                    self.games.append(gameItem)
+                }
+                //Sort games by name
+                self.games = self.games.sorted(by: { $0.name < $1.name })
+                self.filteredGames = self.games
+                
+                //Set users
+                for user in result.1 {
+                    let userItem: Item = Item()
+                    userItem.id = user.id
+                    userItem.imageDownloadUrl = user.imageDownloadUrl
+                    userItem.name = user.userName
+                    userItem.group = self.categories[1]
+                    self.users.append(userItem)
+                }
+                //Sort users by name
+                self.users = self.users.sorted(by: { $0.name < $1.name })
+                self.filteredUsers = self.users
+                
+                //Set teams
+                for team in NBATeamService.instance.teams {
+                    let teamItem: Item = Item()
+                    teamItem.imageDownloadUrl = team.imageDownloadUrl
+                    teamItem.name = team.city + " " + team.name
+                    teamItem.group = self.categories[2]
+                    teamItem.url = team.url
+                    self.teams.append(teamItem)
+                }
+                self.filteredTeams = self.teams
+                
+                
+            }.always{
+                self.tableView.reloadData()
+        }
     }
     
     func initUI() -> Void {
-        hideKeyboardWhenTappedAround()
-        
-        //Search Button
-        searchButton = UIBarButtonItem(
-            barButtonSystemItem: .search,
-            target: self,
-            action: #selector(SearchViewController.showSearchBar(_:))
-        )
-        
         //Configure searchbar.
-        searchBar.showsCancelButton = true
         searchBar.placeholder = "Search"
         searchBar.delegate = self
         
         //Configure Table View
         let XIBCell = UINib.init(nibName: "SearchItem", bundle: nil)
         tableView.register(XIBCell, forCellReuseIdentifier: "SearchItem")
-        tableView.isHidden = true
         tableView.delegate = self
         tableView.dataSource = self
-        
-        //Set games
-        //Set users
-        //Set teams
-        for team in NBATeamService.instance.teams {
-            let i: Item = Item()
-            i.imageDownloadUrl = team.imageDownloadUrl
-            i.name = team.city + " " + team.name
-            i.group = categories[2]
-            i.url = team.url
-            teams.append(i)
-        }
-        filteredTeams = teams
-        
-        tableView.reloadData()
-        
     }
 }
 
 extension SearchViewController : UISearchBarDelegate {
     //Show search bar
-    func showSearchBar(_ sender: UIBarButtonItem!) -> Void {
-        defaultLabel.isHidden = true
-        tableView.isHidden = false
-        
-        thisVC.navigationItem.setHidesBackButton(true, animated:true)
-        thisVC.navigationItem.titleView = searchBar
-        thisVC.navigationItem.rightBarButtonItems = nil
-        thisVC.navigationItem.leftBarButtonItems = nil
-    }
-    
+//    func showSearchBar(_ sender: UIBarButtonItem!) -> Void {
+//        defaultLabel.isHidden = true
+//        tableView.isHidden = false
+//
+//        thisVC.navigationItem.setHidesBackButton(true, animated:true)
+//        thisVC.navigationItem.titleView = searchBar
+//        thisVC.navigationItem.rightBarButtonItems = nil
+//    }
+//
     //Hide search bar
-    func hideSearchBar() -> Void {
-        defaultLabel.isHidden = false
-        tableView.isHidden = true
-        
-        //Reset filtered values to original
-        filteredGames = games
-        filteredUsers = users
-        filteredTeams = teams
-        tableView.reloadData()
-        
-        thisVC.navigationItem.setLeftBarButtonItems([], animated: true)
-        thisVC.navigationItem.setRightBarButtonItems([searchButton], animated: true)
-        thisVC.navigationItem.titleView = nil
-        searchBar.text = ""
-        searchBar.endEditing(true)
-    }
+//    func hideSearchBar() -> Void {
+//        defaultLabel.isHidden = false
+//        tableView.isHidden = true
+//
+//        //Reset filtered values to original
+//        filteredGames = games
+//        filteredUsers = users
+//        filteredTeams = teams
+//        tableView.reloadData()
+//
+//        thisVC.navigationItem.setRightBarButtonItems([searchButton], animated: true)
+//        thisVC.navigationItem.titleView = nil
+//        searchBar.text = ""
+//        searchBar.endEditing(true)
+//    }
     
     //Cancel button function
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        self.hideSearchBar()
-    }
+//    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+//        self.hideSearchBar()
+//    }
     
     //Text on change function for searchbar.
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) -> Void {
@@ -213,6 +224,18 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
         let item: Item = getItemFromIndexPath(indexPath)
         
         switch(item.group){
+            //Games
+            case categories[0]:
+                let fullGameViewController = storyBoard.instantiateViewController(withIdentifier: "FullGameViewController") as! FullGameViewController
+                fullGameViewController.gameId = item.id
+                self.navigationController?.pushViewController(fullGameViewController, animated: true)
+                break
+            //Users
+            case categories[1]:
+                let profileViewController = storyBoard.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
+                profileViewController.userId = item.id
+                self.navigationController?.pushViewController(profileViewController, animated: true)
+                break
             //Teams
             case categories[2]:
                 let svc = SFSafariViewController(url: NSURL(string: item.url)! as URL)

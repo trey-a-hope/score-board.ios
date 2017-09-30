@@ -59,12 +59,10 @@ class ProfileViewController: UIViewController {
         
         //If currently viewing your own profile, add "edit profile" and "message" buttons.
         if(userId == SessionManager.getUserId()){
-            navigationController?.visibleViewController?.navigationItem.setLeftBarButtonItems([editProfileButton], animated: true)
-            navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([messagesButton], animated: true)
+            navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([messagesButton, editProfileButton], animated: true)
         }
         //Else, add only message button to message user.
         else{
-            navigationController?.visibleViewController?.navigationItem.setLeftBarButtonItems([], animated: true)
             navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([messagesButton], animated: true)
         }
         

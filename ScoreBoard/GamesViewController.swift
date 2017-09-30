@@ -79,7 +79,6 @@ class GamesViewController: UIViewController {
     }
     
     func setNavBarButtons() -> Void {
-        navigationController?.visibleViewController?.navigationItem.setLeftBarButtonItems([], animated: true)
         navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([], animated: true)
     }
     
