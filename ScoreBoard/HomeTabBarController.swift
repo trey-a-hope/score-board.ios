@@ -5,6 +5,7 @@ class HomeTabBarController : UITabBarController {
         super.viewWillAppear(animated)
         
         edgesForExtendedLayout = []
+        
                 
         //Keep FCM up to date.
         if(SessionManager.isLoggedIn()){
@@ -16,5 +17,9 @@ class HomeTabBarController : UITabBarController {
                     }
                 }.always{}
         }
+    }
+    
+    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        print("the selected index is : \(tabBar.items?.index(of: item))")
     }
 }

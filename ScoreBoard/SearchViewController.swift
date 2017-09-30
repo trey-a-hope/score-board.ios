@@ -14,7 +14,7 @@ class Item {
 class SearchViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
-    let searchBar: UISearchBar = UISearchBar()
+    var searchBar: UISearchBar!
     let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
     
     //All search categories
@@ -27,10 +27,6 @@ class SearchViewController: UIViewController {
     
     var categories: [String] = ["Games", "Users", "Teams"]
     
-    var thisVC: UIViewController{
-        return (self.navigationController?.visibleViewController)!
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -40,13 +36,18 @@ class SearchViewController: UIViewController {
             ModalService.showError(title: "Error", message: "No internet connection.")
         }
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        thisVC.navigationItem.setRightBarButtonItems([], animated: true)
-        searchBar.text = ""
-        thisVC.navigationItem.titleView = searchBar
+        //Configure searchbar.
+        searchBar = UISearchBar()
+        searchBar.placeholder = "Search"
+        searchBar.delegate = self
+        
+        navigationController?.visibleViewController?.title = "Search"
+        navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([], animated: true)
+        navigationController?.visibleViewController?.navigationItem.titleView = searchBar
         
         self.games = []
         self.users = []
@@ -55,7 +56,6 @@ class SearchViewController: UIViewController {
         //Fetch games, users, and teams.
         when(fulfilled: MyFirebaseRef.getGames(), MyFirebaseRef.getUsers())
             .then{ (result) -> Void in
-                
                 //Set games
                 for game in result.0 {
                     let homeTeam: NBATeam = NBATeamService.instance.getTeam(id: game.homeTeamId)
@@ -96,58 +96,24 @@ class SearchViewController: UIViewController {
                 }
                 self.filteredTeams = self.teams
                 
-                
             }.always{
                 self.tableView.reloadData()
-        }
+            }
     }
     
     func initUI() -> Void {
-        //Configure searchbar.
-        searchBar.placeholder = "Search"
-        searchBar.delegate = self
-        
         //Configure Table View
         let XIBCell = UINib.init(nibName: "SearchItem", bundle: nil)
         tableView.register(XIBCell, forCellReuseIdentifier: "SearchItem")
         tableView.delegate = self
         tableView.dataSource = self
+        
+        definesPresentationContext = true
+        automaticallyAdjustsScrollViewInsets = false
     }
 }
 
 extension SearchViewController : UISearchBarDelegate {
-    //Show search bar
-//    func showSearchBar(_ sender: UIBarButtonItem!) -> Void {
-//        defaultLabel.isHidden = true
-//        tableView.isHidden = false
-//
-//        thisVC.navigationItem.setHidesBackButton(true, animated:true)
-//        thisVC.navigationItem.titleView = searchBar
-//        thisVC.navigationItem.rightBarButtonItems = nil
-//    }
-//
-    //Hide search bar
-//    func hideSearchBar() -> Void {
-//        defaultLabel.isHidden = false
-//        tableView.isHidden = true
-//
-//        //Reset filtered values to original
-//        filteredGames = games
-//        filteredUsers = users
-//        filteredTeams = teams
-//        tableView.reloadData()
-//
-//        thisVC.navigationItem.setRightBarButtonItems([searchButton], animated: true)
-//        thisVC.navigationItem.titleView = nil
-//        searchBar.text = ""
-//        searchBar.endEditing(true)
-//    }
-    
-    //Cancel button function
-//    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-//        self.hideSearchBar()
-//    }
-    
     //Text on change function for searchbar.
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) -> Void {
         self.filterContentForSearchText(searchText)
@@ -223,25 +189,29 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) -> Void {
         let item: Item = getItemFromIndexPath(indexPath)
         
-        switch(item.group){
+        switch(indexPath.section){
             //Games
-            case categories[0]:
+            case 0:
                 let fullGameViewController = storyBoard.instantiateViewController(withIdentifier: "FullGameViewController") as! FullGameViewController
                 fullGameViewController.gameId = item.id
                 self.navigationController?.pushViewController(fullGameViewController, animated: true)
                 break
             //Users
-            case categories[1]:
+            case 1:
                 let profileViewController = storyBoard.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
                 profileViewController.userId = item.id
                 self.navigationController?.pushViewController(profileViewController, animated: true)
                 break
             //Teams
-            case categories[2]:
+            case 2:
+                //Text will still be present in searchbar on return if not cleared like such
+                searchBar.text = ""
                 let svc = SFSafariViewController(url: NSURL(string: item.url)! as URL)
                 svc.delegate = self
                 svc.preferredBarTintColor = Constants.primaryColor
                 svc.preferredControlTintColor = .white
+                svc.modalPresentationStyle = .formSheet
+                svc.modalTransitionStyle = .crossDissolve
                 present(svc, animated: true, completion: nil)
                 break
             default:break
@@ -260,40 +230,6 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
         }
         fatalError("Unable to Dequeue Reusable Supplementary View")
     }
-    
-//    func tableView(_ tableView: UITableView, editActionsForRowAt: IndexPath) -> [UITableViewRowAction]? {
-//        let user: User = getUserFromIndexPath(editActionsForRowAt)
-//
-//        switch(user.roleId){
-//        //Athlete
-//        case 1:
-//            if let _  = user.firstPlayerPositionId, let _ = user.secondaryPlayerPositionId {
-//                //1st Position
-//                let firstPosition: String = PlayerPositionService.getPlayerPositionAbbreviation(user.firstPlayerPositionId!)
-//                let firstPositionButton = UITableViewRowAction(style: .normal, title: firstPosition) { action, index in
-//
-//                }
-//                firstPositionButton.backgroundColor = GMColor.blue800Color()
-//                //2nd Position
-//                let secondPosition: String = PlayerPositionService.getPlayerPositionAbbreviation(user.secondaryPlayerPositionId!)
-//                let secondPositionButton = UITableViewRowAction(style: .normal, title: secondPosition) { action, index in
-//
-//                }
-//                secondPositionButton.backgroundColor = GMColor.orange800Color()
-//
-//                return [secondPositionButton, firstPositionButton]
-//            }
-//            return []
-//        //High School Coach
-//        case 2:
-//            return []
-//        //College Coach
-//        case 3:
-//            return []
-//        default:
-//            return []
-//        }
-//    }
 }
 
 extension SearchViewController : SFSafariViewControllerDelegate {

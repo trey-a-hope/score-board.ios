@@ -61,6 +61,18 @@ class EditProfileViewController: UIViewController {
     }
     
     func formValid() -> Bool {
+        if(userName.text == ""){
+            return false
+        }
+        if(phoneNumber.text?.characters.count != 10){
+            return false
+        }
+        if(city.text == ""){
+            return false
+        }
+        if(state.text == ""){
+            return false
+        }
         return true
     }
     
