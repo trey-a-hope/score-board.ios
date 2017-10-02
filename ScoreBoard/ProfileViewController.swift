@@ -70,7 +70,6 @@ class ProfileViewController: UIViewController {
     }
 
     func initUI() -> Void {
-        
         //Configure imagepicker.
         imagePicker.delegate = self
         

@@ -24,6 +24,8 @@
 		0C5F3A3D1F4E11C200516CFB /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5F3A3C1F4E11C200516CFB /* SessionManager.swift */; };
 		0C5F3A421F4E15D900516CFB /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5F3A411F4E15D900516CFB /* ProfileViewController.swift */; };
 		0C5F3A451F4E163200516CFB /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5F3A441F4E163200516CFB /* SettingsTableViewController.swift */; };
+		0C628CA01F81BF4F0044C469 /* ChangeEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C628C9F1F81BF4F0044C469 /* ChangeEmailViewController.swift */; };
+		0C628CA21F81C33F0044C469 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C628CA11F81C33F0044C469 /* ChangePasswordViewController.swift */; };
 		0C65A3821F7DE26B001C2959 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C65A3811F7DE26B001C2959 /* EditProfileViewController.swift */; };
 		0C6C20461F676C30000AB4F3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0C6C20451F676C30000AB4F3 /* GoogleService-Info.plist */; };
 		0C6DC5911F4DD9F200F9A061 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6DC5901F4DD9F200F9A061 /* AppDelegate.swift */; };
@@ -38,6 +40,8 @@
 		0C98D22F1F5FA86C00D8BBAD /* Bet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C98D22E1F5FA86C00D8BBAD /* Bet.swift */; };
 		0C98D2341F5FAF2600D8BBAD /* BetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C98D2321F5FAF2600D8BBAD /* BetCell.swift */; };
 		0C98D2351F5FAF2600D8BBAD /* BetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C98D2331F5FAF2600D8BBAD /* BetCell.xib */; };
+		0C9F18AA1F81C6C7009543A6 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9F18A91F81C6C7009543A6 /* AboutViewController.swift */; };
+		0C9F18AC1F81C6E9009543A6 /* SupportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9F18AB1F81C6E9009543A6 /* SupportViewController.swift */; };
 		0CA5BF301F5F1B13009D0236 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA5BF2F1F5F1B13009D0236 /* Constants.swift */; };
 		0CA5BF331F5F1BB7009D0236 /* NBATeam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA5BF321F5F1BB7009D0236 /* NBATeam.swift */; };
 		0CAB26DA1F770D6D00B8EBC1 /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CAB26D91F770D6D00B8EBC1 /* MessagesViewController.swift */; };
@@ -95,6 +99,8 @@
 		0C5F3A3C1F4E11C200516CFB /* SessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
 		0C5F3A411F4E15D900516CFB /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		0C5F3A441F4E163200516CFB /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		0C628C9F1F81BF4F0044C469 /* ChangeEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeEmailViewController.swift; sourceTree = "<group>"; };
+		0C628CA11F81C33F0044C469 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		0C65A3811F7DE26B001C2959 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		0C6C20451F676C30000AB4F3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0C6DC58D1F4DD9F200F9A061 /* ScoreBoard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScoreBoard.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -115,6 +121,8 @@
 		0C98D22E1F5FA86C00D8BBAD /* Bet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bet.swift; sourceTree = "<group>"; };
 		0C98D2321F5FAF2600D8BBAD /* BetCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BetCell.swift; sourceTree = "<group>"; };
 		0C98D2331F5FAF2600D8BBAD /* BetCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BetCell.xib; sourceTree = "<group>"; };
+		0C9F18A91F81C6C7009543A6 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
+		0C9F18AB1F81C6E9009543A6 /* SupportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportViewController.swift; sourceTree = "<group>"; };
 		0CA5BF2F1F5F1B13009D0236 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		0CA5BF321F5F1BB7009D0236 /* NBATeam.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NBATeam.swift; sourceTree = "<group>"; };
 		0CAB26D91F770D6D00B8EBC1 /* MessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
@@ -210,6 +218,10 @@
 			isa = PBXGroup;
 			children = (
 				0C5F3A441F4E163200516CFB /* SettingsTableViewController.swift */,
+				0C628C9F1F81BF4F0044C469 /* ChangeEmailViewController.swift */,
+				0C628CA11F81C33F0044C469 /* ChangePasswordViewController.swift */,
+				0C9F18A91F81C6C7009543A6 /* AboutViewController.swift */,
+				0C9F18AB1F81C6E9009543A6 /* SupportViewController.swift */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -762,11 +774,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C9F18AC1F81C6E9009543A6 /* SupportViewController.swift in Sources */,
 				0C72DE451F4F7ABF00361234 /* FullGameViewController.swift in Sources */,
+				0C628CA01F81BF4F0044C469 /* ChangeEmailViewController.swift in Sources */,
 				0CA5BF301F5F1B13009D0236 /* Constants.swift in Sources */,
 				0CF611681F62EA7600A46EB0 /* GMColor.swift in Sources */,
 				0CD96A061F65A1A400B183C8 /* JSONSerializer.swift in Sources */,
 				0C43D0551F4E33C100C285A5 /* GameTableViewCell.swift in Sources */,
+				0C628CA21F81C33F0044C469 /* ChangePasswordViewController.swift in Sources */,
 				0CD96A011F65020300B183C8 /* CustomImageCropperOverlayView.swift in Sources */,
 				0CC563791F4DFEC70088057C /* SignupViewController.swift in Sources */,
 				0C5F3A381F4E0EBB00516CFB /* ConversionService.swift in Sources */,
@@ -798,6 +813,7 @@
 				0C5F3A421F4E15D900516CFB /* ProfileViewController.swift in Sources */,
 				0C5F3A3A1F4E0EFD00516CFB /* Extensions.swift in Sources */,
 				0CC563771F4DFE430088057C /* FirebaseObject.swift in Sources */,
+				0C9F18AA1F81C6C7009543A6 /* AboutViewController.swift in Sources */,
 				0CD969FF1F6501F700B183C8 /* ImageViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

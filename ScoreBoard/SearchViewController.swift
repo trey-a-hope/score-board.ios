@@ -101,7 +101,7 @@ class SearchViewController: UIViewController {
             }
     }
     
-    func initUI() -> Void {
+    func initUI() -> Void {        
         //Configure Table View
         let XIBCell = UINib.init(nibName: "SearchItem", bundle: nil)
         tableView.register(XIBCell, forCellReuseIdentifier: "SearchItem")

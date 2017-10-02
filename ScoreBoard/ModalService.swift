@@ -76,6 +76,10 @@ class ModalService  {
             alertView.showInfo(title, subTitle: message)
         }
     }
+    
+    static func showNoInternetConnection() -> Void {
+        showError(title: "Sorry", message: "No internet connection.")
+    }
 }
 
 public enum MyError : Error {

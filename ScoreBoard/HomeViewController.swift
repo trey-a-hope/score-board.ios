@@ -1,8 +1,6 @@
 import UIKit
 
 class HomeViewController: UIViewController {
-    @IBOutlet weak var homeTeamImage: UIImageView!
-    @IBOutlet weak var awayTeamImage: UIImageView!
     @IBOutlet weak var scrollView: UIScrollView!
     
     var games: [Game]!
@@ -17,7 +15,8 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         
         if(ConnectionManager.isConnectedToInternet()){
-            self.scrollView.addSubview(self.refreshControl)
+            scrollView.addSubview(self.refreshControl)
+            
             getGames()
         }else{
             ModalService.showError(title: "Error", message: "No internet connection.")

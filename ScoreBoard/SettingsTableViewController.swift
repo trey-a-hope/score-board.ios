@@ -1,6 +1,7 @@
 import UIKit
 
 class SettingsTableViewController: UITableViewController {
+    let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,11 +42,13 @@ class SettingsTableViewController: UITableViewController {
                 switch (indexPath.row) {
                     //About
                     case 0:
-                        ModalService.showInfo(title: "About", message: "Coming soon...")
+                        let aboutViewController = storyBoard.instantiateViewController(withIdentifier: "AboutViewController") as! AboutViewController
+                        navigationController?.pushViewController(aboutViewController, animated: true)
                         break
                     //Support
                     case 1:
-                        ModalService.showInfo(title: "Support", message: "Coming soon...")
+                        let supportViewController = storyBoard.instantiateViewController(withIdentifier: "SupportViewController") as! SupportViewController
+                        navigationController?.pushViewController(supportViewController, animated: true)
                         break
                     default: break
                 }
@@ -54,11 +57,13 @@ class SettingsTableViewController: UITableViewController {
                 switch (indexPath.row) {
                     //Change Email
                     case 0:
-                        ModalService.showInfo(title: "Change Email", message: "Coming soon...")
+                        let changeEmailViewController = storyBoard.instantiateViewController(withIdentifier: "ChangeEmailViewController") as! ChangeEmailViewController
+                        navigationController?.pushViewController(changeEmailViewController, animated: true)
                         break
                     //Change Password
                     case 1:
-                        ModalService.showInfo(title: "Change Password", message: "Coming soon...")
+                        let changePasswordViewController = storyBoard.instantiateViewController(withIdentifier: "ChangePasswordViewController") as! ChangePasswordViewController
+                        navigationController?.pushViewController(changePasswordViewController, animated: true)
                         break
                     //Payment Method
                     case 2:
