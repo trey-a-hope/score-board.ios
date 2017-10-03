@@ -50,6 +50,7 @@ class EditProfileViewController: UIViewController {
             //Update user profile in database.
             let userRef: DatabaseReference! = Database.database().reference().child("Users").child(user.id)
             userRef.updateChildValues(["userName"       : userName.text!])
+            userRef.updateChildValues(["userNameLower"  : userName.text!.lowercased()])
             userRef.updateChildValues(["phoneNumber"    : phoneNumber.text!])
             userRef.updateChildValues(["city"           : city.text!])
             userRef.updateChildValues(["stateId"        : statePickerView.selectedRow(inComponent: 0)])

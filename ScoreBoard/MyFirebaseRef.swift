@@ -192,6 +192,7 @@ class MyFirebaseRef {
         user.points = value["points"] as! Int
         user.betsWon = value["betsWon"] as! Int
         user.userName = value["userName"] as! String
+        user.userNameLower = value["userNameLower"] as! String
         user.email = value["email"] as! String
         user.imageDownloadUrl = value["imageDownloadUrl"] as! String
         user.phoneNumber = value["phoneNumber"] as? String
@@ -213,6 +214,7 @@ class MyFirebaseRef {
                 "id"                : newUserRef.key,
                 "uid"               : user.uid,
                 "userName"          : user.userName,
+                "userNameLower"     : user.userName.lowercased(),
                 "email"             : user.email,
                 "points"            : 25,
                 "betsWon"           : 0,
@@ -340,7 +342,7 @@ class MyFirebaseRef {
         return Promise { fulfill, reject in
 //            The character \uf8ff used in the query is a very high code point in the Unicode range (it is a Private Usage Area [PUA] code). Because it is after most regular characters in Unicode, the query matches all values that start with queryText.
 //            In this way, searching by "Fre" I could get the records having "Fred, Freddy, Frey" as value in "userName" property from the database.
-            ref.child(Table.Users).queryOrdered(byChild: "userName").queryStarting(atValue: search).queryEnding(atValue: search + "\u{f8ff}").queryLimited(toFirst: numberOfUsers).observeSingleEvent(of: .value, with: { (userSnapshots) in
+            ref.child(Table.Users).queryOrdered(byChild: "userNameLower").queryStarting(atValue: search.lowercased()).queryEnding(atValue: search.lowercased() + "\u{f8ff}").queryLimited(toFirst: numberOfUsers).observeSingleEvent(of: .value, with: { (userSnapshots) in
                 var users: [User] = []
                 userSnapshots.children.allObjects.forEach({ (userSnapshot) in
                     users.append(extractUserData(userSnapshot: userSnapshot as! DataSnapshot))

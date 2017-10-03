@@ -2,6 +2,8 @@ import PromiseKit
 import SafariServices
 import UIKit
 
+//TODO: Prevent search bar text from disappearing on return from NBA Website
+
 //Represent a search item's information
 class Item {
     var id: String!
@@ -15,7 +17,7 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var searchBar: UISearchBar!
-    let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+    let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
     
     //All search categories
     var games: [Item] = [Item]()
@@ -83,9 +85,6 @@ extension SearchViewController : UISearchBarDelegate {
     
     //Filter data in tableview.
     func filterContentForSearchText(_ searchText: String) -> Void {
-        //TODO: PREVENT DUPLICATES WHEN TYPING FAST.
-        //TODO: MAKE USER SEARCH NON CASE SENSITIVE
-        
         //Clear list on each text query.
         games = []
         users = []
@@ -105,11 +104,14 @@ extension SearchViewController : UISearchBarDelegate {
                     gameItem.group = self.categories[0]
                     self.games.append(gameItem)
                 }
-                //Filter games
+                //Sort game items
                 self.games = self.games.sorted(by: { $0.name < $1.name })
-                self.filteredGames = self.games.filter { game in
-                    return game.name.lowercased().range(of: searchText.lowercased()) != nil
-                }
+                //Remove any duplicates
+                self.games = self.removeDuplicates(array: self.games)
+                //Filter on search
+                self.filteredGames = self.games.filter({
+                    $0.name.range(of: searchText, options: .caseInsensitive) != nil
+                })
                 
                 //Set users
                 for user in result.1 {
@@ -122,16 +124,38 @@ extension SearchViewController : UISearchBarDelegate {
                 }
                 //Sort users by name
                 self.users = self.users.sorted(by: { $0.name.lowercased() < $1.name.lowercased() })
+                //Remove any duplicates
+                self.users = self.removeDuplicates(array: self.users)
+                //Filter on search
                 self.filteredUsers = self.users
         
-                //Filter teams
-                self.filteredTeams = self.teams.filter { team in
-                    return team.name.lowercased().range(of: searchText.lowercased()) != nil
-                }
-                
+                //Remove any duplicates
+                //Filter on search
+                self.filteredTeams = self.teams.filter({
+                    $0.name.range(of: searchText, options: .caseInsensitive) != nil
+                })
+            
                 self.tableView.reloadData()
             }.always{}
     }
+    
+    func removeDuplicates(array: [Item]) -> [Item] {
+        var encountered = Set<String>()
+        var result: [Item] = []
+        for value in array {
+            if encountered.contains(value.id) {
+                // Do not add a duplicate element.
+            }
+            else {
+                // Add value to the set.
+                encountered.insert(value.id)
+                // ... Append the value.
+                result.append(value)
+            }
+        }
+        return result
+    }
+
 }
 
 extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
