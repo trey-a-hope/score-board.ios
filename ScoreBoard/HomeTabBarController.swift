@@ -24,7 +24,7 @@ class HomeTabBarController : UITabBarController {
                     $0.tabBarItem.title = String.fontAwesomeIcon(name: .search)
                     break
                 case is SettingsTableViewController:
-                    $0.tabBarItem.title = String.fontAwesomeIcon(name: .cogs)
+                    $0.tabBarItem.title = String.fontAwesomeIcon(name: .cog)
                     break
                 default:break
             }

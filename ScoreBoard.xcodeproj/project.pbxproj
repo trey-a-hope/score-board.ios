@@ -55,6 +55,8 @@
 		0CD96A011F65020300B183C8 /* CustomImageCropperOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD96A001F65020300B183C8 /* CustomImageCropperOverlayView.swift */; };
 		0CD96A041F65A11500B183C8 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD96A031F65A11500B183C8 /* NotificationService.swift */; };
 		0CD96A061F65A1A400B183C8 /* JSONSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD96A051F65A1A400B183C8 /* JSONSerializer.swift */; };
+		0CEA324A1F8320D10002B05C /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CEA32481F8320D10002B05C /* UserCell.swift */; };
+		0CEA324B1F8320D10002B05C /* UserCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0CEA32491F8320D10002B05C /* UserCell.xib */; };
 		0CF611661F62EA5A00A46EB0 /* GMPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF611651F62EA5A00A46EB0 /* GMPalette.swift */; };
 		0CF611681F62EA7600A46EB0 /* GMColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF611671F62EA7600A46EB0 /* GMColor.swift */; };
 		0CFC24611F4DEB0A003F97B5 /* MyFirebaseRef.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CFC24601F4DEB0A003F97B5 /* MyFirebaseRef.swift */; };
@@ -137,6 +139,8 @@
 		0CD96A021F659DE100B183C8 /* ScoreBoard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ScoreBoard.entitlements; sourceTree = "<group>"; };
 		0CD96A031F65A11500B183C8 /* NotificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		0CD96A051F65A1A400B183C8 /* JSONSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONSerializer.swift; sourceTree = "<group>"; };
+		0CEA32481F8320D10002B05C /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
+		0CEA32491F8320D10002B05C /* UserCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserCell.xib; sourceTree = "<group>"; };
 		0CF611651F62EA5A00A46EB0 /* GMPalette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GMPalette.swift; sourceTree = "<group>"; };
 		0CF611671F62EA7600A46EB0 /* GMColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GMColor.swift; sourceTree = "<group>"; };
 		0CFC24601F4DEB0A003F97B5 /* MyFirebaseRef.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyFirebaseRef.swift; sourceTree = "<group>"; };
@@ -351,6 +355,8 @@
 			children = (
 				0CC563701F4DF9070088057C /* HomeTabBarController.swift */,
 				0C03B4431F4EAE090020FB2A /* HomeViewController.swift */,
+				0CEA32481F8320D10002B05C /* UserCell.swift */,
+				0CEA32491F8320D10002B05C /* UserCell.xib */,
 			);
 			name = Home;
 			sourceTree = "<group>";
@@ -550,6 +556,7 @@
 				0C5A07341F7EDEF700492992 /* SearchItem.xib in Resources */,
 				0C43D0561F4E33C100C285A5 /* GameTableViewCell.xib in Resources */,
 				0C98D2351F5FAF2600D8BBAD /* BetCell.xib in Resources */,
+				0CEA324B1F8320D10002B05C /* UserCell.xib in Resources */,
 				0C6DC5981F4DD9F200F9A061 /* Assets.xcassets in Resources */,
 				0C6DC5961F4DD9F200F9A061 /* Main.storyboard in Resources */,
 				0C6C20461F676C30000AB4F3 /* GoogleService-Info.plist in Resources */,
@@ -794,6 +801,7 @@
 				0CF611661F62EA5A00A46EB0 /* GMPalette.swift in Sources */,
 				0C3ABE8C1F4F28D800AE5CF9 /* SearchViewController.swift in Sources */,
 				0C98D22F1F5FA86C00D8BBAD /* Bet.swift in Sources */,
+				0CEA324A1F8320D10002B05C /* UserCell.swift in Sources */,
 				0CA5BF331F5F1BB7009D0236 /* NBATeam.swift in Sources */,
 				0C71C82D1F4F58790028D814 /* ConnectionManager.swift in Sources */,
 				0C6DC5931F4DD9F200F9A061 /* LoginViewController.swift in Sources */,

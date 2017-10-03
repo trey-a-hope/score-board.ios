@@ -1,7 +1,6 @@
 import FirebaseAuth
 import FirebaseDatabase
 import Material
-import Material
 import UIKit
 
 class ChangeEmailViewController : UIViewController {

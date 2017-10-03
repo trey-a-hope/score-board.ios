@@ -252,6 +252,7 @@ class MyFirebaseRef {
         }
     }
     
+    //EVENTUALLY GET RID OF THIS ENDPOINT, NOT IDEAL TO BRING BY EVERY USER
     class func getUsers() -> Promise<[User]> {
         return Promise { fulfill, reject in
             ref.child(Table.Users).observeSingleEvent(of: .value, with: { (userSnapshots) in
@@ -320,45 +321,32 @@ class MyFirebaseRef {
         }
     }
 
-    class func addCashToUser(userId: String, cashToAdd: Double) -> Promise<Void> {
+    //Returns a specific amount of users by category.
+    class func getTopUsers(category: String, numberOfUsers: UInt) -> Promise<[User]> {
         return Promise { fulfill, reject in
-            ref.child(Table.Users).child(userId).child("cash").runTransactionBlock({ (currentData: MutableData) -> TransactionResult in
-                if let currentCashAmount = currentData.value as? Double {
-                    currentData.value = currentCashAmount + cashToAdd
-                    return TransactionResult.success(withValue: currentData)
-                }else{
-                    return TransactionResult.success(withValue: currentData)
-                }
-            }, andCompletionBlock: {(error, completion, snap) in
-                if completion {
-                    fulfill()
-                }else{
-                    reject(MyError.SomeError())
-                }
+            ref.child(Table.Users).queryOrdered(byChild: category).queryLimited(toFirst: numberOfUsers).observeSingleEvent(of: .value, with: { (userSnapshots) in
+                var users: [User] = []
+                userSnapshots.children.allObjects.forEach({ (userSnapshot) in
+                    users.append(extractUserData(userSnapshot: userSnapshot as! DataSnapshot))
+                })
+                //Return users reversed, (ordered by backwards).
+                fulfill(users.reversed())
             })
         }
     }
     
-    class func subtractCashToUser(userId: String, cashToSubtract: Double) -> Promise<Void> {
+    //Returns a specific amount of users by category.
+    class func getUsersFromSearch(search: String, numberOfUsers: UInt) -> Promise<[User]> {
         return Promise { fulfill, reject in
-            ref.child(Table.Users).child(userId).child("cash").runTransactionBlock({ (currentData: MutableData) -> TransactionResult in
-                if let currentCashAmount = currentData.value as? Double {
-                    //Validate the user will not go in the negatives with this transaction.
-                    if(currentCashAmount - cashToSubtract >= 0.00){
-                        currentData.value = currentCashAmount - cashToSubtract
-                        return TransactionResult.success(withValue: currentData)
-                    }else{
-                        return TransactionResult.abort()
-                    }
-                }else{
-                    return TransactionResult.success(withValue: currentData)
-                }
-            }, andCompletionBlock: {(error, completion, snap) in
-                if completion {
-                    fulfill()
-                }else{
-                    reject(MyError.SomeError())
-                }
+//            The character \uf8ff used in the query is a very high code point in the Unicode range (it is a Private Usage Area [PUA] code). Because it is after most regular characters in Unicode, the query matches all values that start with queryText.
+//            In this way, searching by "Fre" I could get the records having "Fred, Freddy, Frey" as value in "userName" property from the database.
+            ref.child(Table.Users).queryOrdered(byChild: "userName").queryStarting(atValue: search).queryEnding(atValue: search + "\u{f8ff}").queryLimited(toFirst: numberOfUsers).observeSingleEvent(of: .value, with: { (userSnapshots) in
+                var users: [User] = []
+                userSnapshots.children.allObjects.forEach({ (userSnapshot) in
+                    users.append(extractUserData(userSnapshot: userSnapshot as! DataSnapshot))
+                })
+                //Return users reversed, (ordered by backwards).
+                fulfill(users.reversed())
             })
         }
     }

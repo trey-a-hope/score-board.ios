@@ -51,57 +51,19 @@ class SearchViewController: UIViewController {
         
         self.games = []
         self.users = []
-        self.teams = []
-        
-        //Fetch games, users, and teams.
-        when(fulfilled: MyFirebaseRef.getGames(), MyFirebaseRef.getUsers())
-            .then{ (result) -> Void in
-                //Set games
-                for game in result.0 {
-                    let homeTeam: NBATeam = NBATeamService.instance.getTeam(id: game.homeTeamId)
-                    let awayTeam: NBATeam = NBATeamService.instance.getTeam(id: game.awayTeamId)
-                    
-                    let gameItem: Item = Item()
-                    gameItem.id = game.id
-                    gameItem.imageDownloadUrl = homeTeam.imageDownloadUrl
-                    gameItem.name = homeTeam.name + " vs. " + awayTeam.name
-                    gameItem.group = self.categories[0]
-                    self.games.append(gameItem)
-                }
-                //Sort games by name
-                self.games = self.games.sorted(by: { $0.name < $1.name })
-                self.filteredGames = self.games
-                
-                //Set users
-                for user in result.1 {
-                    let userItem: Item = Item()
-                    userItem.id = user.id
-                    userItem.imageDownloadUrl = user.imageDownloadUrl
-                    userItem.name = user.userName
-                    userItem.group = self.categories[1]
-                    self.users.append(userItem)
-                }
-                //Sort users by name
-                self.users = self.users.sorted(by: { $0.name < $1.name })
-                self.filteredUsers = self.users
-                
-                //Set teams
-                for team in NBATeamService.instance.teams {
-                    let teamItem: Item = Item()
-                    teamItem.imageDownloadUrl = team.imageDownloadUrl
-                    teamItem.name = team.city + " " + team.name
-                    teamItem.group = self.categories[2]
-                    teamItem.url = team.url
-                    self.teams.append(teamItem)
-                }
-                self.filteredTeams = self.teams
-                
-            }.always{
-                self.tableView.reloadData()
-            }
     }
     
-    func initUI() -> Void {        
+    func initUI() -> Void {
+        //Set teams
+        for team in NBATeamService.instance.teams {
+            let teamItem: Item = Item()
+            teamItem.imageDownloadUrl = team.imageDownloadUrl
+            teamItem.name = team.city + " " + team.name
+            teamItem.group = self.categories[2]
+            teamItem.url = team.url
+            teams.append(teamItem)
+        }
+        
         //Configure Table View
         let XIBCell = UINib.init(nibName: "SearchItem", bundle: nil)
         tableView.register(XIBCell, forCellReuseIdentifier: "SearchItem")
@@ -121,27 +83,54 @@ extension SearchViewController : UISearchBarDelegate {
     
     //Filter data in tableview.
     func filterContentForSearchText(_ searchText: String) -> Void {
-        if(searchText == ""){
-            filteredGames = games
-            filteredUsers = users
-            filteredTeams = teams
-            tableView.reloadData()
-            return
-        }
+        //TODO: PREVENT DUPLICATES WHEN TYPING FAST.
+        //TODO: MAKE USER SEARCH NON CASE SENSITIVE
         
-        filteredGames = games.filter { game in
-            return game.name.lowercased().range(of: searchText.lowercased()) != nil
-        }
+        //Clear list on each text query.
+        games = []
+        users = []
         
-        filteredUsers = users.filter { user in
-            return user.name.lowercased().range(of: searchText.lowercased()) != nil
-        }
+        //Fetch games, users, and teams.
+        when(fulfilled: MyFirebaseRef.getGames(), MyFirebaseRef.getUsersFromSearch(search: searchText, numberOfUsers: 25))
+            .then{ (result) -> Void in
+                //Set games
+                for game in result.0 {
+                    let homeTeam: NBATeam = NBATeamService.instance.getTeam(id: game.homeTeamId)
+                    let awayTeam: NBATeam = NBATeamService.instance.getTeam(id: game.awayTeamId)
+                    
+                    let gameItem: Item = Item()
+                    gameItem.id = game.id
+                    gameItem.imageDownloadUrl = homeTeam.imageDownloadUrl
+                    gameItem.name = homeTeam.name + " vs. " + awayTeam.name
+                    gameItem.group = self.categories[0]
+                    self.games.append(gameItem)
+                }
+                //Filter games
+                self.games = self.games.sorted(by: { $0.name < $1.name })
+                self.filteredGames = self.games.filter { game in
+                    return game.name.lowercased().range(of: searchText.lowercased()) != nil
+                }
+                
+                //Set users
+                for user in result.1 {
+                    let userItem: Item = Item()
+                    userItem.id = user.id
+                    userItem.imageDownloadUrl = user.imageDownloadUrl
+                    userItem.name = user.userName
+                    userItem.group = self.categories[1]
+                    self.users.append(userItem)
+                }
+                //Sort users by name
+                self.users = self.users.sorted(by: { $0.name.lowercased() < $1.name.lowercased() })
+                self.filteredUsers = self.users
         
-        filteredTeams = teams.filter { team in
-            return team.name.lowercased().range(of: searchText.lowercased()) != nil
-        }
-        
-        tableView.reloadData()
+                //Filter teams
+                self.filteredTeams = self.teams.filter { team in
+                    return team.name.lowercased().range(of: searchText.lowercased()) != nil
+                }
+                
+                self.tableView.reloadData()
+            }.always{}
     }
 }
 
