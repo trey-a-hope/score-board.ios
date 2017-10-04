@@ -5,6 +5,7 @@ class GamesViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     
+    let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
     var games: [Game] = [Game]()
     
     lazy var refreshControl: UIRefreshControl = {
@@ -49,19 +50,15 @@ class GamesViewController: UIViewController {
             .then{ (games) -> Void in
                 self.games = games
                 
-                //Filter game by active state
+                //Filter game by taken/active
                 switch self.segmentedControl.selectedSegmentIndex {
-                    //Pre Games
+                    //Taken games
                     case 0:
-                        self.games = self.games.filter { $0.activeCode == 0 }
+                        self.games = self.games.filter { $0.userId != nil }
                         break
-                    //Active Games
+                    //Empty games
                     case 1:
-                        self.games = self.games.filter { $0.activeCode == 1 }
-                        break
-                    //Post Games
-                    case 2:
-                        self.games = self.games.filter { $0.activeCode == 2 }
+                        self.games = self.games.filter { $0.userId == nil }
                         break
                     default:break
                 }
@@ -89,7 +86,6 @@ extension GamesViewController : UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let game: Game = games[indexPath.row]
-        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
         let fullGameViewController = storyBoard.instantiateViewController(withIdentifier: "FullGameViewController") as! FullGameViewController
         fullGameViewController.gameId = game.id
         self.navigationController?.pushViewController(fullGameViewController, animated: true)
@@ -104,17 +100,24 @@ extension GamesViewController : UITableViewDataSource, UITableViewDelegate {
             let awayTeam: NBATeam = NBATeamService.instance.teams.filter({ $0.name == game.awayTeamName }).first!
 
             cell.title.text = homeTeam.name + " vs. " + awayTeam.name
-            cell.potAmount.text = String(format: "$%.02f", game.potAmount) + " pot"
+            
+            //Game taken
+            if game.userId != nil {
+                cell.potAmount.text = String(format: "$%.02f", game.potAmount) + " pot"
+                cell.isUserInteractionEnabled = true
+                cell.betCount.text = game.bets.count == 1 ? "1 bet" : String(describing: game.bets.count) + " bets"
+            }
+            //Game empty
+            else{
+                cell.potAmount.text = "No pot set"
+                cell.isUserInteractionEnabled = false
+                cell.betCount.text = "No bets"
+            }
+            
             cell.homeTeamImage.round(borderWidth: 0, borderColor: UIColor.black)
             cell.homeTeamImage.kf.setImage(with: URL(string: homeTeam.imageDownloadUrl))
             cell.awayTeamImage.round(borderWidth: 0, borderColor: UIColor.black)
             cell.awayTeamImage.kf.setImage(with: URL(string: awayTeam.imageDownloadUrl))
-            
-            if(game.bets.count == 1){
-                cell.betCount.text = "1 bet"
-            }else{
-                cell.betCount.text = String(describing: game.bets.count) + " bets"
-            }
             
             return cell
         }
@@ -124,13 +127,29 @@ extension GamesViewController : UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, editActionsForRowAt: IndexPath) -> [UITableViewRowAction]? {
         let game: Game = games[editActionsForRowAt.row]
         
+        //Take button.
+        let take = UITableViewRowAction(style: .normal, title: "Take") { action, index in
+            let takeGameViewController = self.storyBoard.instantiateViewController(withIdentifier: "TakeGameViewController") as! TakeGameViewController
+            takeGameViewController.gameId = game.id
+            self.navigationController?.pushViewController(takeGameViewController, animated: true)
+        }
+        take.backgroundColor = GMColor.cyan500Color()
+        
         //Share button.
         let share = UITableViewRowAction(style: .normal, title: "Share") { action, index in
             ModalService.showInfo(title: "Share", message: "This game has " + String(describing: game.bets.count) + " bets.")
         }
-        share.backgroundColor = .blue
+        share.backgroundColor = GMColor.green500Color()
+        
+        //Game is taken
+        if(game.userId != nil){
+            return [share]
+        }
+        //Game is empty
+        else{
 
-        return [share]
+            return [take, share]
+        }
     }
 
 }

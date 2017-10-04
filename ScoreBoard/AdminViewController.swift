@@ -57,7 +57,6 @@ class AdminViewController : UIViewController {
         let homeTeam: NBATeam = teamOptions[homeTeamPickerView.selectedRow(inComponent: 0)]
         let awayTeam: NBATeam = teamOptions[awayTeamPickerView.selectedRow(inComponent: 0)]
         
-        game.potAmount = 100
         game.homeTeamCity = homeTeam.city
         game.homeTeamName = homeTeam.name
         game.awayTeamCity = awayTeam.city

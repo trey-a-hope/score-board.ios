@@ -20,6 +20,15 @@ class MyFSRef {
     //    | |_| | | (_| | | | | | | | |  __/ \__ \
     //     \____|  \__,_| |_| |_| |_|  \___| |___/
     
+    class func getGame(gameId: String)-> Promise<Game> {
+        return Promise{ fulfill, reject in
+            db.collection("Games").document(gameId).getDocument(completion: { (document, err) in
+                if let err = err { reject(err) }
+                fulfill(extractGameData(gameSnapshot: document!))
+            })
+        }
+    }
+    
     class func getGames()-> Promise<[Game]> {
         var games: [Game] = [Game]()
         return Promise{ fulfill, reject in
@@ -40,7 +49,6 @@ class MyFSRef {
             
             let data: [String : Any] = [
                 "activeCode"            : 0,
-                "potAmount"             : game.potAmount,
                 "awayTeamScore"         : 0,
                 "awayTeamCity"          : game.awayTeamCity,
                 "awayTeamName"          : game.awayTeamName,
@@ -82,6 +90,7 @@ class MyFSRef {
         let game: Game = Game()
         
         game.id = value["id"] as! String
+        game.userId = value["userId"] as? String
         game.postTimeZoneOffSet = value["postTimeZoneOffSet"] as! Int
         game.postDateTime = ConversionService.convertStringToDate(value["postDateTime"] as! String)
         game.awayTeamScore = value["awayTeamScore"] as! Int
@@ -93,7 +102,8 @@ class MyFSRef {
         game.startTimeZoneOffSet = value["startTimeZoneOffSet"] as! Int
         game.startDateTime = ConversionService.convertStringToDate(value["startDateTime"] as! String)
         game.activeCode = value["activeCode"] as! Int
-        game.potAmount = value["potAmount"] as! Double
+        game.potAmount = value["potAmount"] as? Double
+        game.betPrice = value["betPrice"] as? Double
         
         let betSnapshots = value["bets"] as? [String:Any]
         

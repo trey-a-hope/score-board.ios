@@ -1110,7 +1110,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9sG-2Z-KPN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1370.4000000000001" y="1132.5337331334333"/>
+            <point key="canvasLocation" x="-2778" y="1133"/>
         </scene>
         <!--Games-->
         <scene sceneID="Efk-Vi-EY9">
@@ -1127,9 +1127,8 @@
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="trD-cR-GSW">
                                 <rect key="frame" x="21" y="30" width="333" height="29"/>
                                 <segments>
-                                    <segment title="Pre"/>
-                                    <segment title="Active"/>
-                                    <segment title="Post"/>
+                                    <segment title="Taken"/>
+                                    <segment title="Empty"/>
                                 </segments>
                                 <connections>
                                     <action selector="segmentedControlValueChangedWithSegment:" destination="5g0-I3-K58" eventType="touchUpInside" id="KiA-kF-ebZ"/>
@@ -1160,7 +1159,132 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="z69-9n-7o2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-42" y="983"/>
+            <point key="canvasLocation" x="-1012" y="984"/>
+        </scene>
+        <!--Take Game-->
+        <scene sceneID="Fwm-rf-TNJ">
+            <objects>
+                <viewController storyboardIdentifier="TakeGameViewController" title="Take Game" id="tAd-jZ-j1i" customClass="TakeGameViewController" customModule="ScoreBoard" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="2rk-b2-m3p"/>
+                        <viewControllerLayoutGuide type="bottom" id="VHi-Kv-IAr"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="dnI-Nb-3O8">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="1000"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="crK-mX-zzW">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="1000"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ftz-hh-nDD" userLabel="Content VIew">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="600"/>
+                                        <subviews>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Pot Amount" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3aY-j7-aOu" customClass="TextField" customModule="Material">
+                                                <rect key="frame" x="40" y="290" width="295" height="30"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                                            </textField>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nPJ-MU-qYU">
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="250"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DDI-gT-1kF">
+                                                        <rect key="frame" x="20" y="50" width="150" height="150"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cCl-1c-dE3">
+                                                        <rect key="frame" x="205" y="50" width="150" height="150"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Away" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uTz-cs-4iL">
+                                                        <rect key="frame" x="192.5" y="16" width="162.5" height="24"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Home" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Esc-ed-3Nm">
+                                                        <rect key="frame" x="20" y="16" width="162.5" height="24"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Home Team" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1zf-Mu-REW">
+                                                        <rect key="frame" x="20" y="210" width="162.5" height="21"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                        <color key="textColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Away Team" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tgm-Xd-OtD">
+                                                        <rect key="frame" x="192.5" y="210" width="162.5" height="21"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                        <color key="textColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" red="0.50196081400000003" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="250" id="EuR-DQ-ZqZ"/>
+                                                </constraints>
+                                            </view>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Price Per Bet" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="B0C-a1-ZRo" customClass="TextField" customModule="Material">
+                                                <rect key="frame" x="40" y="360" width="295" height="30"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                                            </textField>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="B0C-a1-ZRo" firstAttribute="top" secondItem="3aY-j7-aOu" secondAttribute="bottom" constant="40" id="0We-zf-jSm"/>
+                                            <constraint firstItem="B0C-a1-ZRo" firstAttribute="leading" secondItem="ftz-hh-nDD" secondAttribute="leading" constant="40" id="N9A-5d-whg"/>
+                                            <constraint firstItem="3aY-j7-aOu" firstAttribute="leading" secondItem="ftz-hh-nDD" secondAttribute="leading" constant="40" id="NVk-29-t9K"/>
+                                            <constraint firstItem="3aY-j7-aOu" firstAttribute="top" secondItem="nPJ-MU-qYU" secondAttribute="bottom" constant="40" id="XaO-Zf-O3p"/>
+                                            <constraint firstItem="nPJ-MU-qYU" firstAttribute="width" secondItem="ftz-hh-nDD" secondAttribute="width" id="ZhL-VC-CKU"/>
+                                            <constraint firstAttribute="trailing" secondItem="B0C-a1-ZRo" secondAttribute="trailing" constant="40" id="cep-DA-88H"/>
+                                            <constraint firstItem="nPJ-MU-qYU" firstAttribute="leading" secondItem="ftz-hh-nDD" secondAttribute="leading" id="gIZ-PH-soZ"/>
+                                            <constraint firstItem="nPJ-MU-qYU" firstAttribute="top" secondItem="ftz-hh-nDD" secondAttribute="top" id="gJl-Uq-Rpi"/>
+                                            <constraint firstAttribute="height" constant="600" id="gXJ-zM-vEu"/>
+                                            <constraint firstAttribute="trailing" secondItem="nPJ-MU-qYU" secondAttribute="trailing" id="r9W-zE-NjA"/>
+                                            <constraint firstAttribute="trailing" secondItem="3aY-j7-aOu" secondAttribute="trailing" constant="40" id="tdd-dL-wb4"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="ftz-hh-nDD" firstAttribute="top" secondItem="crK-mX-zzW" secondAttribute="top" id="0NO-Oc-6to"/>
+                                    <constraint firstItem="ftz-hh-nDD" firstAttribute="width" secondItem="crK-mX-zzW" secondAttribute="width" id="JJa-bZ-Z4M"/>
+                                    <constraint firstAttribute="bottom" secondItem="ftz-hh-nDD" secondAttribute="bottom" constant="400" id="W4c-jL-UwR"/>
+                                    <constraint firstItem="ftz-hh-nDD" firstAttribute="leading" secondItem="crK-mX-zzW" secondAttribute="leading" id="ihX-Sr-hzK"/>
+                                    <constraint firstAttribute="trailing" secondItem="ftz-hh-nDD" secondAttribute="trailing" id="uSf-Jr-u3m"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="crK-mX-zzW" firstAttribute="top" secondItem="dnI-Nb-3O8" secondAttribute="top" id="J0q-Fy-EYW"/>
+                            <constraint firstItem="VHi-Kv-IAr" firstAttribute="top" secondItem="crK-mX-zzW" secondAttribute="bottom" id="URM-iG-U3g"/>
+                            <constraint firstItem="crK-mX-zzW" firstAttribute="leading" secondItem="dnI-Nb-3O8" secondAttribute="leading" id="Z8E-Aq-FGF"/>
+                            <constraint firstAttribute="trailing" secondItem="crK-mX-zzW" secondAttribute="trailing" id="yAa-l3-Xqq"/>
+                        </constraints>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="375" height="1000"/>
+                    <connections>
+                        <outlet property="awayTeamImage" destination="cCl-1c-dE3" id="iED-GT-pmE"/>
+                        <outlet property="awayTeamLabel" destination="Tgm-Xd-OtD" id="sHt-53-Rnq"/>
+                        <outlet property="homeTeamImage" destination="DDI-gT-1kF" id="pDn-2p-qFG"/>
+                        <outlet property="homeTeamLabel" destination="1zf-Mu-REW" id="JKs-Gh-QaI"/>
+                        <outlet property="potAmount" destination="3aY-j7-aOu" id="R1H-xc-lN1"/>
+                        <outlet property="pricePerBet" destination="B0C-a1-ZRo" id="KoV-gE-Yxh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2rO-yE-pni" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-287.19999999999999" y="1132.5337331334333"/>
         </scene>
         <!--Place A Bet-->
         <scene sceneID="DCB-Fh-GV1">
@@ -1697,7 +1821,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lop-wq-XAD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-42" y="1918"/>
+            <point key="canvasLocation" x="-1012" y="1942"/>
         </scene>
         <!--Home Tab Bar Controller-->
         <scene sceneID="pfr-Za-9UH">
