@@ -21,7 +21,8 @@ class ProfileViewController: UIViewController {
     //Navbar buttons
     var messagesButton: UIBarButtonItem!
     var editProfileButton: UIBarButtonItem!
-    
+    var adminButton: UIBarButtonItem!
+
     let imagePicker = UIImagePickerController()
     let BetCellWidth: CGFloat = CGFloat(175)
     let CellIdentifier: String = "Cell"
@@ -59,7 +60,7 @@ class ProfileViewController: UIViewController {
         
         //If currently viewing your own profile, add "edit profile" and "message" buttons.
         if(userId == SessionManager.getUserId()){
-            navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([messagesButton, editProfileButton], animated: true)
+            navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([messagesButton, editProfileButton, adminButton], animated: true)
         }
         //Else, add only message button to message user.
         else{
@@ -107,6 +108,17 @@ class ProfileViewController: UIViewController {
         editProfileButton.setTitleTextAttributes(Constants.FONT_AWESOME_ATTRIBUTES, for: .normal)
         editProfileButton.title = String.fontAwesomeIcon(name: .pencil)
         editProfileButton.tintColor = .white
+        
+        //Admin Button
+        adminButton = UIBarButtonItem(
+            title: "Add",
+            style: .plain,
+            target: self,
+            action: #selector(ProfileViewController.openAdmin)
+        )
+        adminButton.setTitleTextAttributes(Constants.FONT_AWESOME_ATTRIBUTES, for: .normal)
+        adminButton.title = String.fontAwesomeIcon(name: .cogs)
+        adminButton.tintColor = .white
     }
     
     func getUser() -> Void {
@@ -185,6 +197,11 @@ class ProfileViewController: UIViewController {
                 myBetsLabel.text = "Their bets"
             }
         }
+    }
+    
+    func openAdmin() -> Void {
+        let adminViewController = storyBoard.instantiateViewController(withIdentifier: "AdminViewController") as! AdminViewController
+        navigationController?.pushViewController(adminViewController, animated: true)
     }
     
     func openEditProfile() -> Void {

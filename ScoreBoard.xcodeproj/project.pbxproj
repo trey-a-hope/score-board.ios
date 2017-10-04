@@ -37,6 +37,7 @@
 		0C6DC5B11F4DD9F200F9A061 /* ScoreBoardUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6DC5B01F4DD9F200F9A061 /* ScoreBoardUITests.swift */; };
 		0C71C82D1F4F58790028D814 /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C71C82C1F4F58790028D814 /* ConnectionManager.swift */; };
 		0C72DE451F4F7ABF00361234 /* FullGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C72DE441F4F7ABF00361234 /* FullGameViewController.swift */; };
+		0C75B6411F8455D8000DDD66 /* MyFSRef.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C75B6401F8455D8000DDD66 /* MyFSRef.swift */; };
 		0C98D22F1F5FA86C00D8BBAD /* Bet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C98D22E1F5FA86C00D8BBAD /* Bet.swift */; };
 		0C98D2341F5FAF2600D8BBAD /* BetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C98D2321F5FAF2600D8BBAD /* BetCell.swift */; };
 		0C98D2351F5FAF2600D8BBAD /* BetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C98D2331F5FAF2600D8BBAD /* BetCell.xib */; };
@@ -50,6 +51,7 @@
 		0CC563751F4DFD9A0088057C /* ModalService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC563741F4DFD9A0088057C /* ModalService.swift */; };
 		0CC563771F4DFE430088057C /* FirebaseObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC563761F4DFE430088057C /* FirebaseObject.swift */; };
 		0CC563791F4DFEC70088057C /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC563781F4DFEC70088057C /* SignupViewController.swift */; };
+		0CC5843E1F844BE8009E72DB /* AdminViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC5843D1F844BE8009E72DB /* AdminViewController.swift */; };
 		0CD969FD1F6501EB00B183C8 /* CropperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD969FC1F6501EB00B183C8 /* CropperViewController.swift */; };
 		0CD969FF1F6501F700B183C8 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD969FE1F6501F700B183C8 /* ImageViewController.swift */; };
 		0CD96A011F65020300B183C8 /* CustomImageCropperOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD96A001F65020300B183C8 /* CustomImageCropperOverlayView.swift */; };
@@ -120,6 +122,7 @@
 		0C6DC5B21F4DD9F200F9A061 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0C71C82C1F4F58790028D814 /* ConnectionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionManager.swift; sourceTree = "<group>"; };
 		0C72DE441F4F7ABF00361234 /* FullGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullGameViewController.swift; sourceTree = "<group>"; };
+		0C75B6401F8455D8000DDD66 /* MyFSRef.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFSRef.swift; sourceTree = "<group>"; };
 		0C98D22E1F5FA86C00D8BBAD /* Bet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bet.swift; sourceTree = "<group>"; };
 		0C98D2321F5FAF2600D8BBAD /* BetCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BetCell.swift; sourceTree = "<group>"; };
 		0C98D2331F5FAF2600D8BBAD /* BetCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BetCell.xib; sourceTree = "<group>"; };
@@ -133,6 +136,7 @@
 		0CC563741F4DFD9A0088057C /* ModalService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalService.swift; sourceTree = "<group>"; };
 		0CC563761F4DFE430088057C /* FirebaseObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseObject.swift; sourceTree = "<group>"; };
 		0CC563781F4DFEC70088057C /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
+		0CC5843D1F844BE8009E72DB /* AdminViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminViewController.swift; sourceTree = "<group>"; };
 		0CD969FC1F6501EB00B183C8 /* CropperViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropperViewController.swift; sourceTree = "<group>"; };
 		0CD969FE1F6501F700B183C8 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		0CD96A001F65020300B183C8 /* CustomImageCropperOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomImageCropperOverlayView.swift; sourceTree = "<group>"; };
@@ -255,9 +259,7 @@
 		0C6DC58F1F4DD9F200F9A061 /* ScoreBoard */ = {
 			isa = PBXGroup;
 			children = (
-				0CD96A021F659DE100B183C8 /* ScoreBoard.entitlements */,
-				0C6C20451F676C30000AB4F3 /* GoogleService-Info.plist */,
-				0C6DC59C1F4DD9F200F9A061 /* Info.plist */,
+				0CC5843C1F844BD2009E72DB /* Admin */,
 				0C6DC5901F4DD9F200F9A061 /* AppDelegate.swift */,
 				0C6DC5971F4DD9F200F9A061 /* Assets.xcassets */,
 				0CC5636F1F4DF8ED0088057C /* Authentication */,
@@ -265,12 +267,15 @@
 				0CA5BF2E1F5F1B07009D0236 /* Constants */,
 				0CA5BF311F5F1B81009D0236 /* Enums */,
 				0CFC245D1F4DEAA2003F97B5 /* Games */,
+				0C6C20451F676C30000AB4F3 /* GoogleService-Info.plist */,
 				0CFC245C1F4DE7F8003F97B5 /* Home */,
+				0C6DC59C1F4DD9F200F9A061 /* Info.plist */,
 				0C6DC5991F4DD9F200F9A061 /* LaunchScreen.storyboard */,
 				0C6DC5941F4DD9F200F9A061 /* Main.storyboard */,
 				0C5F3A3B1F4E0F2100516CFB /* Miscellaneous */,
 				0CFC24621F4DEB77003F97B5 /* Models */,
 				0C5F3A401F4E15C600516CFB /* Profile */,
+				0CD96A021F659DE100B183C8 /* ScoreBoard.entitlements */,
 				0C3ABE8A1F4F28C000AE5CF9 /* Search */,
 				0CFC245F1F4DEAE8003F97B5 /* Services */,
 				0C5F3A431F4E162800516CFB /* Settings */,
@@ -340,6 +345,14 @@
 			name = Authentication;
 			sourceTree = "<group>";
 		};
+		0CC5843C1F844BD2009E72DB /* Admin */ = {
+			isa = PBXGroup;
+			children = (
+				0CC5843D1F844BE8009E72DB /* AdminViewController.swift */,
+			);
+			name = Admin;
+			sourceTree = "<group>";
+		};
 		0CD969FB1F6501D200B183C8 /* Image Cropping */ = {
 			isa = PBXGroup;
 			children = (
@@ -382,6 +395,7 @@
 				0C03B43F1F4E76F40020FB2A /* ValidityService.swift */,
 				0C71C82C1F4F58790028D814 /* ConnectionManager.swift */,
 				0CD96A031F65A11500B183C8 /* NotificationService.swift */,
+				0C75B6401F8455D8000DDD66 /* MyFSRef.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -707,6 +721,7 @@
 				"${BUILT_PRODUCTS_DIR}/AKImageCropperView/AKImageCropperView.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
 				"${BUILT_PRODUCTS_DIR}/EasyAnimation/EasyAnimation.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
@@ -725,6 +740,10 @@
 				"${BUILT_PRODUCTS_DIR}/SCLAlertView/SCLAlertView.framework",
 				"${BUILT_PRODUCTS_DIR}/Spring/Spring.framework",
 				"${BUILT_PRODUCTS_DIR}/Toaster/Toaster.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-ProtoRPC/ProtoRPC.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-RxLibrary/RxLibrary.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
@@ -733,6 +752,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AKImageCropperView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EasyAnimation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
@@ -751,6 +771,10 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SCLAlertView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Spring.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toaster.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRPCClient.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProtoRPC.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxLibrary.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -809,6 +833,7 @@
 				0C03B4401F4E76F40020FB2A /* ValidityService.swift in Sources */,
 				0CFC24641F4DEB7F003F97B5 /* Game.swift in Sources */,
 				0C03B4421F4E809C0020FB2A /* User.swift in Sources */,
+				0C75B6411F8455D8000DDD66 /* MyFSRef.swift in Sources */,
 				0C0D60BD1F7EA412001338F5 /* State.swift in Sources */,
 				0C6DC5911F4DD9F200F9A061 /* AppDelegate.swift in Sources */,
 				0CFC24611F4DEB0A003F97B5 /* MyFirebaseRef.swift in Sources */,
@@ -823,6 +848,7 @@
 				0CC563771F4DFE430088057C /* FirebaseObject.swift in Sources */,
 				0C9F18AA1F81C6C7009543A6 /* AboutViewController.swift in Sources */,
 				0CD969FF1F6501F700B183C8 /* ImageViewController.swift in Sources */,
+				0CC5843E1F844BE8009E72DB /* AdminViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

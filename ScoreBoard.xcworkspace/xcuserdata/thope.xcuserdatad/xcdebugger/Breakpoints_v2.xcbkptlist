@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ScoreBoard/GamesViewController.swift"
-            timestampString = "528596511.663691"
+            timestampString = "528779574.014124"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "114"
-            endingLineNumber = "114"
+            startingLineNumber = "98"
+            endingLineNumber = "98"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ScoreBoard/GamesViewController.swift"
-            timestampString = "528596511.663932"
+            timestampString = "528779574.014555"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "126"
-            endingLineNumber = "126"
+            startingLineNumber = "110"
+            endingLineNumber = "110"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ScoreBoard/GamesViewController.swift"
-            timestampString = "528596511.664095"
+            timestampString = "528779574.014856"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "116"
-            endingLineNumber = "116"
+            startingLineNumber = "100"
+            endingLineNumber = "100"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ScoreBoard/GamesViewController.swift"
-            timestampString = "528596511.664264"
+            timestampString = "528779574.01516"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "104"
-            endingLineNumber = "104"
+            startingLineNumber = "88"
+            endingLineNumber = "88"
             landmarkName = "tableView(_:numberOfRowsInSection:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -106,7 +106,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ScoreBoard/FullGameViewController.swift"
-            timestampString = "528690057.963193"
+            timestampString = "528769809.235732"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "382"
@@ -138,13 +138,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ScoreBoard/MyFirebaseRef.swift"
-            timestampString = "528737164.844271"
+            timestampString = "528779574.015535"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "57"
             endingLineNumber = "57"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "extractGameData(gameSnapshot:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -154,13 +154,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ScoreBoard/MyFirebaseRef.swift"
-            timestampString = "528737164.844624"
+            timestampString = "528779574.015588"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "78"
             endingLineNumber = "78"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "extractGameData(gameSnapshot:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -170,13 +170,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ScoreBoard/MyFirebaseRef.swift"
-            timestampString = "528737164.844868"
+            timestampString = "528779574.015634"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "77"
             endingLineNumber = "77"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "extractGameData(gameSnapshot:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -186,11 +186,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ScoreBoard/ProfileViewController.swift"
-            timestampString = "528596511.664675"
+            timestampString = "528764325.234056"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "118"
-            endingLineNumber = "118"
+            startingLineNumber = "130"
+            endingLineNumber = "130"
             landmarkName = "getUser()"
             landmarkType = "7">
          </BreakpointContent>
@@ -202,11 +202,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ScoreBoard/ProfileViewController.swift"
-            timestampString = "528596511.664835"
+            timestampString = "528764325.23473"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "296"
-            endingLineNumber = "296"
+            startingLineNumber = "313"
+            endingLineNumber = "313"
             landmarkName = "imagePickerController(_:didFinishPickingMediaWithInfo:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -218,11 +218,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ScoreBoard/ProfileViewController.swift"
-            timestampString = "528596511.664968"
+            timestampString = "528764325.235158"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "51"
-            endingLineNumber = "51"
+            startingLineNumber = "52"
+            endingLineNumber = "52"
             landmarkName = "viewWillAppear(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -234,11 +234,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ScoreBoard/ProfileViewController.swift"
-            timestampString = "528596511.665086"
+            timestampString = "528764325.235636"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "124"
-            endingLineNumber = "124"
+            startingLineNumber = "136"
+            endingLineNumber = "136"
             landmarkName = "getBets()"
             landmarkType = "7">
          </BreakpointContent>
@@ -250,11 +250,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ScoreBoard/ProfileViewController.swift"
-            timestampString = "528596511.66517"
+            timestampString = "528764325.236257"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "152"
-            endingLineNumber = "152"
+            startingLineNumber = "164"
+            endingLineNumber = "164"
             landmarkName = "getBets()"
             landmarkType = "7">
          </BreakpointContent>
@@ -266,11 +266,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ScoreBoard/ProfileViewController.swift"
-            timestampString = "528596511.665255"
+            timestampString = "528764325.236738"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "49"
-            endingLineNumber = "49"
+            startingLineNumber = "50"
+            endingLineNumber = "50"
             landmarkName = "ProfileViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -282,11 +282,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ScoreBoard/ProfileViewController.swift"
-            timestampString = "528596511.665374"
+            timestampString = "528764325.237289"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "258"
-            endingLineNumber = "258"
+            startingLineNumber = "275"
+            endingLineNumber = "275"
             landmarkName = "collectionView(_:numberOfItemsInSection:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -298,11 +298,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ScoreBoard/ProfileViewController.swift"
-            timestampString = "528596511.66544"
+            timestampString = "528764325.237873"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "267"
-            endingLineNumber = "267"
+            startingLineNumber = "284"
+            endingLineNumber = "284"
             landmarkName = "collectionView(_:cellForItemAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -314,7 +314,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ScoreBoard/MyFirebaseRef.swift"
-            timestampString = "528737164.845197"
+            timestampString = "528779574.015768"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "359"
@@ -344,13 +344,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ScoreBoard/MyFirebaseRef.swift"
-            timestampString = "528737164.845447"
+            timestampString = "528779574.015827"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "328"
             endingLineNumber = "328"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "getTopUsers(category:numberOfUsers:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -360,7 +360,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ScoreBoard/AppDelegate.swift"
-            timestampString = "528427755.76794"
+            timestampString = "528765544.412579"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "93"
@@ -374,7 +374,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ScoreBoard/AppDelegate.swift"
-            timestampString = "528427755.768472"
+            timestampString = "528765544.413128"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "93"
@@ -388,7 +388,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ScoreBoard/AppDelegate.swift"
-            timestampString = "528427755.76907"
+            timestampString = "528765544.413559"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "93"
@@ -418,7 +418,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ScoreBoard/AppDelegate.swift"
-            timestampString = "528427755.76977"
+            timestampString = "528765544.413995"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "45"
@@ -434,7 +434,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ScoreBoard/AppDelegate.swift"
-            timestampString = "528427755.770444"
+            timestampString = "528765544.414434"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "49"
@@ -450,7 +450,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ScoreBoard/AppDelegate.swift"
-            timestampString = "528427755.771055"
+            timestampString = "528765544.414952"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "56"
@@ -466,7 +466,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ScoreBoard/AppDelegate.swift"
-            timestampString = "528427755.77149"
+            timestampString = "528765544.415503"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "93"
@@ -480,7 +480,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ScoreBoard/AppDelegate.swift"
-            timestampString = "528427755.771917"
+            timestampString = "528765544.416233"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "93"
@@ -494,7 +494,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ScoreBoard/AppDelegate.swift"
-            timestampString = "528427755.772344"
+            timestampString = "528765544.417128"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "22"
@@ -510,7 +510,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ScoreBoard/AppDelegate.swift"
-            timestampString = "528427755.772782"
+            timestampString = "528765544.418047"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "58"
@@ -526,7 +526,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ScoreBoard/AppDelegate.swift"
-            timestampString = "528427755.773296"
+            timestampString = "528765544.41934"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "64"
@@ -542,7 +542,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ScoreBoard/AppDelegate.swift"
-            timestampString = "528427755.773892"
+            timestampString = "528765544.419842"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "85"
@@ -558,7 +558,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ScoreBoard/AppDelegate.swift"
-            timestampString = "528427755.774587"
+            timestampString = "528765544.420275"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "78"
@@ -574,7 +574,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ScoreBoard/AppDelegate.swift"
-            timestampString = "528427755.775128"
+            timestampString = "528765544.420703"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "90"
@@ -590,7 +590,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ScoreBoard/AppDelegate.swift"
-            timestampString = "528427755.775602"
+            timestampString = "528765544.421133"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "20"
@@ -606,7 +606,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ScoreBoard/AppDelegate.swift"
-            timestampString = "528427755.776075"
+            timestampString = "528765544.421555"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "72"
@@ -622,7 +622,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ScoreBoard/FullGameViewController.swift"
-            timestampString = "528690057.96362"
+            timestampString = "528769809.23941"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "101"
@@ -634,112 +634,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ScoreBoard/GamesViewController.swift"
-            timestampString = "528596511.667054"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "93"
-            endingLineNumber = "93"
-            landmarkName = "deinit"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ScoreBoard/GamesViewController.swift"
-            timestampString = "528596511.667153"
+            timestampString = "528779574.016066"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "53"
-            endingLineNumber = "53"
-            landmarkName = "getGames()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ScoreBoard.GamesViewController.getGames() -&gt; ()"
-                  moduleName = "ScoreBoard"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/thope/Desktop/Projects/scoreboard.ios/ScoreBoard/GamesViewController.swift"
-                  timestampString = "528264827.038176"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "53"
-                  endingLineNumber = "53"
-                  offsetFromSymbolStart = "14">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (__ObjC.DataSnapshot) -&gt; () in ScoreBoard.GamesViewController.getGames() -&gt; ()"
-                  moduleName = "ScoreBoard"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/thope/Desktop/Projects/scoreboard.ios/ScoreBoard/GamesViewController.swift"
-                  timestampString = "528264827.041864"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "54"
-                  endingLineNumber = "54"
-                  offsetFromSymbolStart = "27">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ScoreBoard/GamesViewController.swift"
-            timestampString = "528596511.667231"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "16"
-            endingLineNumber = "16"
+            startingLineNumber = "17"
+            endingLineNumber = "17"
             landmarkName = "viewDidLoad()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ScoreBoard/GamesViewController.swift"
-            timestampString = "528596511.667305"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "20"
-            endingLineNumber = "20"
-            landmarkName = "viewDidLoad()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ScoreBoard/GamesViewController.swift"
-            timestampString = "528596511.66738"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
-            landmarkName = "getGames()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -750,13 +654,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ScoreBoard/MyFirebaseRef.swift"
-            timestampString = "528737164.845916"
+            timestampString = "528779574.01635"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "187"
             endingLineNumber = "187"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "extractUserData(userSnapshot:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -766,7 +670,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ScoreBoard/EditProfileViewController.swift"
-            timestampString = "528428141.520448"
+            timestampString = "528765544.42206"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "114"
@@ -782,7 +686,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ScoreBoard/FullGameViewController.swift"
-            timestampString = "528690057.963745"
+            timestampString = "528769809.241401"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "374"
@@ -868,6 +772,38 @@
             startingLineNumber = "54"
             endingLineNumber = "54"
             landmarkName = "loadData()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ScoreBoard/MyFSRef.swift"
+            timestampString = "528779574.016462"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "36"
+            endingLineNumber = "36"
+            landmarkName = "createGame(game:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ScoreBoard/GamesViewController.swift"
+            timestampString = "528779574.016651"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "50"
+            endingLineNumber = "50"
+            landmarkName = "getGames()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -7,89 +7,73 @@ class GamesViewController: UIViewController {
     
     var games: [Game] = [Game]()
     
-    //Database reference to all games.
-    private var gamesRef: DatabaseReference = Database.database().reference().child("Games")
-    //Handle that will track any data changes to the games.
-    private var gameUpdateRefHandle: DatabaseHandle?
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(GamesViewController.getGames), for: UIControlEvents.valueChanged)
+        return refreshControl
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if(ConnectionManager.isConnectedToInternet()){
-            initUI()
-            getGames()
-        }else{
-            ModalService.showError(title: "Error", message: "No internet connection.")
-        }
+        initUI()
+        getGames()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        reInitUI()
+        
+        //Set title of view.
+        navigationController?.visibleViewController?.navigationItem.titleView = nil
+        navigationController?.visibleViewController?.title = "Games"
+        navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([], animated: true)
     }
     
     func initUI() -> Void {
         //Register cell for table.
-        let XIBCell = UINib.init(nibName: "GameTableViewCell", bundle: nil)
-        tableView.register(XIBCell, forCellReuseIdentifier: "GameTableViewCell")
+        tableView.register(UINib.init(nibName: "GameTableViewCell", bundle: nil), forCellReuseIdentifier: "GameTableViewCell")
         
         //Set delegate and data source.
         tableView.dataSource = self
         tableView.delegate = self
         
+        //Add refresh control.
+        tableView.addSubview(refreshControl)
+        
         //Configure UISegmentControl
         segmentedControl.tintColor = Constants.primaryColor
-        segmentedControl.addTarget(self, action: #selector(segmentedControlValueChanged), for:.allEvents)
-    }
-    
-    func reInitUI() -> Void {
-        //Set title of view.
-        navigationController?.visibleViewController?.navigationItem.titleView = nil
-        navigationController?.visibleViewController?.title = "Games"
-        setNavBarButtons()
+        segmentedControl.addTarget(self, action: #selector(getGames), for:.allEvents)
     }
     
     func getGames() -> Void {
-        //Fetch games and observe any changes at any time.
-        gameUpdateRefHandle = gamesRef.observe(.value, with: { (gameSnapshots) -> Void in
-            self.games.removeAll()
-            
-            gameSnapshots.children.allObjects.forEach({ (gameSnapshot) in
-                self.games.append(MyFirebaseRef.extractGameData(gameSnapshot: gameSnapshot as! DataSnapshot))
-            })
-            
-            switch self.segmentedControl.selectedSegmentIndex {
-                //Pre Games
-                case 0:
-                    self.games = self.games.filter { $0.activeCode == 0 }
-                    break
-                //Active Games
-                case 1:
-                    self.games = self.games.filter { $0.activeCode == 1 }
-                    break
-                //Post Games
-                case 2:
-                    self.games = self.games.filter { $0.activeCode == 2 }
-                    break
-                default:break
+        MyFSRef.getGames()
+            .then{ (games) -> Void in
+                self.games = games
+                
+                //Filter game by active state
+                switch self.segmentedControl.selectedSegmentIndex {
+                    //Pre Games
+                    case 0:
+                        self.games = self.games.filter { $0.activeCode == 0 }
+                        break
+                    //Active Games
+                    case 1:
+                        self.games = self.games.filter { $0.activeCode == 1 }
+                        break
+                    //Post Games
+                    case 2:
+                        self.games = self.games.filter { $0.activeCode == 2 }
+                        break
+                    default:break
+                }
+                
+                //Reload table with fresh data
+                self.tableView.reloadData()
+
+            }.catch{ (error) in
+                ModalService.showError(title: "Error", message: error.localizedDescription)
+            }.always {
+                self.refreshControl.endRefreshing()
             }
-            
-            self.tableView.reloadData()
-        })
-    }
-    
-    func setNavBarButtons() -> Void {
-        navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([], animated: true)
-    }
-    
-    func segmentedControlValueChanged() -> Void {
-        getGames()
-    }
-    
-    deinit {
-        if let refHandle = gameUpdateRefHandle {
-            gamesRef.removeObserver(withHandle: refHandle)
-        }
     }
 }
 
@@ -116,8 +100,8 @@ extension GamesViewController : UITableViewDataSource, UITableViewDelegate {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "GameTableViewCell", for: indexPath as IndexPath) as? GameTableViewCell{
             let game: Game = games[indexPath.row]
             
-            let homeTeam: NBATeam = NBATeamService.instance.getTeam(id: game.homeTeamId)
-            let awayTeam: NBATeam = NBATeamService.instance.getTeam(id: game.awayTeamId)
+            let homeTeam: NBATeam = NBATeamService.instance.teams.filter({ $0.name == game.homeTeamName }).first!
+            let awayTeam: NBATeam = NBATeamService.instance.teams.filter({ $0.name == game.awayTeamName }).first!
 
             cell.title.text = homeTeam.name + " vs. " + awayTeam.name
             cell.potAmount.text = String(format: "$%.02f", game.potAmount) + " pot"

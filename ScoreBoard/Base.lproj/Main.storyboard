@@ -1409,7 +1409,7 @@
                                                         <rect key="frame" x="177.5" y="0.0" width="177.5" height="80"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Active" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8JE-7a-ECj">
-                                                                <rect key="frame" x="35" y="0.0" width="109" height="58.5"/>
+                                                                <rect key="frame" x="34.5" y="0.0" width="109" height="58.5"/>
                                                                 <fontDescription key="fontDescription" name="TharLon" family="TharLon" pointSize="40"/>
                                                                 <color key="textColor" red="0.50196081400000003" green="0.25098040700000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -1907,6 +1907,86 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bwR-4F-TSV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1701.5999999999999" y="2005.5472263868066"/>
+        </scene>
+        <!--Admin-->
+        <scene sceneID="z9E-hg-roB">
+            <objects>
+                <viewController storyboardIdentifier="AdminViewController" title="Admin" id="8Zy-0R-jEl" customClass="AdminViewController" customModule="ScoreBoard" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="BsV-Ri-C9k"/>
+                        <viewControllerLayoutGuide type="bottom" id="u2P-oN-473"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="1Qp-Xx-15k">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="1000"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jhf-Kf-NH0">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="1000"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sw1-qj-nya">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="500"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Game" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="naR-Xh-0fZ">
+                                                <rect key="frame" x="119.5" y="20" width="137" height="36"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                                <color key="textColor" red="0.50196081400000003" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Home Team" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Wma-Sq-i63" customClass="TextField" customModule="Material">
+                                                <rect key="frame" x="10" y="76" width="172.5" height="30"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Away Team" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oeg-3e-CEd" customClass="TextField" customModule="Material">
+                                                <rect key="frame" x="192.5" y="76" width="172.5" height="30"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="naR-Xh-0fZ" firstAttribute="top" secondItem="Sw1-qj-nya" secondAttribute="top" constant="20" id="9UB-Ez-2Or"/>
+                                            <constraint firstItem="Wma-Sq-i63" firstAttribute="top" secondItem="naR-Xh-0fZ" secondAttribute="bottom" constant="20" id="DId-8D-tIK"/>
+                                            <constraint firstItem="oeg-3e-CEd" firstAttribute="width" secondItem="Wma-Sq-i63" secondAttribute="width" id="PKY-Pc-Wiv"/>
+                                            <constraint firstItem="naR-Xh-0fZ" firstAttribute="centerX" secondItem="Sw1-qj-nya" secondAttribute="centerX" id="TDL-yN-vZz"/>
+                                            <constraint firstAttribute="trailing" secondItem="oeg-3e-CEd" secondAttribute="trailing" constant="10" id="ddq-oa-n83"/>
+                                            <constraint firstItem="oeg-3e-CEd" firstAttribute="top" secondItem="naR-Xh-0fZ" secondAttribute="bottom" constant="20" id="oA0-CG-ww3"/>
+                                            <constraint firstAttribute="height" constant="500" id="umX-NU-QpU"/>
+                                            <constraint firstItem="oeg-3e-CEd" firstAttribute="leading" secondItem="Wma-Sq-i63" secondAttribute="trailing" constant="10" id="yOJ-V1-urz"/>
+                                            <constraint firstItem="Wma-Sq-i63" firstAttribute="leading" secondItem="Sw1-qj-nya" secondAttribute="leading" constant="10" id="zLC-2C-4ad"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="Sw1-qj-nya" firstAttribute="top" secondItem="Jhf-Kf-NH0" secondAttribute="top" id="CG2-Lx-i6H"/>
+                                    <constraint firstItem="Sw1-qj-nya" firstAttribute="leading" secondItem="Jhf-Kf-NH0" secondAttribute="leading" id="JuJ-1v-O5F"/>
+                                    <constraint firstAttribute="trailing" secondItem="Sw1-qj-nya" secondAttribute="trailing" id="Mi1-h2-gB5"/>
+                                    <constraint firstItem="Sw1-qj-nya" firstAttribute="width" secondItem="Jhf-Kf-NH0" secondAttribute="width" id="UU7-et-16e"/>
+                                    <constraint firstAttribute="bottom" secondItem="Sw1-qj-nya" secondAttribute="bottom" constant="500" id="rhv-Il-YGt"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Jhf-Kf-NH0" firstAttribute="leading" secondItem="1Qp-Xx-15k" secondAttribute="leading" id="7uA-jj-EiF"/>
+                            <constraint firstAttribute="trailing" secondItem="Jhf-Kf-NH0" secondAttribute="trailing" id="tAH-BP-LUc"/>
+                            <constraint firstItem="u2P-oN-473" firstAttribute="top" secondItem="Jhf-Kf-NH0" secondAttribute="bottom" id="uss-Hw-yQh"/>
+                            <constraint firstItem="Jhf-Kf-NH0" firstAttribute="top" secondItem="1Qp-Xx-15k" secondAttribute="top" id="x7H-vB-daB"/>
+                        </constraints>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="375" height="1000"/>
+                    <connections>
+                        <outlet property="awayTeam" destination="oeg-3e-CEd" id="P51-md-dBw"/>
+                        <outlet property="homeTeam" destination="Wma-Sq-i63" id="YHz-jZ-dV6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="y3N-SF-TgU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2405.5999999999999" y="2154.4227886056974"/>
         </scene>
         <!--Cropped Image-->
         <scene sceneID="RdS-Or-GrP">
