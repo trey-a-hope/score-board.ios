@@ -86,9 +86,19 @@ extension GamesViewController : UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let game: Game = games[indexPath.row]
-        let fullGameViewController = storyBoard.instantiateViewController(withIdentifier: "FullGameViewController") as! FullGameViewController
-        fullGameViewController.gameId = game.id
-        self.navigationController?.pushViewController(fullGameViewController, animated: true)
+
+        //Game taken
+        if game.userId != nil {
+            let fullGameViewController = storyBoard.instantiateViewController(withIdentifier: "FullGameViewController") as! FullGameViewController
+            fullGameViewController.gameId = game.id
+            navigationController?.pushViewController(fullGameViewController, animated: true)
+        }
+        //Game empty
+        else{
+            let takeGameViewController = self.storyBoard.instantiateViewController(withIdentifier: "TakeGameViewController") as! TakeGameViewController
+            takeGameViewController.gameId = game.id
+            navigationController?.pushViewController(takeGameViewController, animated: true)
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -104,14 +114,25 @@ extension GamesViewController : UITableViewDataSource, UITableViewDelegate {
             //Game taken
             if game.userId != nil {
                 cell.potAmount.text = String(format: "$%.02f", game.potAmount) + " pot"
-                cell.isUserInteractionEnabled = true
                 cell.betCount.text = game.bets.count == 1 ? "1 bet" : String(describing: game.bets.count) + " bets"
             }
             //Game empty
             else{
                 cell.potAmount.text = "No pot set"
-                cell.isUserInteractionEnabled = false
                 cell.betCount.text = "No bets"
+            }
+            
+            switch(game.activeCode){
+                case 0:
+                    cell.statusBar.backgroundColor = GMColor.yellow500Color()
+                    break
+                case 1:
+                    cell.statusBar.backgroundColor = GMColor.green500Color()
+                    break
+                case 2:
+                    cell.statusBar.backgroundColor = GMColor.red500Color()
+                    break
+                default:break
             }
             
             cell.homeTeamImage.round(borderWidth: 0, borderColor: UIColor.black)
@@ -127,29 +148,13 @@ extension GamesViewController : UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, editActionsForRowAt: IndexPath) -> [UITableViewRowAction]? {
         let game: Game = games[editActionsForRowAt.row]
         
-        //Take button.
-        let take = UITableViewRowAction(style: .normal, title: "Take") { action, index in
-            let takeGameViewController = self.storyBoard.instantiateViewController(withIdentifier: "TakeGameViewController") as! TakeGameViewController
-            takeGameViewController.gameId = game.id
-            self.navigationController?.pushViewController(takeGameViewController, animated: true)
-        }
-        take.backgroundColor = GMColor.cyan500Color()
-        
         //Share button.
         let share = UITableViewRowAction(style: .normal, title: "Share") { action, index in
             ModalService.showInfo(title: "Share", message: "This game has " + String(describing: game.bets.count) + " bets.")
         }
         share.backgroundColor = GMColor.green500Color()
         
-        //Game is taken
-        if(game.userId != nil){
-            return [share]
-        }
-        //Game is empty
-        else{
-
-            return [take, share]
-        }
+        return [share]
     }
 
 }

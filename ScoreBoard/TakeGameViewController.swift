@@ -49,4 +49,26 @@ class TakeGameViewController: UIViewController {
         awayTeamImage.round(borderWidth: 0, borderColor: UIColor.black)
         awayTeamImage.kf.setImage(with: URL(string: awayTeam.imageDownloadUrl))
     }
+    
+    @IBAction func takeGame() -> Void {
+        let potCost: String = potAmount.text!
+        let betPrice: String = pricePerBet.text!
+        
+        let title: String = "Take Game?"
+        let message: String = "This game will have a pot of " + potCost + ", and each bet will cost " + betPrice + "."
+        
+        ModalService.showConfirm(title: title, message: message, confirmText: "Yes", cancelText: "Cancel")
+            .then{ () -> Void in
+                //CHARGE ACCOUNT HERE
+                
+                //Take game
+                MyFSRef.takeGame(gameId: self.game.id, potAmount: 100.00, betPrice: 1.50, userId: SessionManager.getUserId())
+                    .then{ () -> Void in
+                        _ = self.navigationController?.popViewController(animated: true)
+                        ModalService.showSuccess(title: "Success", message: "This game is yours.")
+                    }.catch{ error in
+                        ModalService.showError(title: "Error", message: error.localizedDescription)
+                    }.always{}
+            }.always{}
+    }
 }

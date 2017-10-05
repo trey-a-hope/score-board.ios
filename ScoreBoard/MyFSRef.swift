@@ -20,6 +20,7 @@ class MyFSRef {
     //    | |_| | | (_| | | | | | | | |  __/ \__ \
     //     \____|  \__,_| |_| |_| |_|  \___| |___/
     
+    //Returns a game based on id
     class func getGame(gameId: String)-> Promise<Game> {
         return Promise{ fulfill, reject in
             db.collection("Games").document(gameId).getDocument(completion: { (document, err) in
@@ -29,6 +30,7 @@ class MyFSRef {
         }
     }
     
+    //Returns all games
     class func getGames()-> Promise<[Game]> {
         var games: [Game] = [Game]()
         return Promise{ fulfill, reject in
@@ -42,6 +44,24 @@ class MyFSRef {
         }
     }
     
+    //Link a user to a game along with prices
+    class func takeGame(gameId: String, potAmount: Double, betPrice: Double, userId: String) -> Promise<Void> {
+        return Promise{ fulfill, reject in
+            db.collection("Games").document(gameId).updateData([
+                "userId"    : userId,
+                "potAmount" : potAmount,
+                "betPrice"  : betPrice
+            ]){ err in
+                if let err = err {
+                    reject(err)
+                } else {
+                    fulfill(())
+                }
+            }
+        }
+    }
+    
+    //Create a new game
     class func createGame(game: Game) -> Promise<String> {
         return Promise{ fulfill, reject in
             var ref: DocumentReference? = nil
@@ -85,6 +105,7 @@ class MyFSRef {
         }
     }
     
+    //Extract document data into game object
     private class func extractGameData(gameSnapshot: DocumentSnapshot) -> Game {
         let value = gameSnapshot.data()
         let game: Game = Game()

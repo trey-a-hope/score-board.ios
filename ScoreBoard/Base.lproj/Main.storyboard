@@ -1177,10 +1177,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="1000"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ftz-hh-nDD" userLabel="Content VIew">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="600"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="700"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Pot Amount" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3aY-j7-aOu" customClass="TextField" customModule="Material">
-                                                <rect key="frame" x="40" y="290" width="295" height="30"/>
+                                                <rect key="frame" x="20" y="280" width="157.5" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
@@ -1231,25 +1231,57 @@
                                                 </constraints>
                                             </view>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Price Per Bet" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="B0C-a1-ZRo" customClass="TextField" customModule="Material">
-                                                <rect key="frame" x="40" y="360" width="295" height="30"/>
+                                                <rect key="frame" x="197.5" y="280" width="157.5" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                             </textField>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="0Dk-3e-jLK">
+                                                <rect key="frame" x="10" y="330" width="355" height="100"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="100" id="zDk-G4-q89"/>
+                                                </constraints>
+                                                <string key="text">The pot amount is how much you are making the wager. The price per bet is how much each bet will cost users to bet on your game. The maximum number of bets on each game is 50, (to ensure you always have at least a 50% chance of winning).</string>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tp0-fz-dZD">
+                                                <rect key="frame" x="20" y="450" width="335" height="30"/>
+                                                <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                <state key="normal" title="Take Game">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="takeGame" destination="tAd-jZ-j1i" eventType="touchUpInside" id="H7f-qO-IPN"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="B0C-a1-ZRo" firstAttribute="top" secondItem="3aY-j7-aOu" secondAttribute="bottom" constant="40" id="0We-zf-jSm"/>
-                                            <constraint firstItem="B0C-a1-ZRo" firstAttribute="leading" secondItem="ftz-hh-nDD" secondAttribute="leading" constant="40" id="N9A-5d-whg"/>
-                                            <constraint firstItem="3aY-j7-aOu" firstAttribute="leading" secondItem="ftz-hh-nDD" secondAttribute="leading" constant="40" id="NVk-29-t9K"/>
-                                            <constraint firstItem="3aY-j7-aOu" firstAttribute="top" secondItem="nPJ-MU-qYU" secondAttribute="bottom" constant="40" id="XaO-Zf-O3p"/>
+                                            <constraint firstItem="B0C-a1-ZRo" firstAttribute="leading" secondItem="3aY-j7-aOu" secondAttribute="trailing" constant="20" id="3Do-T2-J5K"/>
+                                            <constraint firstItem="0Dk-3e-jLK" firstAttribute="leading" secondItem="ftz-hh-nDD" secondAttribute="leading" constant="10" id="5Ls-vg-bHS"/>
+                                            <constraint firstAttribute="trailing" secondItem="0Dk-3e-jLK" secondAttribute="trailing" constant="10" id="CSN-hK-TiL"/>
+                                            <constraint firstItem="Tp0-fz-dZD" firstAttribute="leading" secondItem="ftz-hh-nDD" secondAttribute="leading" constant="20" id="GzJ-SG-0kY"/>
+                                            <constraint firstItem="3aY-j7-aOu" firstAttribute="leading" secondItem="ftz-hh-nDD" secondAttribute="leading" constant="20" id="NVk-29-t9K"/>
+                                            <constraint firstItem="B0C-a1-ZRo" firstAttribute="top" secondItem="nPJ-MU-qYU" secondAttribute="bottom" constant="30" id="Qws-r0-k0m"/>
+                                            <constraint firstItem="Tp0-fz-dZD" firstAttribute="top" secondItem="0Dk-3e-jLK" secondAttribute="bottom" constant="20" id="TX1-oJ-cpA"/>
+                                            <constraint firstItem="3aY-j7-aOu" firstAttribute="top" secondItem="nPJ-MU-qYU" secondAttribute="bottom" constant="30" id="XaO-Zf-O3p"/>
                                             <constraint firstItem="nPJ-MU-qYU" firstAttribute="width" secondItem="ftz-hh-nDD" secondAttribute="width" id="ZhL-VC-CKU"/>
-                                            <constraint firstAttribute="trailing" secondItem="B0C-a1-ZRo" secondAttribute="trailing" constant="40" id="cep-DA-88H"/>
+                                            <constraint firstAttribute="trailing" secondItem="B0C-a1-ZRo" secondAttribute="trailing" constant="20" id="cep-DA-88H"/>
+                                            <constraint firstItem="B0C-a1-ZRo" firstAttribute="width" secondItem="3aY-j7-aOu" secondAttribute="width" id="crS-3K-UfE"/>
+                                            <constraint firstAttribute="trailing" secondItem="Tp0-fz-dZD" secondAttribute="trailing" constant="20" id="fPP-S6-On4"/>
                                             <constraint firstItem="nPJ-MU-qYU" firstAttribute="leading" secondItem="ftz-hh-nDD" secondAttribute="leading" id="gIZ-PH-soZ"/>
                                             <constraint firstItem="nPJ-MU-qYU" firstAttribute="top" secondItem="ftz-hh-nDD" secondAttribute="top" id="gJl-Uq-Rpi"/>
-                                            <constraint firstAttribute="height" constant="600" id="gXJ-zM-vEu"/>
+                                            <constraint firstAttribute="height" constant="700" id="gXJ-zM-vEu"/>
+                                            <constraint firstItem="0Dk-3e-jLK" firstAttribute="top" secondItem="3aY-j7-aOu" secondAttribute="bottom" constant="20" id="oTa-IW-AAX"/>
                                             <constraint firstAttribute="trailing" secondItem="nPJ-MU-qYU" secondAttribute="trailing" id="r9W-zE-NjA"/>
-                                            <constraint firstAttribute="trailing" secondItem="3aY-j7-aOu" secondAttribute="trailing" constant="40" id="tdd-dL-wb4"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -1257,7 +1289,7 @@
                                 <constraints>
                                     <constraint firstItem="ftz-hh-nDD" firstAttribute="top" secondItem="crK-mX-zzW" secondAttribute="top" id="0NO-Oc-6to"/>
                                     <constraint firstItem="ftz-hh-nDD" firstAttribute="width" secondItem="crK-mX-zzW" secondAttribute="width" id="JJa-bZ-Z4M"/>
-                                    <constraint firstAttribute="bottom" secondItem="ftz-hh-nDD" secondAttribute="bottom" constant="400" id="W4c-jL-UwR"/>
+                                    <constraint firstAttribute="bottom" secondItem="ftz-hh-nDD" secondAttribute="bottom" id="W4c-jL-UwR"/>
                                     <constraint firstItem="ftz-hh-nDD" firstAttribute="leading" secondItem="crK-mX-zzW" secondAttribute="leading" id="ihX-Sr-hzK"/>
                                     <constraint firstAttribute="trailing" secondItem="ftz-hh-nDD" secondAttribute="trailing" id="uSf-Jr-u3m"/>
                                 </constraints>
