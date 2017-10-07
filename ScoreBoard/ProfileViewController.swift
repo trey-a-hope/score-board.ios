@@ -8,15 +8,16 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var pointsLabel: UILabel!
-    @IBOutlet weak var currentBetsLabel: UILabel!
     @IBOutlet weak var gamesWonLabel: UILabel!
     @IBOutlet weak var betsWonLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var myBetsLabel: UILabel!
+    @IBOutlet weak var myGamesLabel: UILabel!
+    @IBOutlet weak var myBetsCollectionView: UICollectionView!
+    @IBOutlet weak var myGamesCollectionView: UICollectionView!
     
     //Navbar buttons
     var messagesButton: UIBarButtonItem!
@@ -29,6 +30,7 @@ class ProfileViewController: UIViewController {
     var userId: String?
     var user: User?
     var myBets: [BetView] = [BetView]()
+    var myGames: [Game] = [Game]()
     
     let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
     
@@ -74,11 +76,13 @@ class ProfileViewController: UIViewController {
         //Add refresh control.
         scrollView.addSubview(self.refreshControl)
         
-        //Configure collection view.
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        let XIBCell = UINib.init(nibName: "BetCell", bundle: nil)
-        collectionView.register(XIBCell, forCellWithReuseIdentifier: CellIdentifier)
+        //Configure my bets collection view
+        myBetsCollectionView.dataSource = self
+        myBetsCollectionView.delegate = self
+        myBetsCollectionView.register(UINib.init(nibName: "BetCell", bundle: nil), forCellWithReuseIdentifier: CellIdentifier)
+        myGamesCollectionView.dataSource = self
+        myGamesCollectionView.delegate = self
+        myGamesCollectionView.register(UINib.init(nibName: "GameCell", bundle: nil), forCellWithReuseIdentifier: CellIdentifier)
         
         //Configure profile imageview.
         profileImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(updateProfilePicture)))
@@ -133,11 +137,12 @@ class ProfileViewController: UIViewController {
     func getBets() -> Void {        
         MyFSRef.getGames()
             .then{ (games) -> Void in
-                //Clear bets.
+                //Clear bets and games
                 self.myBets.removeAll()
+                self.myGames.removeAll()
                 
-                //Determine which bets are mines.
                 for game in games {
+                    //Determine which bets are mine
                     for bet in game.bets {
                         if(bet.userId == self.userId){
                             self.myBets.append(
@@ -149,13 +154,18 @@ class ProfileViewController: UIViewController {
                                 )
                         }
                     }
+                    //Determine which games are mine
+                    if(game.userId == self.userId){
+                        self.myGames.append(game)
+                    }
                 }
                 
                 //Sort Bets by time.
                 self.myBets = self.myBets.sorted(by: { $0.bet.postDateTime > $1.bet.postDateTime })
                 self.setUI()
             }.always{
-                self.collectionView.reloadData()
+                self.myBetsCollectionView.reloadData()
+                self.myGamesCollectionView.reloadData()
                 self.refreshControl.endRefreshing()
         }
     }
@@ -178,9 +188,6 @@ class ProfileViewController: UIViewController {
         //Points
         pointsLabel.text = String(describing: user!.points!)
         
-        //Current bets amount
-        currentBetsLabel.text = String(describing: myBets.count)
-        
         //Games won
         gamesWonLabel.text = String(describing: user!.gamesWon!)
         
@@ -189,14 +196,27 @@ class ProfileViewController: UIViewController {
         
         //My bets label, gender specific
         if(userId == SessionManager.getUserId()){
-            myBetsLabel.text = "My bets"
+            myBetsLabel.text = "My bets - "
         }else{
             if let _ = user!.gender {
-                myBetsLabel.text = user!.gender == "F" ? "Her bets" : "His bets"
+                myBetsLabel.text = user!.gender == "F" ? "Her bets - " : "His bets - "
             }else{
-                myBetsLabel.text = "Their bets"
+                myBetsLabel.text = "Their bets - "
             }
         }
+        myBetsLabel.text = myBetsLabel.text! + String(describing: myBets.count)
+        
+        //My games label, gender specific
+        if(userId == SessionManager.getUserId()){
+            myGamesLabel.text = "My games - "
+        }else{
+            if let _ = user!.gender {
+                myGamesLabel.text = user!.gender == "F" ? "Her games - " : "His games - "
+            }else{
+                myGamesLabel.text = "Their games - "
+            }
+        }
+        myGamesLabel.text = myGamesLabel.text! + String(describing: myGames.count)
     }
     
     func openAdmin() -> Void {
@@ -271,39 +291,81 @@ extension ProfileViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return myBets.count
+        if(collectionView == myBetsCollectionView){
+            return myBets.count
+        }
+        else if(collectionView == myGamesCollectionView){
+            return myGames.count
+        }
+        return 0
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) -> Void {
+        
+        var gameId: String!
+        
+        if(collectionView == myBetsCollectionView){
+            gameId = myBets[indexPath.row].gameId!
+        }
+        else if(collectionView == myGamesCollectionView){
+            gameId = myGames[indexPath.row].id!
+        }
+        
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
         let fullGameViewController = storyBoard.instantiateViewController(withIdentifier: "FullGameViewController") as! FullGameViewController
-        fullGameViewController.gameId = myBets[indexPath.row].gameId!
+        fullGameViewController.gameId = gameId
         self.navigationController?.pushViewController(fullGameViewController, animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellIdentifier, for: indexPath) as? BetCell{
-            
-            let selectedBet: Bet = myBets[indexPath.row].bet!
-            cell.userName.text = self.user!.userName
-            cell.userImage.kf.setImage(with: URL(string: self.user!.imageDownloadUrl))
-            cell.userImage.round(borderWidth: 1, borderColor: UIColor.black)
-            cell.homeTeamImage.kf.setImage(with: URL(string: myBets[indexPath.row].homeTeam.imageDownloadUrl))
-            cell.homeTeamImage.round(borderWidth: 1, borderColor: UIColor.black)
-            cell.homeTeamDigit.text = String(describing: selectedBet.homeDigit!)
-            cell.awayTeamImage.kf.setImage(with: URL(string: myBets[indexPath.row].awayTeam.imageDownloadUrl))
-            cell.awayTeamImage.round(borderWidth: 1, borderColor: UIColor.black)
-            cell.awayTeamDigit.text = String(describing: selectedBet.awayDigit!)
-            
-            let d: Date = ConversionService.getDateInTimeZone(date: selectedBet.postDateTime, timeZoneOffset: selectedBet.postTimeZoneOffSet)
-            cell.posted.text = ConversionService.timeAgoSinceDate(date: d)
-            
-            return cell
+        if(collectionView == myBetsCollectionView){
+            if let betCell = collectionView.dequeueReusableCell(withReuseIdentifier: CellIdentifier, for: indexPath) as? BetCell{
+                
+                let selectedBet: Bet = myBets[indexPath.row].bet!
+                betCell.userName.text = self.user!.userName
+                betCell.userImage.kf.setImage(with: URL(string: self.user!.imageDownloadUrl))
+                betCell.userImage.round(borderWidth: 1, borderColor: UIColor.black)
+                betCell.homeTeamImage.kf.setImage(with: URL(string: myBets[indexPath.row].homeTeam.imageDownloadUrl))
+                betCell.homeTeamImage.round(borderWidth: 1, borderColor: UIColor.black)
+                betCell.homeTeamDigit.text = String(describing: selectedBet.homeDigit!)
+                betCell.awayTeamImage.kf.setImage(with: URL(string: myBets[indexPath.row].awayTeam.imageDownloadUrl))
+                betCell.awayTeamImage.round(borderWidth: 1, borderColor: UIColor.black)
+                betCell.awayTeamDigit.text = String(describing: selectedBet.awayDigit!)
+                
+                let d: Date = ConversionService.getDateInTimeZone(date: selectedBet.postDateTime, timeZoneOffset: selectedBet.postTimeZoneOffSet)
+                betCell.posted.text = ConversionService.timeAgoSinceDate(date: d)
+                
+                return betCell
+            }
+            fatalError("Unable to Dequeue Reusable Cell View")
         }
-        fatalError("Unable to Dequeue Reusable Cell View")
+        else if(collectionView == myGamesCollectionView){
+            if let gameCell = collectionView.dequeueReusableCell(withReuseIdentifier: CellIdentifier, for: indexPath) as? GameCell{
+                
+                let selectedGame: Game = myGames[indexPath.row]
+
+                let homeTeam: NBATeam = NBATeamService.instance.teams.filter({ $0.name == selectedGame.homeTeamName }).first!
+                let awayTeam: NBATeam = NBATeamService.instance.teams.filter({ $0.name == selectedGame.awayTeamName }).first!
+                
+                gameCell.userName.text = self.user!.userName
+                gameCell.homeTeamImage.kf.setImage(with: URL(string: homeTeam.imageDownloadUrl))
+                gameCell.homeTeamImage.round(borderWidth: 1, borderColor: UIColor.black)
+                gameCell.homeTeamScore.text = String(describing: selectedGame.homeTeamScore!)
+                gameCell.awayTeamImage.kf.setImage(with: URL(string: awayTeam.imageDownloadUrl))
+                gameCell.awayTeamImage.round(borderWidth: 1, borderColor: UIColor.black)
+                gameCell.awayTeamScore.text = String(describing: selectedGame.awayTeamScore!)
+                
+//                let d: Date = ConversionService.getDateInTimeZone(date: selectedBet.postDateTime, timeZoneOffset: selectedBet.postTimeZoneOffSet)
+                gameCell.taken.text = "TBA"
+                
+                return gameCell
+            }
+            fatalError("Unable to Dequeue Reusable Cell View")
+        }
+        
+        return (collectionView.dequeueReusableCell(withReuseIdentifier: CellIdentifier, for: indexPath) as? GameCell)!
     }
-    
 }
 
 extension ProfileViewController : UIImagePickerControllerDelegate {
