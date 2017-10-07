@@ -32,9 +32,6 @@ PODS:
   - Firebase/Core (4.3.0):
     - FirebaseAnalytics (= 4.0.4)
     - FirebaseCore (= 4.0.8)
-  - Firebase/Database (4.3.0):
-    - Firebase/Core
-    - FirebaseDatabase (= 4.1.0)
   - Firebase/Firestore (4.3.0):
     - Firebase/Core
     - FirebaseFirestore (= 0.8.0)
@@ -56,10 +53,6 @@ PODS:
   - FirebaseCore (4.0.8):
     - GoogleToolboxForMac/NSData+zlib (~> 2.1)
     - nanopb (~> 0.3)
-  - FirebaseDatabase (4.1.0):
-    - FirebaseAnalytics (~> 4.0)
-    - FirebaseCore (~> 4.0)
-    - leveldb-library (~> 1.18)
   - FirebaseFirestore (0.8.0):
     - FirebaseAnalytics (~> 4.0)
     - FirebaseAuth (~> 4.2)
@@ -84,18 +77,18 @@ PODS:
   - GoogleMaps/Base (2.4.0)
   - GoogleMaps/Maps (2.4.0):
     - GoogleMaps/Base
-  - GoogleToolboxForMac/DebugUtils (2.1.1):
-    - GoogleToolboxForMac/Defines (= 2.1.1)
-  - GoogleToolboxForMac/Defines (2.1.1)
-  - GoogleToolboxForMac/Logger (2.1.1):
-    - GoogleToolboxForMac/Defines (= 2.1.1)
-  - GoogleToolboxForMac/NSData+zlib (2.1.1):
-    - GoogleToolboxForMac/Defines (= 2.1.1)
-  - GoogleToolboxForMac/NSDictionary+URLArguments (2.1.1):
-    - GoogleToolboxForMac/DebugUtils (= 2.1.1)
-    - GoogleToolboxForMac/Defines (= 2.1.1)
-    - GoogleToolboxForMac/NSString+URLArguments (= 2.1.1)
-  - GoogleToolboxForMac/NSString+URLArguments (2.1.1)
+  - GoogleToolboxForMac/DebugUtils (2.1.3):
+    - GoogleToolboxForMac/Defines (= 2.1.3)
+  - GoogleToolboxForMac/Defines (2.1.3)
+  - GoogleToolboxForMac/Logger (2.1.3):
+    - GoogleToolboxForMac/Defines (= 2.1.3)
+  - GoogleToolboxForMac/NSData+zlib (2.1.3):
+    - GoogleToolboxForMac/Defines (= 2.1.3)
+  - GoogleToolboxForMac/NSDictionary+URLArguments (2.1.3):
+    - GoogleToolboxForMac/DebugUtils (= 2.1.3)
+    - GoogleToolboxForMac/Defines (= 2.1.3)
+    - GoogleToolboxForMac/NSString+URLArguments (= 2.1.3)
+  - GoogleToolboxForMac/NSString+URLArguments (2.1.3)
   - gRPC (1.6.5):
     - gRPC-Core (= 1.6.5)
     - gRPC-RxLibrary (= 1.6.5)
@@ -155,7 +148,6 @@ DEPENDENCIES:
   - FacebookLogin
   - Firebase/Auth
   - Firebase/Core
-  - Firebase/Database
   - Firebase/Firestore
   - Firebase/Messaging
   - Firebase/Storage
@@ -196,14 +188,13 @@ SPEC CHECKSUMS:
   FirebaseAnalytics: 722b53c7b32bfc7806b06e0093a2f5180d4f2c5a
   FirebaseAuth: d7f047fbeab98062b98ea933b8d934e0fb1190e2
   FirebaseCore: 69b1a5ac5f857ba6d5fd9d5fe794f4786dd5e579
-  FirebaseDatabase: 607284a103e961d7f5863ee603cab5e85f443bd6
   FirebaseFirestore: 8e2fd99a621ae6fc6acfac3bdea824fe9d9c128d
   FirebaseInstanceID: 70c2b877e9338971b2429ea5a4293df6961aa44e
   FirebaseMessaging: 3dd86bfda2acb680b05c97f3f8ac566e9bb87b2a
   FirebaseStorage: 0cca42d9b889a0227c3a50121f45a4469fc9eb27
   FontAwesome.swift: 60063e3f19ba4801155d4b0f2334ab7585763ab3
   GoogleMaps: 8436ab5d1c25e36915b2f7416d0c8e3fa2e76c61
-  GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
+  GoogleToolboxForMac: 2501e2ad72a52eb3dfe7bd9aee7dad11b858bd20
   gRPC: 42f915ce322b1abc5241621acc776f2fdb0a2039
   gRPC-Core: 54211a073d238ec8569be06e1a939a72f081a3e9
   gRPC-ProtoRPC: 4299db62f86df58c88844ccb50f5c48993e704f6
@@ -222,6 +213,6 @@ SPEC CHECKSUMS:
   Spring: 3f02b5dc3308572ef177b3cad0fa7bbc4b0706f7
   Toaster: 8c3225dc465bef4aa57e147a288724576df8e439
 
-PODFILE CHECKSUM: 00f9a6efe1f87a3880ad83c9111ba15885746190
+PODFILE CHECKSUM: a98144cca06f27911a1b4ef355bea9d6d1517703
 
 COCOAPODS: 1.3.1

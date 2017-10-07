@@ -1,5 +1,4 @@
 import FirebaseAuth
-import FirebaseDatabase
 import Material
 import UIKit
 
@@ -14,12 +13,8 @@ class ChangeEmailViewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if(ConnectionManager.isConnectedToInternet()){
-            prepareFabButton()
-            getUserInformation()
-        }else{
-            ModalService.showNoInternetConnection()
-        }
+        prepareFabButton()
+        getUserInformation()
     }
     
     func prepareFabButton() -> Void {
@@ -35,7 +30,7 @@ class ChangeEmailViewController : UIViewController {
     
     func getUserInformation() -> Void {
         spinner.startAnimating()
-        MyFirebaseRef.getUserByID(id: SessionManager.getUserId())
+        MyFSRef.getUserById(id: SessionManager.getUserId())
             .then{ (user) -> Void in
                 self.user = user
                 self.initUI()
@@ -61,15 +56,15 @@ class ChangeEmailViewController : UIViewController {
                 ModalService.showError(title: "Sorry", message: "Email must be different from current email.")
             }else{
                 let currentUser = Auth.auth().currentUser
+                //Update email user uses for auth purposes
                 currentUser?.updateEmail(to: email) { error in
                     if let error = error {
                         ModalService.showError(title: "Sorry", message: error.localizedDescription)
                     } else {
-                        // Fire Auth Email updated.
-                        let userRef: DatabaseReference! = Database.database().reference().child("Users").child(self.user.id)
-                        userRef.updateChildValues(["email" : email])
-                        // Fire Database Email updated.
-                        ModalService.showSuccess(title: "Success", message: "Email updated.")
+                        //Update email in firestore
+                        MyFSRef.updateUserEmail(userId: self.user.id, email: email)
+                            .then{ () -> Void in
+                            }.always{ ModalService.showSuccess(title: "Success", message: "Email updated.") }
                     }
                 }
             }

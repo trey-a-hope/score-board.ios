@@ -1,5 +1,4 @@
 import Firebase
-import FirebaseDatabase
 import FontAwesome_swift
 import Foundation
 import Material
@@ -14,6 +13,7 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var pointsLabel: UILabel!
     @IBOutlet weak var currentBetsLabel: UILabel!
+    @IBOutlet weak var gamesWonLabel: UILabel!
     @IBOutlet weak var betsWonLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var myBetsLabel: UILabel!
@@ -40,12 +40,9 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if(ConnectionManager.isConnectedToInternet()){
-            initUI()
-            getUser()
-        }else{
-            ModalService.showError(title: "Error", message: "No internet connection.")
-        }
+        
+        initUI()
+        getUser()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -125,16 +122,16 @@ class ProfileViewController: UIViewController {
         //If viewing another person's profile, user their userId. Otherwise, use yours.
         if let _ = userId {}
         else{userId = SessionManager.getUserId()}
-        
-        MyFirebaseRef.getUserByID(id: userId!)
+                
+        MyFSRef.getUserById(id: userId!)
             .then{ (user) -> Void in
                 self.user = user
                 self.getBets()
             }.always{}
     }
     
-    func getBets() -> Void {
-        MyFirebaseRef.getGames()
+    func getBets() -> Void {        
+        MyFSRef.getGames()
             .then{ (games) -> Void in
                 //Clear bets.
                 self.myBets.removeAll()
@@ -184,6 +181,9 @@ class ProfileViewController: UIViewController {
         //Current bets amount
         currentBetsLabel.text = String(describing: myBets.count)
         
+        //Games won
+        gamesWonLabel.text = String(describing: user!.gamesWon!)
+        
         //Bets won
         betsWonLabel.text = String(describing: user!.betsWon!)
         
@@ -200,8 +200,8 @@ class ProfileViewController: UIViewController {
     }
     
     func openAdmin() -> Void {
-        let adminViewController = storyBoard.instantiateViewController(withIdentifier: "AdminViewController") as! AdminViewController
-        navigationController?.pushViewController(adminViewController, animated: true)
+        let adminTableViewController = storyBoard.instantiateViewController(withIdentifier: "AdminTableViewController") as! AdminTableViewController
+        navigationController?.pushViewController(adminTableViewController, animated: true)
     }
     
     func openEditProfile() -> Void {

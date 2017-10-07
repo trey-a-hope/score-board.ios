@@ -1,6 +1,5 @@
 import Material
 import Firebase
-import FirebaseDatabase
 import UIKit
 
 class LoginViewController: UIViewController {
@@ -63,7 +62,7 @@ class LoginViewController: UIViewController {
      @IBAction func loginAction(_ sender: UIButton) -> Void {
         let email: String = emailText.text!
         let password: String = passwordText.text!
-        
+
         if(!ValidityService.isValidEmail(email)){
             ModalService.showError(title: "Error", message: "Invalid email.")
         }
@@ -78,8 +77,8 @@ class LoginViewController: UIViewController {
                     ModalService.showError(title: "Error", message: (error?.localizedDescription)!)
                     return
                 }
-                
-                MyFirebaseRef.getUserByEmail(email: email)
+
+                MyFSRef.getUserByEmail(email: email)
                     .then{ (user) -> Void in
                         SessionManager.setUserId(user.id)
                         self.goToHome()
@@ -95,7 +94,7 @@ class LoginViewController: UIViewController {
                     }.always{
                         self.spinner.isHidden = true
                         self.spinner.stopAnimating()
-                    }
+                }
             })
         }
     }

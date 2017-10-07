@@ -1,6 +1,5 @@
 import Material
 import Firebase
-import FirebaseDatabase
 import Material
 import UIKit
 
@@ -49,7 +48,7 @@ class SignupViewController: UIViewController {
                 newUser.userName = username
                 newUser.uid = Auth.auth().currentUser?.uid
                 
-                MyFirebaseRef.createNewUser(newUser)
+                MyFSRef.createNewUser(user: newUser)
                     .then{ (newUserId) -> Void in
                         SessionManager.setUserId(newUserId)
                         //Return to login screen.
@@ -58,7 +57,7 @@ class SignupViewController: UIViewController {
                         SessionManager.signOut()
                     }.always{
                         //SwiftSpinner.hide()
-                    }
+                }
             })
         }
     }

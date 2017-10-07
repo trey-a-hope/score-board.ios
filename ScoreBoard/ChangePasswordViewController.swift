@@ -1,5 +1,4 @@
 import FirebaseAuth
-import FirebaseDatabase
 import Material
 import UIKit
 
@@ -13,12 +12,8 @@ class ChangePasswordViewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if(ConnectionManager.isConnectedToInternet()){
-            prepareFabButton()
-            getUserInformation()
-        }else{
-            ModalService.showNoInternetConnection()
-        }
+        prepareFabButton()
+        getUserInformation()
     }
     
     func prepareFabButton() -> Void {
@@ -34,7 +29,7 @@ class ChangePasswordViewController : UIViewController {
     
     func getUserInformation() -> Void {
         spinner.startAnimating()
-        MyFirebaseRef.getUserByID(id: SessionManager.getUserId())
+        MyFSRef.getUserById(id: SessionManager.getUserId())
             .then{ (user) -> Void in
                 self.user = user
                 self.initUI()

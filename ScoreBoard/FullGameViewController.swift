@@ -1,4 +1,5 @@
 import Firebase
+import PromiseKit
 import SafariServices
 import UIKit
 
@@ -46,22 +47,20 @@ class FullGameViewController: UIViewController {
     var homeTeam: NBATeam!
     var awayTeam: NBATeam!
     var game: Game = Game()
+    var bets: [Bet] = [Bet]()
     let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
     
-    //Database reference to this game
-    private var gameRef: DatabaseReference!
-    //Handle that will track any data changes to this game
-    private var gameUpdateRefHandle: DatabaseHandle?
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(FullGameViewController.getGame), for: UIControlEvents.valueChanged)
+        return refreshControl
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if(ConnectionManager.isConnectedToInternet()){
-            initUI()
-            getGame()
-        }else{
-            ModalService.showError(title: "Error", message: "No internet connection.")
-        }
+        initUI()
+        getGame()
     }
     
     func initUI() -> Void {
@@ -69,8 +68,7 @@ class FullGameViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         
-        let XIBCell = UINib.init(nibName: "BetCell", bundle: nil)
-        collectionView.register(XIBCell, forCellWithReuseIdentifier: "Cell")
+        collectionView.register(UINib.init(nibName: "BetCell", bundle: nil), forCellWithReuseIdentifier: "Cell")
         
         //Share Button
         shareButton = UIBarButtonItem(
@@ -85,37 +83,35 @@ class FullGameViewController: UIViewController {
         
         //Add buttons to nav bar
         navigationItem.setRightBarButtonItems([shareButton], animated: false)
-        
-        //Set database reference for this game.
-        gameRef = Database.database().reference().child("Games").child(gameId)
     }
     
     func getGame() -> Void {
-        //Watch for any changes to this game, (new bet added, status change, etc.)
-        gameUpdateRefHandle = gameRef.observe(.value, with: { (gameSnapshot) -> Void in
-            self.game = MyFirebaseRef.extractGameData(gameSnapshot: gameSnapshot)
-            
-            self.homeTeam = NBATeamService.instance.getTeam(id: self.game.homeTeamId)
-            self.awayTeam = NBATeamService.instance.getTeam(id: self.game.awayTeamId)
-            
-            //Apply user object to each bet and refresh collection view.
-            if(self.game.bets.isEmpty){
-                self.setUI()
-            }else{
-                var betCount: Int = 0
-                for bet in self.game.bets {
-                    MyFirebaseRef.getUserByID(id: bet.userId)
-                        .then{ (user) -> Void in
-                            bet.user = user
-                        }.always{
-                            betCount += 1
-                            if(betCount == self.game.bets.count){
-                                self.setUI()
-                            }
+        when(fulfilled: MyFSRef.getGame(gameId: gameId), MyFSRef.getBets(gameId: gameId))
+            .then{ (result) -> Void in
+                self.game = result.0
+                self.bets = result.1
+                
+                self.homeTeam = NBATeamService.instance.teams.filter({ $0.name == self.game.homeTeamName }).first!
+                self.awayTeam = NBATeamService.instance.teams.filter({ $0.name == self.game.awayTeamName }).first!
+                
+                //Apply user object to each bet and refresh collection view.
+                if(self.bets.isEmpty){
+                    self.setUI()
+                }else{
+                    var betCount: Int = 0
+                    for bet in self.bets {
+                        MyFSRef.getUserById(id: bet.userId)
+                            .then{ (user) -> Void in
+                                bet.user = user
+                            }.always{
+                                betCount += 1
+                                if(betCount == self.bets.count){
+                                    self.setUI()
+                                }
+                        }
                     }
                 }
-            }
-        })
+            }.always{}
     }
     
     func setUI() -> Void {
@@ -192,11 +188,11 @@ class FullGameViewController: UIViewController {
         }
         
         //Sort Bets by time.
-        game.bets = game.bets.sorted(by: { $0.postDateTime > $1.postDateTime })
+        bets = bets.sorted(by: { $0.postDateTime > $1.postDateTime })
         
         //Track number of bet the user has
         var numberOfBetUserHas: Int = 0
-        for bet in game.bets{
+        for bet in bets{
             if(bet.userId == SessionManager.getUserId()){
                 numberOfBetUserHas += 1
             }
@@ -204,9 +200,9 @@ class FullGameViewController: UIViewController {
             //Bring the winning bet to the front of the list.
             if(isWinningBet(bet: bet)){
                 //Remove bet from list.
-                game.bets = game.bets.filter { $0.id != bet.id }
+                bets = bets.filter { $0.id != bet.id }
                 //Then place in front.
-                game.bets.insert(bet, at: 0)
+                bets.insert(bet, at: 0)
             }
         }
         
@@ -217,7 +213,7 @@ class FullGameViewController: UIViewController {
         collectionView.reloadData()
         
         //Set total bet count.
-        totalBetCount.text = String(describing: game.bets.count)
+        totalBetCount.text = String(describing: bets.count)
         
         //Set number of bet user has.
         yourBetCount.text = String(describing: numberOfBetUserHas)
@@ -271,7 +267,7 @@ class FullGameViewController: UIViewController {
                         bet.awayDigit = newBetAwayDigit
                         
                         //TODO: Charge user account with Stripe.
-                        MyFirebaseRef.createNewBet(gameId: self.game.id, bet: bet)
+                        MyFSRef.createBet(gameId: self.game.id, bet: bet)
                             .then{ (betId) -> Void in
                                 self.getGame()
                                 ModalService.showSuccess(title: "Success", message: "Your bet has been placed.")
@@ -303,7 +299,7 @@ class FullGameViewController: UIViewController {
     
     //Return true if the bet is already occupied.
     func betTaken(homeDigit: Int, awayDigit: Int) -> Bool {
-        for bet in game.bets {
+        for bet in bets {
             if(bet.homeDigit == homeDigit && bet.awayDigit == awayDigit){
                 return true
             }
@@ -318,12 +314,7 @@ class FullGameViewController: UIViewController {
         }
         return false
     }
-    
-    deinit {
-        if let refHandle = gameUpdateRefHandle {
-            gameRef.removeObserver(withHandle: refHandle)
-        }
-    }
+
 }
 
 extension FullGameViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
@@ -364,11 +355,11 @@ extension FullGameViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return game.bets.count
+        return bets.count
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let selectedBet: Bet = game.bets[indexPath.row]
+        let selectedBet: Bet = bets[indexPath.row]
         let profileViewController = storyBoard.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
         
         print(selectedBet.userId)
@@ -381,7 +372,7 @@ extension FullGameViewController: UICollectionViewDataSource {
         
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as? BetCell{
             
-            let selectedBet: Bet = game.bets[indexPath.row]
+            let selectedBet: Bet = bets[indexPath.row]
             
             //If the current score is this bet, add yellow tint to background
             if(isWinningBet(bet: selectedBet)){

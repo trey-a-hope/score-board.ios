@@ -90,7 +90,7 @@ class SettingsTableViewController: UITableViewController {
                     case 5:
                         ModalService.showConfirm(title: "Delete Account", message: "Are you sure?", confirmText: "Yes", cancelText: "No")
                             .then{() -> Void in
-                                MyFirebaseRef.deleteUser(userId: SessionManager.getUserId())
+                                MyFSRef.deleteUser(userId: SessionManager.getUserId())
                                     .then{ () -> Void in
                                         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
                                         let loginViewController = storyBoard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController

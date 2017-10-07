@@ -7,11 +7,14 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var pointsCollectionView: UICollectionView!
     @IBOutlet weak var mostBetsWonLabel: UILabel!
     @IBOutlet weak var betsWonCollectionView: UICollectionView!
+    @IBOutlet weak var mostGamessWonLabel: UILabel!
+    @IBOutlet weak var gamesWonCollectionView: UICollectionView!
     
     let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
     
     var mostPointsUsers: [User] = [User]()
     var mostBetsWonUsers: [User] = [User]()
+    var mostGamesWonUsers: [User] = [User]()
     
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
@@ -27,9 +30,12 @@ class HomeViewController: UIViewController {
         pointsCollectionView.dataSource = self
         betsWonCollectionView.delegate = self
         betsWonCollectionView.dataSource = self
+        gamesWonCollectionView.delegate = self
+        gamesWonCollectionView.dataSource = self
         
         pointsCollectionView.register(UINib.init(nibName: "UserCell", bundle: nil), forCellWithReuseIdentifier: "Cell")
         betsWonCollectionView.register(UINib.init(nibName: "UserCell", bundle: nil), forCellWithReuseIdentifier: "Cell")
+        gamesWonCollectionView.register(UINib.init(nibName: "UserCell", bundle: nil), forCellWithReuseIdentifier: "Cell")
         
         if(ConnectionManager.isConnectedToInternet()){
             scrollView.addSubview(self.refreshControl)
@@ -49,19 +55,23 @@ class HomeViewController: UIViewController {
     
     func loadData() -> Void {
         //Fetch users and games
-        when(fulfilled: MyFirebaseRef.getTopUsers(category: "points", numberOfUsers: 5), MyFirebaseRef.getTopUsers(category: "betsWon", numberOfUsers: 5))
+        when(fulfilled: MyFSRef.getTopUsers(category: "points", numberOfUsers: 5), MyFSRef.getTopUsers(category: "betsWon", numberOfUsers: 5), MyFSRef.getTopUsers(category: "gamesWon", numberOfUsers: 5))
             .then{ (result) -> Void in
-                //Get the top 5 users with the most points.
+                //Get the top 5 users with the most points
                 self.mostPointsUsers = result.0
                 self.mostPointsLabel.text = "Most Points - " + String(describing: self.mostPointsUsers[0].points!)
                 self.pointsCollectionView.reloadData()
-                //Get the top 5 users with the most bets won.
+                //Get the top 5 users with the most bets won
                 self.mostBetsWonUsers = result.1
                 self.mostBetsWonLabel.text = "Most Bets Won - " + String(describing: self.mostBetsWonUsers[0].betsWon!)
                 self.betsWonCollectionView.reloadData()
+                //Get the top 5 users with the most games won
+                self.mostGamesWonUsers = result.2
+                self.mostGamessWonLabel.text = "Most Games Won - " + String(describing: self.mostGamesWonUsers[0].gamesWon!)
+                self.gamesWonCollectionView.reloadData()
             }.always{
                 self.refreshControl.endRefreshing()
-        }
+            }
     }
 }
 
@@ -77,6 +87,8 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDelegate
                 return CGSize(width: CGFloat(250), height: pointsCollectionView.bounds.height)
             case betsWonCollectionView:
                 return CGSize(width: CGFloat(250), height: betsWonCollectionView.bounds.height)
+            case gamesWonCollectionView:
+                return CGSize(width: CGFloat(250), height: gamesWonCollectionView.bounds.height)
             default:
                 return CGSize(width: CGFloat(250), height: pointsCollectionView.bounds.height)
         }
@@ -115,6 +127,8 @@ extension HomeViewController: UICollectionViewDataSource {
                 return mostPointsUsers.count
             case betsWonCollectionView:
                 return mostBetsWonUsers.count
+            case gamesWonCollectionView:
+                return mostGamesWonUsers.count
             default:
                 return mostPointsUsers.count
         }
@@ -134,11 +148,14 @@ extension HomeViewController: UICollectionViewDataSource {
         
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as? UserCell{
             let user: User!
+            
             switch collectionView {
                 case pointsCollectionView:
                     user = mostPointsUsers[indexPath.row]
                 case betsWonCollectionView:
                     user = mostBetsWonUsers[indexPath.row]
+                case gamesWonCollectionView:
+                    user = mostGamesWonUsers[indexPath.row]
                 default:
                     user = mostPointsUsers[indexPath.row]
             }
@@ -158,9 +175,11 @@ extension HomeViewController: UICollectionViewDataSource {
                     break
                 default:break
             }
+            
             cell.userName.text = user.userName
             cell.points.text = user.points! == 1 ? "1 pt" : String(describing: user.points!) + " pts"
             cell.betsWon.text = user.betsWon! == 1 ? "1 bet won" : String(describing: user.betsWon!) + " bets won"
+            cell.gamesWon.text = user.gamesWon! == 1 ? "1 game won" : String(describing: user.gamesWon!) + " games won"
             cell.image.kf.setImage(with: URL(string: user.imageDownloadUrl))
             cell.image.round(borderWidth: 4, borderColor: .white)
             

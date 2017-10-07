@@ -6,6 +6,7 @@ class GamesViewController: UIViewController {
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     
     let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+    var allGames: [Game] = [Game]()
     var games: [Game] = [Game]()
     
     lazy var refreshControl: UIRefreshControl = {
@@ -42,35 +43,37 @@ class GamesViewController: UIViewController {
         
         //Configure UISegmentControl
         segmentedControl.tintColor = Constants.primaryColor
-        segmentedControl.addTarget(self, action: #selector(getGames), for:.allEvents)
+        segmentedControl.addTarget(self, action: #selector(sectionGames), for:.allEvents)
     }
     
     func getGames() -> Void {
         MyFSRef.getGames()
             .then{ (games) -> Void in
-                self.games = games
-                
-                //Filter game by taken/active
-                switch self.segmentedControl.selectedSegmentIndex {
-                    //Taken games
-                    case 0:
-                        self.games = self.games.filter { $0.userId != nil }
-                        break
-                    //Empty games
-                    case 1:
-                        self.games = self.games.filter { $0.userId == nil }
-                        break
-                    default:break
-                }
-                
-                //Reload table with fresh data
-                self.tableView.reloadData()
-
+                self.allGames = games
+                self.sectionGames()
             }.catch{ (error) in
                 ModalService.showError(title: "Error", message: error.localizedDescription)
             }.always {
                 self.refreshControl.endRefreshing()
             }
+    }
+    
+    func sectionGames() -> Void {
+        //Filter game by taken/active
+        switch segmentedControl.selectedSegmentIndex {
+            //Taken games
+            case 0:
+                games = allGames.filter { $0.userId != nil }
+                break
+            //Empty games
+            case 1:
+                games = allGames.filter { $0.userId == nil }
+                break
+            default:break
+        }
+        
+        //Reload table with fresh data
+        tableView.reloadData()
     }
 }
 
@@ -114,7 +117,8 @@ extension GamesViewController : UITableViewDataSource, UITableViewDelegate {
             //Game taken
             if game.userId != nil {
                 cell.potAmount.text = String(format: "$%.02f", game.potAmount) + " pot"
-                cell.betCount.text = game.bets.count == 1 ? "1 bet" : String(describing: game.bets.count) + " bets"
+                //cell.betCount.text = game.bets.count == 1 ? "1 bet" : String(describing: game.bets.count) + " bets"
+                cell.betCount.text = "TBA"
             }
             //Game empty
             else{

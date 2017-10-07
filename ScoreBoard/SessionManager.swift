@@ -1,5 +1,4 @@
 import Firebase
-import FirebaseDatabase
 import Foundation
 import UIKit
 

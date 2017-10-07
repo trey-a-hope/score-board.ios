@@ -1,3 +1,5 @@
+import Firebase
+import FirebaseAuth
 import FirebaseFirestore
 import FirebaseStorage
 import PromiseKit
@@ -5,6 +7,10 @@ import PromiseKit
 class MyFSRef {
     private class var db: Firestore {
         return Firestore.firestore()
+    }
+    
+    private class var notificationService: NotificationService{
+        return NotificationService()
     }
     
     private class var storageRef: StorageReference {
@@ -20,8 +26,24 @@ class MyFSRef {
     //    | |_| | | (_| | | | | | | | |  __/ \__ \
     //     \____|  \__,_| |_| |_| |_|  \___| |___/
     
-    //Returns a game based on id
-    class func getGame(gameId: String)-> Promise<Game> {
+    //RETURN ALL BETS FOR A GAME
+    class func getBets(gameId: String) -> Promise<[Bet]> {
+        return Promise{ fulfill, reject in
+            db.collection("Games").document(gameId).collection("bets").getDocuments(completion: { (collection, error) in
+                if let error = error { reject(error) }
+                
+                var bets: [Bet] = [Bet]()
+                for document in (collection?.documents)! {
+                    bets.append(extractBetData(betSnapshot: document))
+                }
+                
+                fulfill(bets)
+            })
+        }
+    }
+    
+    //RETURN A GAME THAT MATCHES ID
+    class func getGame(gameId: String) -> Promise<Game> {
         return Promise{ fulfill, reject in
             db.collection("Games").document(gameId).getDocument(completion: { (document, err) in
                 if let err = err { reject(err) }
@@ -30,7 +52,7 @@ class MyFSRef {
         }
     }
     
-    //Returns all games
+    //RETURNS ALL GAMES
     class func getGames()-> Promise<[Game]> {
         var games: [Game] = [Game]()
         return Promise{ fulfill, reject in
@@ -44,7 +66,7 @@ class MyFSRef {
         }
     }
     
-    //Link a user to a game along with prices
+    //LINK A USER TO A GAME
     class func takeGame(gameId: String, potAmount: Double, betPrice: Double, userId: String) -> Promise<Void> {
         return Promise{ fulfill, reject in
             db.collection("Games").document(gameId).updateData([
@@ -61,7 +83,7 @@ class MyFSRef {
         }
     }
     
-    //Create a new game
+    //CREATE A NEW GAME
     class func createGame(game: Game) -> Promise<String> {
         return Promise{ fulfill, reject in
             var ref: DocumentReference? = nil
@@ -84,7 +106,7 @@ class MyFSRef {
 //            print(data)
 //            fulfill("GOT IT")
             
-            //Add game
+            //Add game - I pray they come up with a better solution for referencing the ref id, this is tacky
             ref = db.collection("Games").addDocument(data: data){err in
                 if let err = err {
                     reject(err)
@@ -105,8 +127,303 @@ class MyFSRef {
         }
     }
     
-    //Extract document data into game object
-    private class func extractGameData(gameSnapshot: DocumentSnapshot) -> Game {
+    //CREATE NEW BET
+    class func createBet(gameId: String, bet: Bet) -> Promise<String> {
+        return Promise{ fulfill, reject in
+            
+            var ref: DocumentReference? = nil
+            let now: Date = Date()
+            
+            let data: [String : Any] = [
+                "awayDigit"             : bet.awayDigit,
+                "homeDigit"             : bet.homeDigit,
+                "userId"                : bet.userId,
+                "postDateTime"          : ConversionService.convertDateToFirebaseString(now),
+                "postTimeZoneOffSet"    : now.getTimeZoneOffset()
+            ]
+            
+            //Add bet - I pray they come up with a better solution for referencing the ref id, this is tacky
+            ref = db.collection("Games/" + gameId + "/bets").addDocument(data: data){err in
+                if let err = err {
+                    reject(err)
+                    print("Error adding document: \(err)")
+                } else {
+                    //Update id of game
+                    ref!.updateData([
+                        "id": ref!.documentID
+                    ]){err in
+                        if let err = err {
+                            reject(err)
+                        }
+                        print("Document added with ID: \(ref!.documentID)")
+                        fulfill(ref!.documentID)
+                    }
+                }
+            }
+        }
+    }
+
+    
+    //     _   _
+    //    | | | |  ___    ___   _ __   ___
+    //    | | | | / __|  / _ \ | '__| / __|
+    //    | |_| | \__ \ |  __/ | |    \__ \
+    //     \___/  |___/  \___| |_|    |___/
+    
+    
+    //DELETE USER FROM AUTHENTICATION, DATABASE, AND STORAGE
+    class func deleteUser(userId: String) -> Promise<Void> {
+        //TODO: Delete all bets when a user deletes their account.
+        return Promise { fulfill, reject in
+            fulfill()
+            Auth.auth().currentUser?.delete(completion: { (err) in
+                if err != nil {
+                    reject(err!)
+                }else{
+                    db.collection("Users").document(userId).delete(){error in
+                        if let error = error {
+                            print("Error removing document: \(error)")
+                        } else {
+                            //Remove user image from storage.
+                            storageRef.child("Images/Users/" + userId).delete { error in
+                                if let error = error {
+                                    print(error.localizedDescription)
+                                    //Most likely, the user never uploaded an image.
+                                }
+                                fulfill()
+                            }
+                        }
+                    }
+                }
+            })
+        }
+    }
+    
+    //UPDATE USER EMAIL
+    class func updateUserEmail(userId: String, email: String) -> Promise<Void> {
+        return Promise { fulfill, reject in
+            db.collection("Users").document(userId).updateData([
+                "email" : email
+            ]){error in
+                if let error = error {
+                    reject(error)
+                }
+                fulfill()
+            }
+        }
+    }
+    
+    //UPDATE USER INFORMATION
+    class func updateUser(user: User) -> Promise<Void> {
+        return Promise { fulfill, reject in
+            db.collection("Users").document(user.id).updateData([
+                "userName"      : user.userName,
+                "userNameLower" : user.userNameLower,
+                "phoneNumber"   : user.phoneNumber,
+                "city"          : user.city,
+                "stateId"       : user.stateId,
+                "gender"        : user.gender
+            ]){error in
+                if let error = error {
+                    reject(error)
+                }
+                fulfill()
+            }
+        }
+    }
+    
+    //UPDATE PROFILE PICTURE
+    class func updateProfilePicture(userId: String, image: UIImage) -> Promise<Void> {
+        return Promise { fulfill, reject in
+            let data: Data = UIImageJPEGRepresentation(image, 0.8)!
+            let filePath = "Images/Users/" + userId
+            let metaData = StorageMetadata()
+            metaData.contentType = "image/jpg"
+            
+            storageRef.child(filePath).putData(data, metadata: metaData){(metaData,error) in
+                if let error = error {
+                    reject(error)
+                }else{
+                    //Store download url.
+                    let imageDownloadUrl = metaData!.downloadURL()!.absoluteString
+                    //Store download url into database.
+                    db.collection("Users").document(userId).updateData([
+                        "imageDownloadUrl": imageDownloadUrl
+                    ]){error in
+                        if let error = error {
+                            reject(error)
+                        }
+                        fulfill()
+                    }
+                }
+            }
+        }
+    }
+    
+    //RETURNS USER THAT MATCHES ID
+    class func getUserById(id: String) -> Promise<User> {
+        return Promise{ fulfill, reject in
+            db.collection("Users").document(id).getDocument(completion: { (document, error) in
+                if let error = error { reject(error) }
+                fulfill(extractUserData(userSnapshot: document!))
+            })
+        }
+    }
+    
+    //RETURNS USER THAT MATCHES EMAIL
+    class func getUserByEmail(email: String) -> Promise<User> {
+        return Promise{ fulfill, reject in
+            db.collection("Users").whereField("email", isEqualTo: email).getDocuments(completion: { (collection, error) in
+                if let error = error { reject(error) }
+                fulfill(extractUserData(userSnapshot: (collection?.documents[0])!))
+            })
+        }
+    }
+    
+    //RETURNS A SPECIFIED AMOUNT OF USERS BY CATEGORY
+    class func getTopUsers(category: String, numberOfUsers: Int) -> Promise<[User]> {
+        return Promise { fulfill, reject in
+            db.collection("Users").order(by: category).limit(to: numberOfUsers).getDocuments(completion: { (collection, error) in
+                if let error = error { reject(error) }
+                var users: [User] = [User]()
+                for document in (collection?.documents)! {
+                    users.append(extractUserData(userSnapshot: document))
+                }
+                fulfill(users)
+            })
+        }
+    }
+    
+    //RETURNS A USER BASED ON USERNAME
+    class func getUsersFromSearch(search: String, numberOfUsers: Int) -> Promise<[User]> {
+            return Promise { fulfill, reject in
+                //            The character \uf8ff used in the query is a very high code point in the Unicode range (it is a Private Usage Area [PUA] code). Because it is after most regular characters in Unicode, the query matches all values that start with queryText.
+                //            In this way, searching by "Fre" I could get the records having "Fred, Freddy, Frey" as value in "userName" property from the database.
+                db.collection("Users").start(at: [search.lowercased()]).end(at: [search.lowercased() + "\u{f8ff}"]).limit(to: numberOfUsers).getDocuments(completion: { (collection, error) in
+                    if let error = error { reject(error) }
+                    
+                    var users: [User] = [User]()
+                    for document in (collection?.documents)! {
+                        users.append(extractUserData(userSnapshot: document))
+                    }
+                    fulfill(users)
+                    
+                })
+            }
+        }
+    
+    //UPDATES THE CURRENT USER'S FCM TOKEN
+    class func updateUserFCMToken(userId: String) -> Promise<Void> {
+        return Promise { fulfill, reject in
+            let fcmToken = Messaging.messaging().fcmToken!
+            
+            db.collection("Users").document(userId).updateData([
+                "fcmToken": fcmToken
+            ]){error in
+                if let error = error {
+                    reject(error)
+                }
+                fulfill()
+            }
+        }
+    }
+    
+    //RETURNS A USER'S FCM TOKEN FOR PUSH NOTIFICATIONS
+    class func getUserFCMToken(userId: String) -> Promise<String> {
+        return Promise { fulfill, reject in
+            db.collection("Users").document(userId).getDocument(completion: { (document, error) in
+                let value = document!.data()
+                
+                if let fcmToken = value["fcmToken"] {
+                    fulfill(fcmToken as! String )
+                }else{
+                    //reject()
+                }
+            })
+        }
+    }
+    
+    //CREATE A NEW USER
+    class func createNewUser(user: User) -> Promise<String> {
+        return Promise{ fulfill, reject in
+            var ref: DocumentReference? = nil
+            let now: Date = Date()
+
+            let data: [String : Any] = [
+                "uid"               : user.uid,
+                "userName"          : user.userName,
+                "userNameLower"     : user.userName.lowercased(),
+                "email"             : user.email,
+                "points"            : 25,
+                "betsWon"           : 0,
+                "gamesWon"          : 0,
+                "imageDownloadUrl"  : "https://web.usask.ca/images/profile.jpg", //upload own "unwknown" image url.
+                "postDateTime"      : ConversionService.convertDateToFirebaseString(now),
+                "postTimeZoneOffSet": now.getTimeZoneOffset()
+            ]
+            
+            //Add game - I pray they come up with a better solution for referencing the ref id, this is tacky
+            ref = db.collection("Users").addDocument(data: data){err in
+                if let err = err {
+                    reject(err)
+                    print("Error adding document: \(err)")
+                } else {
+                    //Update id of game
+                    ref!.updateData([
+                        "id": ref!.documentID
+                    ]){err in
+                        if let err = err {
+                            reject(err)
+                        }
+                        print("Document added with ID: \(ref!.documentID)")
+                        fulfill(ref!.documentID)
+                    }
+                }
+            }
+        }
+    }
+}
+
+//DATA EXTRACTION METHODS
+extension MyFSRef {
+    class func extractUserData(userSnapshot: DocumentSnapshot) -> User {
+        let value = userSnapshot.data()
+        let user: User = User()
+        
+        user.id = value["id"] as! String
+        user.uid = value["uid"] as! String
+        user.postTimeZoneOffSet = value["postTimeZoneOffSet"] as! Int
+        user.postDateTime = ConversionService.convertStringToDate(value["postDateTime"] as! String)
+        user.points = value["points"] as! Int
+        user.betsWon = value["betsWon"] as! Int
+        user.gamesWon = value["gamesWon"] as! Int
+        user.userName = value["userName"] as! String
+        user.email = value["email"] as! String
+        user.imageDownloadUrl = value["imageDownloadUrl"] as! String
+        user.phoneNumber = value["phoneNumber"] as? String
+        user.fcmToken = value["fcmToken"] as? String
+        user.city = value["city"] as? String
+        user.stateId = value["stateId"] as? Int
+        user.gender = value["gender"] as? String
+        
+        return (user)
+    }
+    
+    class func extractBetData(betSnapshot: DocumentSnapshot) -> Bet {
+        let value = betSnapshot.data()
+        let bet: Bet = Bet()
+        
+        bet.id = value["id"] as! String
+        bet.postDateTime = ConversionService.convertStringToDate(value["postDateTime"] as! String)
+        bet.postTimeZoneOffSet = value["postTimeZoneOffSet"] as! Int
+        bet.userId = value["userId"] as! String
+        bet.awayDigit = value["awayDigit"] as! Int
+        bet.homeDigit = value["homeDigit"] as! Int
+        
+        return bet
+    }
+    
+    class func extractGameData(gameSnapshot: DocumentSnapshot) -> Game {
         let value = gameSnapshot.data()
         let game: Game = Game()
         
@@ -126,24 +443,24 @@ class MyFSRef {
         game.potAmount = value["potAmount"] as? Double
         game.betPrice = value["betPrice"] as? Double
         
-        let betSnapshots = value["bets"] as? [String:Any]
+//        let betSnapshots = value["bets"] as! [Any]
         
         //If this game has bets currently...
-        if let _ = betSnapshots {
-            for betSnapshot in betSnapshots! {
-                let betSnapshot = betSnapshot.value as! [String:Any]
-                let bet: Bet = Bet()
-                bet.id = betSnapshot["id"] as! String
-                bet.postDateTime = ConversionService.convertStringToDate(betSnapshot["postDateTime"] as! String)
-                bet.postTimeZoneOffSet = value["postTimeZoneOffSet"] as! Int
-                bet.userId = betSnapshot["userId"] as! String
-                bet.awayDigit = betSnapshot["awayDigit"] as! Int
-                bet.homeDigit = betSnapshot["homeDigit"] as! Int
-                
-                game.bets.append(bet)
-            }
-        }
-        
+//        if let _ = betSnapshots {
+//            for betSnapshot in betSnapshots! {
+//                let betSnapshot = betSnapshot.value as! [String:Any]
+//                let bet: Bet = Bet()
+//                bet.id = betSnapshot["id"] as! String
+//                bet.postDateTime = ConversionService.convertStringToDate(betSnapshot["postDateTime"] as! String)
+//                bet.postTimeZoneOffSet = value["postTimeZoneOffSet"] as! Int
+//                bet.userId = betSnapshot["userId"] as! String
+//                bet.awayDigit = betSnapshot["awayDigit"] as! Int
+//                bet.homeDigit = betSnapshot["homeDigit"] as! Int
+//
+//                game.bets.append(bet)
+//            }
+//        }
+//
         return (game)
     }
 }

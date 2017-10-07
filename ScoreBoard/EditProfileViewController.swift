@@ -47,17 +47,18 @@ class EditProfileViewController: UIViewController {
             let json = JSONSerializer.toJson(user)
             print(json)
             
-            //Update user profile in database.
-            let userRef: DatabaseReference! = Database.database().reference().child("Users").child(user.id)
-            userRef.updateChildValues(["userName"       : userName.text!])
-            userRef.updateChildValues(["userNameLower"  : userName.text!.lowercased()])
-            userRef.updateChildValues(["phoneNumber"    : phoneNumber.text!])
-            userRef.updateChildValues(["city"           : city.text!])
-            userRef.updateChildValues(["stateId"        : statePickerView.selectedRow(inComponent: 0)])
-            userRef.updateChildValues(["gender"         : gender.selectedSegmentIndex == 0 ? "F" : "M"])
-            
-            //Display success message.
-            ModalService.showSuccess(title: "Success", message: "Profile updated.")
+            user.userName = userName.text!
+            user.userNameLower = userName.text!.lowercased()
+            user.phoneNumber = phoneNumber.text!
+            user.city = city.text!
+            user.stateId = statePickerView.selectedRow(inComponent: 0)
+            user.gender = gender.selectedSegmentIndex == 0 ? "F" : "M"
+
+            MyFSRef.updateUser(user: user)
+                .then{ () -> Void in
+                    //Display success message.
+                    ModalService.showSuccess(title: "Success", message: "Profile updated.")
+                }.always{}
         }
     }
     
@@ -78,7 +79,7 @@ class EditProfileViewController: UIViewController {
     }
     
     func getUser() -> Void {
-        MyFirebaseRef.getUserByID(id: SessionManager.getUserId())
+        MyFSRef.getUserById(id: SessionManager.getUserId())
             .then{ (user) -> Void in
                 self.user = user
                 self.initUI()

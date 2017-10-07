@@ -52,7 +52,8 @@
 		0CC563751F4DFD9A0088057C /* ModalService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC563741F4DFD9A0088057C /* ModalService.swift */; };
 		0CC563771F4DFE430088057C /* FirebaseObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC563761F4DFE430088057C /* FirebaseObject.swift */; };
 		0CC563791F4DFEC70088057C /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC563781F4DFEC70088057C /* SignupViewController.swift */; };
-		0CC5843E1F844BE8009E72DB /* AdminViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC5843D1F844BE8009E72DB /* AdminViewController.swift */; };
+		0CC5843E1F844BE8009E72DB /* AddGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC5843D1F844BE8009E72DB /* AddGameViewController.swift */; };
+		0CCF23B31F87C80A008E0854 /* AdminTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CCF23B21F87C80A008E0854 /* AdminTableViewController.swift */; };
 		0CD969FD1F6501EB00B183C8 /* CropperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD969FC1F6501EB00B183C8 /* CropperViewController.swift */; };
 		0CD969FF1F6501F700B183C8 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD969FE1F6501F700B183C8 /* ImageViewController.swift */; };
 		0CD96A011F65020300B183C8 /* CustomImageCropperOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD96A001F65020300B183C8 /* CustomImageCropperOverlayView.swift */; };
@@ -138,7 +139,8 @@
 		0CC563741F4DFD9A0088057C /* ModalService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalService.swift; sourceTree = "<group>"; };
 		0CC563761F4DFE430088057C /* FirebaseObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseObject.swift; sourceTree = "<group>"; };
 		0CC563781F4DFEC70088057C /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
-		0CC5843D1F844BE8009E72DB /* AdminViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminViewController.swift; sourceTree = "<group>"; };
+		0CC5843D1F844BE8009E72DB /* AddGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGameViewController.swift; sourceTree = "<group>"; };
+		0CCF23B21F87C80A008E0854 /* AdminTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminTableViewController.swift; sourceTree = "<group>"; };
 		0CD969FC1F6501EB00B183C8 /* CropperViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropperViewController.swift; sourceTree = "<group>"; };
 		0CD969FE1F6501F700B183C8 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		0CD96A001F65020300B183C8 /* CustomImageCropperOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomImageCropperOverlayView.swift; sourceTree = "<group>"; };
@@ -350,7 +352,8 @@
 		0CC5843C1F844BD2009E72DB /* Admin */ = {
 			isa = PBXGroup;
 			children = (
-				0CC5843D1F844BE8009E72DB /* AdminViewController.swift */,
+				0CC5843D1F844BE8009E72DB /* AddGameViewController.swift */,
+				0CCF23B21F87C80A008E0854 /* AdminTableViewController.swift */,
 			);
 			name = Admin;
 			sourceTree = "<group>";
@@ -820,6 +823,7 @@
 				0CD96A011F65020300B183C8 /* CustomImageCropperOverlayView.swift in Sources */,
 				0CC563791F4DFEC70088057C /* SignupViewController.swift in Sources */,
 				0C5F3A381F4E0EBB00516CFB /* ConversionService.swift in Sources */,
+				0CCF23B31F87C80A008E0854 /* AdminTableViewController.swift in Sources */,
 				0CD96A041F65A11500B183C8 /* NotificationService.swift in Sources */,
 				0CAB26DA1F770D6D00B8EBC1 /* MessagesViewController.swift in Sources */,
 				0C65A3821F7DE26B001C2959 /* EditProfileViewController.swift in Sources */,
@@ -852,7 +856,7 @@
 				0CC563771F4DFE430088057C /* FirebaseObject.swift in Sources */,
 				0C9F18AA1F81C6C7009543A6 /* AboutViewController.swift in Sources */,
 				0CD969FF1F6501F700B183C8 /* ImageViewController.swift in Sources */,
-				0CC5843E1F844BE8009E72DB /* AdminViewController.swift in Sources */,
+				0CC5843E1F844BE8009E72DB /* AddGameViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

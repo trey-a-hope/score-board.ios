@@ -90,7 +90,7 @@ extension SearchViewController : UISearchBarDelegate {
         users = []
         
         //Fetch games, users, and teams.
-        when(fulfilled: MyFirebaseRef.getGames(), MyFirebaseRef.getUsersFromSearch(search: searchText, numberOfUsers: 25))
+        when(fulfilled: MyFSRef.getGames(), MyFSRef.getUsersFromSearch(search: searchText, numberOfUsers: 25))
             .then{ (result) -> Void in
                 //Set games
                 for game in result.0 {
