@@ -218,7 +218,6 @@ class MyFSRef {
         return Promise { fulfill, reject in
             db.collection("Users").document(user.id).updateData([
                 "userName"      : user.userName,
-                "userNameLower" : user.userNameLower,
                 "phoneNumber"   : user.phoneNumber,
                 "city"          : user.city,
                 "stateId"       : user.stateId,
@@ -294,12 +293,11 @@ class MyFSRef {
         }
     }
     
-    //RETURNS A USER BASED ON USERNAME
-    class func getUsersFromSearch(search: String, numberOfUsers: Int) -> Promise<[User]> {
+    class func getUsersFromSearch(category: String, search: String, numberOfUsers: Int) -> Promise<[User]> {
             return Promise { fulfill, reject in
                 //            The character \uf8ff used in the query is a very high code point in the Unicode range (it is a Private Usage Area [PUA] code). Because it is after most regular characters in Unicode, the query matches all values that start with queryText.
                 //            In this way, searching by "Fre" I could get the records having "Fred, Freddy, Frey" as value in "userName" property from the database.
-                db.collection("Users").start(at: [search.lowercased()]).end(at: [search.lowercased() + "\u{f8ff}"]).limit(to: numberOfUsers).getDocuments(completion: { (collection, error) in
+                db.collection("Users").order(by: category).start(at: [search]).end(at: [search + "\u{f8ff}"]).limit(to: numberOfUsers).getDocuments(completion: { (collection, error) in
                     if let error = error { reject(error) }
                     
                     var users: [User] = [User]()
@@ -352,7 +350,6 @@ class MyFSRef {
             let data: [String : Any] = [
                 "uid"               : user.uid,
                 "userName"          : user.userName,
-                "userNameLower"     : user.userName.lowercased(),
                 "email"             : user.email,
                 "points"            : 25,
                 "betsWon"           : 0,

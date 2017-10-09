@@ -48,7 +48,6 @@ class EditProfileViewController: UIViewController {
             print(json)
             
             user.userName = userName.text!
-            user.userNameLower = userName.text!.lowercased()
             user.phoneNumber = phoneNumber.text!
             user.city = city.text!
             user.stateId = statePickerView.selectedRow(inComponent: 0)

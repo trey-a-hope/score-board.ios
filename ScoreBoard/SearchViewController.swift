@@ -44,15 +44,12 @@ class SearchViewController: UIViewController {
         
         //Configure searchbar.
         searchBar = UISearchBar()
-        searchBar.placeholder = "Search"
+        searchBar.placeholder = "Search, (case sensitive for users)"
         searchBar.delegate = self
         
         navigationController?.visibleViewController?.title = "Search"
         navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([], animated: true)
         navigationController?.visibleViewController?.navigationItem.titleView = searchBar
-        
-        self.games = []
-        self.users = []
     }
     
     func initUI() -> Void {
@@ -86,16 +83,25 @@ extension SearchViewController : UISearchBarDelegate {
     //Filter data in tableview.
     func filterContentForSearchText(_ searchText: String) -> Void {
         //Clear list on each text query.
-        games = []
-        users = []
+        games.removeAll()
+        users.removeAll()
         
         //Fetch games, users, and teams.
-        when(fulfilled: MyFSRef.getGames(), MyFSRef.getUsersFromSearch(search: searchText, numberOfUsers: 25))
+        when(fulfilled: MyFSRef.getGames(), MyFSRef.getUsersFromSearch(category: "userName", search: searchText, numberOfUsers: 25))
             .then{ (result) -> Void in
+                if(searchText == ""){
+                    //Clear results from table view.
+                    self.filteredGames.removeAll()
+                    self.filteredUsers.removeAll()
+                    self.filteredTeams.removeAll()
+                    self.tableView.reloadData()
+                    return
+                }
+                
                 //Set games
                 for game in result.0 {
-                    let homeTeam: NBATeam = NBATeamService.instance.getTeam(id: game.homeTeamId)
-                    let awayTeam: NBATeam = NBATeamService.instance.getTeam(id: game.awayTeamId)
+                    let homeTeam: NBATeam = NBATeamService.instance.teams.filter{ $0.name == game.homeTeamName }.first!
+                    let awayTeam: NBATeam = NBATeamService.instance.teams.filter{ $0.name == game.awayTeamName }.first!
                     
                     let gameItem: Item = Item()
                     gameItem.id = game.id
@@ -218,7 +224,6 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
             //Teams
             case 2:
                 //Text will still be present in searchbar on return if not cleared like such
-                searchBar.text = ""
                 let svc = SFSafariViewController(url: NSURL(string: item.url)! as URL)
                 svc.delegate = self
                 svc.preferredBarTintColor = Constants.primaryColor

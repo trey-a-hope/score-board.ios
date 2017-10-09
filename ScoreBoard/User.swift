@@ -3,7 +3,6 @@ import UIKit
 class User : FirebaseObject {
     var uid: String!
     var userName: String!
-    var userNameLower: String!
     var email: String!
     var phoneNumber: String!
     var fcmToken: String!

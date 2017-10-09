@@ -143,8 +143,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "376"
             endingLineNumber = "376"
-            landmarkName = "imagePickerController(_:didFinishPickingMediaWithInfo:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -159,8 +159,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "51"
             endingLineNumber = "51"
-            landmarkName = "viewWillAppear(_:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -175,8 +175,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "137"
             endingLineNumber = "137"
-            landmarkName = "getBets()"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -191,8 +191,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "171"
             endingLineNumber = "171"
-            landmarkName = "getBets()"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -207,8 +207,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "49"
             endingLineNumber = "49"
-            landmarkName = "ProfileViewController"
-            landmarkType = "3">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -223,8 +223,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "302"
             endingLineNumber = "302"
-            landmarkName = "collectionView(_:numberOfItemsInSection:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -239,8 +239,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "321"
             endingLineNumber = "321"
-            landmarkName = "collectionView(_:cellForItemAt:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -558,11 +558,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ScoreBoard/EditProfileViewController.swift"
-            timestampString = "529046010.687752"
+            timestampString = "529255850.031914"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "115"
-            endingLineNumber = "115"
+            startingLineNumber = "114"
+            endingLineNumber = "114"
             landmarkName = "initUI()"
             landmarkType = "7">
          </BreakpointContent>
@@ -590,11 +590,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ScoreBoard/SearchViewController.swift"
-            timestampString = "529046010.687821"
+            timestampString = "529255850.031992"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "225"
-            endingLineNumber = "225"
+            startingLineNumber = "230"
+            endingLineNumber = "230"
             landmarkName = "tableView(_:didSelectRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -670,7 +670,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ScoreBoard/MyFSRef.swift"
-            timestampString = "529049145.30848"
+            timestampString = "529255850.032416"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "71"
@@ -702,7 +702,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ScoreBoard/MyFSRef.swift"
-            timestampString = "529049145.308638"
+            timestampString = "529255850.032754"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "33"
@@ -718,7 +718,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ScoreBoard/MyFSRef.swift"
-            timestampString = "529049145.308749"
+            timestampString = "529255850.033065"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "43"
@@ -766,7 +766,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ScoreBoard/MyFSRef.swift"
-            timestampString = "529049145.308855"
+            timestampString = "529255850.03335"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "44"
@@ -926,11 +926,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ScoreBoard/MyFSRef.swift"
-            timestampString = "529049145.309644"
+            timestampString = "529255850.033728"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "415"
-            endingLineNumber = "415"
+            startingLineNumber = "412"
+            endingLineNumber = "412"
             landmarkName = "extractBetData(betSnapshot:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -942,11 +942,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ScoreBoard/MyFSRef.swift"
-            timestampString = "529049145.309756"
+            timestampString = "529255850.034009"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "398"
-            endingLineNumber = "398"
+            startingLineNumber = "395"
+            endingLineNumber = "395"
             landmarkName = "extractUserData(userSnapshot:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -958,11 +958,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ScoreBoard/MyFSRef.swift"
-            timestampString = "529049145.309886"
+            timestampString = "529255850.034284"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "397"
-            endingLineNumber = "397"
+            startingLineNumber = "394"
+            endingLineNumber = "394"
             landmarkName = "extractUserData(userSnapshot:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -995,8 +995,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "74"
             endingLineNumber = "74"
-            landmarkName = "initUI()"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1011,8 +1011,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "10"
             endingLineNumber = "10"
-            landmarkName = "ProfileViewController"
-            landmarkType = "3">
+            landmarkName = "unknown"
+            landmarkType = "0">
             <Locations>
                <Location
                   shouldBeEnabled = "No"
@@ -1089,7 +1089,151 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "159"
             endingLineNumber = "159"
-            landmarkName = "getBets()"
+            landmarkName = "unknown"
+            landmarkType = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ScoreBoard/SearchViewController.swift"
+            timestampString = "529255850.034606"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "85"
+            endingLineNumber = "85"
+            landmarkName = "filterContentForSearchText(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ScoreBoard/SearchViewController.swift"
+            timestampString = "529255850.034891"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "101"
+            endingLineNumber = "101"
+            landmarkName = "filterContentForSearchText(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ScoreBoard/MyFSRef.swift"
+            timestampString = "529255850.035174"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "300"
+            endingLineNumber = "300"
+            landmarkName = "getUsersFromSearch(category:search:numberOfUsers:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 ((Swift.Array&lt;ScoreBoard.User&gt;) -&gt; (), (Swift.Error) -&gt; ()) -&gt; () in static ScoreBoard.MyFSRef.getUsersFromSearch(category: Swift.String, search: Swift.String, numberOfUsers: Swift.Int) -&gt; PromiseKit.Promise&lt;Swift.Array&lt;ScoreBoard.User&gt;&gt;"
+                  moduleName = "ScoreBoard"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/thope/Desktop/Projects/scoreboard.ios/ScoreBoard/MyFSRef.swift"
+                  timestampString = "529253988.109554"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "302"
+                  endingLineNumber = "302"
+                  offsetFromSymbolStart = "84">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;__ObjC.QuerySnapshot&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in closure #1 ((Swift.Array&lt;ScoreBoard.User&gt;) -&gt; (), (Swift.Error) -&gt; ()) -&gt; () in static ScoreBoard.MyFSRef.getUsersFromSearch(category: Swift.String, search: Swift.String, numberOfUsers: Swift.Int) -&gt; PromiseKit.Promise&lt;Swift.Array&lt;ScoreBoard.User&gt;&gt;"
+                  moduleName = "ScoreBoard"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/thope/Desktop/Projects/scoreboard.ios/ScoreBoard/MyFSRef.swift"
+                  timestampString = "529253988.11109"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "303"
+                  endingLineNumber = "303"
+                  offsetFromSymbolStart = "44">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ScoreBoard/SearchViewController.swift"
+            timestampString = "529255850.035455"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "88"
+            endingLineNumber = "88"
+            landmarkName = "filterContentForSearchText(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ScoreBoard/SearchViewController.swift"
+            timestampString = "529255850.035733"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "102"
+            endingLineNumber = "102"
+            landmarkName = "filterContentForSearchText(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ScoreBoard/SearchViewController.swift"
+            timestampString = "529255850.036007"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "123"
+            endingLineNumber = "123"
+            landmarkName = "filterContentForSearchText(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ScoreBoard/SearchViewController.swift"
+            timestampString = "529255850.036279"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
+            landmarkName = "viewWillAppear(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
