@@ -29,14 +29,14 @@ class ProfileViewController: UIViewController {
     let CellIdentifier: String = "Cell"
     var userId: String?
     var user: User?
-    var myBets: [BetView] = [BetView]()
+    var myBets: [Bet] = [Bet]()
     var myGames: [Game] = [Game]()
     
     let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
     
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(ProfileViewController.getUser), for: UIControlEvents.valueChanged)
+        refreshControl.addTarget(self, action: #selector(ProfileViewController.loadData), for: UIControlEvents.valueChanged)
         return refreshControl
     }()
     
@@ -44,7 +44,7 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         
         initUI()
-        getUser()
+        loadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -66,7 +66,7 @@ class ProfileViewController: UIViewController {
             navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([messagesButton], animated: true)
         }
         
-        getUser()
+        loadData()
     }
 
     func initUI() -> Void {
@@ -122,52 +122,26 @@ class ProfileViewController: UIViewController {
         adminButton.tintColor = .white
     }
     
-    func getUser() -> Void {
+    func loadData() -> Void {
         //If viewing another person's profile, user their userId. Otherwise, use yours.
         if let _ = userId {}
         else{userId = SessionManager.getUserId()}
+        
+        when(fulfilled: MyFSRef.getUserById(id: userId!), MyFSRef.getGamesForUser(userId: userId!), MyFSRef.getBetsForUser(userId: userId!))
+            .then{ (result) -> Void in
+                //Set user
+                self.user = result.0
+                //Set games
+                self.myGames = result.1
+                //Set bets
+                self.myBets = result.2
                 
-        MyFSRef.getUserById(id: userId!)
-            .then{ (user) -> Void in
-                self.user = user
-                self.getBets()
-            }.always{}
-    }
-    
-    func getBets() -> Void {        
-        MyFSRef.getGames()
-            .then{ (games) -> Void in
-                //Clear bets and games
-                self.myBets.removeAll()
-                self.myGames.removeAll()
-                
-                for game in games {
-                    //Determine which bets are mine
-                    for bet in game.bets {
-                        if(bet.userId == self.userId){
-                            self.myBets.append(
-                                BetView(
-                                    homeTeam: NBATeamService.instance.getTeam(id: game.homeTeamId ),
-                                    awayTeam: NBATeamService.instance.getTeam(id: game.awayTeamId ),
-                                    bet: bet,
-                                    gameId: game.id)
-                                )
-                        }
-                    }
-                    //Determine which games are mine
-                    if(game.userId == self.userId){
-                        self.myGames.append(game)
-                    }
-                }
-                
-                //Sort Bets by time.
-                self.myBets = self.myBets.sorted(by: { $0.bet.postDateTime > $1.bet.postDateTime })
-                self.setUI()
-            }.always{
                 self.myBetsCollectionView.reloadData()
                 self.myGamesCollectionView.reloadData()
                 self.refreshControl.endRefreshing()
-        }
+                
+                self.setUI()
+            }.always{}
     }
     
     func setUI() -> Void {
@@ -323,14 +297,18 @@ extension ProfileViewController: UICollectionViewDataSource {
         if(collectionView == myBetsCollectionView){
             if let betCell = collectionView.dequeueReusableCell(withReuseIdentifier: CellIdentifier, for: indexPath) as? BetCell{
                 
-                let selectedBet: Bet = myBets[indexPath.row].bet!
+                let selectedBet: Bet = myBets[indexPath.row]
+                
+                let homeTeam: NBATeam = NBATeamService.instance.teams.filter({ $0.id == selectedBet.homeTeamId }).first!
+                let awayTeam: NBATeam = NBATeamService.instance.teams.filter({ $0.id == selectedBet.awayTeamId }).first!
+                
                 betCell.userName.text = self.user!.userName
                 betCell.userImage.kf.setImage(with: URL(string: self.user!.imageDownloadUrl))
                 betCell.userImage.round(borderWidth: 1, borderColor: UIColor.black)
-                betCell.homeTeamImage.kf.setImage(with: URL(string: myBets[indexPath.row].homeTeam.imageDownloadUrl))
+                betCell.homeTeamImage.kf.setImage(with: URL(string: homeTeam.imageDownloadUrl))
                 betCell.homeTeamImage.round(borderWidth: 1, borderColor: UIColor.black)
                 betCell.homeTeamDigit.text = String(describing: selectedBet.homeDigit!)
-                betCell.awayTeamImage.kf.setImage(with: URL(string: myBets[indexPath.row].awayTeam.imageDownloadUrl))
+                betCell.awayTeamImage.kf.setImage(with: URL(string: awayTeam.imageDownloadUrl))
                 betCell.awayTeamImage.round(borderWidth: 1, borderColor: UIColor.black)
                 betCell.awayTeamDigit.text = String(describing: selectedBet.awayDigit!)
                 
@@ -346,8 +324,8 @@ extension ProfileViewController: UICollectionViewDataSource {
                 
                 let selectedGame: Game = myGames[indexPath.row]
 
-                let homeTeam: NBATeam = NBATeamService.instance.teams.filter({ $0.name == selectedGame.homeTeamName }).first!
-                let awayTeam: NBATeam = NBATeamService.instance.teams.filter({ $0.name == selectedGame.awayTeamName }).first!
+                let homeTeam: NBATeam = NBATeamService.instance.teams.filter({ $0.id == selectedGame.homeTeamId }).first!
+                let awayTeam: NBATeam = NBATeamService.instance.teams.filter({ $0.id == selectedGame.awayTeamId }).first!
                 
                 gameCell.userName.text = self.user!.userName
                 gameCell.homeTeamImage.kf.setImage(with: URL(string: homeTeam.imageDownloadUrl))
@@ -387,17 +365,3 @@ extension ProfileViewController : UIImagePickerControllerDelegate {
     }
 }
 
-//Custom view to hold home team and away team since there are multiple games bought back on this view.
-class BetView {
-    var homeTeam: NBATeam!
-    var awayTeam: NBATeam!
-    var bet: Bet!
-    var gameId: String!
-    
-    init(homeTeam: NBATeam, awayTeam: NBATeam, bet: Bet, gameId: String){
-        self.homeTeam = homeTeam
-        self.awayTeam = awayTeam
-        self.bet = bet
-        self.gameId = gameId
-    }
-}

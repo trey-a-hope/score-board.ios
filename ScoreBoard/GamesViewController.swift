@@ -110,8 +110,8 @@ extension GamesViewController : UITableViewDataSource, UITableViewDelegate {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "GameTableViewCell", for: indexPath as IndexPath) as? GameTableViewCell{
             let game: Game = games[indexPath.row]
             
-            let homeTeam: NBATeam = NBATeamService.instance.teams.filter({ $0.name == game.homeTeamName }).first!
-            let awayTeam: NBATeam = NBATeamService.instance.teams.filter({ $0.name == game.awayTeamName }).first!
+            let homeTeam: NBATeam = NBATeamService.instance.teams.filter({ $0.id == game.homeTeamId }).first!
+            let awayTeam: NBATeam = NBATeamService.instance.teams.filter({ $0.id == game.awayTeamId }).first!
 
             cell.title.text = homeTeam.name + " vs. " + awayTeam.name
             
@@ -155,7 +155,7 @@ extension GamesViewController : UITableViewDataSource, UITableViewDelegate {
         
         //Share button.
         let share = UITableViewRowAction(style: .normal, title: "Share") { action, index in
-            ModalService.showInfo(title: "Share", message: "This game has " + String(describing: game.bets.count) + " bets.")
+            //ModalService.showInfo(title: "Share", message: "This game has " + String(describing: game.bets.count) + " bets.")
         }
         share.backgroundColor = GMColor.green500Color()
         

@@ -20,16 +20,16 @@ class MyFSRef {
         return storage.reference()
     }
     
-    //      ____
-    //     / ___|   __ _   _ __ ___     ___   ___
-    //    | |  _   / _` | | '_ ` _ \   / _ \ / __|
-    //    | |_| | | (_| | | | | | | | |  __/ \__ \
-    //     \____|  \__,_| |_| |_| |_|  \___| |___/
+    //    ____           _
+    //    | __ )    ___  | |_   ___
+    //    |  _ \   / _ \ | __| / __|
+    //    | |_) | |  __/ | |_  \__ \
+    //    |____/   \___|  \__| |___/
     
     //RETURN ALL BETS FOR A GAME
-    class func getBets(gameId: String) -> Promise<[Bet]> {
+    class func getBetsForGame(gameId: String) -> Promise<[Bet]> {
         return Promise{ fulfill, reject in
-            db.collection("Games").document(gameId).collection("bets").getDocuments(completion: { (collection, error) in
+            db.collection("Bets").whereField("gameId", isEqualTo: gameId).getDocuments(completion: { (collection, error) in
                 if let error = error { reject(error) }
                 
                 var bets: [Bet] = [Bet]()
@@ -41,6 +41,69 @@ class MyFSRef {
             })
         }
     }
+    
+    //RETURN ALL BETS FOR A USER
+    class func getBetsForUser(userId: String) -> Promise<[Bet]> {
+        return Promise{ fulfill, reject in
+            db.collection("Bets").whereField("userId", isEqualTo: userId).getDocuments(completion: { (collection, error) in
+                if let error = error { reject(error) }
+                
+                var bets: [Bet] = [Bet]()
+                for document in (collection?.documents)! {
+                    bets.append(extractBetData(betSnapshot: document))
+                }
+                
+                fulfill(bets)
+            })
+        }
+    }
+    
+    //CREATE NEW BET
+    class func createBet(bet: Bet) -> Promise<String> {
+        return Promise{ fulfill, reject in
+            
+            var ref: DocumentReference? = nil
+            let now: Date = Date()
+            
+            let data: [String : Any] = [
+                "homeTeamId"            : bet.homeTeamId,
+                "homeDigit"             : bet.homeDigit,
+                "awayTeamId"            : bet.awayTeamId,
+                "awayDigit"             : bet.awayDigit,
+                "userId"                : bet.userId,
+                "gameId"                : bet.gameId,
+                "postDateTime"          : ConversionService.convertDateToFirebaseString(now),
+                "postTimeZoneOffSet"    : now.getTimeZoneOffset()
+            ]
+            
+            //Add bet - I pray they come up with a better solution for referencing the ref id, this is tacky
+            ref = db.collection("Bets").addDocument(data: data){err in
+                if let err = err {
+                    reject(err)
+                    print("Error adding document: \(err)")
+                } else {
+                    //Update id of game
+                    ref!.updateData([
+                        "id": ref!.documentID
+                    ]){err in
+                        if let err = err {
+                            reject(err)
+                        }
+                        print("Document added with ID: \(ref!.documentID)")
+                        fulfill(ref!.documentID)
+                    }
+                }
+            }
+        }
+    }
+    
+    //      ____
+    //     / ___|   __ _   _ __ ___     ___   ___
+    //    | |  _   / _` | | '_ ` _ \   / _ \ / __|
+    //    | |_| | | (_| | | | | | | | |  __/ \__ \
+    //     \____|  \__,_| |_| |_| |_|  \___| |___/
+    
+
     
     //RETURN A GAME THAT MATCHES ID
     class func getGame(gameId: String) -> Promise<Game> {
@@ -57,6 +120,20 @@ class MyFSRef {
         var games: [Game] = [Game]()
         return Promise{ fulfill, reject in
             db.collection("Games").getDocuments(completion: { (collection, err) in
+                if let err = err { reject(err) }
+                for document in (collection?.documents)! {
+                    games.append(extractGameData(gameSnapshot: document))
+                }
+                fulfill(games)
+            })
+        }
+    }
+    
+    //RETURNS ALL GAMES FOR A USER
+    class func getGamesForUser(userId: String)-> Promise<[Game]> {
+        var games: [Game] = [Game]()
+        return Promise{ fulfill, reject in
+            db.collection("Games").whereField("userId", isEqualTo: userId).getDocuments(completion: { (collection, err) in
                 if let err = err { reject(err) }
                 for document in (collection?.documents)! {
                     games.append(extractGameData(gameSnapshot: document))
@@ -91,20 +168,15 @@ class MyFSRef {
             
             let data: [String : Any] = [
                 "activeCode"            : 0,
-                "awayTeamScore"         : 0,
-                "awayTeamCity"          : game.awayTeamCity,
-                "awayTeamName"          : game.awayTeamName,
+                "homeTeamId"            : game.homeTeamId,
                 "homeTeamScore"         : 0,
-                "homeTeamCity"          : game.homeTeamCity,
-                "homeTeamName"          : game.homeTeamName,
+                "awayTeamId"            : game.awayTeamId,
+                "awayTeamScore"         : 0,
                 "startDateTime"         : ConversionService.convertDateToFirebaseString(now),
                 "startTimeZoneOffSet"   : now.getTimeZoneOffset(),
                 "postDateTime"          : ConversionService.convertDateToFirebaseString(now),
                 "postTimeZoneOffSet"    : now.getTimeZoneOffset()
             ]
-            
-//            print(data)
-//            fulfill("GOT IT")
             
             //Add game - I pray they come up with a better solution for referencing the ref id, this is tacky
             ref = db.collection("Games").addDocument(data: data){err in
@@ -126,43 +198,6 @@ class MyFSRef {
             }
         }
     }
-    
-    //CREATE NEW BET
-    class func createBet(gameId: String, bet: Bet) -> Promise<String> {
-        return Promise{ fulfill, reject in
-            
-            var ref: DocumentReference? = nil
-            let now: Date = Date()
-            
-            let data: [String : Any] = [
-                "awayDigit"             : bet.awayDigit,
-                "homeDigit"             : bet.homeDigit,
-                "userId"                : bet.userId,
-                "postDateTime"          : ConversionService.convertDateToFirebaseString(now),
-                "postTimeZoneOffSet"    : now.getTimeZoneOffset()
-            ]
-            
-            //Add bet - I pray they come up with a better solution for referencing the ref id, this is tacky
-            ref = db.collection("Games/" + gameId + "/bets").addDocument(data: data){err in
-                if let err = err {
-                    reject(err)
-                    print("Error adding document: \(err)")
-                } else {
-                    //Update id of game
-                    ref!.updateData([
-                        "id": ref!.documentID
-                    ]){err in
-                        if let err = err {
-                            reject(err)
-                        }
-                        print("Document added with ID: \(ref!.documentID)")
-                        fulfill(ref!.documentID)
-                    }
-                }
-            }
-        }
-    }
-
     
     //     _   _
     //    | | | |  ___    ___   _ __   ___
@@ -344,7 +379,7 @@ class MyFSRef {
     }
     
     //CREATE A NEW USER
-    class func createNewUser(user: User) -> Promise<String> {
+    class func createUser(user: User) -> Promise<String> {
         return Promise{ fulfill, reject in
             var ref: DocumentReference? = nil
             let now: Date = Date()
@@ -416,8 +451,11 @@ extension MyFSRef {
         bet.postDateTime = ConversionService.convertStringToDate(value["postDateTime"] as! String)
         bet.postTimeZoneOffSet = value["postTimeZoneOffSet"] as! Int
         bet.userId = value["userId"] as! String
-        bet.awayDigit = value["awayDigit"] as! Int
+        bet.gameId = value["gameId"] as! String
         bet.homeDigit = value["homeDigit"] as! Int
+        bet.homeTeamId = value["homeTeamId"] as! Int
+        bet.awayDigit = value["awayDigit"] as! Int
+        bet.awayTeamId = value["awayTeamId"] as! Int
         
         return bet
     }
@@ -430,36 +468,18 @@ extension MyFSRef {
         game.userId = value["userId"] as? String
         game.postTimeZoneOffSet = value["postTimeZoneOffSet"] as! Int
         game.postDateTime = ConversionService.convertStringToDate(value["postDateTime"] as! String)
-        game.awayTeamScore = value["awayTeamScore"] as! Int
-        game.awayTeamCity = value["awayTeamCity"] as! String
-        game.awayTeamName = value["awayTeamName"] as! String
+        game.homeTeamId = value["homeTeamId"] as! Int
         game.homeTeamScore = value["homeTeamScore"] as! Int
-        game.homeTeamCity = value["homeTeamCity"] as! String
-        game.homeTeamName = value["homeTeamName"] as! String
+        game.awayTeamId = value["awayTeamId"] as! Int
+        game.awayTeamScore = value["awayTeamScore"] as! Int
         game.startTimeZoneOffSet = value["startTimeZoneOffSet"] as! Int
         game.startDateTime = ConversionService.convertStringToDate(value["startDateTime"] as! String)
         game.activeCode = value["activeCode"] as! Int
         game.potAmount = value["potAmount"] as? Double
         game.betPrice = value["betPrice"] as? Double
         
-//        let betSnapshots = value["bets"] as! [Any]
-        
-        //If this game has bets currently...
-//        if let _ = betSnapshots {
-//            for betSnapshot in betSnapshots! {
-//                let betSnapshot = betSnapshot.value as! [String:Any]
-//                let bet: Bet = Bet()
-//                bet.id = betSnapshot["id"] as! String
-//                bet.postDateTime = ConversionService.convertStringToDate(betSnapshot["postDateTime"] as! String)
-//                bet.postTimeZoneOffSet = value["postTimeZoneOffSet"] as! Int
-//                bet.userId = betSnapshot["userId"] as! String
-//                bet.awayDigit = betSnapshot["awayDigit"] as! Int
-//                bet.homeDigit = betSnapshot["homeDigit"] as! Int
-//
-//                game.bets.append(bet)
-//            }
-//        }
-//
         return (game)
     }
 }
+
+//http://www.messletters.com/en/big-text/

@@ -970,7 +970,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="1200"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uXH-oZ-6Mr">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uXH-oZ-6Mr">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="1151"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home-image" translatesAutoresizingMaskIntoConstraints="NO" id="KLd-Mi-ECC">
@@ -1583,7 +1583,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="177.5" height="80"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a9V-1S-mv5">
-                                                                <rect key="frame" x="78" y="0.0" width="22.5" height="47"/>
+                                                                <rect key="frame" x="78" y="0.0" width="22.5" height="58.5"/>
                                                                 <fontDescription key="fontDescription" name="TharLon" family="TharLon" pointSize="40"/>
                                                                 <color key="textColor" red="0.50196081400000003" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -1606,7 +1606,7 @@
                                                         <rect key="frame" x="177.5" y="0.0" width="177.5" height="80"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Efe-4z-DBZ">
-                                                                <rect key="frame" x="78" y="0.0" width="22.5" height="47"/>
+                                                                <rect key="frame" x="78" y="0.0" width="22.5" height="58.5"/>
                                                                 <fontDescription key="fontDescription" name="TharLon" family="TharLon" pointSize="40"/>
                                                                 <color key="textColor" red="0.0" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -1636,7 +1636,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="177.5" height="80"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$100.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3FW-Ff-klE">
-                                                                <rect key="frame" x="16.5" y="0.0" width="145" height="47"/>
+                                                                <rect key="frame" x="16.5" y="0.0" width="145" height="58.5"/>
                                                                 <fontDescription key="fontDescription" name="TharLon" family="TharLon" pointSize="40"/>
                                                                 <color key="textColor" red="0.0" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -1658,7 +1658,7 @@
                                                         <rect key="frame" x="177.5" y="0.0" width="177.5" height="80"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Active" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8JE-7a-ECj">
-                                                                <rect key="frame" x="34.5" y="0.0" width="110.5" height="47"/>
+                                                                <rect key="frame" x="34.5" y="0.0" width="109" height="58.5"/>
                                                                 <fontDescription key="fontDescription" name="TharLon" family="TharLon" pointSize="40"/>
                                                                 <color key="textColor" red="0.50196081400000003" green="0.25098040700000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>

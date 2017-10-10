@@ -91,14 +91,14 @@ class FullGameViewController: UIViewController {
     }
     
     func getGame() -> Void {
-        when(fulfilled: MyFSRef.getUserById(id: gameOwnerId), MyFSRef.getGame(gameId: gameId), MyFSRef.getBets(gameId: gameId))
+        when(fulfilled: MyFSRef.getUserById(id: gameOwnerId), MyFSRef.getGame(gameId: gameId), MyFSRef.getBetsForGame(gameId: gameId))
             .then{ (result) -> Void in
                 self.gameOwner = result.0
                 self.game = result.1
                 self.bets = result.2
                 
-                self.homeTeam = NBATeamService.instance.teams.filter({ $0.name == self.game.homeTeamName }).first!
-                self.awayTeam = NBATeamService.instance.teams.filter({ $0.name == self.game.awayTeamName }).first!
+                self.homeTeam = NBATeamService.instance.teams.filter({ $0.id == self.game.homeTeamId }).first!
+                self.awayTeam = NBATeamService.instance.teams.filter({ $0.id == self.game.awayTeamId }).first!
                 
                 //Apply user object to each bet and refresh collection view.
                 if(self.bets.isEmpty){
@@ -285,11 +285,14 @@ class FullGameViewController: UIViewController {
                         //Create bet.
                         let bet: Bet = Bet()
                         bet.userId = SessionManager.getUserId()
+                        bet.gameId = self.gameId
+                        bet.homeTeamId = self.homeTeam.id
+                        bet.awayTeamId = self.awayTeam.id
                         bet.homeDigit = newBetHomeDigit
                         bet.awayDigit = newBetAwayDigit
                         
                         //TODO: Charge user account with Stripe.
-                        MyFSRef.createBet(gameId: self.game.id, bet: bet)
+                        MyFSRef.createBet(bet: bet)
                             .then{ (betId) -> Void in
                                 self.getGame()
                                 ModalService.showSuccess(title: "Success", message: "Your bet has been placed.")

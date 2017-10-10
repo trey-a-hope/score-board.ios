@@ -103,8 +103,8 @@ extension SearchViewController : UISearchBarDelegate {
                 
                 //Set games
                 for game in result.0 {
-                    let homeTeam: NBATeam = NBATeamService.instance.teams.filter{ $0.name == game.homeTeamName }.first!
-                    let awayTeam: NBATeam = NBATeamService.instance.teams.filter{ $0.name == game.awayTeamName }.first!
+                    let homeTeam: NBATeam = NBATeamService.instance.teams.filter{ $0.id == game.homeTeamId }.first!
+                    let awayTeam: NBATeam = NBATeamService.instance.teams.filter{ $0.id == game.awayTeamId }.first!
                     
                     let gameItem: Item = Item()
                     gameItem.id = game.id

@@ -48,7 +48,7 @@ class SignupViewController: UIViewController {
                 newUser.userName = username
                 newUser.uid = Auth.auth().currentUser?.uid
                 
-                MyFSRef.createNewUser(user: newUser)
+                MyFSRef.createUser(user: newUser)
                     .then{ (newUserId) -> Void in
                         SessionManager.setUserId(newUserId)
                         //Return to login screen.

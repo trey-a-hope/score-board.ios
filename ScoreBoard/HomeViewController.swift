@@ -1,6 +1,7 @@
 import PromiseKit
 import UIKit
 
+//TODO: REFRESH CONTROL NOT BEING CALLED ON SWIPE DOWN
 class HomeViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var mostPointsLabel: UILabel!
@@ -37,12 +38,8 @@ class HomeViewController: UIViewController {
         betsWonCollectionView.register(UINib.init(nibName: "UserCell", bundle: nil), forCellWithReuseIdentifier: "Cell")
         gamesWonCollectionView.register(UINib.init(nibName: "UserCell", bundle: nil), forCellWithReuseIdentifier: "Cell")
         
-        if(ConnectionManager.isConnectedToInternet()){
-            scrollView.addSubview(self.refreshControl)
-            loadData()
-        }else{
-            ModalService.showError(title: "Error", message: "No internet connection.")
-        }
+        scrollView.addSubview(self.refreshControl)
+        loadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -134,9 +131,19 @@ extension HomeViewController: UICollectionViewDataSource {
         }
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let user: User = mostPointsUsers[indexPath.row]
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) -> Void {
         let profileViewController = storyBoard.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
+        var user: User!
+        
+        switch collectionView {
+            case pointsCollectionView:
+                user = mostPointsUsers[indexPath.row]
+            case betsWonCollectionView:
+                user = mostBetsWonUsers[indexPath.row]
+            case gamesWonCollectionView:
+                user = mostGamesWonUsers[indexPath.row]
+            default:break
+        }
         
         print(user.id)
         
