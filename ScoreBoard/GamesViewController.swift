@@ -94,6 +94,7 @@ extension GamesViewController : UITableViewDataSource, UITableViewDelegate {
         if game.userId != nil {
             let fullGameViewController = storyBoard.instantiateViewController(withIdentifier: "FullGameViewController") as! FullGameViewController
             fullGameViewController.gameId = game.id
+            fullGameViewController.gameOwnerId = game.userId
             navigationController?.pushViewController(fullGameViewController, animated: true)
         }
         //Game empty
@@ -118,7 +119,7 @@ extension GamesViewController : UITableViewDataSource, UITableViewDelegate {
             if game.userId != nil {
                 cell.potAmount.text = String(format: "$%.02f", game.potAmount) + " pot"
                 //cell.betCount.text = game.bets.count == 1 ? "1 bet" : String(describing: game.bets.count) + " bets"
-                cell.betCount.text = "TBA"
+                cell.betCount.text = "(Bet Count Will Go Here)"
             }
             //Game empty
             else{

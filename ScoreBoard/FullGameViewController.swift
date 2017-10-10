@@ -21,6 +21,8 @@ class FullGameViewController: UIViewController {
     @IBOutlet weak var awayTeamPostDigit: UILabel!
     
     //Current Bets
+    @IBOutlet weak var gameOwnerUserName: UILabel!
+    @IBOutlet weak var gameOwnerImage: UIImageView!
     @IBOutlet weak var startDateTime: UILabel!
     @IBOutlet weak var totalBetCount: UILabel!
     @IBOutlet weak var yourBetCount: UILabel!
@@ -30,7 +32,6 @@ class FullGameViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     
     //Place New Bet
-    var betCost: Double = 2.00
     @IBOutlet weak var betCostLabel: UILabel!
     @IBOutlet weak var newBetHomeTeamImage: UIImageView!
     @IBOutlet weak var newBetAwayTeamImage: UIImageView!
@@ -43,10 +44,12 @@ class FullGameViewController: UIViewController {
     //Navbar buttons
     var shareButton: UIBarButtonItem!
     
+    var gameOwnerId: String!
+    var gameOwner: User!
     var gameId: String!
     var homeTeam: NBATeam!
     var awayTeam: NBATeam!
-    var game: Game = Game()
+    var game: Game!
     var bets: [Bet] = [Bet]()
     let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
     
@@ -64,11 +67,13 @@ class FullGameViewController: UIViewController {
     }
     
     func initUI() -> Void {
-        //Set bet collection view delegate and datasource.
+        //Configure bet collection view.
         collectionView.delegate = self
         collectionView.dataSource = self
-        
         collectionView.register(UINib.init(nibName: "BetCell", bundle: nil), forCellWithReuseIdentifier: "Cell")
+        
+        gameOwnerImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(goToGameOwnerProfile)))
+        gameOwnerImage.isUserInteractionEnabled = true
         
         //Share Button
         shareButton = UIBarButtonItem(
@@ -86,10 +91,11 @@ class FullGameViewController: UIViewController {
     }
     
     func getGame() -> Void {
-        when(fulfilled: MyFSRef.getGame(gameId: gameId), MyFSRef.getBets(gameId: gameId))
+        when(fulfilled: MyFSRef.getUserById(id: gameOwnerId), MyFSRef.getGame(gameId: gameId), MyFSRef.getBets(gameId: gameId))
             .then{ (result) -> Void in
-                self.game = result.0
-                self.bets = result.1
+                self.gameOwner = result.0
+                self.game = result.1
+                self.bets = result.2
                 
                 self.homeTeam = NBATeamService.instance.teams.filter({ $0.name == self.game.homeTeamName }).first!
                 self.awayTeam = NBATeamService.instance.teams.filter({ $0.name == self.game.awayTeamName }).first!
@@ -144,6 +150,11 @@ class FullGameViewController: UIViewController {
         awayTeamName.text = awayTeam!.name
         //Away Team View
         awayTeamView.backgroundColor = awayTeam!.backgroundColor
+        
+        //Game owner
+        gameOwnerImage.round(borderWidth: 0, borderColor: UIColor.black)
+        gameOwnerImage.kf.setImage(with: URL(string: gameOwner.imageDownloadUrl))
+        gameOwnerUserName.text = gameOwnerId == SessionManager.getUserId() ? "You" : gameOwner.userName
 
         //Set start date for game.
         let d: Date = ConversionService.getDateInTimeZone(date: game.startDateTime, timeZoneOffset: game.startTimeZoneOffSet)
@@ -207,10 +218,7 @@ class FullGameViewController: UIViewController {
         }
         
         //Set Bet Cost
-        betCostLabel.text = String(format: "$%.02f", betCost)
-        
-        //Refresh table of bets.
-        collectionView.reloadData()
+        betCostLabel.text = String(format: "$%.02f", game.betPrice)
         
         //Set total bet count.
         totalBetCount.text = String(describing: bets.count)
@@ -235,6 +243,17 @@ class FullGameViewController: UIViewController {
             default:break
         }
         
+        //Refresh table of bets.
+        collectionView.reloadData()
+    }
+    
+    func goToGameOwnerProfile() -> Void {
+        let profileViewController = storyBoard.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
+        
+        print(gameOwnerId)
+        
+        profileViewController.userId = gameOwnerId
+        navigationController!.pushViewController(profileViewController, animated: true)
     }
     
     func share() -> Void {
@@ -242,7 +261,10 @@ class FullGameViewController: UIViewController {
     }
     
     @IBAction func submitAction(_ sender: UIButton) {
-        if(game.activeCode == 2){
+        if(game.userId == SessionManager.getUserId()){
+            ModalService.showError(title: "Sorry", message: "You can only place bets on games you do not own.")
+        }
+        else if(game.activeCode == 2){
             ModalService.showError(title: "Game Has Ended", message: "You can only bet on 'Pre' games.")
         }else if(game.activeCode == 1){
             ModalService.showError(title: "Game Is In Progress", message: "You can only bet on 'Pre' games.")
@@ -256,7 +278,7 @@ class FullGameViewController: UIViewController {
             }else{
                 //Prompt user's bet before submitting.
                 let title: String = "Place Bet"
-                let message: String = "You are betting that the " + homeTeam!.name + " score will end with " + String(describing: newBetHomeDigit) + ", and the " + awayTeam!.name + " score will end with " + String(describing: newBetAwayDigit) + ". " + String(format: "$%.02f", betCost) + " will be charged to your card."
+                let message: String = "You are betting that the " + homeTeam!.name + " score will end with " + String(describing: newBetHomeDigit) + ", and the " + awayTeam!.name + " score will end with " + String(describing: newBetAwayDigit) + ". " + String(format: "$%.02f", game.betPrice) + " will be charged to your card."
 
                 ModalService.showConfirm(title: title, message: message, confirmText: "Confirm", cancelText: "Cancel")
                     .then{() -> Void in

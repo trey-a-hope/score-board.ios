@@ -4,19 +4,19 @@ import UIKit
 
 //TODO: Prevent search bar text from disappearing on return from NBA Website
 
-//Represent a search item's information
 class Item {
     var id: String!
     var url: String!
     var group: String!
     var imageDownloadUrl: String!
     var name: String!
+    var gameOwnerId: String!//ID if the user who owns the game for game items
 }
 
 class SearchViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
-    var searchBar: UISearchBar!
+    var searchBar: UISearchBar = UISearchBar()
     let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
     
     //All search categories
@@ -43,9 +43,9 @@ class SearchViewController: UIViewController {
         super.viewWillAppear(animated)
         
         //Configure searchbar.
-        searchBar = UISearchBar()
-        searchBar.placeholder = "Search, (case sensitive for users)"
-        searchBar.delegate = self
+        //searchBar = UISearchBar()
+        //searchBar.placeholder = "Search, (case sensitive for users)"
+        //searchBar.delegate = self
         
         navigationController?.visibleViewController?.title = "Search"
         navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([], animated: true)
@@ -68,6 +68,9 @@ class SearchViewController: UIViewController {
         tableView.register(XIBCell, forCellReuseIdentifier: "SearchItem")
         tableView.delegate = self
         tableView.dataSource = self
+        
+        searchBar.placeholder = "Search, (case sensitive for users)"
+        searchBar.delegate = self
         
         definesPresentationContext = true
         automaticallyAdjustsScrollViewInsets = false
@@ -108,6 +111,7 @@ extension SearchViewController : UISearchBarDelegate {
                     gameItem.imageDownloadUrl = homeTeam.imageDownloadUrl
                     gameItem.name = homeTeam.name + " vs. " + awayTeam.name
                     gameItem.group = self.categories[0]
+                    gameItem.gameOwnerId = game.userId
                     self.games.append(gameItem)
                 }
                 //Sort game items
@@ -213,6 +217,7 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
             case 0:
                 let fullGameViewController = storyBoard.instantiateViewController(withIdentifier: "FullGameViewController") as! FullGameViewController
                 fullGameViewController.gameId = item.id
+                fullGameViewController.gameOwnerId = item.gameOwnerId
                 self.navigationController?.pushViewController(fullGameViewController, animated: true)
                 break
             //Users
@@ -223,14 +228,14 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
                 break
             //Teams
             case 2:
-                //Text will still be present in searchbar on return if not cleared like such
-                let svc = SFSafariViewController(url: NSURL(string: item.url)! as URL)
-                svc.delegate = self
-                svc.preferredBarTintColor = Constants.primaryColor
-                svc.preferredControlTintColor = .white
-                svc.modalPresentationStyle = .formSheet
-                svc.modalTransitionStyle = .crossDissolve
-                present(svc, animated: true, completion: nil)
+                ModalService.showInfo(title: "Coming Soon", message: "Searchbar disappears on return from website")
+//                let svc = SFSafariViewController(url: NSURL(string: item.url)! as URL)
+//                svc.delegate = self
+//                svc.preferredBarTintColor = Constants.primaryColor
+//                svc.preferredControlTintColor = .white
+//                svc.modalPresentationStyle = .formSheet
+//                svc.modalTransitionStyle = .crossDissolve
+//                present(svc, animated: true, completion: nil)
                 break
             default:break
         }

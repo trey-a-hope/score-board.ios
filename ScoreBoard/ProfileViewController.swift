@@ -314,6 +314,7 @@ extension ProfileViewController: UICollectionViewDataSource {
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
         let fullGameViewController = storyBoard.instantiateViewController(withIdentifier: "FullGameViewController") as! FullGameViewController
         fullGameViewController.gameId = gameId
+        fullGameViewController.gameOwnerId = userId
         self.navigationController?.pushViewController(fullGameViewController, animated: true)
     }
     

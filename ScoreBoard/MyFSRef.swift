@@ -288,11 +288,13 @@ class MyFSRef {
                 for document in (collection?.documents)! {
                     users.append(extractUserData(userSnapshot: document))
                 }
-                fulfill(users)
+                
+                fulfill(users.reversed())
             })
         }
     }
     
+    //RETURN A SPECIFIED AMOUNT OF USERS BASED ON A SEARCH STRING
     class func getUsersFromSearch(category: String, search: String, numberOfUsers: Int) -> Promise<[User]> {
             return Promise { fulfill, reject in
                 //            The character \uf8ff used in the query is a very high code point in the Unicode range (it is a Private Usage Area [PUA] code). Because it is after most regular characters in Unicode, the query matches all values that start with queryText.
