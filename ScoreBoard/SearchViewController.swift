@@ -2,8 +2,6 @@ import PromiseKit
 import SafariServices
 import UIKit
 
-//TODO: Prevent search bar text from disappearing on return from NBA Website
-
 class Item {
     var id: String!
     var url: String!
@@ -15,9 +13,7 @@ class Item {
 
 class SearchViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
-    
-    var searchBar: UISearchBar = UISearchBar()
-    let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+    @IBOutlet weak var searchBar: UISearchBar!
     
     //All search categories
     var games: [Item] = [Item]()
@@ -32,24 +28,14 @@ class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if(ConnectionManager.isConnectedToInternet()){
-            initUI()
-        }else{
-            ModalService.showError(title: "Error", message: "No internet connection.")
-        }
+        initUI()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        //Configure searchbar.
-        //searchBar = UISearchBar()
-        //searchBar.placeholder = "Search, (case sensitive for users)"
-        //searchBar.delegate = self
-        
         navigationController?.visibleViewController?.title = "Search"
         navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([], animated: true)
-        navigationController?.visibleViewController?.navigationItem.titleView = searchBar
     }
     
     func initUI() -> Void {
@@ -69,7 +55,6 @@ class SearchViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
-        searchBar.placeholder = "Search, (case sensitive for users)"
         searchBar.delegate = self
         
         definesPresentationContext = true
@@ -227,14 +212,13 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
                 break
             //Teams
             case 2:
-                ModalService.showInfo(title: "Coming Soon", message: "Searchbar disappears on return from website")
-//                let svc = SFSafariViewController(url: NSURL(string: item.url)! as URL)
-//                svc.delegate = self
-//                svc.preferredBarTintColor = Constants.primaryColor
-//                svc.preferredControlTintColor = .white
-//                svc.modalPresentationStyle = .formSheet
-//                svc.modalTransitionStyle = .crossDissolve
-//                present(svc, animated: true, completion: nil)
+                let svc = SFSafariViewController(url: NSURL(string: item.url)! as URL)
+                svc.delegate = self
+                svc.preferredBarTintColor = Constants.primaryColor
+                svc.preferredControlTintColor = .white
+                svc.modalPresentationStyle = .formSheet
+                svc.modalTransitionStyle = .crossDissolve
+                present(svc, animated: true, completion: nil)
                 break
             default:break
         }
@@ -252,6 +236,15 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
         }
         fatalError("Unable to Dequeue Reusable Supplementary View")
     }
+    
+    //Hides sections until text is entered in search bar
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if searchBar.text == "" {
+            return 0.0
+        }else{
+            return 30.0
+        }
+    }
 }
 
 extension SearchViewController : SFSafariViewControllerDelegate {
@@ -259,7 +252,3 @@ extension SearchViewController : SFSafariViewControllerDelegate {
         controller.dismiss(animated: true, completion: nil)
     }
 }
-
-
-
-

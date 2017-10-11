@@ -5,7 +5,6 @@ class GamesViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     
-    let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
     var allGames: [Game] = [Game]()
     var games: [Game] = [Game]()
     

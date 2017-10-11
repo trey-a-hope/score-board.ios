@@ -64,6 +64,10 @@ extension UIViewController {
     func dismissKeyboard() {
         view.endEditing(true)
     }
+    
+    var storyBoard: UIStoryboard {
+        return UIStoryboard(name: "Main", bundle:nil)
+    }
 }
 
 extension Int {

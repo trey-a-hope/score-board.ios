@@ -50,7 +50,6 @@ class FullGameViewController: UIViewController {
     var awayTeam: NBATeam!
     var game: Game!
     var bets: [Bet] = [Bet]()
-    let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
     
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()

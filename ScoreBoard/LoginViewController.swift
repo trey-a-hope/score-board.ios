@@ -10,8 +10,6 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var signupLabel: UILabel!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
-    let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-
     override func viewDidLoad() {
         super.viewDidLoad()
         initUI()

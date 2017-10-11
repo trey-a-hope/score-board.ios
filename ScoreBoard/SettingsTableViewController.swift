@@ -1,7 +1,6 @@
 import UIKit
 
 class SettingsTableViewController: UITableViewController {
-    let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,8 +77,7 @@ class SettingsTableViewController: UITableViewController {
                         ModalService.showConfirm(title: "Log out", message: "Are you sure?", confirmText: "Yes", cancelText: "No")
                             .then{() -> Void in
                                 SessionManager.signOut()
-                                let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-                                let loginViewController = storyBoard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+                                let loginViewController = self.storyBoard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
                                 self.navigationController!.pushViewController(loginViewController, animated: true)
                                 self.navigationController?.setViewControllers([loginViewController], animated: true)
                             }.catch{ (error) in
@@ -92,8 +90,7 @@ class SettingsTableViewController: UITableViewController {
                             .then{() -> Void in
                                 MyFSRef.deleteUser(userId: SessionManager.getUserId())
                                     .then{ () -> Void in
-                                        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-                                        let loginViewController = storyBoard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+                                        let loginViewController = self.storyBoard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
                                         self.navigationController!.pushViewController(loginViewController, animated: true)
                                         self.navigationController?.setViewControllers([loginViewController], animated: true)
                                     }.catch{ (error) in

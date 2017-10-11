@@ -10,9 +10,7 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var betsWonCollectionView: UICollectionView!
     @IBOutlet weak var mostGamessWonLabel: UILabel!
     @IBOutlet weak var gamesWonCollectionView: UICollectionView!
-    
-    let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-    
+        
     var mostPointsUsers: [User] = [User]()
     var mostBetsWonUsers: [User] = [User]()
     var mostGamesWonUsers: [User] = [User]()

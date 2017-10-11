@@ -31,9 +31,7 @@ class ProfileViewController: UIViewController {
     var user: User?
     var myBets: [Bet] = [Bet]()
     var myGames: [Game] = [Game]()
-    
-    let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-    
+        
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(ProfileViewController.loadData), for: UIControlEvents.valueChanged)
@@ -286,7 +284,6 @@ extension ProfileViewController: UICollectionViewDataSource {
             gameId = myGames[indexPath.row].id!
         }
         
-        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
         let fullGameViewController = storyBoard.instantiateViewController(withIdentifier: "FullGameViewController") as! FullGameViewController
         fullGameViewController.gameId = gameId
         self.navigationController?.pushViewController(fullGameViewController, animated: true)

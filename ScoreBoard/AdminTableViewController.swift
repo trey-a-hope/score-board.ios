@@ -1,7 +1,6 @@
 import UIKit
 
 class AdminTableViewController: UITableViewController {
-    let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
