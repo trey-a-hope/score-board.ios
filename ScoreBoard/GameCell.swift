@@ -7,5 +7,5 @@ class GameCell: UICollectionViewCell {
     @IBOutlet weak var homeTeamScore: UILabel!
     @IBOutlet weak var awayTeamImage: UIImageView!
     @IBOutlet weak var awayTeamScore: UILabel!
-    @IBOutlet weak var taken: UILabel!
+    @IBOutlet weak var potAmount: UILabel!
 }

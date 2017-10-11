@@ -44,9 +44,8 @@ class FullGameViewController: UIViewController {
     //Navbar buttons
     var shareButton: UIBarButtonItem!
     
-    var gameOwnerId: String!
-    var gameOwner: User!
     var gameId: String!
+    var gameOwner: User!
     var homeTeam: NBATeam!
     var awayTeam: NBATeam!
     var game: Game!
@@ -91,72 +90,74 @@ class FullGameViewController: UIViewController {
     }
     
     func getGame() -> Void {
-        when(fulfilled: MyFSRef.getUserById(id: gameOwnerId), MyFSRef.getGame(gameId: gameId), MyFSRef.getBetsForGame(gameId: gameId))
+        //Fetch the game and bets for this game
+        when(fulfilled: MyFSRef.getGame(gameId: gameId), MyFSRef.getBetsForGame(gameId: gameId))
             .then{ (result) -> Void in
-                self.gameOwner = result.0
-                self.game = result.1
-                self.bets = result.2
+
+                self.game = result.0
+                self.bets = result.1
                 
-                self.homeTeam = NBATeamService.instance.teams.filter({ $0.id == self.game.homeTeamId }).first!
-                self.awayTeam = NBATeamService.instance.teams.filter({ $0.id == self.game.awayTeamId }).first!
-                
-                //Apply user object to each bet and refresh collection view.
-                if(self.bets.isEmpty){
-                    self.setUI()
-                }else{
-                    var betCount: Int = 0
-                    for bet in self.bets {
-                        MyFSRef.getUserById(id: bet.userId)
-                            .then{ (user) -> Void in
-                                bet.user = user
-                            }.always{
-                                betCount += 1
-                                if(betCount == self.bets.count){
-                                    self.setUI()
+                //Get owner of this game
+                MyFSRef.getUserById(id: self.game.userId)
+                    .then{ (user) -> Void in
+                        self.gameOwner = user
+                        
+                        //Set home team and away team
+                        self.homeTeam = NBATeamService.instance.teams.filter({ $0.id == self.game.homeTeamId }).first!
+                        self.awayTeam = NBATeamService.instance.teams.filter({ $0.id == self.game.awayTeamId }).first!
+                        
+                        //Set a user to each bet
+                        if(self.bets.isEmpty){
+                            self.setUI()
+                        }else{
+                            var betCount: Int = 0
+                            for bet in self.bets {
+                                MyFSRef.getUserById(id: bet.userId)
+                                    .then{ (user) -> Void in
+                                        bet.user = user
+                                    }.always{
+                                        betCount += 1
+                                        if(betCount == self.bets.count){
+                                            self.setUI()
+                                        }
                                 }
+                            }
                         }
-                    }
-                }
+                    }.always{}
+                
+
             }.always{}
     }
     
     func setUI() -> Void {
-        //Home Team Digit
+        //Home Team Info
         homeTeamPreDigit.text = String(describing: game.homeTeamScore / 10)
         homeTeamPostDigit.text = String(describing: game.homeTeamScore % 10)
-        //Home Team Image
         homeTeamImage.round(borderWidth: 0, borderColor: UIColor.black)
         homeTeamImage.kf.setImage(with: URL(string: homeTeam!.imageDownloadUrl))
         newBetHomeTeamImage.round(borderWidth: 0, borderColor: UIColor.black)
         newBetHomeTeamImage.kf.setImage(with: URL(string: homeTeam!.imageDownloadUrl))
-        //Home Team City
         homeTeamCity.text = "Home - " + homeTeam!.city
-        //Home Team Name
         homeTeamName.text = homeTeam!.name
-        //Home Team View
         homeTeamView.backgroundColor = homeTeam!.backgroundColor
         
-        //Away Team Digit
+        //Away Team Info
         awayTeamPreDigit.text = String(describing: game.awayTeamScore / 10)
         awayTeamPostDigit.text = String(describing: game.awayTeamScore % 10)
-        //Away Team Image
         awayTeamImage.round(borderWidth: 0, borderColor: UIColor.black)
         awayTeamImage.kf.setImage(with: URL(string: (awayTeam!.imageDownloadUrl)!))
         newBetAwayTeamImage.round(borderWidth: 0, borderColor: UIColor.black)
         newBetAwayTeamImage.kf.setImage(with: URL(string: awayTeam!.imageDownloadUrl))
-        //Away Team City
         awayTeamCity.text = "Away - " + awayTeam!.city
-        //Away Team Name
         awayTeamName.text = awayTeam!.name
-        //Away Team View
         awayTeamView.backgroundColor = awayTeam!.backgroundColor
         
         //Game owner
         gameOwnerImage.round(borderWidth: 0, borderColor: UIColor.black)
         gameOwnerImage.kf.setImage(with: URL(string: gameOwner.imageDownloadUrl))
-        gameOwnerUserName.text = gameOwnerId == SessionManager.getUserId() ? "You" : gameOwner.userName
+        gameOwnerUserName.text = game.userId == SessionManager.getUserId() ? "You" : gameOwner.userName
 
-        //Set start date for game.
+        //Start date and time
         let d: Date = ConversionService.getDateInTimeZone(date: game.startDateTime, timeZoneOffset: game.startTimeZoneOffSet)
         startDateTime.text = ConversionService.convertDateToDateAtTimeString(date: d)
         switch(Date().getTimeZoneOffset()){
@@ -198,7 +199,7 @@ class FullGameViewController: UIViewController {
             default:break
         }
         
-        //Sort Bets by time.
+        //Sort Bets by time
         bets = bets.sorted(by: { $0.postDateTime > $1.postDateTime })
         
         //Track number of bet the user has
@@ -249,10 +250,7 @@ class FullGameViewController: UIViewController {
     
     func goToGameOwnerProfile() -> Void {
         let profileViewController = storyBoard.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
-        
-        print(gameOwnerId)
-        
-        profileViewController.userId = gameOwnerId
+        profileViewController.userId = game.userId
         navigationController!.pushViewController(profileViewController, animated: true)
     }
     
@@ -282,6 +280,7 @@ class FullGameViewController: UIViewController {
 
                 ModalService.showConfirm(title: title, message: message, confirmText: "Confirm", cancelText: "Cancel")
                     .then{() -> Void in
+                        
                         //Create bet.
                         let bet: Bet = Bet()
                         bet.userId = SessionManager.getUserId()
@@ -303,7 +302,9 @@ class FullGameViewController: UIViewController {
     }
     
     @IBAction func homeDigitStepperAction(sender: UIStepper) {
-        if(game.activeCode == 2){
+        if(game.userId == SessionManager.getUserId()){
+            ModalService.showError(title: "Sorry", message: "You can only place bets on games you do not own.")
+        }else if(game.activeCode == 2){
             ModalService.showError(title: "Game Has Ended", message: "You can only bet on 'Pre' games.")
         }else if(game.activeCode == 1){
             ModalService.showError(title: "Game Is In Progress", message: "You can only bet on 'Pre' games.")
@@ -313,7 +314,9 @@ class FullGameViewController: UIViewController {
     }
     
     @IBAction func awayDigitStepperAction(sender: UIStepper) {
-        if(game.activeCode == 2){
+        if(game.userId == SessionManager.getUserId()){
+            ModalService.showError(title: "Sorry", message: "You can only place bets on games you do not own.")
+        }else if(game.activeCode == 2){
             ModalService.showError(title: "Game Has Ended", message: "You can only bet on 'Pre' games.")
         }else if(game.activeCode == 1){
             ModalService.showError(title: "Game Is In Progress", message: "You can only bet on 'Pre' games.")
@@ -322,7 +325,7 @@ class FullGameViewController: UIViewController {
         }
     }
     
-    //Return true if the bet is already occupied.
+    //Return true if the bet is already occupied
     func betTaken(homeDigit: Int, awayDigit: Int) -> Bool {
         for bet in bets {
             if(bet.homeDigit == homeDigit && bet.awayDigit == awayDigit){
@@ -332,7 +335,7 @@ class FullGameViewController: UIViewController {
         return false
     }
     
-    //Determines if this bet reflects the current score.
+    //Determines if this bet reflects the current score
     func isWinningBet(bet: Bet) -> Bool {
         if(Int(homeTeamPostDigit.text!)! == bet.homeDigit && Int(awayTeamPostDigit.text!)! == bet.awayDigit){
             return true
@@ -343,7 +346,7 @@ class FullGameViewController: UIViewController {
 }
 
 extension FullGameViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-    //Child section dimensions.
+    //Child section dimensions
     func collectionView(
         _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
@@ -384,12 +387,11 @@ extension FullGameViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let selectedBet: Bet = bets[indexPath.row]
+        let bet: Bet = bets[indexPath.row]
         let profileViewController = storyBoard.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
         
-        print(selectedBet.userId)
         
-        profileViewController.userId = selectedBet.userId
+        profileViewController.userId = bet.userId
         self.navigationController!.pushViewController(profileViewController, animated: true)
     }
     

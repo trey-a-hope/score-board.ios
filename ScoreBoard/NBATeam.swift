@@ -86,11 +86,6 @@ class NBATeamService {
         //Washington Wizards
         teams.append(NBATeam(id: 30, name: "Wizards", city: "Washington", conference: "Southeast", imageDownloadUrl: "https://firebasestorage.googleapis.com/v0/b/project-4262310415987696317.appspot.com/o/Images%2FNBATeams%2FWizards.png?alt=media&token=b0068f69-01ae-46de-ac39-cd01ea202cfb", hexColor: "002566", url: "http://www.nba.com/teams/wizards"))
     }
-    
-    //Id - 1 is the same as position in array.
-    func getTeam(id: Int) -> NBATeam {
-        return teams[id - 1]
-    }
 }
 
 //http://www.sportslogos.net/teams/list_by_league/6/National_Basketball_Association/NBA/logos/

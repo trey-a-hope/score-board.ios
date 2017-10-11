@@ -94,7 +94,6 @@ extension GamesViewController : UITableViewDataSource, UITableViewDelegate {
         if game.userId != nil {
             let fullGameViewController = storyBoard.instantiateViewController(withIdentifier: "FullGameViewController") as! FullGameViewController
             fullGameViewController.gameId = game.id
-            fullGameViewController.gameOwnerId = game.userId
             navigationController?.pushViewController(fullGameViewController, animated: true)
         }
         //Game empty

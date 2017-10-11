@@ -280,6 +280,7 @@ extension ProfileViewController: UICollectionViewDataSource {
         
         if(collectionView == myBetsCollectionView){
             gameId = myBets[indexPath.row].gameId!
+            
         }
         else if(collectionView == myGamesCollectionView){
             gameId = myGames[indexPath.row].id!
@@ -288,7 +289,6 @@ extension ProfileViewController: UICollectionViewDataSource {
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
         let fullGameViewController = storyBoard.instantiateViewController(withIdentifier: "FullGameViewController") as! FullGameViewController
         fullGameViewController.gameId = gameId
-        fullGameViewController.gameOwnerId = userId
         self.navigationController?.pushViewController(fullGameViewController, animated: true)
     }
     
@@ -297,22 +297,22 @@ extension ProfileViewController: UICollectionViewDataSource {
         if(collectionView == myBetsCollectionView){
             if let betCell = collectionView.dequeueReusableCell(withReuseIdentifier: CellIdentifier, for: indexPath) as? BetCell{
                 
-                let selectedBet: Bet = myBets[indexPath.row]
+                let bet: Bet = myBets[indexPath.row]
                 
-                let homeTeam: NBATeam = NBATeamService.instance.teams.filter({ $0.id == selectedBet.homeTeamId }).first!
-                let awayTeam: NBATeam = NBATeamService.instance.teams.filter({ $0.id == selectedBet.awayTeamId }).first!
+                let homeTeam: NBATeam = NBATeamService.instance.teams.filter({ $0.id == bet.homeTeamId }).first!
+                let awayTeam: NBATeam = NBATeamService.instance.teams.filter({ $0.id == bet.awayTeamId }).first!
                 
                 betCell.userName.text = self.user!.userName
                 betCell.userImage.kf.setImage(with: URL(string: self.user!.imageDownloadUrl))
                 betCell.userImage.round(borderWidth: 1, borderColor: UIColor.black)
                 betCell.homeTeamImage.kf.setImage(with: URL(string: homeTeam.imageDownloadUrl))
                 betCell.homeTeamImage.round(borderWidth: 1, borderColor: UIColor.black)
-                betCell.homeTeamDigit.text = String(describing: selectedBet.homeDigit!)
+                betCell.homeTeamDigit.text = String(describing: bet.homeDigit!)
                 betCell.awayTeamImage.kf.setImage(with: URL(string: awayTeam.imageDownloadUrl))
                 betCell.awayTeamImage.round(borderWidth: 1, borderColor: UIColor.black)
-                betCell.awayTeamDigit.text = String(describing: selectedBet.awayDigit!)
+                betCell.awayTeamDigit.text = String(describing: bet.awayDigit!)
                 
-                let d: Date = ConversionService.getDateInTimeZone(date: selectedBet.postDateTime, timeZoneOffset: selectedBet.postTimeZoneOffSet)
+                let d: Date = ConversionService.getDateInTimeZone(date: bet.postDateTime, timeZoneOffset: bet.postTimeZoneOffSet)
                 betCell.posted.text = ConversionService.timeAgoSinceDate(date: d)
                 
                 return betCell
@@ -322,21 +322,19 @@ extension ProfileViewController: UICollectionViewDataSource {
         else if(collectionView == myGamesCollectionView){
             if let gameCell = collectionView.dequeueReusableCell(withReuseIdentifier: CellIdentifier, for: indexPath) as? GameCell{
                 
-                let selectedGame: Game = myGames[indexPath.row]
+                let game: Game = myGames[indexPath.row]
 
-                let homeTeam: NBATeam = NBATeamService.instance.teams.filter({ $0.id == selectedGame.homeTeamId }).first!
-                let awayTeam: NBATeam = NBATeamService.instance.teams.filter({ $0.id == selectedGame.awayTeamId }).first!
+                let homeTeam: NBATeam = NBATeamService.instance.teams.filter({ $0.id == game.homeTeamId }).first!
+                let awayTeam: NBATeam = NBATeamService.instance.teams.filter({ $0.id == game.awayTeamId }).first!
                 
                 gameCell.userName.text = self.user!.userName
                 gameCell.homeTeamImage.kf.setImage(with: URL(string: homeTeam.imageDownloadUrl))
                 gameCell.homeTeamImage.round(borderWidth: 1, borderColor: UIColor.black)
-                gameCell.homeTeamScore.text = String(describing: selectedGame.homeTeamScore!)
+                gameCell.homeTeamScore.text = String(describing: game.homeTeamScore!)
                 gameCell.awayTeamImage.kf.setImage(with: URL(string: awayTeam.imageDownloadUrl))
                 gameCell.awayTeamImage.round(borderWidth: 1, borderColor: UIColor.black)
-                gameCell.awayTeamScore.text = String(describing: selectedGame.awayTeamScore!)
-                
-//                let d: Date = ConversionService.getDateInTimeZone(date: selectedBet.postDateTime, timeZoneOffset: selectedBet.postTimeZoneOffSet)
-                gameCell.taken.text = "TBA"
+                gameCell.awayTeamScore.text = String(describing: game.awayTeamScore!)
+                gameCell.potAmount.text = String(format: "$%.02f", game.potAmount)
                 
                 return gameCell
             }

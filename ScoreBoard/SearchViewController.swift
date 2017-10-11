@@ -217,7 +217,6 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
             case 0:
                 let fullGameViewController = storyBoard.instantiateViewController(withIdentifier: "FullGameViewController") as! FullGameViewController
                 fullGameViewController.gameId = item.id
-                fullGameViewController.gameOwnerId = item.gameOwnerId
                 self.navigationController?.pushViewController(fullGameViewController, animated: true)
                 break
             //Users

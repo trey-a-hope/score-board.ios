@@ -1,8 +1,8 @@
 import UIKit
 
 class Game : FirebaseObject {
-    var userId: String!
-    var awayTeamScore: Int!
+    var userId: String!             //ID of the user who owns this game
+    var awayTeamScore: Int!         
     var awayTeamId: Int!
     var homeTeamScore: Int!
     var homeTeamId: Int!
