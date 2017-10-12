@@ -31,6 +31,10 @@ class AdminTableViewController: UITableViewController {
                         let addGameViewController = storyBoard.instantiateViewController(withIdentifier: "AddGameViewController") as! AddGameViewController
                         navigationController?.pushViewController(addGameViewController, animated: true)
                         break
+                    //Delete game
+                    case 1:
+                        ModalService.showWarning(title: "Delete Game", message: "Coming soon...")
+                        break
                     default:break
                 }
                 break

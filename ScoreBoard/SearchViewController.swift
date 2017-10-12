@@ -23,7 +23,7 @@ class SearchViewController: UIViewController {
     var teams: [Item] = [Item]()
     var filteredTeams: [Item] = [Item]()
     
-    var categories: [String] = ["Games", "Users", "Teams"]
+    var categories: [String] = ["Taken Games", "Users", "Teams"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -88,16 +88,19 @@ extension SearchViewController : UISearchBarDelegate {
                 
                 //Set games
                 for game in result.0 {
-                    let homeTeam: NBATeam = NBATeamService.instance.teams.filter{ $0.id == game.homeTeamId }.first!
-                    let awayTeam: NBATeam = NBATeamService.instance.teams.filter{ $0.id == game.awayTeamId }.first!
-                    
-                    let gameItem: Item = Item()
-                    gameItem.id = game.id
-                    gameItem.imageDownloadUrl = homeTeam.imageDownloadUrl
-                    gameItem.name = homeTeam.name + " vs. " + awayTeam.name
-                    gameItem.group = self.categories[0]
-                    gameItem.gameOwnerId = game.userId
-                    self.games.append(gameItem)
+                    //Only return occupied games
+                    if game.userId != nil {
+                        let homeTeam: NBATeam = NBATeamService.instance.teams.filter{ $0.id == game.homeTeamId }.first!
+                        let awayTeam: NBATeam = NBATeamService.instance.teams.filter{ $0.id == game.awayTeamId }.first!
+                        
+                        let gameItem: Item = Item()
+                        gameItem.id = game.id
+                        gameItem.imageDownloadUrl = homeTeam.imageDownloadUrl
+                        gameItem.name = homeTeam.name + " vs. " + awayTeam.name
+                        gameItem.group = self.categories[0]
+                        gameItem.gameOwnerId = game.userId
+                        self.games.append(gameItem)
+                    }
                 }
                 //Sort game items
                 self.games = self.games.sorted(by: { $0.name < $1.name })

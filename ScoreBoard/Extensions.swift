@@ -11,6 +11,12 @@ extension UIImageView {
     }
 }
 
+extension UIApplication {
+    var statusBarView: UIView? {
+        return value(forKey: "statusBar") as? UIView
+    }
+}
+
 extension UIColor {
     func random() -> UIColor {
         let r:CGFloat = CGFloat(arc4random_uniform(255)) / 255.0
