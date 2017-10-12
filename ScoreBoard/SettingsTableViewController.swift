@@ -86,7 +86,7 @@ class SettingsTableViewController: UITableViewController {
                         break
                     //Delete Account
                     case 5:
-                        ModalService.showConfirm(title: "Delete Account", message: "Are you sure?", confirmText: "Yes", cancelText: "No")
+                        ModalService.showConfirm(title: "Delete Account", message: "Before you can delete your account, you must wait for any games you currently own to finish.", confirmText: "Yes", cancelText: "No")
                             .then{() -> Void in
                                 MyFSRef.deleteUser(userId: SessionManager.getUserId())
                                     .then{ () -> Void in

@@ -35,6 +35,11 @@ class AdminTableViewController: UITableViewController {
                     case 1:
                         ModalService.showWarning(title: "Delete Game", message: "Coming soon...")
                         break
+                    //Evaluate game
+                    case 2:
+                        let evaluateGameViewController = storyBoard.instantiateViewController(withIdentifier: "EvaluateGameViewController") as! EvaluateGameViewController
+                        navigationController?.pushViewController(evaluateGameViewController, animated: true)
+                        break
                     default:break
                 }
                 break

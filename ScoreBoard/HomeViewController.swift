@@ -64,6 +64,7 @@ class HomeViewController: UIViewController {
                 self.mostGamesWonUsers = result.2
                 self.mostGamessWonLabel.text = "Most Games Won - " + String(describing: self.mostGamesWonUsers[0].gamesWon!)
                 self.gamesWonCollectionView.reloadData()
+                
             }.always{
                 self.refreshControl.endRefreshing()
             }

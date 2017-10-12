@@ -1676,7 +1676,7 @@
                                                         <rect key="frame" x="177.5" y="0.0" width="177.5" height="80"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pre" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8JE-7a-ECj">
-                                                                <rect key="frame" x="58" y="0.0" width="62.5" height="58.5"/>
+                                                                <rect key="frame" x="58.5" y="0.0" width="62.5" height="58.5"/>
                                                                 <fontDescription key="fontDescription" name="TharLon" family="TharLon" pointSize="40"/>
                                                                 <color key="textColor" red="0.50196081400000003" green="0.25098040700000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -2235,12 +2235,29 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="fdt-aW-y1h" style="IBUITableViewCellStyleDefault" id="ZVY-qx-tqB">
+                                        <rect key="frame" x="0.0" y="143.5" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZVY-qx-tqB" id="Vhc-f4-vWz">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Evaluate Game" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fdt-aW-y1h">
+                                                    <rect key="frame" x="16" y="0.0" width="344" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                             <tableViewSection headerTitle="Users" footerTitle="Anything related to users." id="slY-w6-cg6">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="f58-dB-CeR" style="IBUITableViewCellStyleDefault" id="3eH-Vg-lXC">
-                                        <rect key="frame" x="0.0" y="219" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="263" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3eH-Vg-lXC" id="Wbl-Mb-RVt">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -2348,6 +2365,52 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y3N-SF-TgU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3052" y="2155"/>
+        </scene>
+        <!--Evaluate Game-->
+        <scene sceneID="pmd-2f-mM5">
+            <objects>
+                <viewController storyboardIdentifier="EvaluateGameViewController" title="Evaluate Game" id="lrR-Uf-sES" customClass="EvaluateGameViewController" customModule="ScoreBoard" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="bTb-hO-MLE"/>
+                        <viewControllerLayoutGuide type="bottom" id="tv3-ex-68a"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="WVS-V4-27P">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="1000"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xoP-1P-MAC">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="1000"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4ir-Si-156">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="800" id="azx-7D-R58"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="4ir-Si-156" firstAttribute="width" secondItem="xoP-1P-MAC" secondAttribute="width" id="C3q-Ew-knv"/>
+                                    <constraint firstItem="4ir-Si-156" firstAttribute="leading" secondItem="xoP-1P-MAC" secondAttribute="leading" id="ShX-g8-Z7o"/>
+                                    <constraint firstItem="4ir-Si-156" firstAttribute="top" secondItem="xoP-1P-MAC" secondAttribute="top" id="nA6-kl-fHC"/>
+                                    <constraint firstAttribute="trailing" secondItem="4ir-Si-156" secondAttribute="trailing" id="urf-A3-otR"/>
+                                    <constraint firstAttribute="bottom" secondItem="4ir-Si-156" secondAttribute="bottom" id="w0Q-lg-YV6"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="xoP-1P-MAC" firstAttribute="top" secondItem="WVS-V4-27P" secondAttribute="top" id="0Yk-ef-Kfk"/>
+                            <constraint firstItem="xoP-1P-MAC" firstAttribute="leading" secondItem="WVS-V4-27P" secondAttribute="leading" id="3qe-E2-wVK"/>
+                            <constraint firstAttribute="bottom" secondItem="xoP-1P-MAC" secondAttribute="bottom" id="CRI-p4-ian"/>
+                            <constraint firstAttribute="trailing" secondItem="xoP-1P-MAC" secondAttribute="trailing" id="qmW-8M-Yjk"/>
+                        </constraints>
+                    </view>
+                    <size key="freeformSize" width="375" height="1000"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="j3y-5R-vjz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3748" y="2155.3223388305851"/>
         </scene>
         <!--Cropped Image-->
         <scene sceneID="RdS-Or-GrP">

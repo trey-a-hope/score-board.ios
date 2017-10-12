@@ -124,7 +124,7 @@ class ProfileViewController: UIViewController {
         //If viewing another person's profile, user their userId. Otherwise, use yours.
         if let _ = userId {}
         else{userId = SessionManager.getUserId()}
-        
+                
         when(fulfilled: MyFSRef.getUserById(id: userId!), MyFSRef.getGamesForUser(userId: userId!), MyFSRef.getBetsForUser(userId: userId!))
             .then{ (result) -> Void in
                 //Set user
@@ -139,7 +139,10 @@ class ProfileViewController: UIViewController {
                 self.refreshControl.endRefreshing()
                 
                 self.setUI()
-            }.always{}
+            }.catch{ (error) in
+                print(error.localizedDescription)
+            }.always{
+            }
     }
     
     func setUI() -> Void {
