@@ -19,6 +19,7 @@
 		0C43D0561F4E33C100C285A5 /* GameTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C43D0541F4E33C100C285A5 /* GameTableViewCell.xib */; };
 		0C4D096E1F6788C8004DBD51 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C4D096C1F6788C8004DBD51 /* UserNotifications.framework */; };
 		0C4D096F1F6788C8004DBD51 /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C4D096D1F6788C8004DBD51 /* UserNotificationsUI.framework */; };
+		0C58471A1F9664BA00ADB902 /* SearchBarContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5847191F9664BA00ADB902 /* SearchBarContainerView.swift */; };
 		0C5A07331F7EDEF700492992 /* SearchItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5A07311F7EDEF700492992 /* SearchItem.swift */; };
 		0C5A07341F7EDEF700492992 /* SearchItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C5A07321F7EDEF700492992 /* SearchItem.xib */; };
 		0C5F3A381F4E0EBB00516CFB /* ConversionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5F3A371F4E0EBB00516CFB /* ConversionService.swift */; };
@@ -103,6 +104,7 @@
 		0C43D0541F4E33C100C285A5 /* GameTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameTableViewCell.xib; sourceTree = "<group>"; };
 		0C4D096C1F6788C8004DBD51 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		0C4D096D1F6788C8004DBD51 /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
+		0C5847191F9664BA00ADB902 /* SearchBarContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarContainerView.swift; sourceTree = "<group>"; };
 		0C5A07311F7EDEF700492992 /* SearchItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchItem.swift; sourceTree = "<group>"; };
 		0C5A07321F7EDEF700492992 /* SearchItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchItem.xib; sourceTree = "<group>"; };
 		0C5F3A371F4E0EBB00516CFB /* ConversionService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversionService.swift; sourceTree = "<group>"; };
@@ -218,6 +220,7 @@
 				0CF611651F62EA5A00A46EB0 /* GMPalette.swift */,
 				0CF611671F62EA7600A46EB0 /* GMColor.swift */,
 				0CD96A051F65A1A400B183C8 /* JSONSerializer.swift */,
+				0C5847191F9664BA00ADB902 /* SearchBarContainerView.swift */,
 			);
 			name = Miscellaneous;
 			sourceTree = "<group>";
@@ -529,6 +532,7 @@
 					0C6DC58C1F4DD9F200F9A061 = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = AYXEVPG9Z5;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -545,12 +549,14 @@
 					0C6DC5A01F4DD9F200F9A061 = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = AYXEVPG9Z5;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 0C6DC58C1F4DD9F200F9A061;
 					};
 					0C6DC5AB1F4DD9F200F9A061 = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = AYXEVPG9Z5;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 0C6DC58C1F4DD9F200F9A061;
 					};
@@ -753,8 +759,6 @@
 				"${BUILT_PRODUCTS_DIR}/Material/Material.framework",
 				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
-				"${BUILT_PRODUCTS_DIR}/SCLAlertView/SCLAlertView.framework",
-				"${BUILT_PRODUCTS_DIR}/Spring/Spring.framework",
 				"${BUILT_PRODUCTS_DIR}/Toaster/Toaster.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
@@ -784,8 +788,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Material.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SCLAlertView.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Spring.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toaster.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRPCClient.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
@@ -842,6 +844,7 @@
 				0C5A07331F7EDEF700492992 /* SearchItem.swift in Sources */,
 				0C5F3A3D1F4E11C200516CFB /* SessionManager.swift in Sources */,
 				0CADB03A1F890FD900200F7C /* GameCell.swift in Sources */,
+				0C58471A1F9664BA00ADB902 /* SearchBarContainerView.swift in Sources */,
 				0CF611661F62EA5A00A46EB0 /* GMPalette.swift in Sources */,
 				0C3ABE8C1F4F28D800AE5CF9 /* SearchViewController.swift in Sources */,
 				0C98D22F1F5FA86C00D8BBAD /* Bet.swift in Sources */,
@@ -1038,11 +1041,12 @@
 				CODE_SIGN_ENTITLEMENTS = ScoreBoard/ScoreBoard.entitlements;
 				DEVELOPMENT_TEAM = AYXEVPG9Z5;
 				INFOPLIST_FILE = ScoreBoard/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = CPP.ScoreBoard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1055,11 +1059,12 @@
 				CODE_SIGN_ENTITLEMENTS = ScoreBoard/ScoreBoard.entitlements;
 				DEVELOPMENT_TEAM = AYXEVPG9Z5;
 				INFOPLIST_FILE = ScoreBoard/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = CPP.ScoreBoard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -1075,7 +1080,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = CPP.ScoreBoardTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ScoreBoard.app/ScoreBoard";
 			};
 			name = Debug;
@@ -1091,7 +1097,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = CPP.ScoreBoardTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ScoreBoard.app/ScoreBoard";
 			};
 			name = Release;
@@ -1106,7 +1113,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = CPP.ScoreBoardUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = ScoreBoard;
 			};
 			name = Debug;
@@ -1121,7 +1129,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = CPP.ScoreBoardUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = ScoreBoard;
 			};
 			name = Release;

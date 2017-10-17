@@ -35,12 +35,12 @@ class LoginViewController: UIViewController {
         forgotPassword.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(LoginViewController.goToForgotPassword)))
     }
     
-    func goToSignup() -> Void {
+    @objc func goToSignup() -> Void {
         let signupViewController = storyBoard.instantiateViewController(withIdentifier: "SignupViewController") as! SignupViewController
         navigationController!.pushViewController(signupViewController, animated: true)
     }
     
-    func goToForgotPassword() -> Void {
+    @objc func goToForgotPassword() -> Void {
         ModalService.showResetEmail(title: "Reset Password?", message: "We will send an email with instructions on reseting your password.")
             .then{(email) -> Void in
                 //SwiftSpinner.show("Sending Email...")

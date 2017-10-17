@@ -34,7 +34,7 @@ class MessagesViewController: UIViewController {
         navigationItem.setRightBarButtonItems([addMessageButton], animated: true)
     }
     
-    func addMessage() -> Void {
+    @objc func addMessage() -> Void {
         ModalService.showWarning(title: "Add Message", message: "Coming Soon")
     }
 }

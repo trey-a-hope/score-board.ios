@@ -45,7 +45,7 @@ class ChangePasswordViewController : UIViewController {
         hideKeyboardWhenTappedAround()
     }
     
-    func updatePassword() -> Void {
+    @objc func updatePassword() -> Void {
         let password: String = newPassword.text!
         
         if let currentUser = Auth.auth().currentUser {

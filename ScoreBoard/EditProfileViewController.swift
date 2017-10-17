@@ -40,7 +40,7 @@ class EditProfileViewController: UIViewController {
             .bottomRight(bottom: 35, right: 35)
     }
     
-    func save() -> Void {
+    @objc func save() -> Void {
         if(!formValid()){
             ModalService.showError(title: "Error", message: "Form not valid")
         }else{

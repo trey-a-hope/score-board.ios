@@ -48,7 +48,7 @@ class HomeViewController: UIViewController {
         navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([], animated: true)
     }
     
-    func loadData() -> Void {
+    @objc func loadData() -> Void {
         //Fetch users and games
         when(fulfilled: MyFSRef.getTopUsers(category: "points", numberOfUsers: 5), MyFSRef.getTopUsers(category: "betsWon", numberOfUsers: 5), MyFSRef.getTopUsers(category: "gamesWon", numberOfUsers: 5))
             .then{ (result) -> Void in

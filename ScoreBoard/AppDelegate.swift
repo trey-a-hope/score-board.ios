@@ -33,11 +33,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         //Nav Bar
         UINavigationBar.appearance().barTintColor = Constants.primaryColor
         UINavigationBar.appearance().tintColor = .white
-        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName:UIColor.white]
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white]
         //Status Bar
         UIApplication.shared.statusBarStyle = .lightContent
         UIApplication.shared.statusBarView?.backgroundColor = Constants.primaryColorDark
-        /* Log user out of Auth if id and role not set. */
+        
+        //Log user out of Auth if id and role not set
         if(userDefaults.object(forKey: "id") == nil){
             SessionManager.signOut()
         }

@@ -15,13 +15,20 @@ class SessionManager {
         return defaults.string(forKey: "id")!
     }
     
+    class func removeUserId() -> Void {
+        defaults.removeObject(forKey: "id")
+    }
+    
     class func signOut() -> Void {
         let firebaseAuth = Auth.auth()
         do {
             try firebaseAuth.signOut()
-            //print ("Successfully Logged Out")
+            
+            removeUserId()
+            
+            print ("Successfully Logged Out")
         } catch let signOutError as NSError {
-            //print ("Error signing out: %@", signOutError)
+            print ("Error signing out: %@", signOutError)
         }
     }
     

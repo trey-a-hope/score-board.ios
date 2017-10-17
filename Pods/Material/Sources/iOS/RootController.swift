@@ -151,7 +151,7 @@ open class RootController: UIViewController {
 
 extension RootController {
     /// A method that prepares the rootViewController.
-    internal func prepareRootViewController() {
+    @objc internal func prepareRootViewController() {
         prepare(viewController: rootViewController, withContainer: view)
     }
     

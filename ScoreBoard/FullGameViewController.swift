@@ -88,7 +88,7 @@ class FullGameViewController: UIViewController {
         navigationItem.setRightBarButtonItems([shareButton], animated: false)
     }
     
-    func getGame() -> Void {
+    @objc func getGame() -> Void {
         //Fetch the game and bets for this game
         when(fulfilled: MyFSRef.getGame(gameId: gameId), MyFSRef.getBetsForGame(gameId: gameId))
             .then{ (result) -> Void in
@@ -247,14 +247,21 @@ class FullGameViewController: UIViewController {
         collectionView.reloadData()
     }
     
-    func goToGameOwnerProfile() -> Void {
+    @objc func goToGameOwnerProfile() -> Void {
         let profileViewController = storyBoard.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
         profileViewController.userId = game.userId
         navigationController!.pushViewController(profileViewController, animated: true)
     }
     
-    func share() -> Void {
-        ModalService.showInfo(title: "Share", message: "Coming Soon.")
+    @objc func share() -> Void {
+        let textToShare = "Check out this game I'm betting on in ScorBord!"
+        if let myWebsite = NSURL(string: "www.google.com") {
+            let objectsToShare = [textToShare, myWebsite] as [Any]
+            let activityViewController = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+            present(activityViewController, animated: true, completion: nil)
+        }else{
+            //TODO: DISPLAY MODAL SAYING LINK IS MALFORMED
+        }
     }
     
     @IBAction func submitAction(_ sender: UIButton) {

@@ -5,7 +5,7 @@
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -942,28 +942,20 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="VPj-s5-Wq2">
-                                <rect key="frame" x="0.0" y="56" width="375" height="562"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
-                            <searchBar contentMode="redraw" placeholder="Taken Games, Users, and Teams" translatesAutoresizingMaskIntoConstraints="NO" id="P92-RM-RZH">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="VPj-s5-Wq2" firstAttribute="top" secondItem="P92-RM-RZH" secondAttribute="bottom" id="7JO-IZ-oD8"/>
+                            <constraint firstItem="VPj-s5-Wq2" firstAttribute="top" secondItem="wX4-jp-tIh" secondAttribute="top" id="5YA-RB-aUT"/>
                             <constraint firstAttribute="trailing" secondItem="VPj-s5-Wq2" secondAttribute="trailing" id="9hb-Yg-4PH"/>
-                            <constraint firstItem="P92-RM-RZH" firstAttribute="top" secondItem="wX4-jp-tIh" secondAttribute="top" id="AJf-xy-3je"/>
-                            <constraint firstAttribute="trailing" secondItem="P92-RM-RZH" secondAttribute="trailing" id="Y7W-lE-SZq"/>
-                            <constraint firstItem="P92-RM-RZH" firstAttribute="leading" secondItem="wX4-jp-tIh" secondAttribute="leading" id="a4z-wT-Tgd"/>
                             <constraint firstItem="VPj-s5-Wq2" firstAttribute="leading" secondItem="wX4-jp-tIh" secondAttribute="leading" id="aIv-RY-h82"/>
                             <constraint firstItem="Xgp-9N-ejK" firstAttribute="top" secondItem="VPj-s5-Wq2" secondAttribute="bottom" id="yGM-1e-nas"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" id="a2i-8o-bF3"/>
                     <connections>
-                        <outlet property="searchBar" destination="P92-RM-RZH" id="vri-5I-zjN"/>
                         <outlet property="tableView" destination="VPj-s5-Wq2" id="cKF-L2-QNW"/>
                     </connections>
                 </viewController>
@@ -1676,7 +1668,7 @@
                                                         <rect key="frame" x="177.5" y="0.0" width="177.5" height="80"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pre" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8JE-7a-ECj">
-                                                                <rect key="frame" x="58.5" y="0.0" width="62.5" height="58.5"/>
+                                                                <rect key="frame" x="57.5" y="0.0" width="62.5" height="58.5"/>
                                                                 <fontDescription key="fontDescription" name="TharLon" family="TharLon" pointSize="40"/>
                                                                 <color key="textColor" red="0.50196081400000003" green="0.25098040700000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>

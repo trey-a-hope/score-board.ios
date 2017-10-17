@@ -120,7 +120,7 @@ class ProfileViewController: UIViewController {
         adminButton.tintColor = .white
     }
     
-    func loadData() -> Void {
+    @objc func loadData() -> Void {
         //If viewing another person's profile, user their userId. Otherwise, use yours.
         if let _ = userId {}
         else{userId = SessionManager.getUserId()}
@@ -194,17 +194,17 @@ class ProfileViewController: UIViewController {
         myGamesLabel.text = myGamesLabel.text! + String(describing: myGames.count)
     }
     
-    func openAdmin() -> Void {
+    @objc func openAdmin() -> Void {
         let adminTableViewController = storyBoard.instantiateViewController(withIdentifier: "AdminTableViewController") as! AdminTableViewController
         navigationController?.pushViewController(adminTableViewController, animated: true)
     }
     
-    func openEditProfile() -> Void {
+    @objc func openEditProfile() -> Void {
         let editProfileViewController = storyBoard.instantiateViewController(withIdentifier: "EditProfileViewController") as! EditProfileViewController
         navigationController?.pushViewController(editProfileViewController, animated: true)
     }
     
-    func openMessages() -> Void {
+    @objc func openMessages() -> Void {
         //If current user, navigate to list of message.
         if(userId == SessionManager.getUserId()){
             let messagesViewController = storyBoard.instantiateViewController(withIdentifier: "MessagesViewController") as! MessagesViewController
@@ -216,7 +216,7 @@ class ProfileViewController: UIViewController {
         }
     }
     
-    func updateProfilePicture() -> Void {
+    @objc func updateProfilePicture() -> Void {
         if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum){
             imagePicker.sourceType = .photoLibrary;
             imagePicker.allowsEditing = false

@@ -121,9 +121,11 @@ class MyFSRef {
         return Promise{ fulfill, reject in
             db.collection("Games").getDocuments(completion: { (collection, err) in
                 if let err = err { reject(err) }
+                
                 for document in (collection?.documents)! {
                     games.append(extractGameData(gameSnapshot: document))
                 }
+                
                 fulfill(games)
             })
         }
@@ -210,7 +212,6 @@ class MyFSRef {
     class func deleteUser(userId: String) -> Promise<Void> {
         //TODO: Delete all bets when a user deletes their account.
         return Promise { fulfill, reject in
-            fulfill()
             Auth.auth().currentUser?.delete(completion: { (err) in
                 if err != nil {
                     reject(err!)
@@ -225,7 +226,7 @@ class MyFSRef {
                                     print(error.localizedDescription)
                                     //Most likely, the user never uploaded an image.
                                 }
-                                fulfill()
+                                fulfill(())
                             }
                         }
                     }
@@ -243,7 +244,7 @@ class MyFSRef {
                 if let error = error {
                     reject(error)
                 }
-                fulfill()
+                fulfill(())
             }
         }
     }
@@ -261,7 +262,7 @@ class MyFSRef {
                 if let error = error {
                     reject(error)
                 }
-                fulfill()
+                fulfill(())
             }
         }
     }
@@ -287,7 +288,7 @@ class MyFSRef {
                         if let error = error {
                             reject(error)
                         }
-                        fulfill()
+                        fulfill(())
                     }
                 }
             }
@@ -358,7 +359,7 @@ class MyFSRef {
                 if let error = error {
                     reject(error)
                 }
-                fulfill()
+                fulfill(())
             }
         }
     }
@@ -463,6 +464,8 @@ extension MyFSRef {
     class func extractGameData(gameSnapshot: DocumentSnapshot) -> Game {
         let value = gameSnapshot.data()
         let game: Game = Game()
+        
+        print(value)
         
         game.id = value["id"] as! String
         game.userId = value["userId"] as? String

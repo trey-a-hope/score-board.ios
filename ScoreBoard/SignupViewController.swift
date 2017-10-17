@@ -24,7 +24,7 @@ class SignupViewController: UIViewController {
         )
     }
     
-    func signup() -> Void {
+    @objc func signup() -> Void {
         let email: String = emailText.text!
         let password: String = passwordText.text!
         let username: String = usernameText.text!

@@ -11,19 +11,25 @@ class Item {
     var gameOwnerId: String!//ID if the user who owns the game for game items
 }
 
+//TODO: FIX SEARCH, ACTING WACKY RIGHT NOW
+//TODO: REMOVE SEARCHBAR WHEN ACTIVE AND GOING TO NEW TAB
 class SearchViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var searchBar: UISearchBar!
+    
+    //Navbar buttons
+    var searchButton: UIBarButtonItem!
     
     //All search categories
-    var games: [Item] = [Item]()
+    var games: [Item] = [Item]()            //MAY NOT NEED
     var filteredGames: [Item] = [Item]()
-    var users: [Item] = [Item]()
+    var users: [Item] = [Item]()            //MAY NOT NEED
     var filteredUsers: [Item] = [Item]()
-    var teams: [Item] = [Item]()
+    var teams: [Item] = [Item]()            //MAY NOT NEED
     var filteredTeams: [Item] = [Item]()
     
     var categories: [String] = ["Taken Games", "Users", "Teams"]
+    
+    let searchController = UISearchController(searchResultsController: nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +41,7 @@ class SearchViewController: UIViewController {
         super.viewWillAppear(animated)
         
         navigationController?.visibleViewController?.title = "Search"
-        navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([], animated: true)
+        navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([searchButton], animated: true)
     }
     
     func initUI() -> Void {
@@ -50,91 +56,126 @@ class SearchViewController: UIViewController {
         }
         
         //Configure Table View
-        let XIBCell = UINib.init(nibName: "SearchItem", bundle: nil)
-        tableView.register(XIBCell, forCellReuseIdentifier: "SearchItem")
+        tableView.register(UINib.init(nibName: "SearchItem", bundle: nil), forCellReuseIdentifier: "SearchItem")
         tableView.delegate = self
         tableView.dataSource = self
         
-        searchBar.delegate = self
+        //Search Button
+        searchButton = UIBarButtonItem(
+            barButtonSystemItem: .search,
+            target: self,
+            action: #selector(showSearchBar(_:))
+        )
         
-        definesPresentationContext = true
+        //Configure searchbar
+        searchController.searchResultsUpdater = self
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.dimsBackgroundDuringPresentation = false
+        searchController.searchBar.showsCancelButton = true
+        searchController.searchBar.delegate = self
+        
         automaticallyAdjustsScrollViewInsets = false
     }
 }
 
+extension SearchViewController : UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        if let searchText = searchController.searchBar.text, !searchText.isEmpty {
+            //Clear list on each text query.
+            games.removeAll()
+            users.removeAll()
+            
+            //Fetch games, users, and teams.
+            when(fulfilled: MyFSRef.getGames(), MyFSRef.getUsersFromSearch(category: "userName", search: searchText, numberOfUsers: 25))
+                .then{ (result) -> Void in
+                    //Set games
+                    for game in result.0 {
+                        //Only return occupied games
+                        if game.userId != nil {
+                            let homeTeam: NBATeam = NBATeamService.instance.teams.filter{ $0.id == game.homeTeamId }.first!
+                            let awayTeam: NBATeam = NBATeamService.instance.teams.filter{ $0.id == game.awayTeamId }.first!
+                            
+                            let gameItem: Item = Item()
+                            gameItem.id = game.id
+                            gameItem.imageDownloadUrl = homeTeam.imageDownloadUrl
+                            gameItem.name = homeTeam.name + " vs. " + awayTeam.name
+                            gameItem.group = self.categories[0]
+                            gameItem.gameOwnerId = game.userId
+                            self.games.append(gameItem)
+                        }
+                    }
+                    //Sort game items
+                    self.games = self.games.sorted(by: { $0.name < $1.name })
+                    //Remove any duplicates
+                    self.games = self.removeDuplicates(array: self.games)
+                    //Filter on search
+                    self.filteredGames = self.games.filter({
+                        $0.name.range(of: searchText, options: .caseInsensitive) != nil
+                    })
+                    
+                    //Set users
+                    for user in result.1 {
+                        let userItem: Item = Item()
+                        userItem.id = user.id
+                        userItem.imageDownloadUrl = user.imageDownloadUrl
+                        userItem.name = user.userName
+                        userItem.group = self.categories[1]
+                        self.users.append(userItem)
+                    }
+                    //Sort users by name
+                    self.users = self.users.sorted(by: { $0.name.lowercased() < $1.name.lowercased() })
+                    //Remove any duplicates
+                    self.users = self.removeDuplicates(array: self.users)
+                    //Filter on search
+                    self.filteredUsers = self.users
+                    
+                    //Remove any duplicates
+                    //Filter on search
+                    self.filteredTeams = self.teams.filter({
+                        $0.name.range(of: searchText, options: .caseInsensitive) != nil
+                    })
+                }.always{}
+        } else {
+            filteredGames.removeAll()
+            filteredUsers.removeAll()
+            filteredTeams.removeAll()
+        }
+        tableView.reloadData()
+    }
+}
+
 extension SearchViewController : UISearchBarDelegate {
-    //Text on change function for searchbar.
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) -> Void {
-        self.filterContentForSearchText(searchText)
+    //Show search bar.
+    @objc func showSearchBar(_ sender: UIBarButtonItem!) -> Void {
+        navigationController?.navigationBar.topItem?.setHidesBackButton(true, animated:false)
+        
+        let searchBarContainer = SearchBarContainerView(customSearchBar: searchController.searchBar)
+        searchBarContainer.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 44)
+        
+        navigationController?.navigationBar.topItem?.titleView = searchBarContainer
+        
+        //Make active on show.
+        searchController.isActive = true
+        
+        navigationController?.navigationBar.topItem?.setLeftBarButtonItems([], animated: true)
+        navigationController?.navigationBar.topItem?.setRightBarButtonItems([], animated: true)
     }
     
-    //Filter data in tableview.
-    func filterContentForSearchText(_ searchText: String) -> Void {
-        //Clear list on each text query.
-        games.removeAll()
-        users.removeAll()
+    func hideSearchBar() -> Void {
+        navigationController?.navigationBar.topItem?.setHidesBackButton(false, animated:false)
         
-        //Fetch games, users, and teams.
-        when(fulfilled: MyFSRef.getGames(), MyFSRef.getUsersFromSearch(category: "userName", search: searchText, numberOfUsers: 25))
-            .then{ (result) -> Void in
-                if(searchText == ""){
-                    //Clear results from table view.
-                    self.filteredGames.removeAll()
-                    self.filteredUsers.removeAll()
-                    self.filteredTeams.removeAll()
-                    self.tableView.reloadData()
-                    return
-                }
-                
-                //Set games
-                for game in result.0 {
-                    //Only return occupied games
-                    if game.userId != nil {
-                        let homeTeam: NBATeam = NBATeamService.instance.teams.filter{ $0.id == game.homeTeamId }.first!
-                        let awayTeam: NBATeam = NBATeamService.instance.teams.filter{ $0.id == game.awayTeamId }.first!
-                        
-                        let gameItem: Item = Item()
-                        gameItem.id = game.id
-                        gameItem.imageDownloadUrl = homeTeam.imageDownloadUrl
-                        gameItem.name = homeTeam.name + " vs. " + awayTeam.name
-                        gameItem.group = self.categories[0]
-                        gameItem.gameOwnerId = game.userId
-                        self.games.append(gameItem)
-                    }
-                }
-                //Sort game items
-                self.games = self.games.sorted(by: { $0.name < $1.name })
-                //Remove any duplicates
-                self.games = self.removeDuplicates(array: self.games)
-                //Filter on search
-                self.filteredGames = self.games.filter({
-                    $0.name.range(of: searchText, options: .caseInsensitive) != nil
-                })
-                
-                //Set users
-                for user in result.1 {
-                    let userItem: Item = Item()
-                    userItem.id = user.id
-                    userItem.imageDownloadUrl = user.imageDownloadUrl
-                    userItem.name = user.userName
-                    userItem.group = self.categories[1]
-                    self.users.append(userItem)
-                }
-                //Sort users by name
-                self.users = self.users.sorted(by: { $0.name.lowercased() < $1.name.lowercased() })
-                //Remove any duplicates
-                self.users = self.removeDuplicates(array: self.users)
-                //Filter on search
-                self.filteredUsers = self.users
+        navigationController?.navigationBar.topItem?.titleView = nil
         
-                //Remove any duplicates
-                //Filter on search
-                self.filteredTeams = self.teams.filter({
-                    $0.name.range(of: searchText, options: .caseInsensitive) != nil
-                })
-            
-                self.tableView.reloadData()
-            }.always{}
+        navigationController?.navigationBar.topItem?.setRightBarButtonItems([searchButton], animated: false)
+        
+        searchController.isActive = false
+        
+        tableView.reloadData()
+    }
+    
+    //Cancel button function.
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) -> Void {
+        self.hideSearchBar()
     }
     
     func removeDuplicates(array: [Item]) -> [Item] {
@@ -242,11 +283,7 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
     
     //Hides sections until text is entered in search bar
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if searchBar.text == "" {
-            return 0.0
-        }else{
-            return 30.0
-        }
+        return 30.0
     }
 }
 

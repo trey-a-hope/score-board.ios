@@ -318,7 +318,7 @@ extension ImageView {
     @available(*, deprecated, message: "Extensions directly on image views are deprecated.", renamed: "kf.setWebURL")
     fileprivate func kf_setWebURL(_ url: URL) { kf.setWebURL(url) }
 
-    func shouldPreloadAllAnimation() -> Bool { return true }
+    @objc func shouldPreloadAllAnimation() -> Bool { return true }
 
     @available(*, deprecated, renamed: "shouldPreloadAllAnimation")
     func shouldPreloadAllGIF() -> Bool { return true }

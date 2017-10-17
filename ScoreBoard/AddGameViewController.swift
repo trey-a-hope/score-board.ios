@@ -51,7 +51,7 @@ class AddGameViewController : UIViewController {
             .bottomRight(bottom: 35, right: 35)
     }
     
-    func save() -> Void {
+    @objc func save() -> Void {
         let game: Game = Game()
         
         let homeTeam: NBATeam = teamOptions[homeTeamPickerView.selectedRow(inComponent: 0)]
@@ -59,11 +59,6 @@ class AddGameViewController : UIViewController {
         
         game.homeTeamId = homeTeam.id
         game.awayTeamId = awayTeam.id
-        
-//        game.homeTeamCity = homeTeam.city
-//        game.homeTeamName = homeTeam.name
-//        game.awayTeamCity = awayTeam.city
-//        game.awayTeamName = awayTeam.name
         
         MyFSRef.createGame(game: game)
             .then{ (id) -> Void in

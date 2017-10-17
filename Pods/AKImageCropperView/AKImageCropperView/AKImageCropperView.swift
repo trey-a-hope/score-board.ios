@@ -437,7 +437,7 @@ open class AKImageCropperView: UIView, UIScrollViewDelegate, UIGestureRecognizer
         savedProperty.save(scrollView: scrollView)
         cancelZoomingTimer()
         
-        let _animations: () -> Void = { _ in
+        let _animations: () -> Void = { 
             
             self.layoutSubviews()
             
@@ -504,7 +504,7 @@ open class AKImageCropperView: UIView, UIScrollViewDelegate, UIGestureRecognizer
    
         isAnimation = true
         
-        let _animations: () -> Void = { _ in
+        let _animations: () -> Void = { 
             
             self.layoutSubviews()
             
@@ -570,7 +570,7 @@ open class AKImageCropperView: UIView, UIScrollViewDelegate, UIGestureRecognizer
         self.angle = angle
         savedProperty.save(scrollView: scrollView)
         
-        let _animations: () -> Void = { _ in
+        let _animations: () -> Void = { 
             
             self.rotateView.transform = CGAffineTransform(rotationAngle: CGFloat(angle))
             self.layoutSubviews()
@@ -610,7 +610,7 @@ open class AKImageCropperView: UIView, UIScrollViewDelegate, UIGestureRecognizer
         angle = 0
         cancelZoomingTimer()
         
-        let _animations: () -> Void = { _ in
+        let _animations: () -> Void = { 
             
             self.rotateView.transform = CGAffineTransform.identity
             

@@ -53,7 +53,7 @@ class TakeGameViewController: UIViewController {
         pricePerBet.addTarget(self, action: #selector(textFieldChanged), for: .editingChanged)
     }
     
-    func textFieldChanged(_ textField: UITextField) {
+    @objc func textFieldChanged(_ textField: UITextField) {
         if(textField == potAmount){
             if let amountString = textField.text?.currencyInputFormatting() {
                 textField.text = amountString

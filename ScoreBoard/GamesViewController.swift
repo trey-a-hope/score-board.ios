@@ -45,7 +45,7 @@ class GamesViewController: UIViewController {
         segmentedControl.addTarget(self, action: #selector(sectionGames), for:.allEvents)
     }
     
-    func getGames() -> Void {
+    @objc func getGames() -> Void {
         MyFSRef.getGames()
             .then{ (games) -> Void in
                 self.allGames = games
@@ -57,7 +57,7 @@ class GamesViewController: UIViewController {
             }
     }
     
-    func sectionGames() -> Void {
+    @objc func sectionGames() -> Void {
         //Filter game by taken/active
         switch segmentedControl.selectedSegmentIndex {
             //Taken games
@@ -153,8 +153,14 @@ extension GamesViewController : UITableViewDataSource, UITableViewDelegate {
         
         //Share button.
         let share = UITableViewRowAction(style: .normal, title: "Share") { action, index in
-            //ModalService.showInfo(title: "Share", message: "This game has " + String(describing: game.bets.count) + " bets.")
-        }
+            let textToShare = "Check out this game I'm betting on in ScorBord!"
+            if let myWebsite = NSURL(string: "www.google.com") {
+                let objectsToShare = [textToShare, myWebsite] as [Any]
+                let activityViewController = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+                self.present(activityViewController, animated: true, completion: nil)
+            }else{
+                //TODO: DISPLAY MODAL SAYING LINK IS MALFORMED
+            }        }
         share.backgroundColor = GMColor.green500Color()
         
         return [share]

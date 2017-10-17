@@ -49,7 +49,7 @@ class ChangeEmailViewController : UIViewController {
 //        newEmail.attributedPlaceholder = NSAttributedString(string: "newemail@domain.com", attributes: [NSForegroundColorAttributeName: UIColor.lightGray])
     }
     
-    func updateEmail() -> Void {
+    @objc func updateEmail() -> Void {
         let email: String = newEmail.text!
         if(ValidityService.isValidEmail(email)){
             if(email == currentEmail.text){

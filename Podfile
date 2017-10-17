@@ -39,8 +39,8 @@ pod 'Material', '~> 2.0'
 pod 'Material/Capture', '~> 2.0'
 pod 'Material/Photos', '~> 2.0'
 pod 'PromiseKit', '~> 4.0'
-pod 'SCLAlertView'
-pod 'Spring', :git => 'https://github.com/MengTo/Spring.git', :branch => 'swift3'
+#pod 'SCLAlertView'
+#pod 'Spring', :git => 'https://github.com/MengTo/Spring.git', :branch => 'swift3'
 pod 'Toaster', '~> 2.0'
 
 # https://www.raywenderlich.com/140836/firebase-tutorial-real-time-chat-2
