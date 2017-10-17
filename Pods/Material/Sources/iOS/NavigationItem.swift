@@ -164,16 +164,16 @@ extension UINavigationItem {
 	}
 	
     /// Title text.
-	@nonobjc
-	public var title: String? {
-		get {
-			return titleLabel.text
-		}
-		set(value) {
-			titleLabel.text = value
-            navigationItem.reload()
-		}
-	}
+//    @nonobjc
+//    public var title: String? {
+//        get {
+//            return titleLabel.text
+//        }
+//        set(value) {
+//            titleLabel.text = value
+//            navigationItem.reload()
+//        }
+//    }
     
 	/// Title Label.
 	public var titleLabel: UILabel {

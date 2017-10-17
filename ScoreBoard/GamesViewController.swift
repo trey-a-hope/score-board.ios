@@ -23,10 +23,11 @@ class GamesViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        //Set title of view.
-        navigationController?.visibleViewController?.navigationItem.titleView = nil
-        navigationController?.visibleViewController?.title = "Games"
-        navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([], animated: true)
+        navigationController?.navigationBar.topItem?.titleView = nil
+        navigationController?.navigationBar.topItem?.title = "Games"
+        navigationController?.navigationBar.topItem?.setRightBarButtonItems([], animated: true)
+        navigationController?.isNavigationBarHidden = false
+        navigationController?.hidesBarsOnSwipe = false
     }
     
     func initUI() -> Void {

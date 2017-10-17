@@ -40,8 +40,14 @@ class SearchViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        navigationController?.visibleViewController?.title = "Search"
-        navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([searchButton], animated: true)
+        navigationController?.navigationBar.topItem?.titleView = nil
+        navigationController?.navigationBar.topItem?.title = "Search"
+        navigationController?.navigationBar.topItem?.setRightBarButtonItems([searchButton], animated: true)
+        navigationController?.hidesBarsOnSwipe = true
+    }
+    
+    override var prefersStatusBarHidden: Bool {
+        return navigationController?.isNavigationBarHidden ?? false
     }
     
     func initUI() -> Void {
@@ -199,9 +205,7 @@ extension SearchViewController : UISearchBarDelegate {
 
 extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
     func getItemFromIndexPath(_ indexPath: IndexPath) -> Item {
-        let items: [Item] = itemsInCategory(indexPath.section)
-        let item: Item = items[indexPath.row]
-        return item
+        return itemsInCategory(indexPath.section)[indexPath.row]
     }
     
     func itemsInCategory(_ index: Int) -> [Item] {
@@ -283,7 +287,11 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
     
     //Hides sections until text is entered in search bar
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 30.0
+        if searchController.isActive{
+            return 30.0
+        }else{
+            return 0.0
+        }
     }
 }
 

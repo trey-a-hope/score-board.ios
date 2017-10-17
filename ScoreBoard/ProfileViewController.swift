@@ -48,20 +48,18 @@ class ProfileViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        //Display navbar on return from image picker.
-        navigationController?.setNavigationBarHidden(false, animated: true)
-        
-        //Set page title to username
-        navigationController?.visibleViewController?.navigationItem.titleView = nil
-        navigationController?.visibleViewController?.title = "Profile"
+        navigationController?.navigationBar.topItem?.titleView = nil
+        navigationController?.navigationBar.topItem?.title = "Profile"
+        navigationController?.isNavigationBarHidden = false
+        navigationController?.hidesBarsOnSwipe = false
         
         //If currently viewing your own profile, add "edit profile" and "message" buttons.
         if(userId == SessionManager.getUserId()){
-            navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([messagesButton, editProfileButton, adminButton], animated: true)
+            navigationController?.navigationBar.topItem?.setRightBarButtonItems([messagesButton, editProfileButton, adminButton], animated: true)
         }
         //Else, add only message button to message user.
         else{
-            navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([messagesButton], animated: true)
+            navigationController?.navigationBar.topItem?.setRightBarButtonItems([messagesButton], animated: true)
         }
         
         loadData()

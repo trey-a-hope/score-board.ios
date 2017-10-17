@@ -43,9 +43,11 @@ class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        navigationController?.visibleViewController?.navigationItem.titleView = nil
-        navigationController?.visibleViewController?.title = "Home"
-        navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([], animated: true)
+        navigationController?.navigationBar.topItem?.titleView = nil
+        navigationController?.navigationBar.topItem?.title = "Home"
+        navigationController?.navigationBar.topItem?.setRightBarButtonItems([], animated: true)
+        navigationController?.isNavigationBarHidden = false
+        navigationController?.hidesBarsOnSwipe = false
     }
     
     @objc func loadData() -> Void {

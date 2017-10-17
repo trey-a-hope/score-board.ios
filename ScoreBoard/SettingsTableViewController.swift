@@ -5,30 +5,21 @@ class SettingsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if(ConnectionManager.isConnectedToInternet()){
-            initUI()
-        }else{
-            ModalService.showError(title: "Error", message: "No internet connection.")
-        }
+        initUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        reInitUI()
+        
+        navigationController?.navigationBar.topItem?.titleView = nil
+        navigationController?.navigationBar.topItem?.title = "Settings"
+        navigationController?.navigationBar.topItem?.setRightBarButtonItems([], animated: true)
+        navigationController?.isNavigationBarHidden = false
+        navigationController?.hidesBarsOnSwipe = false
     }
     
     func initUI() -> Void {
 
-    }
-    
-    func reInitUI() -> Void {
-        navigationController?.visibleViewController?.navigationItem.titleView = nil
-        navigationController?.visibleViewController?.title = "Settings"
-        setNavBarButtons()
-    }
-    
-    func setNavBarButtons() -> Void {
-        navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([], animated: true)
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
