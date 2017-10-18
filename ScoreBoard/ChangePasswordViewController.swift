@@ -34,7 +34,7 @@ class ChangePasswordViewController : UIViewController {
                 self.user = user
                 self.initUI()
             }.catch{ (error) in
-                ModalService.showError(title: "Sorry", message: error.localizedDescription)
+                ModalService.showAlert(title: "Error", message: error.localizedDescription, vc: self)
             }.always{
                 self.spinner.stopAnimating()
                 self.spinner.isHidden = true
@@ -51,13 +51,13 @@ class ChangePasswordViewController : UIViewController {
         if let currentUser = Auth.auth().currentUser {
             currentUser.updatePassword(to: password){ (error) in
                 if let _ = error {
-                    ModalService.showError(title: "Sorry", message: error!.localizedDescription)
+                    ModalService.showAlert(title: "Error", message: error!.localizedDescription, vc: self)
                 }else{
-                    ModalService.showSuccess(title: "Success", message: "Password updated.")
+                    ModalService.showAlert(title: "Password Updated", message: "", vc: self)
                 }
             }
         }else{
-            ModalService.showError(title: "Error", message: "Could not update password, try again later.")
+            ModalService.showAlert(title: "Sorry", message: "Could not update password, try again later.", vc: self)
         }
     }
 }

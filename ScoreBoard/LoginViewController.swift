@@ -12,15 +12,12 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        initUI()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         
         if(SessionManager.isLoggedIn()){
             goToHome()
         }
+        
+        initUI()
     }
     
     func initUI() -> Void {
@@ -41,63 +38,58 @@ class LoginViewController: UIViewController {
     }
     
     @objc func goToForgotPassword() -> Void {
-        ModalService.showResetEmail(title: "Reset Password?", message: "We will send an email with instructions on reseting your password.")
+        ModalService.showResetPassword(vc: self)
             .then{(email) -> Void in
                 //SwiftSpinner.show("Sending Email...")
                 Auth.auth().sendPasswordReset(withEmail: email) { error in
                     if error != nil {
-                        ModalService.showSuccess(title: "Sorry", message: (error?.localizedDescription)!)
+                        ModalService.showAlert(title: "Error", message: (error?.localizedDescription)!, vc: self)
                     }else{
-                        ModalService.showSuccess(title: "Sent", message: "Check your inbox to reset your password.")
+                        ModalService.showAlert(title: "Email Sent", message: "Check your inbox for instructions on how to reset your password.", vc: self)
                     }
-                        //SwiftSpinner.hide()
                 }
-            }.catch{ (error) in
-            }.always {
-            }
+            }.always {}
     }
     
      @IBAction func loginAction(_ sender: UIButton) -> Void {
         let email: String = emailText.text!
         let password: String = passwordText.text!
 
-        if(!ValidityService.isValidEmail(email)){
-            ModalService.showError(title: "Error", message: "Invalid email.")
-        }
-        else{
-            spinner.isHidden = false
-            spinner.startAnimating()
-            Auth.auth().signIn(withEmail: email, password: password, completion: { (user, error) in
-                //If error, display message
-                if error != nil {
+        spinner.isHidden = false
+        spinner.startAnimating()
+        Auth.auth().signIn(withEmail: email, password: password, completion: { (user, error) in
+            //If error, display message
+            if error != nil {
+                self.spinner.isHidden = true
+                self.spinner.stopAnimating()
+                ModalService.showAlert(title: "Error", message: (error?.localizedDescription)!, vc: self)
+                return
+            }
+
+            MyFSRef.getUserByEmail(email: email)
+                .then{ (user) -> Void in
+                    SessionManager.setUserId(user.id)
+                    self.goToHome()
+                }
+                .catch{ (error) in
+                    Auth.auth().currentUser?.delete(completion: { (err) in
+                        if err != nil {
+                            ModalService.showAlert(title: "Error", message: (error.localizedDescription), vc: self)
+                        }
+                    })
+                    ModalService.showAlert(title: "Error", message: "Could not find profile.", vc: self)
+                }.always{
                     self.spinner.isHidden = true
                     self.spinner.stopAnimating()
-                    ModalService.showError(title: "Error", message: (error?.localizedDescription)!)
-                    return
-                }
-
-                MyFSRef.getUserByEmail(email: email)
-                    .then{ (user) -> Void in
-                        SessionManager.setUserId(user.id)
-                        self.goToHome()
-                    }
-                    .catch{ (error) in
-                        Auth.auth().currentUser?.delete(completion: { (err) in
-                            if err != nil {
-                                ModalService.showError(title: "Error", message: error.localizedDescription)
-                            }
-                        })
-                        ModalService.showError(title: "Error", message: "Could not find profile.")
-                        
-                    }.always{
-                        self.spinner.isHidden = true
-                        self.spinner.stopAnimating()
-                }
-            })
-        }
+            }
+        })
+        
     }
     
     func goToHome() -> Void {
+//        let homeTabBarController = storyBoard.instantiateViewController(withIdentifier: "HomeTabBarController") as! HomeTabBarController
+//        navigationController?.pushViewController(homeTabBarController, animated: true)
+        
         if let nav = self.navigationController {
             var stack: [UIViewController] = nav.viewControllers
             stack.remove(at: 0)

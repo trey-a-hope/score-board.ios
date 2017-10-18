@@ -1,3 +1,4 @@
+import PromiseKit
 import UIKit
 
 class SettingsTableViewController: UITableViewController {
@@ -11,9 +12,9 @@ class SettingsTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        navigationController?.navigationBar.topItem?.titleView = nil
-        navigationController?.navigationBar.topItem?.title = "Settings"
-        navigationController?.navigationBar.topItem?.setRightBarButtonItems([], animated: true)
+        navigationController?.visibleViewController?.navigationItem.titleView = nil
+        navigationController?.visibleViewController?.navigationItem.title = "Settings"
+        navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([], animated: true)
         navigationController?.isNavigationBarHidden = false
         navigationController?.hidesBarsOnSwipe = false
     }
@@ -57,38 +58,35 @@ class SettingsTableViewController: UITableViewController {
                         break
                     //Payment Method
                     case 2:
-                        ModalService.showInfo(title: "Payment Method", message: "Coming soon...")
+                        ModalService.showAlert(title: "Payment Method", message: "Coming Soon...", vc: self)
                         break
                     //Notifications
                     case 3:
-                        ModalService.showInfo(title: "Notifications", message: "Coming soon...")
+                        ModalService.showAlert(title: "Notifications", message: "Coming Soon...", vc: self)
                         break
                     //Log Out
                     case 4:
-                        ModalService.showConfirm(title: "Log out", message: "Are you sure?", confirmText: "Yes", cancelText: "No")
+                        ModalService.showConfirm(title: "Log out", message: "Are you sure?", vc: self)
                             .then{() -> Void in
                                 SessionManager.signOut()
                                 let loginViewController = self.storyBoard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
                                 self.navigationController!.pushViewController(loginViewController, animated: true)
                                 self.navigationController?.setViewControllers([loginViewController], animated: true)
-                            }.catch{ (error) in
-                            }.always {
-                        }
+                            }.always{}
                         break
                     //Delete Account
                     case 5:
-                        ModalService.showConfirm(title: "Delete Account", message: "Before you can delete your account, you must wait for any games you currently own to finish.", confirmText: "Yes", cancelText: "No")
-                            .then{() -> Void in
+                        ModalService.showConfirm(title: "Delete Account", message: "Before you can delete your account, you must wait for any games you currently own to finish.", vc: self)
+                            .then{(x) -> Void in
                                 MyFSRef.deleteUser(userId: SessionManager.getUserId())
                                     .then{ () -> Void in
                                         let loginViewController = self.storyBoard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
                                         self.navigationController!.pushViewController(loginViewController, animated: true)
                                         self.navigationController?.setViewControllers([loginViewController], animated: true)
                                     }.catch{ (error) in
-                                        ModalService.showError(title: "Sorry", message: error.localizedDescription)
+                                        ModalService.showAlert(title: "Error", message: error.localizedDescription, vc: self)
                                     }.always {}
-                                
-                            }.always {}
+                            }.always{}
                         break
                     default:break
                 }

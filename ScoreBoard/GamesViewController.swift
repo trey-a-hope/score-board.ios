@@ -23,9 +23,9 @@ class GamesViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        navigationController?.navigationBar.topItem?.titleView = nil
-        navigationController?.navigationBar.topItem?.title = "Games"
-        navigationController?.navigationBar.topItem?.setRightBarButtonItems([], animated: true)
+        navigationController?.visibleViewController?.navigationItem.titleView = nil
+        navigationController?.visibleViewController?.navigationItem.title = "Games"
+        navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([], animated: true)
         navigationController?.isNavigationBarHidden = false
         navigationController?.hidesBarsOnSwipe = false
     }
@@ -51,8 +51,6 @@ class GamesViewController: UIViewController {
             .then{ (games) -> Void in
                 self.allGames = games
                 self.sectionGames()
-            }.catch{ (error) in
-                ModalService.showError(title: "Error", message: error.localizedDescription)
             }.always {
                 self.refreshControl.endRefreshing()
             }

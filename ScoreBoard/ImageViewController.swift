@@ -44,7 +44,7 @@ final class ImageViewController: UIViewController {
             .then{ () -> Void in
                 _ = self.navigationController?.popToViewController(self.navigationController!.viewControllers[0], animated: true)
             }.catch{ (error) in
-                ModalService.showError(title: "Error", message: error.localizedDescription)
+                ModalService.showAlert(title: "Error", message: error.localizedDescription, vc: self)
             }.always{
                 self.spinner.stopAnimating()
         }

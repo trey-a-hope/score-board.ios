@@ -31,15 +31,19 @@ class AdminTableViewController: UITableViewController {
                         let addGameViewController = storyBoard.instantiateViewController(withIdentifier: "AddGameViewController") as! AddGameViewController
                         navigationController?.pushViewController(addGameViewController, animated: true)
                         break
-                    //Delete game
+                    //Update Game
                     case 1:
-                        ModalService.showWarning(title: "Delete Game", message: "Coming soon...")
+                        let updateGameViewController = storyBoard.instantiateViewController(withIdentifier: "UpdateGameViewController") as! UpdateGameViewController
+                        navigationController?.pushViewController(updateGameViewController, animated: true)
                         break
                     //Evaluate game
                     case 2:
                         let evaluateGameViewController = storyBoard.instantiateViewController(withIdentifier: "EvaluateGameViewController") as! EvaluateGameViewController
                         navigationController?.pushViewController(evaluateGameViewController, animated: true)
                         break
+                    //Delete Game
+                    case 3:
+                        ModalService.showAlert(title: "Delete Game", message: "Coming Soon...", vc: self)
                     default:break
                 }
                 break
@@ -48,7 +52,7 @@ class AdminTableViewController: UITableViewController {
                 switch(indexPath.row){
                     //Delete User
                     case 0:
-                        ModalService.showWarning(title: "Delete User", message: "Coming soon...")
+                        ModalService.showAlert(title: "Delete User", message: "Coming Soon...", vc: self)
                         break
                     default:break
                 }

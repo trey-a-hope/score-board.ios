@@ -248,9 +248,12 @@ class FullGameViewController: UIViewController {
     }
     
     @objc func goToGameOwnerProfile() -> Void {
-        let profileViewController = storyBoard.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
-        profileViewController.userId = game.userId
-        navigationController!.pushViewController(profileViewController, animated: true)
+        //Check is this is the currently logged in user
+        if(game.userId != SessionManager.getUserId()){
+            let profileViewController = storyBoard.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
+            profileViewController.userId = game.userId
+            navigationController!.pushViewController(profileViewController, animated: true)
+        }
     }
     
     @objc func share() -> Void {
@@ -266,25 +269,25 @@ class FullGameViewController: UIViewController {
     
     @IBAction func submitAction(_ sender: UIButton) {
         if(game.userId == SessionManager.getUserId()){
-            ModalService.showError(title: "Sorry", message: "You can only place bets on games you do not own.")
+            ModalService.showAlert(title: "Sorry", message: "You can only place bets on games you do not own.", vc: self)
         }
         else if(game.activeCode == 2){
-            ModalService.showError(title: "Game Has Ended", message: "You can only bet on 'Pre' games.")
+            ModalService.showAlert(title: "Game Has Ended", message: "You can only bet on 'Pre' games.", vc: self)
         }else if(game.activeCode == 1){
-            ModalService.showError(title: "Game Is In Progress", message: "You can only bet on 'Pre' games.")
+            ModalService.showAlert(title: "Game Is In Progress", message: "You can only bet on 'Pre' games.", vc: self)
         }else{
             let newBetHomeDigit: Int = Int(self.newBetHomeDigitStepper.value)
             let newBetAwayDigit: Int = Int(self.newBetAwayDigitStepper.value)
             
             //Validate bet is not already taken.
             if(betTaken(homeDigit: newBetHomeDigit, awayDigit: newBetAwayDigit)){
-                ModalService.showError(title: "Sorry", message: "That bet is already taken.")
+                ModalService.showAlert(title: "Bed Taken", message: "Choose another one.", vc: self)
             }else{
                 //Prompt user's bet before submitting.
                 let title: String = "Place Bet"
                 let message: String = "You are betting that the " + homeTeam!.name + " score will end with " + String(describing: newBetHomeDigit) + ", and the " + awayTeam!.name + " score will end with " + String(describing: newBetAwayDigit) + ". " + String(format: "$%.02f", game.betPrice) + " will be charged to your card."
 
-                ModalService.showConfirm(title: title, message: message, confirmText: "Confirm", cancelText: "Cancel")
+                ModalService.showConfirm(title: title, message: message, vc: self)
                     .then{() -> Void in
                         
                         //Create bet.
@@ -300,7 +303,7 @@ class FullGameViewController: UIViewController {
                         MyFSRef.createBet(bet: bet)
                             .then{ (betId) -> Void in
                                 self.getGame()
-                                ModalService.showSuccess(title: "Success", message: "Your bet has been placed.")
+                                ModalService.showAlert(title: "Bet Placed", message: "Good luck!", vc: self)
                             }.always{}
                     }.always {}
             }
@@ -309,11 +312,11 @@ class FullGameViewController: UIViewController {
     
     @IBAction func homeDigitStepperAction(sender: UIStepper) {
         if(game.userId == SessionManager.getUserId()){
-            ModalService.showError(title: "Sorry", message: "You can only place bets on games you do not own.")
+            ModalService.showAlert(title: "Sorry", message: "You can only place bets on games you do not own.", vc: self)
         }else if(game.activeCode == 2){
-            ModalService.showError(title: "Game Has Ended", message: "You can only bet on 'Pre' games.")
+            ModalService.showAlert(title: "Game Has Ended", message: "You can only bet on 'Pre' games.", vc: self)
         }else if(game.activeCode == 1){
-            ModalService.showError(title: "Game Is In Progress", message: "You can only bet on 'Pre' games.")
+            ModalService.showAlert(title: "Game Is In Progress", message: "You can only bet on 'Pre' games.", vc: self)
         }else{
             newBetHomeDigit.text = "\(Int(newBetHomeDigitStepper.value))"
         }
@@ -321,11 +324,11 @@ class FullGameViewController: UIViewController {
     
     @IBAction func awayDigitStepperAction(sender: UIStepper) {
         if(game.userId == SessionManager.getUserId()){
-            ModalService.showError(title: "Sorry", message: "You can only place bets on games you do not own.")
+            ModalService.showAlert(title: "Sorry", message: "You can only place bets on games you do not own.", vc: self)
         }else if(game.activeCode == 2){
-            ModalService.showError(title: "Game Has Ended", message: "You can only bet on 'Pre' games.")
+            ModalService.showAlert(title: "Game Has Ended", message: "You can only bet on 'Pre' games.", vc: self)
         }else if(game.activeCode == 1){
-            ModalService.showError(title: "Game Is In Progress", message: "You can only bet on 'Pre' games.")
+            ModalService.showAlert(title: "Game Is In Progress", message: "You can only bet on 'Pre' games.", vc: self)
         }else{
             newBetAwayDigit.text = "\(Int(newBetAwayDigitStepper.value))"
         }
@@ -394,11 +397,13 @@ extension FullGameViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let bet: Bet = bets[indexPath.row]
-        let profileViewController = storyBoard.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
         
-        
-        profileViewController.userId = bet.userId
-        self.navigationController!.pushViewController(profileViewController, animated: true)
+        //Check is this is the currently logged in user
+        if(bet.userId != SessionManager.getUserId()){
+            let profileViewController = storyBoard.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
+            profileViewController.userId = bet.userId
+            navigationController!.pushViewController(profileViewController, animated: true)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

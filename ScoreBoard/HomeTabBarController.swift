@@ -5,7 +5,7 @@ class HomeTabBarController : UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //Create tab icons.
+        //Create tab icons
         viewControllers?.forEach {
             $0.tabBarItem.setTitleTextAttributes(Constants.FONT_AWESOME_ATTRIBUTES_TABS, for: .normal)
             $0.tabBarItem.titlePositionAdjustment = .init(horizontal: 0, vertical: Constants.TABS_VERTICAL_OFFSET)

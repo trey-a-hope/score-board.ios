@@ -6,6 +6,8 @@ import PromiseKit
 import Kingfisher
 import UIKit
 
+//NOTE: Promises only evaluate once; after they're resolved, you cannot call them again. That is why the .then is only called once when the view controller loads, not on every appearance of the view controller.
+
 class ProfileViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var profileImage: UIImageView!
@@ -42,27 +44,23 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         
         initUI()
-        loadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        navigationController?.navigationBar.topItem?.titleView = nil
-        navigationController?.navigationBar.topItem?.title = "Profile"
+        navigationController?.visibleViewController?.title = "Profile"
         navigationController?.isNavigationBarHidden = false
         navigationController?.hidesBarsOnSwipe = false
         
-        //If currently viewing your own profile, add "edit profile" and "message" buttons.
-        if(userId == SessionManager.getUserId()){
-            navigationController?.navigationBar.topItem?.setRightBarButtonItems([messagesButton, editProfileButton, adminButton], animated: true)
-        }
-        //Else, add only message button to message user.
-        else{
-            navigationController?.navigationBar.topItem?.setRightBarButtonItems([messagesButton], animated: true)
-        }
-        
         loadData()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        //Destory userId
+        userId = nil
     }
 
     func initUI() -> Void {
@@ -119,10 +117,18 @@ class ProfileViewController: UIViewController {
     }
     
     @objc func loadData() -> Void {
-        //If viewing another person's profile, user their userId. Otherwise, use yours.
-        if let _ = userId {}
-        else{userId = SessionManager.getUserId()}
-                
+        //If viewing another person's profile, user their userId
+        if userId != nil {
+            navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([messagesButton], animated: true)
+        }
+        //Otherwise, use yours
+        else{
+            navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([messagesButton, editProfileButton, adminButton], animated: true)
+            userId = SessionManager.getUserId()
+        }
+        
+        print(userId!)
+        
         when(fulfilled: MyFSRef.getUserById(id: userId!), MyFSRef.getGamesForUser(userId: userId!), MyFSRef.getBetsForUser(userId: userId!))
             .then{ (result) -> Void in
                 //Set user
@@ -210,7 +216,7 @@ class ProfileViewController: UIViewController {
         }
             //Otherwise, open message view directly to message this user.
         else{
-            ModalService.showInfo(title: "Message " + (self.user?.userName)!, message: "Coming soon...")
+            ModalService.showAlert(title: "Message " + (self.user?.userName)!, message: "Coming soon...", vc: self)
         }
     }
     
@@ -220,7 +226,7 @@ class ProfileViewController: UIViewController {
             imagePicker.allowsEditing = false
             present(imagePicker, animated: true, completion: nil)
         }else{
-            ModalService.showError(title: "Sorry", message: "Image Picker Not Available")
+            ModalService.showAlert(title: "Sorry", message: "Image Picker Not Available", vc: self)
         }
     }
 }

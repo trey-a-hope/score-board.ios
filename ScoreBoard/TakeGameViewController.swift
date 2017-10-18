@@ -32,7 +32,7 @@ class TakeGameViewController: UIViewController {
                 self.game = game
                 self.initUI()
             }.catch{ (error) in
-                ModalService.showError(title: "Error", message: error.localizedDescription)
+                ModalService.showAlert(title: "Error", message: error.localizedDescription, vc: self)
             }.always{}
     }
     
@@ -74,21 +74,21 @@ class TakeGameViewController: UIViewController {
             let title: String = "Take Game?"
             let message: String = "This game will have a pot of " + potCost + ", and each bet will cost " + betPrice + "."
             
-            ModalService.showConfirm(title: title, message: message, confirmText: "Yes", cancelText: "Cancel")
-                .then{ () -> Void in
+            ModalService.showConfirm(title: title, message: message, vc: self)
+                .then{ (x) -> Void in
                     //CHARGE ACCOUNT HERE
             
                     //Take game
                     MyFSRef.takeGame(gameId: self.game.id, potAmount: pc, betPrice: bp, userId: SessionManager.getUserId())
                         .then{ () -> Void in
                             _ = self.navigationController?.popViewController(animated: true)
-                            ModalService.showSuccess(title: "Success", message: "This game is yours.")
+                            ModalService.showAlert(title: "This game is yours.", message: "", vc: self)
                         }.catch{ error in
-                            ModalService.showError(title: "Error", message: error.localizedDescription)
+                            ModalService.showAlert(title: "Error", message: error.localizedDescription, vc: self)
                         }.always{}
                 }.always{}
         } else {
-            ModalService.showError(title: "Error", message: "Invalid money inputs.")
+            ModalService.showAlert(title: "Invalid Money Inputs", message: "Please fix.", vc: self)
         }
     }
 }

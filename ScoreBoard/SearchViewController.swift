@@ -40,9 +40,11 @@ class SearchViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        navigationController?.navigationBar.topItem?.titleView = nil
-        navigationController?.navigationBar.topItem?.title = "Search"
-        navigationController?.navigationBar.topItem?.setRightBarButtonItems([searchButton], animated: true)
+        ModalService.showAlert(title: "Search Page Not Working", message: "Still needs work.", vc: self)
+        
+        navigationController?.visibleViewController?.navigationItem.titleView = nil
+        navigationController?.visibleViewController?.navigationItem.title = "Search"
+        navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([searchButton], animated: true)
         navigationController?.hidesBarsOnSwipe = true
     }
     
@@ -153,26 +155,26 @@ extension SearchViewController : UISearchResultsUpdating {
 extension SearchViewController : UISearchBarDelegate {
     //Show search bar.
     @objc func showSearchBar(_ sender: UIBarButtonItem!) -> Void {
-        navigationController?.navigationBar.topItem?.setHidesBackButton(true, animated:false)
+        navigationController?.visibleViewController?.navigationItem.setHidesBackButton(true, animated:false)
         
         let searchBarContainer = SearchBarContainerView(customSearchBar: searchController.searchBar)
         searchBarContainer.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 44)
         
-        navigationController?.navigationBar.topItem?.titleView = searchBarContainer
+        navigationController?.visibleViewController?.navigationItem.titleView = searchBarContainer
         
         //Make active on show.
         searchController.isActive = true
         
-        navigationController?.navigationBar.topItem?.setLeftBarButtonItems([], animated: true)
-        navigationController?.navigationBar.topItem?.setRightBarButtonItems([], animated: true)
+        navigationController?.visibleViewController?.navigationItem.setLeftBarButtonItems([], animated: true)
+        navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([], animated: true)
     }
     
     func hideSearchBar() -> Void {
-        navigationController?.navigationBar.topItem?.setHidesBackButton(false, animated:false)
+        navigationController?.visibleViewController?.navigationItem.setHidesBackButton(false, animated:false)
         
-        navigationController?.navigationBar.topItem?.titleView = nil
+        navigationController?.visibleViewController?.navigationItem.titleView = nil
         
-        navigationController?.navigationBar.topItem?.setRightBarButtonItems([searchButton], animated: false)
+        navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([searchButton], animated: false)
         
         searchController.isActive = false
         

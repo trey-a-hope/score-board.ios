@@ -16,12 +16,8 @@ class AddGameViewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if(ConnectionManager.isConnectedToInternet()){
-            initUI()
-            prepareFABButton()
-        }else{
-            ModalService.showError(title: "Sorry", message: "No Internet")
-        }
+        initUI()
+        prepareFABButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -62,9 +58,9 @@ class AddGameViewController : UIViewController {
         
         MyFSRef.createGame(game: game)
             .then{ (id) -> Void in
-                ModalService.showInfo(title: "ID", message: id)
+                ModalService.showAlert(title: "Game Created", message: "ID: " + id, vc: self)
             }.catch{ (err) in
-                ModalService.showError(title: "Sorry", message: err.localizedDescription)
+                ModalService.showAlert(title: "Error", message: err.localizedDescription, vc: self)
             }.always{}
     }
 }

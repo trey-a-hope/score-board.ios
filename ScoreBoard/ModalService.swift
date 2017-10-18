@@ -6,78 +6,44 @@ import UIKit
 //https://github.com/vikmeup/SCLAlertView-Swift
 
 class ModalService  {
-    static func showError(title: String, message: String) -> Void {
-        //SCLAlertView().showError(title, subTitle: message)
+    
+    //Displays simple message to user.
+    class func showAlert(title: String, message: String, vc: UIViewController) -> Void {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        vc.present(alert, animated: true, completion: nil)
     }
     
-    static func showSuccess(title: String, message: String) -> Void {
-        //SCLAlertView().showSuccess(title, subTitle: message)
-    }
-    
-    static func showWarning(title: String, message: String) -> Void {
-        //SCLAlertView().showWarning(title, subTitle: message)
-    }
-    
-    static func showEdit(title: String, message: String) -> Void {
-        //SCLAlertView().showEdit(title, subTitle: message)
-    }
-    
-    static func showInfo(title: String, message: String) -> Void {
-        //SCLAlertView().showInfo(title, subTitle: message)
-    }
-    
-    static func showConfirm(title: String, message: String, confirmText: String, cancelText: String) -> Promise<Void> {
+    //Recieves OK/Cancel response from user and is sent back in a promise.
+    class func showConfirm(title: String, message: String, vc: UIViewController) -> Promise<Void> {
         return Promise{ fulfill, reject in
-            
-//            let appearance = SCLAlertView.SCLAppearance(
-//                showCloseButton: false
-//            )
-//
-//            let alertView: SCLAlertView = SCLAlertView(appearance: appearance)
-//
-//            alertView.addButton(confirmText){
-//                fulfill()
-//            }
-//
-//            alertView.addButton(cancelText){
-//                reject(MyError.SomeError())
-//            }
-//
-//            alertView.showWarning(title, subTitle: message)
-
+            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: {(action: UIAlertAction!) in
+                reject(MyError.SomeError())
+            }))
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: {(action: UIAlertAction!) in
+                fulfill(())
+            }))
+            vc.present(alert, animated: true, completion: nil)
         }
     }
     
-    static func showResetEmail(title: String, message: String) -> Promise<String> {
+    //Prompt user with text field to reset their password.
+    class func showResetPassword(vc: UIViewController) -> Promise<String> {
         return Promise{ fulfill, reject in
-
-//            let appearance = SCLAlertView.SCLAppearance(
-//                showCloseButton: false
-//            )
-//
-//            let alertView: SCLAlertView = SCLAlertView(appearance: appearance)
-//
-//            let email: UITextField = alertView.addTextField("Email")
-//
-//            alertView.addButton("Confirm"){
-//                if(ValidityService.isValidEmail(email.text!)){
-//                    fulfill(email.text!)
-//                }else{
-//                    showError(title: "Error", message: "Invalid Email")
-//                    reject(MyError.SomeError())
-//                }
-//            }
-//
-//            alertView.addButton("Cancel"){
-//                reject(MyError.SomeError())
-//            }
-//
-//            alertView.showInfo(title, subTitle: message)
+            let alert = UIAlertController(title: "Reset Password?", message: "We will send an email with instructions on reseting your password.", preferredStyle: .alert)
+            alert.addTextField(configurationHandler: { (_ textField: UITextField) -> Void in
+                textField.placeholder = "Email"
+                textField.isSecureTextEntry = true
+            })
+            alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: {(action: UIAlertAction!) in
+                reject(MyError.SomeError())
+            }))
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: {(action: UIAlertAction!) in
+                fulfill((alert.textFields?[0].text)!)
+            }))
+            vc.present(alert, animated: true, completion: nil)
         }
-    }
-    
-    static func showNoInternetConnection() -> Void {
-        //showError(title: "Sorry", message: "No internet connection.")
     }
 }
 

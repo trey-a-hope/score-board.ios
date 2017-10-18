@@ -43,9 +43,9 @@ class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        navigationController?.navigationBar.topItem?.titleView = nil
-        navigationController?.navigationBar.topItem?.title = "Home"
-        navigationController?.navigationBar.topItem?.setRightBarButtonItems([], animated: true)
+        navigationController?.visibleViewController?.navigationItem.titleView = nil
+        navigationController?.visibleViewController?.navigationItem.title = "Home"
+        navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([], animated: true)
         navigationController?.isNavigationBarHidden = false
         navigationController?.hidesBarsOnSwipe = false
     }
@@ -134,6 +134,7 @@ extension HomeViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) -> Void {
         let profileViewController = storyBoard.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
+        
         var user: User!
         
         switch collectionView {
@@ -146,10 +147,11 @@ extension HomeViewController: UICollectionViewDataSource {
             default:break
         }
         
-        print(user.id)
-        
-        profileViewController.userId = user.id
-        self.navigationController!.pushViewController(profileViewController, animated: true)
+        //Check is this is the currently logged in user
+        if(user.id != SessionManager.getUserId()){
+            profileViewController.userId = user.id
+            self.navigationController!.pushViewController(profileViewController, animated: true)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

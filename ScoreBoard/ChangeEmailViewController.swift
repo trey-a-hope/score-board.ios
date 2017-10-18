@@ -35,7 +35,7 @@ class ChangeEmailViewController : UIViewController {
                 self.user = user
                 self.initUI()
             }.catch{ (error) in
-                ModalService.showError(title: "Sorry", message: error.localizedDescription)
+                ModalService.showAlert(title: "Error", message: error.localizedDescription, vc: self)
             }.always{
                 self.spinner.stopAnimating()
                 self.spinner.isHidden = true
@@ -53,23 +53,25 @@ class ChangeEmailViewController : UIViewController {
         let email: String = newEmail.text!
         if(ValidityService.isValidEmail(email)){
             if(email == currentEmail.text){
-                ModalService.showError(title: "Sorry", message: "Email must be different from current email.")
+                ModalService.showAlert(title: "Sorry", message: "Email must be different from current email.", vc: self)
             }else{
                 let currentUser = Auth.auth().currentUser
                 //Update email user uses for auth purposes
                 currentUser?.updateEmail(to: email) { error in
                     if let error = error {
-                        ModalService.showError(title: "Sorry", message: error.localizedDescription)
+                        ModalService.showAlert(title: "Sorry", message: error.localizedDescription, vc: self)
                     } else {
                         //Update email in firestore
                         MyFSRef.updateUserEmail(userId: self.user.id, email: email)
                             .then{ () -> Void in
-                            }.always{ ModalService.showSuccess(title: "Success", message: "Email updated.") }
+                            }.always{
+                                ModalService.showAlert(title: "Email Updated", message: "", vc: self)
+                            }
                     }
                 }
             }
         }else{
-            ModalService.showError(title: "Sorry", message: "Invalid email.")
+            ModalService.showAlert(title: "Sorry", message: "Invalid email.", vc: self)
         }
     }
 }

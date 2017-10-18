@@ -17,12 +17,8 @@ class EditProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if(ConnectionManager.isConnectedToInternet()){
-            prepareFABButton()
-            getUser()
-        }else{
-            ModalService.showError(title: "Sorry", message: "No Internet")
-        }
+        prepareFABButton()
+        getUser()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -42,7 +38,7 @@ class EditProfileViewController: UIViewController {
     
     @objc func save() -> Void {
         if(!formValid()){
-            ModalService.showError(title: "Error", message: "Form not valid")
+            ModalService.showAlert(title: "Form Invalid", message: "Please fix.", vc: self)
         }else{
             let json = JSONSerializer.toJson(user)
             print(json)
@@ -54,9 +50,8 @@ class EditProfileViewController: UIViewController {
             user.gender = gender.selectedSegmentIndex == 0 ? "F" : "M"
 
             MyFSRef.updateUser(user: user)
-                .then{ () -> Void in
-                    //Display success message.
-                    ModalService.showSuccess(title: "Success", message: "Profile updated.")
+                .then{ (x) -> Void in
+                    ModalService.showAlert(title: "Profile Updated", message: "", vc: self)
                 }.always{}
         }
     }

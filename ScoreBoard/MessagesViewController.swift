@@ -8,11 +8,8 @@ class MessagesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if(ConnectionManager.isConnectedToInternet()){
-            initUI()
-        }else{
-            ModalService.showError(title: "Error", message: "No internet connection.")
-        }
+        
+        initUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -35,7 +32,7 @@ class MessagesViewController: UIViewController {
     }
     
     @objc func addMessage() -> Void {
-        ModalService.showWarning(title: "Add Message", message: "Coming Soon")
+        ModalService.showAlert(title: "Add Message", message: "Coming Soon...", vc: self)
     }
 }
 

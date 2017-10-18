@@ -15,6 +15,7 @@
 		0C1C4A841F8FC95F00060BA4 /* EvaluateGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1C4A831F8FC95F00060BA4 /* EvaluateGameViewController.swift */; };
 		0C3ABE8C1F4F28D800AE5CF9 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ABE8B1F4F28D800AE5CF9 /* SearchViewController.swift */; };
 		0C3D90791F852E33009169FB /* TakeGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D90781F852E33009169FB /* TakeGameViewController.swift */; };
+		0C41E2051F97FA9600199860 /* UpdateGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C41E2041F97FA9600199860 /* UpdateGameViewController.swift */; };
 		0C43D0551F4E33C100C285A5 /* GameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C43D0531F4E33C100C285A5 /* GameTableViewCell.swift */; };
 		0C43D0561F4E33C100C285A5 /* GameTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C43D0541F4E33C100C285A5 /* GameTableViewCell.xib */; };
 		0C4D096E1F6788C8004DBD51 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C4D096C1F6788C8004DBD51 /* UserNotifications.framework */; };
@@ -100,6 +101,7 @@
 		0C1C4A831F8FC95F00060BA4 /* EvaluateGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvaluateGameViewController.swift; sourceTree = "<group>"; };
 		0C3ABE8B1F4F28D800AE5CF9 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		0C3D90781F852E33009169FB /* TakeGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TakeGameViewController.swift; sourceTree = "<group>"; };
+		0C41E2041F97FA9600199860 /* UpdateGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateGameViewController.swift; sourceTree = "<group>"; };
 		0C43D0531F4E33C100C285A5 /* GameTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameTableViewCell.swift; sourceTree = "<group>"; };
 		0C43D0541F4E33C100C285A5 /* GameTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameTableViewCell.xib; sourceTree = "<group>"; };
 		0C4D096C1F6788C8004DBD51 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
@@ -364,6 +366,7 @@
 				0CC5843D1F844BE8009E72DB /* AddGameViewController.swift */,
 				0CCF23B21F87C80A008E0854 /* AdminTableViewController.swift */,
 				0C1C4A831F8FC95F00060BA4 /* EvaluateGameViewController.swift */,
+				0C41E2041F97FA9600199860 /* UpdateGameViewController.swift */,
 			);
 			name = Admin;
 			sourceTree = "<group>";
@@ -872,6 +875,7 @@
 				0C9F18AA1F81C6C7009543A6 /* AboutViewController.swift in Sources */,
 				0CD969FF1F6501F700B183C8 /* ImageViewController.swift in Sources */,
 				0CC5843E1F844BE8009E72DB /* AddGameViewController.swift in Sources */,
+				0C41E2051F97FA9600199860 /* UpdateGameViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
