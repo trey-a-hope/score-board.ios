@@ -39,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         UIApplication.shared.statusBarView?.backgroundColor = Constants.primaryColorDark
         
         //Log user out of Auth if id and role not set
-        if(userDefaults.object(forKey: "id") == nil){
+        if userDefaults.object(forKey: "id") == nil {
             SessionManager.signOut()
         }
         

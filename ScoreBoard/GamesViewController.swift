@@ -124,7 +124,7 @@ extension GamesViewController : UITableViewDataSource, UITableViewDelegate {
                 cell.betCount.text = "No bets"
             }
             
-            switch(game.activeCode){
+            switch(game.status){
                 case 0:
                     cell.statusBar.backgroundColor = GMColor.yellow500Color()
                     break

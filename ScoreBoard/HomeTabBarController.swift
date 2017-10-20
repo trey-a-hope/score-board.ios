@@ -37,7 +37,7 @@ class HomeTabBarController : UITabBarController {
         edgesForExtendedLayout = []
     
         //Keep FCM up to date.
-        if(SessionManager.isLoggedIn()){
+        if SessionManager.isLoggedIn() {
             MyFSRef.updateUserFCMToken(userId: SessionManager.getUserId()).always {}
         }
         

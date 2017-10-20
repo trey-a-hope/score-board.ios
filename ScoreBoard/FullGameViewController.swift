@@ -106,7 +106,7 @@ class FullGameViewController: UIViewController {
                         self.awayTeam = NBATeamService.instance.teams.filter({ $0.id == self.game.awayTeamId }).first!
                         
                         //Set a user to each bet
-                        if(self.bets.isEmpty){
+                        if self.bets.isEmpty {
                             self.setUI()
                         }else{
                             var betCount: Int = 0
@@ -116,7 +116,7 @@ class FullGameViewController: UIViewController {
                                         bet.user = user
                                     }.always{
                                         betCount += 1
-                                        if(betCount == self.bets.count){
+                                        if betCount == self.bets.count {
                                             self.setUI()
                                         }
                                 }
@@ -161,35 +161,35 @@ class FullGameViewController: UIViewController {
         startDateTime.text = ConversionService.convertDateToDateAtTimeString(date: d)
         switch(Date().getTimeZoneOffset()){
             case 240:
-                if(ConversionService.isDaylightSavingTime()){
+                if ConversionService.isDaylightSavingTime() {
                     startDateTime.text = startDateTime.text! + " EDT"
                 }else{
                     
                 }
                 break
             case 300:
-                if(ConversionService.isDaylightSavingTime()){
+                if ConversionService.isDaylightSavingTime() {
                     startDateTime.text = startDateTime.text! + " CDT"
                 }else{
                     startDateTime.text = startDateTime.text! + " EST"
                 }
                 break
             case 360:
-                if(ConversionService.isDaylightSavingTime()){
+                if ConversionService.isDaylightSavingTime() {
                     startDateTime.text = startDateTime.text! + " MDT"
                 }else{
                     startDateTime.text = startDateTime.text! + " CST"
                 }
                 break
             case 420:
-                if(ConversionService.isDaylightSavingTime()){
+                if ConversionService.isDaylightSavingTime() {
                     startDateTime.text = startDateTime.text! + " PDT"
                 }else{
                     startDateTime.text = startDateTime.text! + " MST"
                 }
                 break
             case 480:
-                if(ConversionService.isDaylightSavingTime()){
+                if ConversionService.isDaylightSavingTime(){
                     
                 }else{
                     startDateTime.text = startDateTime.text! + " PST"
@@ -204,12 +204,12 @@ class FullGameViewController: UIViewController {
         //Track number of bet the user has
         var numberOfBetUserHas: Int = 0
         for bet in bets{
-            if(bet.userId == SessionManager.getUserId()){
+            if bet.userId == SessionManager.getUserId() {
                 numberOfBetUserHas += 1
             }
             
             //Bring the winning bet to the front of the list.
-            if(isWinningBet(bet: bet)){
+            if isWinningBet(bet: bet) {
                 //Remove bet from list.
                 bets = bets.filter { $0.id != bet.id }
                 //Then place in front.
@@ -230,7 +230,7 @@ class FullGameViewController: UIViewController {
         potAmount.text = String(format: "$%.02f", game.potAmount)
         
         //Set status of game, (Pre, Active, or Post)
-        switch(game.activeCode){
+        switch(game.status){
             case 0:
                 status.text = "Pre"
                 break
@@ -249,7 +249,7 @@ class FullGameViewController: UIViewController {
     
     @objc func goToGameOwnerProfile() -> Void {
         //Check is this is the currently logged in user
-        if(game.userId != SessionManager.getUserId()){
+        if game.userId != SessionManager.getUserId() {
             let profileViewController = storyBoard.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
             profileViewController.userId = game.userId
             navigationController!.pushViewController(profileViewController, animated: true)
@@ -268,19 +268,19 @@ class FullGameViewController: UIViewController {
     }
     
     @IBAction func submitAction(_ sender: UIButton) {
-        if(game.userId == SessionManager.getUserId()){
+        if game.userId == SessionManager.getUserId() {
             ModalService.showAlert(title: "Sorry", message: "You can only place bets on games you do not own.", vc: self)
         }
-        else if(game.activeCode == 2){
+        else if game.status == 2 {
             ModalService.showAlert(title: "Game Has Ended", message: "You can only bet on 'Pre' games.", vc: self)
-        }else if(game.activeCode == 1){
+        }else if game.status == 1 {
             ModalService.showAlert(title: "Game Is In Progress", message: "You can only bet on 'Pre' games.", vc: self)
         }else{
             let newBetHomeDigit: Int = Int(self.newBetHomeDigitStepper.value)
             let newBetAwayDigit: Int = Int(self.newBetAwayDigitStepper.value)
             
             //Validate bet is not already taken.
-            if(betTaken(homeDigit: newBetHomeDigit, awayDigit: newBetAwayDigit)){
+            if betTaken(homeDigit: newBetHomeDigit, awayDigit: newBetAwayDigit) {
                 ModalService.showAlert(title: "Bed Taken", message: "Choose another one.", vc: self)
             }else{
                 //Prompt user's bet before submitting.
@@ -311,11 +311,11 @@ class FullGameViewController: UIViewController {
     }
     
     @IBAction func homeDigitStepperAction(sender: UIStepper) {
-        if(game.userId == SessionManager.getUserId()){
+        if game.userId == SessionManager.getUserId() {
             ModalService.showAlert(title: "Sorry", message: "You can only place bets on games you do not own.", vc: self)
-        }else if(game.activeCode == 2){
+        }else if game.status == 2 {
             ModalService.showAlert(title: "Game Has Ended", message: "You can only bet on 'Pre' games.", vc: self)
-        }else if(game.activeCode == 1){
+        }else if game.status == 1 {
             ModalService.showAlert(title: "Game Is In Progress", message: "You can only bet on 'Pre' games.", vc: self)
         }else{
             newBetHomeDigit.text = "\(Int(newBetHomeDigitStepper.value))"
@@ -323,11 +323,11 @@ class FullGameViewController: UIViewController {
     }
     
     @IBAction func awayDigitStepperAction(sender: UIStepper) {
-        if(game.userId == SessionManager.getUserId()){
+        if game.userId == SessionManager.getUserId() {
             ModalService.showAlert(title: "Sorry", message: "You can only place bets on games you do not own.", vc: self)
-        }else if(game.activeCode == 2){
+        }else if game.status == 2 {
             ModalService.showAlert(title: "Game Has Ended", message: "You can only bet on 'Pre' games.", vc: self)
-        }else if(game.activeCode == 1){
+        }else if game.status == 1 {
             ModalService.showAlert(title: "Game Is In Progress", message: "You can only bet on 'Pre' games.", vc: self)
         }else{
             newBetAwayDigit.text = "\(Int(newBetAwayDigitStepper.value))"
@@ -337,7 +337,7 @@ class FullGameViewController: UIViewController {
     //Return true if the bet is already occupied
     func betTaken(homeDigit: Int, awayDigit: Int) -> Bool {
         for bet in bets {
-            if(bet.homeDigit == homeDigit && bet.awayDigit == awayDigit){
+            if bet.homeDigit == homeDigit && bet.awayDigit == awayDigit {
                 return true
             }
         }
@@ -346,7 +346,7 @@ class FullGameViewController: UIViewController {
     
     //Determines if this bet reflects the current score
     func isWinningBet(bet: Bet) -> Bool {
-        if(Int(homeTeamPostDigit.text!)! == bet.homeDigit && Int(awayTeamPostDigit.text!)! == bet.awayDigit){
+        if Int(homeTeamPostDigit.text!)! == bet.homeDigit && Int(awayTeamPostDigit.text!)! == bet.awayDigit {
             return true
         }
         return false
@@ -399,7 +399,7 @@ extension FullGameViewController: UICollectionViewDataSource {
         let bet: Bet = bets[indexPath.row]
         
         //Check is this is the currently logged in user
-        if(bet.userId != SessionManager.getUserId()){
+        if bet.userId != SessionManager.getUserId() {
             let profileViewController = storyBoard.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
             profileViewController.userId = bet.userId
             navigationController!.pushViewController(profileViewController, animated: true)
@@ -413,7 +413,7 @@ extension FullGameViewController: UICollectionViewDataSource {
             let selectedBet: Bet = bets[indexPath.row]
             
             //If the current score is this bet, add yellow tint to background
-            if(isWinningBet(bet: selectedBet)){
+            if isWinningBet(bet: selectedBet) {
                 cell.view.backgroundColor = GMColor.amber100Color()
             }else{
                 cell.view.backgroundColor = GMColor.grey100Color()

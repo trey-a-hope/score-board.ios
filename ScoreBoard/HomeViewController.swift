@@ -148,7 +148,7 @@ extension HomeViewController: UICollectionViewDataSource {
         }
         
         //Check is this is the currently logged in user
-        if(user.id != SessionManager.getUserId()){
+        if user.id != SessionManager.getUserId() {
             profileViewController.userId = user.id
             self.navigationController!.pushViewController(profileViewController, animated: true)
         }

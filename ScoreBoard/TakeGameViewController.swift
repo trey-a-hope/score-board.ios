@@ -54,12 +54,12 @@ class TakeGameViewController: UIViewController {
     }
     
     @objc func textFieldChanged(_ textField: UITextField) {
-        if(textField == potAmount){
+        if textField == potAmount {
             if let amountString = textField.text?.currencyInputFormatting() {
                 textField.text = amountString
             }
         }
-        else if(textField == pricePerBet){
+        else if textField == pricePerBet {
             if let amountString = textField.text?.currencyInputFormatting() {
                 textField.text = amountString
             }

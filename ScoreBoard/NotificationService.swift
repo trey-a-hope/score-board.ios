@@ -36,7 +36,7 @@ class NotificationService {
                 //.validate()
                 .responseString{ response in
                     
-                    if(response.error != nil) {
+                    if response.error != nil  {
                         reject(response.error!)
                     }
                     

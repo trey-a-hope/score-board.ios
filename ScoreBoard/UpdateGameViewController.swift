@@ -9,6 +9,7 @@ class UpdateGameViewController : UIViewController {
     @IBOutlet weak var awayStepper: UIStepper!
     @IBOutlet weak var status: UISegmentedControl!
     
+    var selectedGame: Game?
     var games: [Game] = [Game]()
     
     lazy var refreshControl: UIRefreshControl = {
@@ -49,10 +50,16 @@ class UpdateGameViewController : UIViewController {
     }
     
     @IBAction func save() -> Void {
-        print(status.selectedSegmentIndex)
-        print(Int(homeStepper.value))
-        print(Int(awayStepper.value))
-        //TODO: SAVE VALUES
+        if let g = selectedGame {
+            MyFSRef.updateGame(gameId: g.id, status: status.selectedSegmentIndex, homeTeamScore: Int(homeStepper.value), awayTeamScore: Int(awayStepper.value))
+                .then{ () -> Void in
+                    ModalService.showAlert(title: "Game Updated", message: "", vc: self)
+                }.catch{ error in
+                    ModalService.showAlert(title: "Error", message: error.localizedDescription, vc: self)
+                }.always{}
+        }else{
+            ModalService.showAlert(title: "Pick A Game First", message: "", vc: self)
+        }
     }
     
     @IBAction func homeDigitStepperAction(sender: UIStepper) {
@@ -75,16 +82,13 @@ extension UpdateGameViewController : UITableViewDataSource, UITableViewDelegate 
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let game: Game = games[indexPath.row]
+        selectedGame = games[indexPath.row]
         
-//        let homeTeam: NBATeam = NBATeamService.instance.teams.filter({ $0.id == game.homeTeamId }).first!
-//        let awayTeam: NBATeam = NBATeamService.instance.teams.filter({ $0.id == game.awayTeamId }).first!
-        
-        status.selectedSegmentIndex = game.activeCode
-        homeScore.text = String(describing: game.homeTeamScore!)
-        homeStepper.value = Double(game.homeTeamScore!)
-        awayScore.text = String(describing: game.awayTeamScore!)
-        awayStepper.value = Double(game.awayTeamScore!)
+        status.selectedSegmentIndex = selectedGame!.status
+        homeScore.text = String(describing: selectedGame!.homeTeamScore!)
+        homeStepper.value = Double(selectedGame!.homeTeamScore!)
+        awayScore.text = String(describing: selectedGame!.awayTeamScore!)
+        awayStepper.value = Double(selectedGame!.awayTeamScore!)
         
     }
     
@@ -99,7 +103,7 @@ extension UpdateGameViewController : UITableViewDataSource, UITableViewDelegate 
             cell.potAmount.text = "(Pot Amount Will Go Here)"
             cell.betCount.text = "(Bet Count Will Go Here)"
             
-            switch(game.activeCode){
+            switch(game.status){
                 case 0:
                     cell.statusBar.backgroundColor = GMColor.yellow500Color()
                     break

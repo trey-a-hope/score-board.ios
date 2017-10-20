@@ -8,7 +8,7 @@ class Game : FirebaseObject {
     var homeTeamId: Int!
     var startDateTime: Date!
     var startTimeZoneOffSet: Int!
-    var activeCode: Int!
+    var status: Int!
     var potAmount: Double!
     var betPrice: Double!
 }

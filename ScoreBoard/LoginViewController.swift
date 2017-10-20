@@ -13,7 +13,7 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if(SessionManager.isLoggedIn()){
+        if SessionManager.isLoggedIn() {
             goToHome()
         }
         

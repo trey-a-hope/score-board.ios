@@ -37,7 +37,7 @@ class EditProfileViewController: UIViewController {
     }
     
     @objc func save() -> Void {
-        if(!formValid()){
+        if !formValid() {
             ModalService.showAlert(title: "Form Invalid", message: "Please fix.", vc: self)
         }else{
             let json = JSONSerializer.toJson(user)
@@ -57,16 +57,16 @@ class EditProfileViewController: UIViewController {
     }
     
     func formValid() -> Bool {
-        if(userName.text == ""){
+        if userName.text == "" {
             return false
         }
-        if(phoneNumber.text?.characters.count != 10){
+        if phoneNumber.text?.characters.count != 10 {
             return false
         }
-        if(city.text == ""){
+        if city.text == "" {
             return false
         }
-        if(state.text == ""){
+        if state.text == "" {
             return false
         }
         return true
@@ -114,7 +114,7 @@ class EditProfileViewController: UIViewController {
         
         //Set gender
         if let _ = user.gender {
-            if(user.gender == "F"){
+            if user.gender == "F" {
                 gender.selectedSegmentIndex = 0
             }else{
                 gender.selectedSegmentIndex = 1

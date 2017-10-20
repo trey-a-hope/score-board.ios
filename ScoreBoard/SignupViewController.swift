@@ -29,7 +29,7 @@ class SignupViewController: UIViewController {
         let password: String = passwordText.text!
         let username: String = usernameText.text!
         
-        if(!ValidityService.isValidEmail(email)){
+        if !ValidityService.isValidEmail(email) {
             ModalService.showAlert(title: "Invalid Email", message: "Please fix", vc: self)
         }
         else{

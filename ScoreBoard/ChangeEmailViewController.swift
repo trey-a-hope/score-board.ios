@@ -51,8 +51,8 @@ class ChangeEmailViewController : UIViewController {
     
     @objc func updateEmail() -> Void {
         let email: String = newEmail.text!
-        if(ValidityService.isValidEmail(email)){
-            if(email == currentEmail.text){
+        if ValidityService.isValidEmail(email) {
+            if email == currentEmail.text {
                 ModalService.showAlert(title: "Sorry", message: "Email must be different from current email.", vc: self)
             }else{
                 let currentUser = Auth.auth().currentUser

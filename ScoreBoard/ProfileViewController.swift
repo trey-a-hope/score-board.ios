@@ -174,7 +174,7 @@ class ProfileViewController: UIViewController {
         betsWonLabel.text = String(describing: user!.betsWon!)
         
         //My bets label, gender specific
-        if(userId == SessionManager.getUserId()){
+        if userId == SessionManager.getUserId() {
             myBetsLabel.text = "My bets - "
         }else{
             if let _ = user!.gender {
@@ -186,7 +186,7 @@ class ProfileViewController: UIViewController {
         myBetsLabel.text = myBetsLabel.text! + String(describing: myBets.count)
         
         //My games label, gender specific
-        if(userId == SessionManager.getUserId()){
+        if userId == SessionManager.getUserId() {
             myGamesLabel.text = "My games - "
         }else{
             if let _ = user!.gender {
@@ -210,7 +210,7 @@ class ProfileViewController: UIViewController {
     
     @objc func openMessages() -> Void {
         //If current user, navigate to list of message.
-        if(userId == SessionManager.getUserId()){
+        if userId == SessionManager.getUserId() {
             let messagesViewController = storyBoard.instantiateViewController(withIdentifier: "MessagesViewController") as! MessagesViewController
             navigationController?.pushViewController(messagesViewController, animated: true)
         }
@@ -270,10 +270,10 @@ extension ProfileViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if(collectionView == myBetsCollectionView){
+        if collectionView == myBetsCollectionView {
             return myBets.count
         }
-        else if(collectionView == myGamesCollectionView){
+        else if collectionView == myGamesCollectionView {
             return myGames.count
         }
         return 0
@@ -283,11 +283,11 @@ extension ProfileViewController: UICollectionViewDataSource {
         
         var gameId: String!
         
-        if(collectionView == myBetsCollectionView){
+        if collectionView == myBetsCollectionView {
             gameId = myBets[indexPath.row].gameId!
             
         }
-        else if(collectionView == myGamesCollectionView){
+        else if collectionView == myGamesCollectionView {
             gameId = myGames[indexPath.row].id!
         }
         
@@ -298,7 +298,7 @@ extension ProfileViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        if(collectionView == myBetsCollectionView){
+        if collectionView == myBetsCollectionView {
             if let betCell = collectionView.dequeueReusableCell(withReuseIdentifier: CellIdentifier, for: indexPath) as? BetCell{
                 
                 let bet: Bet = myBets[indexPath.row]
@@ -323,7 +323,7 @@ extension ProfileViewController: UICollectionViewDataSource {
             }
             fatalError("Unable to Dequeue Reusable Cell View")
         }
-        else if(collectionView == myGamesCollectionView){
+        else if collectionView == myGamesCollectionView {
             if let gameCell = collectionView.dequeueReusableCell(withReuseIdentifier: CellIdentifier, for: indexPath) as? GameCell{
                 
                 let game: Game = myGames[indexPath.row]

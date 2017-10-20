@@ -162,6 +162,23 @@ class MyFSRef {
         }
     }
     
+    //Update the score and active code
+    class func updateGame(gameId: String, status: Int, homeTeamScore: Int, awayTeamScore: Int) -> Promise<Void> {
+        return Promise{ fulfill, reject in
+            db.collection("Games").document(gameId).updateData([
+                "status"                : status,
+                "homeTeamScore"         : homeTeamScore,
+                "awayTeamScore"         : awayTeamScore
+            ]){ err in
+                if let err = err {
+                    reject(err)
+                } else {
+                    fulfill(())
+                }
+            }
+        }
+    }
+    
     //CREATE A NEW GAME
     class func createGame(game: Game) -> Promise<String> {
         return Promise{ fulfill, reject in
@@ -169,7 +186,7 @@ class MyFSRef {
             let now: Date = Date()
             
             let data: [String : Any] = [
-                "activeCode"            : 0,
+                "status"                : 0,
                 "homeTeamId"            : game.homeTeamId,
                 "homeTeamScore"         : 0,
                 "awayTeamId"            : game.awayTeamId,
@@ -477,7 +494,7 @@ extension MyFSRef {
         game.awayTeamScore = value["awayTeamScore"] as! Int
         game.startTimeZoneOffSet = value["startTimeZoneOffSet"] as! Int
         game.startDateTime = ConversionService.convertStringToDate(value["startDateTime"] as! String)
-        game.activeCode = value["activeCode"] as! Int
+        game.status = value["status"] as! Int
         game.potAmount = value["potAmount"] as? Double
         game.betPrice = value["betPrice"] as? Double
         
