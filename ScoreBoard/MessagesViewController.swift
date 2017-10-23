@@ -32,7 +32,7 @@ class MessagesViewController: UIViewController {
     }
     
     @objc func addMessage() -> Void {
-        ModalService.showAlert(title: "Add Message", message: "Coming Soon...", vc: self)
-    }
+        let searchUserViewController = storyBoard.instantiateViewController(withIdentifier: "SearchUserViewController") as! SearchUserViewController
+        navigationController?.pushViewController(searchUserViewController, animated: true)    }
 }
 

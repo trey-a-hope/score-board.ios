@@ -1,4 +1,5 @@
 import Firebase
+import FirebaseFirestore
 import FontAwesome_swift
 import Foundation
 import Material
@@ -127,10 +128,18 @@ class ProfileViewController: UIViewController {
             userId = SessionManager.getUserId()
         }
         
-        print(userId!)
+        ModalService.showAlert(title: userId!, message: "", vc: self)
+        
+        //Method does not get hit everytime, even though load data does...
+        Firestore.firestore().collection("Users").document(userId!).getDocument(completion: { (document, error) in
+            if let error = error { ModalService.showAlert(title: "Error", message: error.localizedDescription, vc: self)}
+            let u: User = MyFSRef.extractUserData(userSnapshot: document!)
+            print(u.userName)
+        })
         
         when(fulfilled: MyFSRef.getUserById(id: userId!), MyFSRef.getGamesForUser(userId: userId!), MyFSRef.getBetsForUser(userId: userId!))
             .then{ (result) -> Void in
+                
                 //Set user
                 self.user = result.0
                 //Set games

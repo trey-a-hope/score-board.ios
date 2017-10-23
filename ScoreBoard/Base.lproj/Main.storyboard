@@ -2001,7 +2001,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="wcM-79-Tpg" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="TDY-Q8-dp9">
-                        <rect key="frame" x="0.0" y="20" width="375" height="48"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -2615,7 +2615,40 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UT3-i2-UnF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="953" y="2689"/>
+            <point key="canvasLocation" x="953" y="2687"/>
+        </scene>
+        <!--Search User View Controller-->
+        <scene sceneID="Te0-DC-NGn">
+            <objects>
+                <viewController storyboardIdentifier="SearchUserViewController" id="YVy-t0-yeo" customClass="SearchUserViewController" customModule="ScoreBoard" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="27l-Rr-at0"/>
+                        <viewControllerLayoutGuide type="bottom" id="sfW-bW-WTk"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="062-uC-u5z">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="021-pd-eSW">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="sfW-bW-WTk" firstAttribute="top" secondItem="021-pd-eSW" secondAttribute="bottom" id="3lT-WN-7ir"/>
+                            <constraint firstItem="021-pd-eSW" firstAttribute="leading" secondItem="062-uC-u5z" secondAttribute="leading" id="JiO-0O-k0A"/>
+                            <constraint firstItem="021-pd-eSW" firstAttribute="top" secondItem="062-uC-u5z" secondAttribute="top" id="oJQ-Kg-3aE"/>
+                            <constraint firstAttribute="trailing" secondItem="021-pd-eSW" secondAttribute="trailing" id="scb-yD-YZb"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="021-pd-eSW" id="KsA-lT-Uc5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rfU-WE-8sQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1701.5999999999999" y="2686.5067466266869"/>
         </scene>
         <!--Edit Profile-->
         <scene sceneID="nR4-32-rZ8">
@@ -2704,7 +2737,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="coi-bl-63M" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1701.5999999999999" y="2687.4062968515746"/>
+            <point key="canvasLocation" x="2380" y="2688"/>
         </scene>
     </scenes>
     <resources>
