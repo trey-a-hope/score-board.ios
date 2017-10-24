@@ -128,15 +128,7 @@ class ProfileViewController: UIViewController {
             userId = SessionManager.getUserId()
         }
         
-        ModalService.showAlert(title: userId!, message: "", vc: self)
-        
         //Method does not get hit everytime, even though load data does...
-        Firestore.firestore().collection("Users").document(userId!).getDocument(completion: { (document, error) in
-            if let error = error { ModalService.showAlert(title: "Error", message: error.localizedDescription, vc: self)}
-            let u: User = MyFSRef.extractUserData(userSnapshot: document!)
-            print(u.userName)
-        })
-        
         when(fulfilled: MyFSRef.getUserById(id: userId!), MyFSRef.getGamesForUser(userId: userId!), MyFSRef.getBetsForUser(userId: userId!))
             .then{ (result) -> Void in
                 
@@ -154,8 +146,7 @@ class ProfileViewController: UIViewController {
                 self.setUI()
             }.catch{ (error) in
                 print(error.localizedDescription)
-            }.always{
-            }
+            }.always{}
     }
     
     func setUI() -> Void {
@@ -223,7 +214,7 @@ class ProfileViewController: UIViewController {
             let messagesViewController = storyBoard.instantiateViewController(withIdentifier: "MessagesViewController") as! MessagesViewController
             navigationController?.pushViewController(messagesViewController, animated: true)
         }
-            //Otherwise, open message view directly to message this user.
+        //Otherwise, open message view directly to message this user.
         else{
             ModalService.showAlert(title: "Message " + (self.user?.userName)!, message: "Coming soon...", vc: self)
         }

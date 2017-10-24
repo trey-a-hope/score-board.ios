@@ -94,7 +94,7 @@ extension SearchViewController : UISearchResultsUpdating {
             users.removeAll()
             
             //Fetch games, users, and teams.
-            when(fulfilled: MyFSRef.getGames(), MyFSRef.getUsersFromSearch(category: "userName", search: searchText, numberOfUsers: 25))
+            when(fulfilled: MyFSRef.getAllGames(), MyFSRef.getUsersFromSearch(category: "userName", search: searchText, numberOfUsers: 25))
                 .then{ (result) -> Void in
                     //Set games
                     for game in result.0 {

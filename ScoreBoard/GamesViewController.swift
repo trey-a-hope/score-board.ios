@@ -47,7 +47,7 @@ class GamesViewController: UIViewController {
     }
     
     @objc func getGames() -> Void {
-        MyFSRef.getGames()
+        MyFSRef.getAllGames()
             .then{ (games) -> Void in
                 self.allGames = games
                 self.sectionGames()

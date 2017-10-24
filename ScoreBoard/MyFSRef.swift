@@ -116,10 +116,25 @@ class MyFSRef {
     }
     
     //RETURNS ALL GAMES
-    class func getGames()-> Promise<[Game]> {
+    class func getAllGames() -> Promise<[Game]> {
         var games: [Game] = [Game]()
         return Promise{ fulfill, reject in
             db.collection("Games").getDocuments(completion: { (collection, err) in
+                if let err = err { reject(err) }
+                
+                for document in (collection?.documents)! {
+                    games.append(extractGameData(gameSnapshot: document))
+                }
+                
+                fulfill(games)
+            })
+        }
+    }
+    
+    class func getGamesByStatus(status: Int) -> Promise<[Game]> {
+        var games: [Game] = [Game]()
+        return Promise{ fulfill, reject in
+            db.collection("Games").whereField("status", isEqualTo: status).getDocuments(completion: { (collection, err) in
                 if let err = err { reject(err) }
                 
                 for document in (collection?.documents)! {
@@ -368,15 +383,17 @@ class MyFSRef {
     //UPDATES THE CURRENT USER'S FCM TOKEN
     class func updateUserFCMToken(userId: String) -> Promise<Void> {
         return Promise { fulfill, reject in
-            let fcmToken = Messaging.messaging().fcmToken!
-            
-            db.collection("Users").document(userId).updateData([
-                "fcmToken": fcmToken
-            ]){error in
-                if let error = error {
-                    reject(error)
+            if let fcmToken = Messaging.messaging().fcmToken {
+                db.collection("Users").document(userId).updateData([
+                    "fcmToken": fcmToken
+                ]){error in
+                    if let error = error {
+                        reject(error)
+                    }
+                    fulfill(())
                 }
-                fulfill(())
+            }else{
+                reject(MyError.SomeError())
             }
         }
     }

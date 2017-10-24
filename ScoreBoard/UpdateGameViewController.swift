@@ -40,7 +40,7 @@ class UpdateGameViewController : UIViewController {
     }
     
     @objc func getGames() -> Void {
-        MyFSRef.getGames()
+        MyFSRef.getAllGames()
             .then{ (games) -> Void in
                 self.games = games
                 self.tableView.reloadData()
