@@ -86,6 +86,8 @@ class FullGameViewController: UIViewController {
         
         //Add buttons to nav bar
         navigationItem.setRightBarButtonItems([shareButton], animated: false)
+        
+        scrollView.refreshControl = refreshControl
     }
     
     @objc func getGame() -> Void {
@@ -122,9 +124,9 @@ class FullGameViewController: UIViewController {
                                 }
                             }
                         }
-                    }.always{}
-                
-
+                    }.always{
+                        self.scrollView.refreshControl?.endRefreshing()
+                    }
             }.always{}
     }
     

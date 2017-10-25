@@ -7,8 +7,6 @@ import PromiseKit
 import Kingfisher
 import UIKit
 
-//NOTE: Promises only evaluate once; after they're resolved, you cannot call them again. That is why the .then is only called once when the view controller loads, not on every appearance of the view controller.
-
 class ProfileViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var profileImage: UIImageView!
@@ -23,17 +21,17 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var myGamesCollectionView: UICollectionView!
     
     //Navbar buttons
-    var messagesButton: UIBarButtonItem!
-    var editProfileButton: UIBarButtonItem!
-    var adminButton: UIBarButtonItem!
+    private var messagesButton: UIBarButtonItem!
+    private var editProfileButton: UIBarButtonItem!
+    private var adminButton: UIBarButtonItem!
 
-    let imagePicker = UIImagePickerController()
-    let BetCellWidth: CGFloat = CGFloat(175)
-    let CellIdentifier: String = "Cell"
-    var userId: String?
-    var user: User?
-    var myBets: [Bet] = [Bet]()
-    var myGames: [Game] = [Game]()
+    public var userId: String?
+    private let imagePicker = UIImagePickerController()
+    private let BetCellWidth: CGFloat = CGFloat(175)
+    private let CellIdentifier: String = "Cell"
+    private var user: User?
+    private var myBets: [Bet] = [Bet]()
+    private var myGames: [Game] = [Game]()
         
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
@@ -45,6 +43,7 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         
         initUI()
+        loadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -54,14 +53,14 @@ class ProfileViewController: UIViewController {
         navigationController?.isNavigationBarHidden = false
         navigationController?.hidesBarsOnSwipe = false
         
-        loadData()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        //Destory userId
-        userId = nil
+        //If viewing another person's profile, user their userId
+        if userId != nil {
+            navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([messagesButton], animated: true)
+        }
+        //Otherwise, use yours
+        else{
+            navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([messagesButton, editProfileButton, adminButton], animated: true)
+        }
     }
 
     func initUI() -> Void {
@@ -69,7 +68,7 @@ class ProfileViewController: UIViewController {
         imagePicker.delegate = self
         
         //Add refresh control.
-        scrollView.addSubview(self.refreshControl)
+        scrollView.refreshControl = refreshControl
         
         //Configure my bets collection view
         myBetsCollectionView.dataSource = self
@@ -118,19 +117,10 @@ class ProfileViewController: UIViewController {
     }
     
     @objc func loadData() -> Void {
-        //If viewing another person's profile, user their userId
-        if userId != nil {
-            navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([messagesButton], animated: true)
-        }
-        //Otherwise, use yours
-        else{
-            navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([messagesButton, editProfileButton, adminButton], animated: true)
-            userId = SessionManager.getUserId()
-        }
+        let temp: String = userId == nil ? SessionManager.getUserId() : userId!
         
-        //Method does not get hit everytime, even though load data does...
-        when(fulfilled: MyFSRef.getUserById(id: userId!), MyFSRef.getGamesForUser(userId: userId!), MyFSRef.getBetsForUser(userId: userId!))
-            .then{ (result) -> Void in
+        when(fulfilled: MyFSRef.getUserById(id: temp), MyFSRef.getGamesForUser(userId: temp), MyFSRef.getBetsForUser(userId: temp))
+            .then{ result -> Void in
                 
                 //Set user
                 self.user = result.0

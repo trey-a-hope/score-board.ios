@@ -69,9 +69,7 @@ class SettingsTableViewController: UITableViewController {
                         ModalService.showConfirm(title: "Log out", message: "Are you sure?", vc: self)
                             .then{() -> Void in
                                 SessionManager.signOut()
-                                let loginViewController = self.storyBoard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
-                                self.navigationController!.pushViewController(loginViewController, animated: true)
-                                self.navigationController?.setViewControllers([loginViewController], animated: true)
+                                _ = self.navigationController?.popViewController(animated: true)
                             }.always{}
                         break
                     //Delete Account
@@ -80,9 +78,7 @@ class SettingsTableViewController: UITableViewController {
                             .then{(x) -> Void in
                                 MyFSRef.deleteUser(userId: SessionManager.getUserId())
                                     .then{ () -> Void in
-                                        let loginViewController = self.storyBoard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
-                                        self.navigationController!.pushViewController(loginViewController, animated: true)
-                                        self.navigationController?.setViewControllers([loginViewController], animated: true)
+                                        _ = self.navigationController?.popViewController(animated: true)
                                     }.catch{ (error) in
                                         ModalService.showAlert(title: "Error", message: error.localizedDescription, vc: self)
                                     }.always {}

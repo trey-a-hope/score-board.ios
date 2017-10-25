@@ -5,6 +5,9 @@ class HomeTabBarController : UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Prevent navigation back to Login
+        navigationItem.hidesBackButton = true
+        
         //Create tab icons
         viewControllers?.forEach {
             $0.tabBarItem.setTitleTextAttributes(Constants.FONT_AWESOME_ATTRIBUTES_TABS, for: .normal)
@@ -40,8 +43,7 @@ class HomeTabBarController : UITabBarController {
         if SessionManager.isLoggedIn() {
             MyFSRef.updateUserFCMToken(userId: SessionManager.getUserId()).always {}
         }
-        
-        
+    
     }
     
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {

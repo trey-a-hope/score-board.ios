@@ -1,7 +1,6 @@
 import PromiseKit
 import UIKit
 
-//TODO: REFRESH CONTROL NOT BEING CALLED ON SWIPE DOWN
 class HomeViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var mostPointsLabel: UILabel!
@@ -36,7 +35,7 @@ class HomeViewController: UIViewController {
         betsWonCollectionView.register(UINib.init(nibName: "UserCell", bundle: nil), forCellWithReuseIdentifier: "Cell")
         gamesWonCollectionView.register(UINib.init(nibName: "UserCell", bundle: nil), forCellWithReuseIdentifier: "Cell")
         
-        scrollView.addSubview(self.refreshControl)
+        scrollView.refreshControl = refreshControl
         loadData()
     }
     
@@ -150,7 +149,7 @@ extension HomeViewController: UICollectionViewDataSource {
         //Check is this is the currently logged in user
         if user.id != SessionManager.getUserId() {
             profileViewController.userId = user.id
-            self.navigationController!.pushViewController(profileViewController, animated: true)
+            navigationController!.pushViewController(profileViewController, animated: true)
         }
     }
     
