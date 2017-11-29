@@ -70,6 +70,7 @@
 		0CF611661F62EA5A00A46EB0 /* GMPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF611651F62EA5A00A46EB0 /* GMPalette.swift */; };
 		0CF611681F62EA7600A46EB0 /* GMColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF611671F62EA7600A46EB0 /* GMColor.swift */; };
 		0CFC24641F4DEB7F003F97B5 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CFC24631F4DEB7F003F97B5 /* Game.swift */; };
+		A2185CF01FCE68270024BB3E /* StripeAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2185CEF1FCE68270024BB3E /* StripeAPIClient.swift */; };
 		A755D61690469DFE9676903E /* Pods_ScoreBoard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF29027401D1C20BACED85FA /* Pods_ScoreBoard.framework */; };
 		D7D9B3CA8B5C1DB7189CD507 /* Pods_ScoreBoardTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF323F9559AE5C4B2D76CFC0 /* Pods_ScoreBoardTests.framework */; };
 		FD7572DA6A799A75C0558789 /* Pods_ScoreBoardUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 125A389106492EB412D82C4D /* Pods_ScoreBoardUITests.framework */; };
@@ -169,6 +170,7 @@
 		408B7221B04466F0AE6E428D /* Pods-ScoreBoardUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScoreBoardUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ScoreBoardUITests/Pods-ScoreBoardUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		55F2C2552E75C8893EEED9E7 /* Pods-ScoreBoard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScoreBoard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ScoreBoard/Pods-ScoreBoard.debug.xcconfig"; sourceTree = "<group>"; };
 		89959AB906071806CD41F907 /* Pods-ScoreBoardTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScoreBoardTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ScoreBoardTests/Pods-ScoreBoardTests.debug.xcconfig"; sourceTree = "<group>"; };
+		A2185CEF1FCE68270024BB3E /* StripeAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripeAPIClient.swift; sourceTree = "<group>"; };
 		CC3D9AD44F81710204E0503B /* Pods-ScoreBoardUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScoreBoardUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ScoreBoardUITests/Pods-ScoreBoardUITests.release.xcconfig"; sourceTree = "<group>"; };
 		DF323F9559AE5C4B2D76CFC0 /* Pods_ScoreBoardTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ScoreBoardTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF29027401D1C20BACED85FA /* Pods_ScoreBoard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ScoreBoard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -209,7 +211,6 @@
 			children = (
 				0C3ABE8B1F4F28D800AE5CF9 /* SearchViewController.swift */,
 				0C5A07311F7EDEF700492992 /* SearchItem.swift */,
-				0C5A07321F7EDEF700492992 /* SearchItem.xib */,
 			);
 			name = Search;
 			sourceTree = "<group>";
@@ -294,6 +295,8 @@
 				0C3ABE8A1F4F28C000AE5CF9 /* Search */,
 				0CFC245F1F4DEAE8003F97B5 /* Services */,
 				0C5F3A431F4E162800516CFB /* Settings */,
+				A2185CEA1FCE673C0024BB3E /* Stripe */,
+				A2185CE81FCE65A70024BB3E /* XIBs */,
 			);
 			path = ScoreBoard;
 			sourceTree = "<group>";
@@ -320,7 +323,6 @@
 			isa = PBXGroup;
 			children = (
 				0C98D2321F5FAF2600D8BBAD /* BetCell.swift */,
-				0C98D2331F5FAF2600D8BBAD /* BetCell.xib */,
 			);
 			name = Bets;
 			sourceTree = "<group>";
@@ -388,7 +390,6 @@
 				0CC563701F4DF9070088057C /* HomeTabBarController.swift */,
 				0C03B4431F4EAE090020FB2A /* HomeViewController.swift */,
 				0CEA32481F8320D10002B05C /* UserCell.swift */,
-				0CEA32491F8320D10002B05C /* UserCell.xib */,
 			);
 			name = Home;
 			sourceTree = "<group>";
@@ -398,11 +399,9 @@
 			children = (
 				0CC563721F4DFD480088057C /* GamesViewController.swift */,
 				0C43D0531F4E33C100C285A5 /* GameTableViewCell.swift */,
-				0C43D0541F4E33C100C285A5 /* GameTableViewCell.xib */,
 				0C72DE441F4F7ABF00361234 /* FullGameViewController.swift */,
 				0C3D90781F852E33009169FB /* TakeGameViewController.swift */,
 				0CADB0381F890FD900200F7C /* GameCell.swift */,
-				0CADB0391F890FD900200F7C /* GameCell.xib */,
 			);
 			name = Games;
 			sourceTree = "<group>";
@@ -455,6 +454,26 @@
 				125A389106492EB412D82C4D /* Pods_ScoreBoardUITests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A2185CE81FCE65A70024BB3E /* XIBs */ = {
+			isa = PBXGroup;
+			children = (
+				0C5A07321F7EDEF700492992 /* SearchItem.xib */,
+				0CEA32491F8320D10002B05C /* UserCell.xib */,
+				0C43D0541F4E33C100C285A5 /* GameTableViewCell.xib */,
+				0CADB0391F890FD900200F7C /* GameCell.xib */,
+				0C98D2331F5FAF2600D8BBAD /* BetCell.xib */,
+			);
+			name = XIBs;
+			sourceTree = "<group>";
+		};
+		A2185CEA1FCE673C0024BB3E /* Stripe */ = {
+			isa = PBXGroup;
+			children = (
+				A2185CEF1FCE68270024BB3E /* StripeAPIClient.swift */,
+			);
+			name = Stripe;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -762,6 +781,7 @@
 				"${BUILT_PRODUCTS_DIR}/Material/Material.framework",
 				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/Stripe/Stripe.framework",
 				"${BUILT_PRODUCTS_DIR}/Toaster/Toaster.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
@@ -791,6 +811,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Material.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Stripe.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toaster.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRPCClient.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
@@ -864,6 +885,7 @@
 				0C6DC5911F4DD9F200F9A061 /* AppDelegate.swift in Sources */,
 				0CD969FD1F6501EB00B183C8 /* CropperViewController.swift in Sources */,
 				0CB0D2C41F9E6A930012A2CE /* SearchUserViewController.swift in Sources */,
+				A2185CF01FCE68270024BB3E /* StripeAPIClient.swift in Sources */,
 				0CC563731F4DFD480088057C /* GamesViewController.swift in Sources */,
 				0CC563751F4DFD9A0088057C /* ModalService.swift in Sources */,
 				0C5F3A451F4E163200516CFB /* SettingsTableViewController.swift in Sources */,

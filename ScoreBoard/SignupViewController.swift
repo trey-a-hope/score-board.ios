@@ -40,22 +40,30 @@ class SignupViewController: UIViewController {
                     return
                 }
                 
-                //Prepare user data.
-                let newUser: User = User()
-                newUser.email = email
-                newUser.userName = username
-                newUser.uid = Auth.auth().currentUser?.uid
+                StripeAPIClient.createCustomer(email: email)
+                    .then{ response -> Void in
+                        //TODO: Create json dictionary for response.
+                        
+                        //Prepare user data.
+                        let newUser: User = User()
+                        newUser.email = email
+                        newUser.userName = username
+                        newUser.uid = Auth.auth().currentUser?.uid
+                        
+                        MyFSRef.createUser(user: newUser)
+                            .then{ (newUserId) -> Void in
+                                SessionManager.setUserId(newUserId)
+                                //Return to login screen.
+                                _ = self.navigationController?.popViewController(animated: true)
+                            }.catch{ (error) in
+                                SessionManager.signOut()
+                            }.always{
+                                //SwiftSpinner.hide()
+                        }
+                        
+                    }.always{}
                 
-                MyFSRef.createUser(user: newUser)
-                    .then{ (newUserId) -> Void in
-                        SessionManager.setUserId(newUserId)
-                        //Return to login screen.
-                        _ = self.navigationController?.popViewController(animated: true)
-                    }.catch{ (error) in
-                        SessionManager.signOut()
-                    }.always{
-                        //SwiftSpinner.hide()
-                }
+
             })
         }
     }

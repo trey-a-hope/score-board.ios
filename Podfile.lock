@@ -7,12 +7,12 @@ PODS:
   - Bolts/AppLinks (1.8.4):
     - Bolts/Tasks
   - Bolts/Tasks (1.8.4)
-  - BoringSSL (9.0):
-    - BoringSSL/Implementation (= 9.0)
-    - BoringSSL/Interface (= 9.0)
-  - BoringSSL/Implementation (9.0):
-    - BoringSSL/Interface (= 9.0)
-  - BoringSSL/Interface (9.0)
+  - BoringSSL (9.1):
+    - BoringSSL/Implementation (= 9.1)
+    - BoringSSL/Interface (= 9.1)
+  - BoringSSL/Implementation (9.1):
+    - BoringSSL/Interface (= 9.1)
+  - BoringSSL/Interface (9.1)
   - EasyAnimation (2.0.2)
   - FacebookCore (0.3.0):
     - Bolts (~> 1.8)
@@ -22,46 +22,45 @@ PODS:
     - FacebookCore (~> 0.3)
     - FBSDKCoreKit (~> 4.27)
     - FBSDKLoginKit (~> 4.27)
-  - FBSDKCoreKit (4.27.1):
+  - FBSDKCoreKit (4.28.0):
     - Bolts (~> 1.7)
-  - FBSDKLoginKit (4.27.1):
+  - FBSDKLoginKit (4.28.0):
     - FBSDKCoreKit
-  - Firebase/Auth (4.4.0):
+  - Firebase/Auth (4.6.0):
     - Firebase/Core
-    - FirebaseAuth (= 4.3.0)
-  - Firebase/Core (4.4.0):
-    - FirebaseAnalytics (= 4.0.4)
-    - FirebaseCore (= 4.0.9)
-  - Firebase/Firestore (4.4.0):
+    - FirebaseAuth (= 4.3.2)
+  - Firebase/Core (4.6.0):
+    - FirebaseAnalytics (= 4.0.5)
+    - FirebaseCore (= 4.0.11)
+  - Firebase/Firestore (4.6.0):
     - Firebase/Core
-    - FirebaseFirestore (= 0.9.0)
-  - Firebase/Messaging (4.4.0):
+    - FirebaseFirestore (= 0.9.2)
+  - Firebase/Messaging (4.6.0):
     - Firebase/Core
-    - FirebaseMessaging (= 2.0.5)
-  - Firebase/Storage (4.4.0):
+    - FirebaseMessaging (= 2.0.6)
+  - Firebase/Storage (4.6.0):
     - Firebase/Core
     - FirebaseStorage (= 2.0.2)
-  - FirebaseAnalytics (4.0.4):
+  - FirebaseAnalytics (4.0.5):
     - FirebaseCore (~> 4.0)
     - FirebaseInstanceID (~> 2.0)
     - GoogleToolboxForMac/NSData+zlib (~> 2.1)
     - nanopb (~> 0.3)
-  - FirebaseAuth (4.3.0):
+  - FirebaseAuth (4.3.2):
     - FirebaseAnalytics (~> 4.0)
     - GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)
     - GTMSessionFetcher/Core (~> 1.1)
-  - FirebaseCore (4.0.9):
+  - FirebaseCore (4.0.11):
     - GoogleToolboxForMac/NSData+zlib (~> 2.1)
-    - nanopb (~> 0.3)
-  - FirebaseFirestore (0.9.0):
+  - FirebaseFirestore (0.9.2):
     - FirebaseAnalytics (~> 4.0)
     - FirebaseAuth (~> 4.3)
     - FirebaseCore (~> 4.0)
     - gRPC-ProtoRPC (~> 1.0)
     - leveldb-library (~> 1.18)
     - Protobuf (~> 3.1)
-  - FirebaseInstanceID (2.0.5)
-  - FirebaseMessaging (2.0.5):
+  - FirebaseInstanceID (2.0.6)
+  - FirebaseMessaging (2.0.6):
     - FirebaseAnalytics (~> 4.0)
     - FirebaseCore (~> 4.0)
     - FirebaseInstanceID (~> 2.0)
@@ -71,7 +70,7 @@ PODS:
     - FirebaseAnalytics (~> 4.0)
     - FirebaseCore (~> 4.0)
     - GTMSessionFetcher/Core (~> 1.1)
-  - FontAwesome.swift (1.3.1)
+  - FontAwesome.swift (1.3.2)
   - GoogleMaps (2.5.0):
     - GoogleMaps/Maps (= 2.5.0)
   - GoogleMaps/Base (2.5.0)
@@ -89,29 +88,32 @@ PODS:
     - GoogleToolboxForMac/Defines (= 2.1.3)
     - GoogleToolboxForMac/NSString+URLArguments (= 2.1.3)
   - GoogleToolboxForMac/NSString+URLArguments (2.1.3)
-  - gRPC (1.6.5):
-    - gRPC-Core (= 1.6.5)
-    - gRPC-RxLibrary (= 1.6.5)
-  - gRPC-Core (1.6.5):
-    - gRPC-Core/Implementation (= 1.6.5)
-    - gRPC-Core/Interface (= 1.6.5)
-  - gRPC-Core/Implementation (1.6.5):
+  - gRPC (1.7.1):
+    - gRPC-RxLibrary (= 1.7.1)
+    - gRPC/Main (= 1.7.1)
+  - gRPC-Core (1.7.1):
+    - gRPC-Core/Implementation (= 1.7.1)
+    - gRPC-Core/Interface (= 1.7.1)
+  - gRPC-Core/Implementation (1.7.1):
     - BoringSSL (~> 9.0)
-    - gRPC-Core/Interface (= 1.6.5)
+    - gRPC-Core/Interface (= 1.7.1)
     - nanopb (~> 0.3)
-  - gRPC-Core/Interface (1.6.5)
-  - gRPC-ProtoRPC (1.6.5):
-    - gRPC (= 1.6.5)
-    - gRPC-RxLibrary (= 1.6.5)
+  - gRPC-Core/Interface (1.7.1)
+  - gRPC-ProtoRPC (1.7.1):
+    - gRPC (= 1.7.1)
+    - gRPC-RxLibrary (= 1.7.1)
     - Protobuf (~> 3.0)
-  - gRPC-RxLibrary (1.6.5)
+  - gRPC-RxLibrary (1.7.1)
+  - gRPC/Main (1.7.1):
+    - gRPC-Core (= 1.7.1)
+    - gRPC-RxLibrary (= 1.7.1)
   - GTMSessionFetcher/Core (1.1.12)
   - JSQMessagesViewController (7.3.5):
     - JSQSystemSoundPlayer (~> 2.0.1)
   - JSQSystemSoundPlayer (2.0.1)
-  - JTAppleCalendar (7.1.1)
+  - JTAppleCalendar (7.1.4)
   - Kingfisher (3.13.1)
-  - leveldb-library (1.18.3)
+  - leveldb-library (1.20)
   - Material (2.6.3):
     - Material/Core (= 2.6.3)
   - Material/Capture (2.6.3):
@@ -124,19 +126,20 @@ PODS:
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
-  - PromiseKit (4.4.3):
-    - PromiseKit/Foundation (= 4.4.3)
-    - PromiseKit/QuartzCore (= 4.4.3)
-    - PromiseKit/UIKit (= 4.4.3)
-  - PromiseKit/CorePromise (4.4.3)
-  - PromiseKit/Foundation (4.4.3):
+  - PromiseKit (4.5.0):
+    - PromiseKit/Foundation (= 4.5.0)
+    - PromiseKit/QuartzCore (= 4.5.0)
+    - PromiseKit/UIKit (= 4.5.0)
+  - PromiseKit/CorePromise (4.5.0)
+  - PromiseKit/Foundation (4.5.0):
     - PromiseKit/CorePromise
-  - PromiseKit/QuartzCore (4.4.3):
+  - PromiseKit/QuartzCore (4.5.0):
     - PromiseKit/CorePromise
-  - PromiseKit/UIKit (4.4.3):
+  - PromiseKit/UIKit (4.5.0):
     - PromiseKit/CorePromise
-  - Protobuf (3.4.0)
-  - Toaster (2.1.0)
+  - Protobuf (3.5.0)
+  - Stripe (11.5.0)
+  - Toaster (2.1.1)
 
 DEPENDENCIES:
   - AKImageCropperView
@@ -158,45 +161,47 @@ DEPENDENCIES:
   - Material/Capture (~> 2.0)
   - Material/Photos (~> 2.0)
   - PromiseKit (~> 4.0)
+  - Stripe
   - Toaster (~> 2.0)
 
 SPEC CHECKSUMS:
   AKImageCropperView: 9c80fd45512daa69426161ad51c248655c1b5182
   Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
-  BoringSSL: 19083b821ef3ae0f758fae15482e183003b1e265
+  BoringSSL: 84318770d120503ab1a6aaf1df777c5ca053697e
   EasyAnimation: 977ef673efe8ce62447807eedb380a77b189dc80
   FacebookCore: 3ffa190a3f1f96cec0e44d3fc221bc322c595ffa
   FacebookLogin: 0af839ea858faef99550d16596b87b4a8e8906e6
-  FBSDKCoreKit: 03365dad5d790249196ffad8be4f6d8a2d98f932
-  FBSDKLoginKit: 66ff53b73cffd967ab773e32fac39e90a60e6d46
-  Firebase: 3e92884a63e8f76d107c43a67d2ab9071e1eda10
-  FirebaseAnalytics: 722b53c7b32bfc7806b06e0093a2f5180d4f2c5a
-  FirebaseAuth: e0087d479709b20b9613b804704a928d6eafb052
-  FirebaseCore: ebe73f64302705e693b1de9919a76edbdd17a19d
-  FirebaseFirestore: ad1096ea647a8cc60ead57f7c54f5225d54fbd76
-  FirebaseInstanceID: f2b688c66b972f30d7fa9f5f9f91455454a03b47
-  FirebaseMessaging: e25dc87045e76dfe9e920a5741dc3fe7e3ef2268
+  FBSDKCoreKit: ca961e279113f691fd83dc634c0bbad9d4e3f370
+  FBSDKLoginKit: b077381c27d800f21661757e8140cf2c80a91e4a
+  Firebase: 27321a925aa85520618255a7c630859e0502ccbd
+  FirebaseAnalytics: 5b02a63ead2c3f0259cfc7f15e053e440587ecf8
+  FirebaseAuth: e58563adb207a43910a2ed87fecb9fa7d556df5a
+  FirebaseCore: 2a946ece8fbe3ce1fdeeb55324f273caade22df9
+  FirebaseFirestore: a24dfccb54f883d82ee4cc086623fc2058e143b8
+  FirebaseInstanceID: 24958382a1011bba5aaff37e334e7a650b9118f5
+  FirebaseMessaging: 75d83375b0f7a9911568d7bdd1a1a8261cbcbdef
   FirebaseStorage: 0cca42d9b889a0227c3a50121f45a4469fc9eb27
-  FontAwesome.swift: 050a75c6b94db0b082f39bde5b111c5c64d62a83
+  FontAwesome.swift: b4e4c8ccbbecb12f9b592bc533ff237af3706667
   GoogleMaps: c087b8e5dfe87ca6ebf59adb9b4894a4146bec4f
   GoogleToolboxForMac: 2501e2ad72a52eb3dfe7bd9aee7dad11b858bd20
-  gRPC: 42f915ce322b1abc5241621acc776f2fdb0a2039
-  gRPC-Core: 54211a073d238ec8569be06e1a939a72f081a3e9
-  gRPC-ProtoRPC: 4299db62f86df58c88844ccb50f5c48993e704f6
-  gRPC-RxLibrary: 1b1c9c9cf666709ad7714cb0e0f3c44dc0cbfb0b
+  gRPC: b56decfd0094854d2ccfe80c8fb767237dace3be
+  gRPC-Core: 95c4968ae43d29219226f22b656d9f625904281e
+  gRPC-ProtoRPC: b7259f51cbc19b77c7a38d96f52a00c3a4ea1637
+  gRPC-RxLibrary: 4f46343e74e74a7ee8373ffeeaf772dfb330cbd7
   GTMSessionFetcher: ebaa1f79a5366922c1735f1566901f50beba23b7
   JSQMessagesViewController: 6587f56aedbcb150a8ba1d968e1ef58b1bc758b7
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
-  JTAppleCalendar: fa47313f1b9edfb84f771ceddd16ff43d01bb2d6
+  JTAppleCalendar: aaeee95e939e0b0a381fb51eb77738bd26bb10f6
   Kingfisher: ed9707a409cc47fddafbcd12a43a9757e3600af5
-  leveldb-library: 10fb39c39e243db4af1828441162405bbcec1404
+  leveldb-library: 4f9eedf84ab46b4fa3b7893bf30714b2a1a74022
   Material: af607a7ec0e9978ef85cf189a3d8ceeeb650400f
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
-  PromiseKit: fbb52a0d154402c57eeb6eccd36dd7724fcf6117
-  Protobuf: 03eef2ee0b674770735cf79d9c4d3659cf6908e8
-  Toaster: 8c3225dc465bef4aa57e147a288724576df8e439
+  PromiseKit: 9c1d9f6d7b65e3951a90bea7f407c56972be5d8e
+  Protobuf: 8a9838fba8dae3389230e1b7f8c104aa32389c03
+  Stripe: 10761682d20dc491c52287393c800db056c9748d
+  Toaster: a6c9532de1ded8105e77376f7dffeb2e12b46dbb
 
-PODFILE CHECKSUM: 6f678fd2e8ae18157cfa25a387ff879d69169284
+PODFILE CHECKSUM: 087d2d0d7aca45c54f85607d1ea2bf24fc671a6f
 
 COCOAPODS: 1.3.1
