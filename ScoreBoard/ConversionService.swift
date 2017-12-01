@@ -6,11 +6,19 @@ class ConversionService  {
     private static let firebaseFormat: String = "yyyy-MM-dd'T'HH:mm:ss"
     private static let dateAtTimeFormat: String = "MMMM d, yyyy @ h:mma"
     
-    static func convertStringToDate(_ string: String) -> Date {
-        dateFormatter.dateFormat = firebaseFormat
-        let date: Date = dateFormatter.date(from: string)!
-        return date
+    static func timestampToDate(timestamp: String) -> Date! {
+        let dateFormatter: DateFormatter = DateFormatter()
+        //Time Stamp Format - 2017-10-22 05:55:09 +0000
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ssZ"
+        return dateFormatter.date(from: timestamp)!
     }
+    
+//    static func convertStringToDate(_ string: String) -> Date {
+//        print(string)
+//        dateFormatter.dateFormat = firebaseFormat
+//        let date: Date = dateFormatter.date(from: string)!
+//        return date
+//    }
     
     //2017-09-24T17:04:00
     static func convertDateToFirebaseString(_ date: Date) -> String {

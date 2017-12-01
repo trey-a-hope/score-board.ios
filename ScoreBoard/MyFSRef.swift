@@ -20,7 +20,7 @@ class MyFSRef {
         return storage.reference()
     }
     
-    //    ____           _
+    //     ____           _
     //    | __ )    ___  | |_   ___
     //    |  _ \   / _ \ | __| / __|
     //    | |_) | |  __/ | |_  \__ \
@@ -108,22 +108,22 @@ class MyFSRef {
     //RETURN A GAME THAT MATCHES ID
     class func getGame(gameId: String) -> Promise<Game> {
         return Promise{ fulfill, reject in
-            db.collection("Games").document(gameId).getDocument(completion: { (document, err) in
+            db.collection("Games").document(gameId).getDocument(completion: { (gameDoc, err) in
                 if let err = err { reject(err) }
-                fulfill(extractGameData(gameSnapshot: document!))
+                fulfill(extractGameData(gameDoc: gameDoc!))
             })
         }
     }
     
-    //RETURNS ALL GAMES
+    //RETURNS ALL GAMES : TODO: DELETE THIS!
     class func getAllGames() -> Promise<[Game]> {
         var games: [Game] = [Game]()
         return Promise{ fulfill, reject in
             db.collection("Games").getDocuments(completion: { (collection, err) in
                 if let err = err { reject(err) }
                 
-                for document in (collection?.documents)! {
-                    games.append(extractGameData(gameSnapshot: document))
+                for gameDoc in (collection?.documents)! {
+                    games.append(extractGameData(gameDoc: gameDoc))
                 }
                 
                 fulfill(games)
@@ -137,8 +137,8 @@ class MyFSRef {
             db.collection("Games").whereField("status", isEqualTo: status).getDocuments(completion: { (collection, err) in
                 if let err = err { reject(err) }
                 
-                for document in (collection?.documents)! {
-                    games.append(extractGameData(gameSnapshot: document))
+                for gameDoc in (collection?.documents)! {
+                    games.append(extractGameData(gameDoc: gameDoc))
                 }
                 
                 fulfill(games)
@@ -152,8 +152,8 @@ class MyFSRef {
         return Promise{ fulfill, reject in
             db.collection("Games").whereField("userId", isEqualTo: userId).getDocuments(completion: { (collection, err) in
                 if let err = err { reject(err) }
-                for document in (collection?.documents)! {
-                    games.append(extractGameData(gameSnapshot: document))
+                for gameDoc in (collection?.documents)! {
+                    games.append(extractGameData(gameDoc: gameDoc))
                 }
                 fulfill(games)
             })
@@ -198,21 +198,18 @@ class MyFSRef {
     class func createGame(game: Game) -> Promise<String> {
         return Promise{ fulfill, reject in
             var ref: DocumentReference? = nil
-            let now: Date = Date()
             
             let data: [String : Any] = [
+                "id"                    : "",
                 "status"                : 0,
                 "homeTeamId"            : game.homeTeamId,
                 "homeTeamScore"         : 0,
                 "awayTeamId"            : game.awayTeamId,
                 "awayTeamScore"         : 0,
-                "startDateTime"         : ConversionService.convertDateToFirebaseString(now),
-                "startTimeZoneOffSet"   : now.getTimeZoneOffset(),
-                "postDateTime"          : ConversionService.convertDateToFirebaseString(now),
-                "postTimeZoneOffSet"    : now.getTimeZoneOffset()
+                "starts"                : String(describing: game.starts!),
+                "timestamp"             : String(describing: Date())
             ]
             
-            //Add game - I pray they come up with a better solution for referencing the ref id, this is tacky
             ref = db.collection("Games").addDocument(data: data){err in
                 if let err = err {
                     reject(err)
@@ -505,25 +502,23 @@ extension MyFSRef {
         return bet
     }
     
-    class func extractGameData(gameSnapshot: DocumentSnapshot) -> Game {
-        let value = gameSnapshot.data()
+    class func extractGameData(gameDoc: DocumentSnapshot) -> Game {
+        let gameData = gameDoc.data()
         let game: Game = Game()
         
-        print(value)
+        game.id             = gameData["id"] as! String
+        game.homeTeamId     = gameData["homeTeamId"] as! Int
+        game.homeTeamScore  = gameData["homeTeamScore"] as! Int
+        game.awayTeamId     = gameData["awayTeamId"] as! Int
+        game.awayTeamScore  = gameData["awayTeamScore"] as! Int
+        game.status         = gameData["status"] as! Int
+        game.starts         = ConversionService.timestampToDate(timestamp: gameData["starts"] as! String)
+        game.timestamp      = ConversionService.timestampToDate(timestamp: gameData["timestamp"] as! String)
+        game.potAmount      = gameData["potAmount"] as? Double
+        game.betPrice       = gameData["betPrice"] as? Double
+        game.userId         = gameData["userId"] as? String
         
-        game.id = value["id"] as! String
-        game.userId = value["userId"] as? String
-        game.homeTeamId = value["homeTeamId"] as! Int
-        game.homeTeamScore = value["homeTeamScore"] as! Int
-        game.awayTeamId = value["awayTeamId"] as! Int
-        game.awayTeamScore = value["awayTeamScore"] as! Int
-        game.startTimeZoneOffSet = value["startTimeZoneOffSet"] as! Int
-        game.startDateTime = ConversionService.convertStringToDate(value["startDateTime"] as! String)
-        game.status = value["status"] as! Int
-        game.potAmount = value["potAmount"] as? Double
-        game.betPrice = value["betPrice"] as? Double
-        
-        return (game)
+        return game
     }
 }
 

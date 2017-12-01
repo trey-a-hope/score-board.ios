@@ -2,15 +2,14 @@ import UIKit
 
 class Game {
     var id                  : String!
-    var userId              : String!             //ID of the user who owns this game
+    var userId              : String!   //ID of the user who owns this game
     var awayTeamScore       : Int!
     var awayTeamId          : Int!
     var homeTeamScore       : Int!
     var homeTeamId          : Int!
-    var startDateTime       : Date!
-    var startTimeZoneOffSet : Int!
-    var status              : Int!
-    var potAmount           : Double!
+    var starts              : Date!     //Time game starts.
+    var status              : Int!      //Pre(before), Active(current), Post(after)
+    var potAmount           : Double!   //Winning amount for the game.
     var betPrice            : Double!
-    var timestamp           : Date!
+    var timestamp           : Date!     //Time game was posted.
 }

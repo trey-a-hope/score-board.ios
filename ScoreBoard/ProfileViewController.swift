@@ -8,32 +8,32 @@ import Kingfisher
 import UIKit
 
 class ProfileViewController: UIViewController {
-    @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var profileImage: UIImageView!
-    @IBOutlet weak var userNameLabel: UILabel!
-    @IBOutlet weak var pointsLabel: UILabel!
-    @IBOutlet weak var gamesWonLabel: UILabel!
-    @IBOutlet weak var betsWonLabel: UILabel!
-    @IBOutlet weak var locationLabel: UILabel!
-    @IBOutlet weak var myBetsLabel: UILabel!
-    @IBOutlet weak var myGamesLabel: UILabel!
-    @IBOutlet weak var myBetsCollectionView: UICollectionView!
-    @IBOutlet weak var myGamesCollectionView: UICollectionView!
+    @IBOutlet private weak var scrollView               : UIScrollView!
+    @IBOutlet private weak var profileImage             : UIImageView!
+    @IBOutlet private weak var userNameLabel            : UILabel!
+    @IBOutlet private weak var pointsLabel              : UILabel!
+    @IBOutlet private weak var gamesWonLabel            : UILabel!
+    @IBOutlet private weak var betsWonLabel             : UILabel!
+    @IBOutlet private weak var locationLabel            : UILabel!
+    @IBOutlet private weak var myBetsLabel              : UILabel!
+    @IBOutlet private weak var myGamesLabel             : UILabel!
+    @IBOutlet private weak var myBetsCollectionView     : UICollectionView!
+    @IBOutlet private weak var myGamesCollectionView    : UICollectionView!
     
     //Navbar buttons
-    private var messagesButton: UIBarButtonItem!
-    private var editProfileButton: UIBarButtonItem!
-    private var adminButton: UIBarButtonItem!
+    private var messagesButton                          : UIBarButtonItem!
+    private var editProfileButton                       : UIBarButtonItem!
+    private var adminButton                             : UIBarButtonItem!
 
-    public var userId: String?
-    private let imagePicker = UIImagePickerController()
-    private let BetCellWidth: CGFloat = CGFloat(175)
-    private let CellIdentifier: String = "Cell"
-    private var user: User?
-    private var myBets: [Bet] = [Bet]()
-    private var myGames: [Game] = [Game]()
+    public var userId                                   : String?
+    private let imagePicker                             : UIImagePickerController   = UIImagePickerController()
+    private let BetCellWidth                            : CGFloat                   = CGFloat(175)
+    private let CellIdentifier                          : String                    = "Cell"
+    private var user                                    : User?
+    private var myBets                                  : [Bet]                     = [Bet]()
+    private var myGames                                 : [Game]                    = [Game]()
         
-    lazy var refreshControl: UIRefreshControl = {
+    private lazy var refreshControl                     : UIRefreshControl          = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(ProfileViewController.loadData), for: UIControlEvents.valueChanged)
         return refreshControl
@@ -53,11 +53,11 @@ class ProfileViewController: UIViewController {
         navigationController?.isNavigationBarHidden = false
         navigationController?.hidesBarsOnSwipe = false
         
-        //If viewing another person's profile, user their userId
+        //Viewing another person's profile; user their userId.
         if userId != nil {
             navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([messagesButton], animated: true)
         }
-        //Otherwise, use yours
+        //View your profile; user your userId.
         else{
             navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([messagesButton, editProfileButton, adminButton], animated: true)
         }
@@ -65,17 +65,17 @@ class ProfileViewController: UIViewController {
 
     func initUI() -> Void {
         //Configure imagepicker.
-        imagePicker.delegate = self
+        imagePicker.delegate                = self
         
         //Add refresh control.
-        scrollView.refreshControl = refreshControl
+        scrollView.refreshControl           = refreshControl
         
         //Configure my bets collection view
-        myBetsCollectionView.dataSource = self
-        myBetsCollectionView.delegate = self
+        myBetsCollectionView.dataSource     = self
+        myBetsCollectionView.delegate       = self
+        myGamesCollectionView.dataSource    = self
+        myGamesCollectionView.delegate      = self
         myBetsCollectionView.register(UINib.init(nibName: "BetCell", bundle: nil), forCellWithReuseIdentifier: CellIdentifier)
-        myGamesCollectionView.dataSource = self
-        myGamesCollectionView.delegate = self
         myGamesCollectionView.register(UINib.init(nibName: "GameCell", bundle: nil), forCellWithReuseIdentifier: CellIdentifier)
         
         //Configure profile imageview.
@@ -164,7 +164,7 @@ class ProfileViewController: UIViewController {
         betsWonLabel.text = String(describing: user!.betsWon!)
         
         //My bets label, gender specific
-        if userId == SessionManager.getUserId() {
+        if userId == nil {
             myBetsLabel.text = "My bets - "
         }else{
             if let _ = user!.gender {
@@ -176,7 +176,7 @@ class ProfileViewController: UIViewController {
         myBetsLabel.text = myBetsLabel.text! + String(describing: myBets.count)
         
         //My games label, gender specific
-        if userId == SessionManager.getUserId() {
+        if userId == nil {
             myGamesLabel.text = "My games - "
         }else{
             if let _ = user!.gender {
@@ -199,25 +199,21 @@ class ProfileViewController: UIViewController {
     }
     
     @objc func openMessages() -> Void {
-        //UserId is coming in null for some reason???
-        print(userId)
-        print(SessionManager.getUserId())
-        
-        //If current user, navigate to list of message.
-        if userId == SessionManager.getUserId() {
+        //Viewing another person's profile; message them directly.
+        if userId != nil {
+            ModalService.showAlert(title: "Message " + (self.user?.userName)!, message: "Coming soon...", vc: self)
+        }
+        //Viewing your profile; go to your messages.
+        else{
             let messagesViewController = storyBoard.instantiateViewController(withIdentifier: "MessagesViewController") as! MessagesViewController
             navigationController?.pushViewController(messagesViewController, animated: true)
-        }
-        //Otherwise, open message view directly to message this user.
-        else{
-            ModalService.showAlert(title: "Message " + (self.user?.userName)!, message: "Coming soon...", vc: self)
         }
     }
     
     @objc func updateProfilePicture() -> Void {
         if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum){
-            imagePicker.sourceType = .photoLibrary;
-            imagePicker.allowsEditing = false
+            imagePicker.sourceType      = .photoLibrary;
+            imagePicker.allowsEditing   = false
             present(imagePicker, animated: true, completion: nil)
         }else{
             ModalService.showAlert(title: "Sorry", message: "Image Picker Not Available", vc: self)

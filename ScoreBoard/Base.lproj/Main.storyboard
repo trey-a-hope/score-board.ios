@@ -2322,26 +2322,53 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="500"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Home Team" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Wma-Sq-i63" customClass="TextField" customModule="Material">
-                                                <rect key="frame" x="20" y="50" width="157.5" height="30"/>
+                                                <rect key="frame" x="20" y="91" width="157.5" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Away Team" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oeg-3e-CEd" customClass="TextField" customModule="Material">
-                                                <rect key="frame" x="197.5" y="50" width="157.5" height="30"/>
+                                                <rect key="frame" x="197.5" y="91" width="157.5" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select teams" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RBm-8n-ybx">
+                                                <rect key="frame" x="10" y="40" width="355" height="21"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="lY8-aZ-hAp">
+                                                <rect key="frame" x="0.0" y="212" width="375" height="216"/>
+                                                <date key="date" timeIntervalSinceReferenceDate="533861698.37876499">
+                                                    <!--2017-12-01 22:54:58 +0000-->
+                                                </date>
+                                            </datePicker>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select date, (specific to your local time)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pnF-fi-jXf">
+                                                <rect key="frame" x="0.0" y="161" width="375" height="21"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="oeg-3e-CEd" firstAttribute="top" secondItem="Sw1-qj-nya" secondAttribute="top" constant="50" id="6JC-Sy-UTB"/>
+                                            <constraint firstAttribute="trailing" secondItem="lY8-aZ-hAp" secondAttribute="trailing" id="29w-68-b4B"/>
+                                            <constraint firstItem="Wma-Sq-i63" firstAttribute="top" secondItem="RBm-8n-ybx" secondAttribute="bottom" constant="30" id="6MY-kF-ZFw"/>
+                                            <constraint firstItem="RBm-8n-ybx" firstAttribute="top" secondItem="Sw1-qj-nya" secondAttribute="top" constant="40" id="6f9-L4-XJw"/>
+                                            <constraint firstItem="pnF-fi-jXf" firstAttribute="top" secondItem="Wma-Sq-i63" secondAttribute="bottom" constant="40" id="Fvl-X7-3GT"/>
+                                            <constraint firstAttribute="trailing" secondItem="RBm-8n-ybx" secondAttribute="trailing" constant="10" id="J9m-Yl-WHt"/>
                                             <constraint firstItem="oeg-3e-CEd" firstAttribute="width" secondItem="Wma-Sq-i63" secondAttribute="width" id="PKY-Pc-Wiv"/>
-                                            <constraint firstItem="Wma-Sq-i63" firstAttribute="top" secondItem="Sw1-qj-nya" secondAttribute="top" constant="50" id="SQ7-8y-lBB"/>
+                                            <constraint firstAttribute="trailing" secondItem="pnF-fi-jXf" secondAttribute="trailing" id="asq-sb-P3t"/>
                                             <constraint firstAttribute="trailing" secondItem="oeg-3e-CEd" secondAttribute="trailing" constant="20" id="ddq-oa-n83"/>
+                                            <constraint firstItem="RBm-8n-ybx" firstAttribute="leading" secondItem="Sw1-qj-nya" secondAttribute="leading" constant="10" id="dfa-MG-r7l"/>
+                                            <constraint firstItem="lY8-aZ-hAp" firstAttribute="leading" secondItem="Sw1-qj-nya" secondAttribute="leading" id="lH2-3A-wG8"/>
+                                            <constraint firstItem="lY8-aZ-hAp" firstAttribute="top" secondItem="pnF-fi-jXf" secondAttribute="bottom" constant="30" id="osw-V3-HS9"/>
+                                            <constraint firstItem="oeg-3e-CEd" firstAttribute="top" secondItem="RBm-8n-ybx" secondAttribute="bottom" constant="30" id="pIn-ud-Mvh"/>
                                             <constraint firstAttribute="height" constant="500" id="umX-NU-QpU"/>
                                             <constraint firstItem="oeg-3e-CEd" firstAttribute="leading" secondItem="Wma-Sq-i63" secondAttribute="trailing" constant="20" id="yOJ-V1-urz"/>
+                                            <constraint firstItem="pnF-fi-jXf" firstAttribute="leading" secondItem="Sw1-qj-nya" secondAttribute="leading" id="yS2-b5-I6Q"/>
                                             <constraint firstItem="Wma-Sq-i63" firstAttribute="leading" secondItem="Sw1-qj-nya" secondAttribute="leading" constant="20" id="zLC-2C-4ad"/>
                                         </constraints>
                                     </view>
@@ -2368,6 +2395,7 @@
                     <size key="freeformSize" width="375" height="1000"/>
                     <connections>
                         <outlet property="awayTeam" destination="oeg-3e-CEd" id="P51-md-dBw"/>
+                        <outlet property="datePicker" destination="lY8-aZ-hAp" id="koY-gp-jHy"/>
                         <outlet property="homeTeam" destination="Wma-Sq-i63" id="YHz-jZ-dV6"/>
                     </connections>
                 </viewController>

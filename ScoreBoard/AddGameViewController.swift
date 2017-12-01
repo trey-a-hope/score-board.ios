@@ -3,15 +3,16 @@ import Material
 import UIKit
 
 class AddGameViewController : UIViewController {
-    @IBOutlet weak var homeTeam: TextField!
-    @IBOutlet weak var awayTeam: TextField!
+    @IBOutlet private weak var homeTeam     : TextField!
+    @IBOutlet private weak var awayTeam     : TextField!
+    @IBOutlet private weak var datePicker   : UIDatePicker!
     
-    let homeTeamPickerView: UIPickerView = UIPickerView()
-    let awayTeamPickerView: UIPickerView = UIPickerView()
-    var teamOptions: [NBATeam] = NBATeamService.instance.teams
+    private let homeTeamPickerView                  : UIPickerView  = UIPickerView()
+    private let awayTeamPickerView                  : UIPickerView  = UIPickerView()
+    private var teamOptions                         : [NBATeam]     = NBATeamService.instance.teams
     
-    var saveBtn: FABButton!
-    let defaultStore = Firestore.firestore()
+    private var saveBtn                             : FABButton!
+    private let defaultStore                        : Firestore     = Firestore.firestore()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,19 +49,24 @@ class AddGameViewController : UIViewController {
     }
     
     @objc func save() -> Void {
-        let game: Game = Game()
-        
-        let homeTeam: NBATeam = teamOptions[homeTeamPickerView.selectedRow(inComponent: 0)]
-        let awayTeam: NBATeam = teamOptions[awayTeamPickerView.selectedRow(inComponent: 0)]
-        
-        game.homeTeamId = homeTeam.id
-        game.awayTeamId = awayTeam.id
-        
-        MyFSRef.createGame(game: game)
-            .then{ (id) -> Void in
-                ModalService.showAlert(title: "Game Created", message: "ID: " + id, vc: self)
-            }.catch{ (err) in
-                ModalService.showAlert(title: "Error", message: err.localizedDescription, vc: self)
+        ModalService.showConfirm(title: "Submit Game", message: "Are you sure?", vc: self)
+            .then{ () -> Void in
+                let game        : Game      = Game()
+
+                let homeTeam    : NBATeam   = self.teamOptions[self.homeTeamPickerView.selectedRow(inComponent: 0)]
+                let awayTeam    : NBATeam   = self.teamOptions[self.awayTeamPickerView.selectedRow(inComponent: 0)]
+
+                game.homeTeamId             = homeTeam.id
+                game.awayTeamId             = awayTeam.id
+                game.starts                 = self.datePicker.date
+
+                MyFSRef.createGame(game: game)
+                    .then{ (id) -> Void in
+                        ModalService.showAlert(title: "Game Created", message: "ID: " + id, vc: self)
+                        _ = self.navigationController?.popViewController(animated: true)
+                    }.catch{ (err) in
+                        ModalService.showAlert(title: "Error", message: err.localizedDescription, vc: self)
+                    }.always{}
             }.always{}
     }
 }
@@ -85,7 +91,7 @@ extension AddGameViewController : UIPickerViewDataSource, UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         switch pickerView {
             case homeTeamPickerView, awayTeamPickerView:
-                return teamOptions[row].name
+                return teamOptions[row].city + " " + teamOptions[row].name
             default:return "Null"
         }
     }

@@ -3,12 +3,12 @@ import Firebase
 import UIKit
 
 class LoginViewController: UIViewController {
-    @IBOutlet weak var emailText: TextField!
-    @IBOutlet weak var passwordText: TextField!
-    @IBOutlet weak var forgotPassword: UILabel!
-    @IBOutlet weak var loginButton: UIButton!
-    @IBOutlet weak var signupLabel: UILabel!
-    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    @IBOutlet weak var emailText        : TextField!
+    @IBOutlet weak var passwordText     : TextField!
+    @IBOutlet weak var forgotPassword   : UILabel!
+    @IBOutlet weak var loginButton      : UIButton!
+    @IBOutlet weak var signupLabel      : UILabel!
+    @IBOutlet weak var spinner          : UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()

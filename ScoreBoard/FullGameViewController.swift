@@ -159,8 +159,7 @@ class FullGameViewController: UIViewController {
         gameOwnerUserName.text = game.userId == SessionManager.getUserId() ? "You" : gameOwner.userName
 
         //Start date and time
-        let d: Date = ConversionService.getDateInTimeZone(date: game.startDateTime, timeZoneOffset: game.startTimeZoneOffSet)
-        startDateTime.text = ConversionService.convertDateToDateAtTimeString(date: d)
+        startDateTime.text = ConversionService.convertDateToDateAtTimeString(date: game.timestamp)
         switch(Date().getTimeZoneOffset()){
             case 240:
                 if ConversionService.isDaylightSavingTime() {
