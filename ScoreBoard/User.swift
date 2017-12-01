@@ -1,6 +1,7 @@
 import UIKit
 
-class User : FirebaseObject {
+class User {
+    var id                  : String!
     var uid                 : String!                //Unique id from authentication
     var customerId          : String!
     var userName            : String!
@@ -14,4 +15,5 @@ class User : FirebaseObject {
     var city                : String!
     var stateId             : Int!
     var gender              : String!
+    var timestamp           : Date!
 }

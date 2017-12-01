@@ -199,6 +199,10 @@ class ProfileViewController: UIViewController {
     }
     
     @objc func openMessages() -> Void {
+        //UserId is coming in null for some reason???
+        print(userId)
+        print(SessionManager.getUserId())
+        
         //If current user, navigate to list of message.
         if userId == SessionManager.getUserId() {
             let messagesViewController = storyBoard.instantiateViewController(withIdentifier: "MessagesViewController") as! MessagesViewController
@@ -305,9 +309,7 @@ extension ProfileViewController: UICollectionViewDataSource {
                 betCell.awayTeamImage.kf.setImage(with: URL(string: awayTeam.imageDownloadUrl))
                 betCell.awayTeamImage.round(borderWidth: 1, borderColor: UIColor.black)
                 betCell.awayTeamDigit.text = String(describing: bet.awayDigit!)
-                
-                let d: Date = ConversionService.getDateInTimeZone(date: bet.postDateTime, timeZoneOffset: bet.postTimeZoneOffSet)
-                betCell.posted.text = ConversionService.timeAgoSinceDate(date: d)
+                betCell.posted.text = ConversionService.timeAgoSinceDate(date: bet.timestamp)
                 
                 return betCell
             }

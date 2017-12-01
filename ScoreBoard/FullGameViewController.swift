@@ -201,7 +201,7 @@ class FullGameViewController: UIViewController {
         }
         
         //Sort Bets by time
-        bets = bets.sorted(by: { $0.postDateTime > $1.postDateTime })
+        bets = bets.sorted(by: { $0.timestamp > $1.timestamp })
         
         //Track number of bet the user has
         var numberOfBetUserHas: Int = 0
@@ -430,8 +430,7 @@ extension FullGameViewController: UICollectionViewDataSource {
             cell.awayTeamImage.kf.setImage(with: URL(string: awayTeam!.imageDownloadUrl))
             cell.awayTeamImage.round(borderWidth: 1, borderColor: UIColor.black)
             cell.awayTeamDigit.text = String(describing: selectedBet.awayDigit!)
-            let postDateTime: Date = ConversionService.getDateInTimeZone(date: selectedBet.postDateTime, timeZoneOffset: selectedBet.postTimeZoneOffSet)
-            cell.posted.text = ConversionService.timeAgoSinceDate(date: postDateTime)
+            cell.posted.text = ConversionService.timeAgoSinceDate(date: selectedBet.timestamp)
             
             return cell
         }

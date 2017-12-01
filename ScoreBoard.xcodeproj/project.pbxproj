@@ -56,7 +56,6 @@
 		0CC563711F4DF9070088057C /* HomeTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC563701F4DF9070088057C /* HomeTabBarController.swift */; };
 		0CC563731F4DFD480088057C /* GamesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC563721F4DFD480088057C /* GamesViewController.swift */; };
 		0CC563751F4DFD9A0088057C /* ModalService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC563741F4DFD9A0088057C /* ModalService.swift */; };
-		0CC563771F4DFE430088057C /* FirebaseObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC563761F4DFE430088057C /* FirebaseObject.swift */; };
 		0CC563791F4DFEC70088057C /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC563781F4DFEC70088057C /* SignupViewController.swift */; };
 		0CC5843E1F844BE8009E72DB /* AddGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC5843D1F844BE8009E72DB /* AddGameViewController.swift */; };
 		0CCF23B31F87C80A008E0854 /* AdminTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CCF23B21F87C80A008E0854 /* AdminTableViewController.swift */; };
@@ -149,7 +148,6 @@
 		0CC563701F4DF9070088057C /* HomeTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTabBarController.swift; sourceTree = "<group>"; };
 		0CC563721F4DFD480088057C /* GamesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GamesViewController.swift; sourceTree = "<group>"; };
 		0CC563741F4DFD9A0088057C /* ModalService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalService.swift; sourceTree = "<group>"; };
-		0CC563761F4DFE430088057C /* FirebaseObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseObject.swift; sourceTree = "<group>"; };
 		0CC563781F4DFEC70088057C /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		0CC5843D1F844BE8009E72DB /* AddGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGameViewController.swift; sourceTree = "<group>"; };
 		0CCF23B21F87C80A008E0854 /* AdminTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminTableViewController.swift; sourceTree = "<group>"; };
@@ -424,7 +422,6 @@
 			isa = PBXGroup;
 			children = (
 				0CFC24631F4DEB7F003F97B5 /* Game.swift */,
-				0CC563761F4DFE430088057C /* FirebaseObject.swift */,
 				0C03B4411F4E809C0020FB2A /* User.swift */,
 				0C98D22E1F5FA86C00D8BBAD /* Bet.swift */,
 			);
@@ -893,7 +890,6 @@
 				0C0D60BB1F7EA355001338F5 /* UIPickerViewOptions.swift in Sources */,
 				0C5F3A421F4E15D900516CFB /* ProfileViewController.swift in Sources */,
 				0C5F3A3A1F4E0EFD00516CFB /* Extensions.swift in Sources */,
-				0CC563771F4DFE430088057C /* FirebaseObject.swift in Sources */,
 				0C9F18AA1F81C6C7009543A6 /* AboutViewController.swift in Sources */,
 				0CD969FF1F6501F700B183C8 /* ImageViewController.swift in Sources */,
 				0CC5843E1F844BE8009E72DB /* AddGameViewController.swift in Sources */,

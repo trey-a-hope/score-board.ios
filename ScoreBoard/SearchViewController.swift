@@ -14,10 +14,7 @@ class Item {
 //TODO: FIX SEARCH, ACTING WACKY RIGHT NOW
 //TODO: REMOVE SEARCHBAR WHEN ACTIVE AND GOING TO NEW TAB
 class SearchViewController: UIViewController {
-    @IBOutlet weak var tableView: UITableView!
-    
-    //Navbar buttons
-    var searchButton: UIBarButtonItem!
+    @IBOutlet private weak var tableView    : UITableView!
     
     //All search categories
     var games: [Item] = [Item]()            //MAY NOT NEED
@@ -40,11 +37,9 @@ class SearchViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        ModalService.showAlert(title: "Search Page Not Working", message: "Still needs work.", vc: self)
-        
         navigationController?.visibleViewController?.navigationItem.titleView = nil
         navigationController?.visibleViewController?.navigationItem.title = "Search"
-        navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([searchButton], animated: true)
+        navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([], animated: true)
         navigationController?.hidesBarsOnSwipe = true
     }
     
@@ -67,13 +62,6 @@ class SearchViewController: UIViewController {
         tableView.register(UINib.init(nibName: "SearchItem", bundle: nil), forCellReuseIdentifier: "SearchItem")
         tableView.delegate = self
         tableView.dataSource = self
-        
-        //Search Button
-        searchButton = UIBarButtonItem(
-            barButtonSystemItem: .search,
-            target: self,
-            action: #selector(showSearchBar(_:))
-        )
         
         //Configure searchbar
         searchController.searchResultsUpdater = self
@@ -174,7 +162,7 @@ extension SearchViewController : UISearchBarDelegate {
         
         navigationController?.visibleViewController?.navigationItem.titleView = nil
         
-        navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([searchButton], animated: false)
+        //navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([searchButton], animated: false)
         
         searchController.isActive = false
         

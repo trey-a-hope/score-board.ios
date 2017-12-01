@@ -417,9 +417,9 @@ class MyFSRef {
     class func createUser(user: User) -> Promise<String> {
         return Promise{ fulfill, reject in
             var ref: DocumentReference? = nil
-            let now: Date = Date()
 
             let data: [String : Any] = [
+                "id"                : "",
                 "uid"               : user.uid,
                 "userName"          : user.userName,
                 "email"             : user.email,
@@ -427,8 +427,7 @@ class MyFSRef {
                 "betsWon"           : 0,
                 "gamesWon"          : 0,
                 "imageDownloadUrl"  : "https://web.usask.ca/images/profile.jpg", //upload own "unwknown" image url.
-                "postDateTime"      : ConversionService.convertDateToFirebaseString(now),
-                "postTimeZoneOffSet": now.getTimeZoneOffset()
+                "timestamp"         : String(describing: Date())
             ]
             
             //Add game - I pray they come up with a better solution for referencing the ref id, this is tacky
@@ -437,16 +436,31 @@ class MyFSRef {
                     reject(err)
                     print("Error adding document: \(err)")
                 } else {
-                    //Update id of game
-                    ref!.updateData([
-                        "id": ref!.documentID
-                    ]){err in
-                        if let err = err {
-                            reject(err)
-                        }
-                        print("Document added with ID: \(ref!.documentID)")
-                        fulfill(ref!.documentID)
-                    }
+                    
+                    //Create new customer object for user.
+                    StripeAPIClient.createCustomer(email: user.email)
+                        .then{ response -> Void in
+                            if let JSON = response.result.value {
+                                do{
+                                    let json        : NSDictionary  = try JSONSerializer.toDictionary(JSON)
+                                    let customerId  : String        = json["id"] as! String
+                                    
+                                    //Update id and customerId of user
+                                    ref!.updateData([
+                                        "customerId": customerId,
+                                        "id"        : ref!.documentID
+                                    ]){err in
+                                        if let err = err {
+                                            reject(err)
+                                        }
+                                        
+                                        fulfill(ref!.documentID)
+                                    }
+                                }catch let error as NSError{
+                                    reject(error)
+                                }
+                            }
+                        }.always{}
                 }
             }
         }
@@ -461,8 +475,6 @@ extension MyFSRef {
         
         user.id = value["id"] as! String
         user.uid = value["uid"] as! String
-        user.postTimeZoneOffSet = value["postTimeZoneOffSet"] as! Int
-        user.postDateTime = ConversionService.convertStringToDate(value["postDateTime"] as! String)
         user.points = value["points"] as! Int
         user.betsWon = value["betsWon"] as! Int
         user.gamesWon = value["gamesWon"] as! Int
@@ -475,7 +487,7 @@ extension MyFSRef {
         user.stateId = value["stateId"] as? Int
         user.gender = value["gender"] as? String
         
-        return (user)
+        return user
     }
     
     class func extractBetData(betSnapshot: DocumentSnapshot) -> Bet {
@@ -483,8 +495,6 @@ extension MyFSRef {
         let bet: Bet = Bet()
         
         bet.id = value["id"] as! String
-        bet.postDateTime = ConversionService.convertStringToDate(value["postDateTime"] as! String)
-        bet.postTimeZoneOffSet = value["postTimeZoneOffSet"] as! Int
         bet.userId = value["userId"] as! String
         bet.gameId = value["gameId"] as! String
         bet.homeDigit = value["homeDigit"] as! Int
@@ -503,8 +513,6 @@ extension MyFSRef {
         
         game.id = value["id"] as! String
         game.userId = value["userId"] as? String
-        game.postTimeZoneOffSet = value["postTimeZoneOffSet"] as! Int
-        game.postDateTime = ConversionService.convertStringToDate(value["postDateTime"] as! String)
         game.homeTeamId = value["homeTeamId"] as! Int
         game.homeTeamScore = value["homeTeamScore"] as! Int
         game.awayTeamId = value["awayTeamId"] as! Int
