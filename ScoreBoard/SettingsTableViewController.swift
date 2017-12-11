@@ -56,16 +56,12 @@ class SettingsTableViewController: UITableViewController {
                         let changePasswordViewController = storyBoard.instantiateViewController(withIdentifier: "ChangePasswordViewController") as! ChangePasswordViewController
                         navigationController?.pushViewController(changePasswordViewController, animated: true)
                         break
-                    //Payment Method
-                    case 2:
-                        ModalService.showAlert(title: "Payment Method", message: "Coming Soon...", vc: self)
-                        break
                     //Notifications
-                    case 3:
+                    case 2:
                         ModalService.showAlert(title: "Notifications", message: "Coming Soon...", vc: self)
                         break
                     //Log Out
-                    case 4:
+                    case 3:
                         ModalService.showConfirm(title: "Log out", message: "Are you sure?", vc: self)
                             .then{() -> Void in
                                 SessionManager.signOut()
@@ -73,7 +69,7 @@ class SettingsTableViewController: UITableViewController {
                             }.always{}
                         break
                     //Delete Account
-                    case 5:
+                    case 4:
                         ModalService.showConfirm(title: "Delete Account", message: "Before you can delete your account, you must wait for any games you currently own to finish.", vc: self)
                             .then{(x) -> Void in
                                 MyFSRef.deleteUser(userId: SessionManager.getUserId())
@@ -83,6 +79,20 @@ class SettingsTableViewController: UITableViewController {
                                         ModalService.showAlert(title: "Error", message: error.localizedDescription, vc: self)
                                     }.always {}
                             }.always{}
+                        break
+                    default:break
+                }
+                break
+            //Payment
+            case 2:
+                switch (indexPath.row) {
+                    //Method
+                    case 0:
+                        ModalService.showAlert(title: "Method", message: "Coming soon...", vc: self)
+                        break
+                    //History
+                    case 1:
+                        ModalService.showAlert(title: "History", message: "Coming soon...", vc: self)
                         break
                     default:break
                 }

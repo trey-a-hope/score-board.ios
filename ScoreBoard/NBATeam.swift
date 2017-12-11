@@ -1,22 +1,22 @@
 import UIKit
 
 class NBATeam {
-    var id: Int!
-    var name: String!
-    var city: String!
-    var conference: String!
-    var imageDownloadUrl: String!
-    var backgroundColor: UIColor!
-    var url: String!
+    var id                  : Int!
+    var name                : String!
+    var city                : String!
+    var conference          : String!
+    var imageDownloadUrl    : String!
+    var backgroundColor     : UIColor!
+    var url                 : String!
     
     init(id: Int, name: String, city: String, conference: String, imageDownloadUrl: String, hexColor: String, url: String) {
-        self.id = id
-        self.name = name
-        self.city = city
-        self.conference = conference
-        self.imageDownloadUrl = imageDownloadUrl
-        self.backgroundColor = UIColor().hexStringToUIColor(hex: hexColor)
-        self.url = url
+        self.id                 = id
+        self.name               = name
+        self.city               = city
+        self.conference         = conference
+        self.imageDownloadUrl   = imageDownloadUrl
+        self.backgroundColor    = UIColor().hexStringToUIColor(hex: hexColor)
+        self.url                = url
     }
 }
 

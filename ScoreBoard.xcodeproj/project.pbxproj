@@ -1061,6 +1061,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ScoreBoard/ScoreBoard.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = AYXEVPG9Z5;
 				INFOPLIST_FILE = ScoreBoard/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -1079,6 +1080,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ScoreBoard/ScoreBoard.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = AYXEVPG9Z5;
 				INFOPLIST_FILE = ScoreBoard/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;

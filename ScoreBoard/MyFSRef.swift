@@ -63,17 +63,16 @@ class MyFSRef {
         return Promise{ fulfill, reject in
             
             var ref: DocumentReference? = nil
-            let now: Date = Date()
             
             let data: [String : Any] = [
+                "id"                    : "",
                 "homeTeamId"            : bet.homeTeamId,
                 "homeDigit"             : bet.homeDigit,
                 "awayTeamId"            : bet.awayTeamId,
                 "awayDigit"             : bet.awayDigit,
                 "userId"                : bet.userId,
                 "gameId"                : bet.gameId,
-                "postDateTime"          : ConversionService.convertDateToFirebaseString(now),
-                "postTimeZoneOffSet"    : now.getTimeZoneOffset()
+                "timestamp"             : String(describing: Date())
             ]
             
             //Add bet - I pray they come up with a better solution for referencing the ref id, this is tacky
@@ -424,6 +423,8 @@ class MyFSRef {
                 "betsWon"           : 0,
                 "gamesWon"          : 0,
                 "imageDownloadUrl"  : "https://web.usask.ca/images/profile.jpg", //upload own "unwknown" image url.
+                "followers"         : [],
+                "followings"        : [],
                 "timestamp"         : String(describing: Date())
             ]
             
@@ -467,44 +468,47 @@ class MyFSRef {
 //DATA EXTRACTION METHODS
 extension MyFSRef {
     class func extractUserData(userSnapshot: DocumentSnapshot) -> User {
-        let value = userSnapshot.data()
-        let user: User = User()
+        let value   : [String:Any]  = userSnapshot.data()
+        let user    : User          = User()
         
-        user.id = value["id"] as! String
-        user.uid = value["uid"] as! String
-        user.points = value["points"] as! Int
-        user.betsWon = value["betsWon"] as! Int
-        user.gamesWon = value["gamesWon"] as! Int
-        user.userName = value["userName"] as! String
-        user.email = value["email"] as! String
-        user.imageDownloadUrl = value["imageDownloadUrl"] as! String
-        user.phoneNumber = value["phoneNumber"] as? String
-        user.fcmToken = value["fcmToken"] as? String
-        user.city = value["city"] as? String
-        user.stateId = value["stateId"] as? Int
-        user.gender = value["gender"] as? String
+        user.id                 = value["id"] as! String
+        user.uid                = value["uid"] as! String
+        user.points             = value["points"] as! Int
+        user.betsWon            = value["betsWon"] as! Int
+        user.gamesWon           = value["gamesWon"] as! Int
+        user.userName           = value["userName"] as! String
+        user.email              = value["email"] as! String
+        user.imageDownloadUrl   = value["imageDownloadUrl"] as! String
+        user.followers          = value["followers"] as! [String]
+        user.followings         = value["followings"] as! [String]
+        user.phoneNumber        = value["phoneNumber"] as? String
+        user.fcmToken           = value["fcmToken"] as? String
+        user.city               = value["city"] as? String
+        user.stateId            = value["stateId"] as? Int
+        user.gender             = value["gender"] as? String
         
         return user
     }
     
     class func extractBetData(betSnapshot: DocumentSnapshot) -> Bet {
-        let value = betSnapshot.data()
-        let bet: Bet = Bet()
+        let value   : [String:Any]  = betSnapshot.data()
+        let bet     : Bet           = Bet()
         
-        bet.id = value["id"] as! String
-        bet.userId = value["userId"] as! String
-        bet.gameId = value["gameId"] as! String
-        bet.homeDigit = value["homeDigit"] as! Int
-        bet.homeTeamId = value["homeTeamId"] as! Int
-        bet.awayDigit = value["awayDigit"] as! Int
-        bet.awayTeamId = value["awayTeamId"] as! Int
+        bet.id          = value["id"] as! String
+        bet.userId      = value["userId"] as! String
+        bet.gameId      = value["gameId"] as! String
+        bet.homeDigit   = value["homeDigit"] as! Int
+        bet.homeTeamId  = value["homeTeamId"] as! Int
+        bet.awayDigit   = value["awayDigit"] as! Int
+        bet.awayTeamId  = value["awayTeamId"] as! Int
+        bet.timestamp   = ConversionService.timestampToDate(timestamp: value["timestamp"] as! String)
         
         return bet
     }
     
     class func extractGameData(gameDoc: DocumentSnapshot) -> Game {
-        let gameData = gameDoc.data()
-        let game: Game = Game()
+        let gameData: [String:Any]  = gameDoc.data()
+        let game    : Game          = Game()
         
         game.id             = gameData["id"] as! String
         game.homeTeamId     = gameData["homeTeamId"] as! Int

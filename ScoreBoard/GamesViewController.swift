@@ -2,13 +2,13 @@ import Firebase
 import UIKit
 
 class GamesViewController: UIViewController {
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var segmentedControl: UISegmentedControl!
+    @IBOutlet private weak var tableView        : UITableView!
+    @IBOutlet private weak var segmentedControl : UISegmentedControl!
     
-    var allGames: [Game] = [Game]()
-    var games: [Game] = [Game]()
+    private var allGames                        : [Game] = [Game]()
+    private var games                           : [Game] = [Game]()
     
-    lazy var refreshControl: UIRefreshControl = {
+    private lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(GamesViewController.getGames), for: UIControlEvents.valueChanged)
         return refreshControl
@@ -115,8 +115,7 @@ extension GamesViewController : UITableViewDataSource, UITableViewDelegate {
             //Game taken
             if game.userId != nil {
                 cell.potAmount.text = String(format: "$%.02f", game.potAmount) + " pot"
-                //cell.betCount.text = game.bets.count == 1 ? "1 bet" : String(describing: game.bets.count) + " bets"
-                cell.betCount.text = "(Bet Count Will Go Here)"
+                cell.betCount.text = String(format: "$%.02f", game.betPrice) + " bets"
             }
             //Game empty
             else{
@@ -159,7 +158,8 @@ extension GamesViewController : UITableViewDataSource, UITableViewDelegate {
                 self.present(activityViewController, animated: true, completion: nil)
             }else{
                 //TODO: DISPLAY MODAL SAYING LINK IS MALFORMED
-            }        }
+            }
+        }
         share.backgroundColor = GMColor.green500Color()
         
         return [share]
