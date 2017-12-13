@@ -26,7 +26,7 @@
 		0C5F3A381F4E0EBB00516CFB /* ConversionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5F3A371F4E0EBB00516CFB /* ConversionService.swift */; };
 		0C5F3A3A1F4E0EFD00516CFB /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5F3A391F4E0EFD00516CFB /* Extensions.swift */; };
 		0C5F3A3D1F4E11C200516CFB /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5F3A3C1F4E11C200516CFB /* SessionManager.swift */; };
-		0C5F3A421F4E15D900516CFB /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5F3A411F4E15D900516CFB /* ProfileViewController.swift */; };
+		0C5F3A421F4E15D900516CFB /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5F3A411F4E15D900516CFB /* MyProfileViewController.swift */; };
 		0C5F3A451F4E163200516CFB /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5F3A441F4E163200516CFB /* SettingsTableViewController.swift */; };
 		0C628CA01F81BF4F0044C469 /* ChangeEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C628C9F1F81BF4F0044C469 /* ChangeEmailViewController.swift */; };
 		0C628CA21F81C33F0044C469 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C628CA11F81C33F0044C469 /* ChangePasswordViewController.swift */; };
@@ -69,6 +69,7 @@
 		0CF611661F62EA5A00A46EB0 /* GMPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF611651F62EA5A00A46EB0 /* GMPalette.swift */; };
 		0CF611681F62EA7600A46EB0 /* GMColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF611671F62EA7600A46EB0 /* GMColor.swift */; };
 		0CFC24641F4DEB7F003F97B5 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CFC24631F4DEB7F003F97B5 /* Game.swift */; };
+		A212AE1B1FE0C23500A5E50A /* OtherProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A212AE1A1FE0C23500A5E50A /* OtherProfileViewController.swift */; };
 		A2185CF01FCE68270024BB3E /* StripeAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2185CEF1FCE68270024BB3E /* StripeAPIClient.swift */; };
 		A755D61690469DFE9676903E /* Pods_ScoreBoard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF29027401D1C20BACED85FA /* Pods_ScoreBoard.framework */; };
 		D7D9B3CA8B5C1DB7189CD507 /* Pods_ScoreBoardTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF323F9559AE5C4B2D76CFC0 /* Pods_ScoreBoardTests.framework */; };
@@ -112,7 +113,7 @@
 		0C5F3A371F4E0EBB00516CFB /* ConversionService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversionService.swift; sourceTree = "<group>"; };
 		0C5F3A391F4E0EFD00516CFB /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		0C5F3A3C1F4E11C200516CFB /* SessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
-		0C5F3A411F4E15D900516CFB /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		0C5F3A411F4E15D900516CFB /* MyProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyProfileViewController.swift; sourceTree = "<group>"; };
 		0C5F3A441F4E163200516CFB /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		0C628C9F1F81BF4F0044C469 /* ChangeEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeEmailViewController.swift; sourceTree = "<group>"; };
 		0C628CA11F81C33F0044C469 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
@@ -168,6 +169,7 @@
 		408B7221B04466F0AE6E428D /* Pods-ScoreBoardUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScoreBoardUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ScoreBoardUITests/Pods-ScoreBoardUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		55F2C2552E75C8893EEED9E7 /* Pods-ScoreBoard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScoreBoard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ScoreBoard/Pods-ScoreBoard.debug.xcconfig"; sourceTree = "<group>"; };
 		89959AB906071806CD41F907 /* Pods-ScoreBoardTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScoreBoardTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ScoreBoardTests/Pods-ScoreBoardTests.debug.xcconfig"; sourceTree = "<group>"; };
+		A212AE1A1FE0C23500A5E50A /* OtherProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherProfileViewController.swift; sourceTree = "<group>"; };
 		A2185CEF1FCE68270024BB3E /* StripeAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripeAPIClient.swift; sourceTree = "<group>"; };
 		CC3D9AD44F81710204E0503B /* Pods-ScoreBoardUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScoreBoardUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ScoreBoardUITests/Pods-ScoreBoardUITests.release.xcconfig"; sourceTree = "<group>"; };
 		DF323F9559AE5C4B2D76CFC0 /* Pods_ScoreBoardTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ScoreBoardTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -230,8 +232,9 @@
 			isa = PBXGroup;
 			children = (
 				0CAB26D81F770D5D00B8EBC1 /* Messages */,
-				0C5F3A411F4E15D900516CFB /* ProfileViewController.swift */,
+				0C5F3A411F4E15D900516CFB /* MyProfileViewController.swift */,
 				0C65A3811F7DE26B001C2959 /* EditProfileViewController.swift */,
+				A212AE1A1FE0C23500A5E50A /* OtherProfileViewController.swift */,
 			);
 			name = Profile;
 			sourceTree = "<group>";
@@ -884,11 +887,12 @@
 				0CB0D2C41F9E6A930012A2CE /* SearchUserViewController.swift in Sources */,
 				A2185CF01FCE68270024BB3E /* StripeAPIClient.swift in Sources */,
 				0CC563731F4DFD480088057C /* GamesViewController.swift in Sources */,
+				A212AE1B1FE0C23500A5E50A /* OtherProfileViewController.swift in Sources */,
 				0CC563751F4DFD9A0088057C /* ModalService.swift in Sources */,
 				0C5F3A451F4E163200516CFB /* SettingsTableViewController.swift in Sources */,
 				0CC563711F4DF9070088057C /* HomeTabBarController.swift in Sources */,
 				0C0D60BB1F7EA355001338F5 /* UIPickerViewOptions.swift in Sources */,
-				0C5F3A421F4E15D900516CFB /* ProfileViewController.swift in Sources */,
+				0C5F3A421F4E15D900516CFB /* MyProfileViewController.swift in Sources */,
 				0C5F3A3A1F4E0EFD00516CFB /* Extensions.swift in Sources */,
 				0C9F18AA1F81C6C7009543A6 /* AboutViewController.swift in Sources */,
 				0CD969FF1F6501F700B183C8 /* ImageViewController.swift in Sources */,

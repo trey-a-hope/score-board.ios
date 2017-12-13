@@ -132,8 +132,6 @@ extension HomeViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) -> Void {
-        let profileViewController = storyBoard.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
-        
         var user: User!
         
         switch collectionView {
@@ -146,10 +144,12 @@ extension HomeViewController: UICollectionViewDataSource {
             default:break
         }
         
-        //Check is this is the currently logged in user
-        if user.id != SessionManager.getUserId() {
-            profileViewController.userId = user.id
-            navigationController!.pushViewController(profileViewController, animated: true)
+        if user.id == SessionManager.getUserId() {
+            ModalService.showAlert(title: "TODO", message: "Navigate to profile view.", vc: self)
+        }else{
+            let otherProfileViewController = storyBoard.instantiateViewController(withIdentifier: "OtherProfileViewController") as! OtherProfileViewController
+            otherProfileViewController.userId = user.id
+            navigationController!.pushViewController(otherProfileViewController, animated: true)
         }
     }
     

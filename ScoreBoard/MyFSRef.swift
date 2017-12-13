@@ -277,6 +277,22 @@ class MyFSRef {
         }
     }
     
+    class func followUser(myUserId: String, myFollowings: [String], theirUserId: String, theirFollowers: [String]) -> Promise<Void> {
+        return Promise{ fulfill, reject in
+            db.collection("Users").document(myUserId).updateData([
+                "followings" : myFollowings
+            ]){ err in
+                if let err = err { reject(err) }
+                db.collection("Users").document(theirUserId).updateData([
+                    "followers" : theirFollowers
+                ]){ err in
+                    if let err = err { reject(err) }
+                    else { fulfill(()) }
+                }
+            }
+        }
+    }
+    
     //UPDATE USER INFORMATION
     class func updateUser(user: User) -> Promise<Void> {
         return Promise { fulfill, reject in

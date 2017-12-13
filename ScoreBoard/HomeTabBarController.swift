@@ -20,7 +20,7 @@ class HomeTabBarController : UITabBarController {
                 case is GamesViewController:
                     $0.tabBarItem.title = String.fontAwesomeIcon(name: .dollar)
                     break
-                case is ProfileViewController:
+                case is MyProfileViewController:
                     $0.tabBarItem.title = String.fontAwesomeIcon(name: .user)
                     break
                 case is SearchViewController:
@@ -31,9 +31,9 @@ class HomeTabBarController : UITabBarController {
                     break
                 default:break
             }
-
         }
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -43,7 +43,6 @@ class HomeTabBarController : UITabBarController {
         if SessionManager.isLoggedIn() {
             MyFSRef.updateUserFCMToken(userId: SessionManager.getUserId()).always {}
         }
-    
     }
     
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {

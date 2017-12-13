@@ -7,7 +7,7 @@ import PromiseKit
 import Kingfisher
 import UIKit
 
-class ProfileViewController: UIViewController {
+class MyProfileViewController : UIViewController {
     @IBOutlet private weak var scrollView               : UIScrollView!
     @IBOutlet private weak var profileImage             : UIImageView!
     @IBOutlet private weak var userNameLabel            : UILabel!
@@ -19,27 +19,24 @@ class ProfileViewController: UIViewController {
     @IBOutlet private weak var myGamesLabel             : UILabel!
     @IBOutlet private weak var myBetsCollectionView     : UICollectionView!
     @IBOutlet private weak var myGamesCollectionView    : UICollectionView!
-    @IBOutlet private weak var followBtn                : UIButton!
     @IBOutlet private weak var followersLabel           : UILabel!
     @IBOutlet private weak var followingsLabel          : UILabel!
-
     
     //Navbar buttons
     private var messagesButton                          : UIBarButtonItem!
     private var editProfileButton                       : UIBarButtonItem!
     private var adminButton                             : UIBarButtonItem!
 
-    public var userId                                   : String?
     private let imagePicker                             : UIImagePickerController   = UIImagePickerController()
     private let BetCellWidth                            : CGFloat                   = CGFloat(175)
     private let CellIdentifier                          : String                    = "Cell"
-    private var user                                    : User!
+    private var me                                      : User!
     private var myBets                                  : [Bet]                     = [Bet]()
     private var myGames                                 : [Game]                    = [Game]()
         
     private lazy var refreshControl                     : UIRefreshControl          = {
         let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(ProfileViewController.loadData), for: UIControlEvents.valueChanged)
+        refreshControl.addTarget(self, action: #selector(MyProfileViewController.loadData), for: UIControlEvents.valueChanged)
         return refreshControl
     }()
     
@@ -57,16 +54,8 @@ class ProfileViewController: UIViewController {
         navigationController?.isNavigationBarHidden = false
         navigationController?.hidesBarsOnSwipe = false
         
-        //Viewing another person's profile; user their userId.
-        if userId != nil {
-            navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([messagesButton], animated: true)
-            followBtn.isHidden = false
-        }
-        //View your profile; user your userId.
-        else{
-            navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([messagesButton, editProfileButton, adminButton], animated: true)
-            followBtn.isHidden = true
-        }
+
+        navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems([messagesButton, editProfileButton, adminButton], animated: true)
     }
 
     private func initUI() -> Void {
@@ -93,7 +82,7 @@ class ProfileViewController: UIViewController {
             title: "Add",
             style: .plain,
             target: self,
-            action: #selector(ProfileViewController.openMessages)
+            action: #selector(MyProfileViewController.openMessages)
         )
         messagesButton.setTitleTextAttributes(Constants.FONT_AWESOME_ATTRIBUTES, for: .normal)
         messagesButton.title = String.fontAwesomeIcon(name: .envelope)
@@ -104,7 +93,7 @@ class ProfileViewController: UIViewController {
             title: "Add",
             style: .plain,
             target: self,
-            action: #selector(ProfileViewController.openEditProfile)
+            action: #selector(MyProfileViewController.openEditProfile)
         )
         editProfileButton.setTitleTextAttributes(Constants.FONT_AWESOME_ATTRIBUTES, for: .normal)
         editProfileButton.title = String.fontAwesomeIcon(name: .pencil)
@@ -115,25 +104,24 @@ class ProfileViewController: UIViewController {
             title: "Add",
             style: .plain,
             target: self,
-            action: #selector(ProfileViewController.openAdmin)
+            action: #selector(MyProfileViewController.openAdmin)
         )
         adminButton.setTitleTextAttributes(Constants.FONT_AWESOME_ATTRIBUTES, for: .normal)
         adminButton.title = String.fontAwesomeIcon(name: .cogs)
         adminButton.tintColor = .white
+        
     }
     
     @objc private func loadData() -> Void {
-        let temp: String = userId == nil ? SessionManager.getUserId() : userId!
-        
-        when(fulfilled: MyFSRef.getUserById(id: temp), MyFSRef.getGamesForUser(userId: temp), MyFSRef.getBetsForUser(userId: temp))
+        when(fulfilled: MyFSRef.getUserById(id: SessionManager.getUserId()), MyFSRef.getGamesForUser(userId: SessionManager.getUserId()), MyFSRef.getBetsForUser(userId: SessionManager.getUserId()))
             .then{ result -> Void in
                 
                 //Set user
-                self.user = result.0
+                self.me         = result.0
                 //Set games
-                self.myGames = result.1
+                self.myGames    = result.1
                 //Set bets
-                self.myBets = result.2
+                self.myBets     = result.2
                 
                 self.myBetsCollectionView.reloadData()
                 self.myGamesCollectionView.reloadData()
@@ -148,54 +136,36 @@ class ProfileViewController: UIViewController {
     private func setUI() -> Void {
         //Profile image
         profileImage.round(borderWidth: 8.0, borderColor: UIColor.white)
-        profileImage.kf.setImage(with: URL(string: user.imageDownloadUrl))
+        profileImage.kf.setImage(with: URL(string: me.imageDownloadUrl))
         
         //Location
-        if let _ = user.city, let _ = user.stateId {
-            locationLabel.text = user.city + ", " + StateService.getStateAbbreviation(user.stateId)
+        if let _ = me.city, let _ = me.stateId {
+            locationLabel.text = me.city + ", " + StateService.getStateAbbreviation(me.stateId)
         }else{
             locationLabel.text = "No location"
         }
         
         //Username
-        userNameLabel.text = user.userName
+        userNameLabel.text = me.userName
         
         //Points
-        pointsLabel.text = String(describing: user.points!)
+        pointsLabel.text = String(describing: me.points!)
         
         //Followers/Followings TODO: Add on touch method to navigate to list of users.
-        followersLabel.text     = String(describing: user.followers.count)
-        followingsLabel.text    = String(describing: user.followings.count)
+        followersLabel.text     = String(describing: me.followers.count)
+        followingsLabel.text    = String(describing: me.followings.count)
         
         //Games won
-        gamesWonLabel.text = "Games Won - " + String(describing: user.gamesWon!)
+        gamesWonLabel.text = "Games Won - " + String(describing: me.gamesWon!)
         
         //Bets won
-        betsWonLabel.text = "Bets Won - " + String(describing: user.betsWon!)
+        betsWonLabel.text = "Bets Won - " + String(describing: me.betsWon!)
         
-        //My bets label, gender specific
-        if userId == nil {
-            myBetsLabel.text = "My bets - "
-        }else{
-            if let _ = user.gender {
-                myBetsLabel.text = user.gender == "F" ? "Her bets - " : "His bets - "
-            }else{
-                myBetsLabel.text = "Their bets - "
-            }
-        }
-        myBetsLabel.text = myBetsLabel.text! + String(describing: myBets.count)
+        //My bets label
+        myBetsLabel.text = "My Bets - " + String(describing: myBets.count)
         
-        //My games label, gender specific
-        if userId == nil {
-            myGamesLabel.text = "My games - "
-        }else{
-            if let _ = user.gender {
-                myGamesLabel.text = user.gender == "F" ? "Her games - " : "His games - "
-            }else{
-                myGamesLabel.text = "Their games - "
-            }
-        }
-        myGamesLabel.text = myGamesLabel.text! + String(describing: myGames.count)
+        //My games label
+        myGamesLabel.text = "My Games - " + String(describing: myGames.count)
     }
     
     @objc private func openAdmin() -> Void {
@@ -209,15 +179,8 @@ class ProfileViewController: UIViewController {
     }
     
     @objc private func openMessages() -> Void {
-        //Viewing another person's profile; message them directly.
-        if userId != nil {
-            ModalService.showAlert(title: "Message " + self.user.userName, message: "Coming soon...", vc: self)
-        }
-        //Viewing your profile; go to your messages.
-        else{
-            let messagesViewController = storyBoard.instantiateViewController(withIdentifier: "MessagesViewController") as! MessagesViewController
-            navigationController?.pushViewController(messagesViewController, animated: true)
-        }
+        let messagesViewController = storyBoard.instantiateViewController(withIdentifier: "MessagesViewController") as! MessagesViewController
+        navigationController?.pushViewController(messagesViewController, animated: true)
     }
     
     @objc private func updateProfilePicture() -> Void {
@@ -229,13 +192,9 @@ class ProfileViewController: UIViewController {
             ModalService.showAlert(title: "Sorry", message: "Image Picker Not Available", vc: self)
         }
     }
-    
-    @IBAction private func updateUserFollowing() -> Void {
-        ModalService.showAlert(title: "Coming Soon...", message: "Like real soon...", vc: self)
-    }
 }
 
-extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+extension MyProfileViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     //Child section dimensions.
     func collectionView(
         _ collectionView: UICollectionView,
@@ -267,7 +226,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDeleg
     }
 }
 
-extension ProfileViewController: UICollectionViewDataSource {
+extension MyProfileViewController: UICollectionViewDataSource {
     //Collection View Data Source Methods.
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -289,7 +248,6 @@ extension ProfileViewController: UICollectionViewDataSource {
         
         if collectionView == myBetsCollectionView {
             gameId = myBets[indexPath.row].gameId!
-            
         }
         else if collectionView == myGamesCollectionView {
             gameId = myGames[indexPath.row].id!
@@ -310,8 +268,8 @@ extension ProfileViewController: UICollectionViewDataSource {
                 let homeTeam: NBATeam = NBATeamService.instance.teams.filter({ $0.id == bet.homeTeamId }).first!
                 let awayTeam: NBATeam = NBATeamService.instance.teams.filter({ $0.id == bet.awayTeamId }).first!
                 
-                betCell.userName.text = self.user.userName
-                betCell.userImage.kf.setImage(with: URL(string: self.user.imageDownloadUrl))
+                betCell.userName.text = me.userName
+                betCell.userImage.kf.setImage(with: URL(string: me.imageDownloadUrl))
                 betCell.userImage.round(borderWidth: 1, borderColor: UIColor.black)
                 betCell.homeTeamImage.kf.setImage(with: URL(string: homeTeam.imageDownloadUrl))
                 betCell.homeTeamImage.round(borderWidth: 1, borderColor: UIColor.black)
@@ -333,7 +291,7 @@ extension ProfileViewController: UICollectionViewDataSource {
                 let homeTeam: NBATeam = NBATeamService.instance.teams.filter({ $0.id == game.homeTeamId }).first!
                 let awayTeam: NBATeam = NBATeamService.instance.teams.filter({ $0.id == game.awayTeamId }).first!
                 
-                gameCell.userName.text = self.user.userName
+                gameCell.userName.text = me.userName
                 gameCell.homeTeamImage.kf.setImage(with: URL(string: homeTeam.imageDownloadUrl))
                 gameCell.homeTeamImage.round(borderWidth: 1, borderColor: UIColor.black)
                 gameCell.homeTeamScore.text = String(describing: game.homeTeamScore!)
@@ -351,7 +309,7 @@ extension ProfileViewController: UICollectionViewDataSource {
     }
 }
 
-extension ProfileViewController : UIImagePickerControllerDelegate {
+extension MyProfileViewController : UIImagePickerControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) -> Void {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {

@@ -244,9 +244,9 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
                 break
             //Users
             case 1:
-                let profileViewController = storyBoard.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
-                profileViewController.userId = item.id
-                self.navigationController?.pushViewController(profileViewController, animated: true)
+                let otherProfileViewController = storyBoard.instantiateViewController(withIdentifier: "OtherProfileViewController") as! OtherProfileViewController
+                otherProfileViewController.userId = item.id
+                navigationController!.pushViewController(otherProfileViewController, animated: true)
                 break
             //Teams
             case 2:

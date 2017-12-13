@@ -249,11 +249,12 @@ class FullGameViewController: UIViewController {
     }
     
     @objc func goToGameOwnerProfile() -> Void {
-        //Check is this is the currently logged in user
-        if game.userId != SessionManager.getUserId() {
-            let profileViewController = storyBoard.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
-            profileViewController.userId = game.userId
-            navigationController!.pushViewController(profileViewController, animated: true)
+        if game.userId == SessionManager.getUserId() {
+            ModalService.showAlert(title: "TODO", message: "Navigate to profile view.", vc: self)
+        }else{
+            let otherProfileViewController = storyBoard.instantiateViewController(withIdentifier: "OtherProfileViewController") as! OtherProfileViewController
+            otherProfileViewController.userId = game.userId
+            navigationController!.pushViewController(otherProfileViewController, animated: true)
         }
     }
     
@@ -400,10 +401,12 @@ extension FullGameViewController: UICollectionViewDataSource {
         let bet: Bet = bets[indexPath.row]
         
         //Check is this is the currently logged in user
-        if bet.userId != SessionManager.getUserId() {
-            let profileViewController = storyBoard.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
-            profileViewController.userId = bet.userId
-            navigationController!.pushViewController(profileViewController, animated: true)
+        if bet.userId == SessionManager.getUserId() {
+            ModalService.showAlert(title: "TODO", message: "Navigate to profile view.", vc: self)
+        }else{
+            let otherProfileViewController = storyBoard.instantiateViewController(withIdentifier: "OtherProfileViewController") as! OtherProfileViewController
+            otherProfileViewController.userId = bet.userId
+            navigationController!.pushViewController(otherProfileViewController, animated: true)
         }
     }
     
