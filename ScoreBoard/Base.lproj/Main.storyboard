@@ -1270,7 +1270,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9sG-2Z-KPN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3150" y="1222"/>
+            <point key="canvasLocation" x="-2945" y="1223"/>
         </scene>
         <!--Games-->
         <scene sceneID="Efk-Vi-EY9">
@@ -2319,7 +2319,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d0a-cT-Yg9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2380" y="2005"/>
+            <point key="canvasLocation" x="953" y="3394"/>
         </scene>
         <!--Add Game-->
         <scene sceneID="z9E-hg-roB">
@@ -2419,7 +2419,70 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y3N-SF-TgU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3052" y="2155"/>
+            <point key="canvasLocation" x="1702" y="3543"/>
+        </scene>
+        <!--Followers-->
+        <scene sceneID="tnx-ku-e63">
+            <objects>
+                <viewController storyboardIdentifier="FollowersViewController" title="Followers" id="KuI-1o-9x5" customClass="FollowersViewController" customModule="ScoreBoard" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="hQf-gq-U2Y"/>
+                        <viewControllerLayoutGuide type="bottom" id="I1q-BK-htb"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="k7S-Sq-jSo">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="oVY-3L-qCm">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="oVY-3L-qCm" firstAttribute="top" secondItem="k7S-Sq-jSo" secondAttribute="top" id="IKp-P5-aso"/>
+                            <constraint firstAttribute="trailing" secondItem="oVY-3L-qCm" secondAttribute="trailing" id="qyj-yb-EKD"/>
+                            <constraint firstItem="I1q-BK-htb" firstAttribute="top" secondItem="oVY-3L-qCm" secondAttribute="bottom" id="r9O-Lp-XpW"/>
+                            <constraint firstItem="oVY-3L-qCm" firstAttribute="leading" secondItem="k7S-Sq-jSo" secondAttribute="leading" id="wXH-Qg-mue"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="oVY-3L-qCm" id="u5o-Wk-i2q"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2cy-1Y-GMQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2456.8000000000002" y="2005.5472263868066"/>
+        </scene>
+        <!--Following-->
+        <scene sceneID="xyw-0T-TFs">
+            <objects>
+                <viewController storyboardIdentifier="FollowingsViewController" title="Following" id="UkR-S1-p3V" customClass="FollowingsViewController" customModule="ScoreBoard" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="aEB-PL-Txc"/>
+                        <viewControllerLayoutGuide type="bottom" id="cMW-ee-b7f"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="g09-EI-n7F">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ylL-6R-qTT">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="ylL-6R-qTT" firstAttribute="top" secondItem="g09-EI-n7F" secondAttribute="top" id="4eu-7B-TWo"/>
+                            <constraint firstItem="cMW-ee-b7f" firstAttribute="top" secondItem="ylL-6R-qTT" secondAttribute="bottom" id="AqU-lk-Oar"/>
+                            <constraint firstAttribute="trailing" secondItem="ylL-6R-qTT" secondAttribute="trailing" id="gmc-Yh-egL"/>
+                            <constraint firstItem="ylL-6R-qTT" firstAttribute="leading" secondItem="g09-EI-n7F" secondAttribute="leading" id="otW-c9-Mue"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="C3b-nj-hEw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2456.8000000000002" y="2686.5067466266869"/>
         </scene>
         <!--Update Game-->
         <scene sceneID="s0G-0q-4Z3">
@@ -2530,7 +2593,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4yx-PR-YA5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3720.8000000000002" y="2004.6476761619192"/>
+            <point key="canvasLocation" x="953" y="4792"/>
         </scene>
         <!--Evaluate Game View Controller-->
         <scene sceneID="PgH-6Z-ESb">
@@ -2616,7 +2679,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IhE-gb-PL4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3721" y="2687"/>
+            <point key="canvasLocation" x="953" y="4095"/>
         </scene>
         <!--Cropped Image-->
         <scene sceneID="RdS-Or-GrP">
@@ -2837,7 +2900,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="coi-bl-63M" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2380" y="2688"/>
+            <point key="canvasLocation" x="1702" y="4412"/>
         </scene>
         <!--Profile-->
         <scene sceneID="rO3-ug-d7t">

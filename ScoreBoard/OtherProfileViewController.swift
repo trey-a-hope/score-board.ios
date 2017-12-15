@@ -81,11 +81,17 @@ class OtherProfileViewController: UIViewController {
             title: "Add",
             style: .plain,
             target: self,
-            action: #selector(OtherProfileViewController.openMessages)
+            action: #selector(OtherProfileViewController.goToMessages)
         )
         messagesButton.setTitleTextAttributes(Constants.FONT_AWESOME_ATTRIBUTES, for: .normal)
         messagesButton.title = String.fontAwesomeIcon(name: .envelope)
         messagesButton.tintColor = .white
+        
+        followersLabel.isUserInteractionEnabled = true
+        followersLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(OtherProfileViewController.goToFollowers)))
+        
+        followingsLabel.isUserInteractionEnabled = true
+        followingsLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(OtherProfileViewController.goToFollowings)))
     }
     
     @objc private func loadData() -> Void {
@@ -163,8 +169,18 @@ class OtherProfileViewController: UIViewController {
         theirGamesLabel.text = theirGamesLabel.text! + String(describing: theirGames.count)
     }
     
-    @objc private func openMessages() -> Void {
-        ModalService.showAlert(title: "Message " + self.otherUser.userName, message: "Coming soon...", vc: self)
+    @objc private func goToMessages() -> Void {
+        ModalService.showAlert(title: "Messages", message: "Coming Soon...", vc: self)
+    }
+    
+    @objc private func goToFollowers() -> Void {
+        let followersViewController = storyBoard.instantiateViewController(withIdentifier: "FollowersViewController") as! FollowersViewController
+        navigationController?.pushViewController(followersViewController, animated: true)
+    }
+    
+    @objc private func goToFollowings() -> Void {
+        let followingsViewController = storyBoard.instantiateViewController(withIdentifier: "FollowingsViewController") as! FollowingsViewController
+        navigationController?.pushViewController(followingsViewController, animated: true)
     }
     
     @IBAction private func updateUserFollowing() -> Void {

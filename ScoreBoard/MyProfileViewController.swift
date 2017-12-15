@@ -82,7 +82,7 @@ class MyProfileViewController : UIViewController {
             title: "Add",
             style: .plain,
             target: self,
-            action: #selector(MyProfileViewController.openMessages)
+            action: #selector(MyProfileViewController.goToMessages)
         )
         messagesButton.setTitleTextAttributes(Constants.FONT_AWESOME_ATTRIBUTES, for: .normal)
         messagesButton.title = String.fontAwesomeIcon(name: .envelope)
@@ -93,7 +93,7 @@ class MyProfileViewController : UIViewController {
             title: "Add",
             style: .plain,
             target: self,
-            action: #selector(MyProfileViewController.openEditProfile)
+            action: #selector(MyProfileViewController.goToEditProfile)
         )
         editProfileButton.setTitleTextAttributes(Constants.FONT_AWESOME_ATTRIBUTES, for: .normal)
         editProfileButton.title = String.fontAwesomeIcon(name: .pencil)
@@ -104,13 +104,20 @@ class MyProfileViewController : UIViewController {
             title: "Add",
             style: .plain,
             target: self,
-            action: #selector(MyProfileViewController.openAdmin)
+            action: #selector(MyProfileViewController.goToAdmin)
         )
         adminButton.setTitleTextAttributes(Constants.FONT_AWESOME_ATTRIBUTES, for: .normal)
         adminButton.title = String.fontAwesomeIcon(name: .cogs)
         adminButton.tintColor = .white
         
+        followersLabel.isUserInteractionEnabled = true
+        followersLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(MyProfileViewController.goToFollowers)))
+        
+        followingsLabel.isUserInteractionEnabled = true
+        followingsLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(MyProfileViewController.goToFollowings)))
     }
+    
+
     
     @objc private func loadData() -> Void {
         when(fulfilled: MyFSRef.getUserById(id: SessionManager.getUserId()), MyFSRef.getGamesForUser(userId: SessionManager.getUserId()), MyFSRef.getBetsForUser(userId: SessionManager.getUserId()))
@@ -168,19 +175,29 @@ class MyProfileViewController : UIViewController {
         myGamesLabel.text = "My Games - " + String(describing: myGames.count)
     }
     
-    @objc private func openAdmin() -> Void {
+    @objc private func goToAdmin() -> Void {
         let adminTableViewController = storyBoard.instantiateViewController(withIdentifier: "AdminTableViewController") as! AdminTableViewController
         navigationController?.pushViewController(adminTableViewController, animated: true)
     }
     
-    @objc private func openEditProfile() -> Void {
+    @objc private func goToEditProfile() -> Void {
         let editProfileViewController = storyBoard.instantiateViewController(withIdentifier: "EditProfileViewController") as! EditProfileViewController
         navigationController?.pushViewController(editProfileViewController, animated: true)
     }
     
-    @objc private func openMessages() -> Void {
+    @objc private func goToMessages() -> Void {
         let messagesViewController = storyBoard.instantiateViewController(withIdentifier: "MessagesViewController") as! MessagesViewController
         navigationController?.pushViewController(messagesViewController, animated: true)
+    }
+    
+    @objc private func goToFollowers() -> Void {
+        let followersViewController = storyBoard.instantiateViewController(withIdentifier: "FollowersViewController") as! FollowersViewController
+        navigationController?.pushViewController(followersViewController, animated: true)
+    }
+    
+    @objc private func goToFollowings() -> Void {
+        let followingsViewController = storyBoard.instantiateViewController(withIdentifier: "FollowingsViewController") as! FollowingsViewController
+        navigationController?.pushViewController(followingsViewController, animated: true)
     }
     
     @objc private func updateProfilePicture() -> Void {
