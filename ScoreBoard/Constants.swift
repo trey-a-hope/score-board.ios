@@ -11,4 +11,7 @@ struct Constants {
     
     //Tabs
     static let TABS_VERTICAL_OFFSET: CGFloat = -7
+    
+    //UITableView Cell Height
+    static let FOLLOWER_CELL_HEIGHT: CGFloat = CGFloat(70)
 }

@@ -2,15 +2,15 @@ import Material
 import UIKit
 
 class TakeGameViewController: UIViewController {
-    @IBOutlet weak var homeTeamLabel: UILabel!
-    @IBOutlet weak var homeTeamImage: UIImageView!
-    @IBOutlet weak var awayTeamLabel: UILabel!
-    @IBOutlet weak var awayTeamImage: UIImageView!
-    @IBOutlet weak var potAmount: TextField!
-    @IBOutlet weak var pricePerBet: TextField!
+    @IBOutlet private weak var homeTeamLabel    : UILabel!
+    @IBOutlet private weak var homeTeamImage    : UIImageView!
+    @IBOutlet private weak var awayTeamLabel    : UILabel!
+    @IBOutlet private weak var awayTeamImage    : UIImageView!
+    @IBOutlet private weak var potAmount        : TextField!
+    @IBOutlet private weak var pricePerBet      : TextField!
     
-    var gameId: String!
-    var game: Game!
+    public var gameId                           : String!
+    private var game                            : Game!
     
     override func viewDidLoad() {
         super.viewDidLoad()

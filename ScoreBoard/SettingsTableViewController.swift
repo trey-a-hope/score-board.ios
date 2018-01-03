@@ -88,11 +88,13 @@ class SettingsTableViewController: UITableViewController {
                 switch (indexPath.row) {
                     //Method
                     case 0:
-                        ModalService.showAlert(title: "Method", message: "Coming soon...", vc: self)
+                        let paymentMethodViewController = storyBoard.instantiateViewController(withIdentifier: "PaymentMethodViewController") as! PaymentMethodViewController
+                        navigationController?.pushViewController(paymentMethodViewController, animated: true)
                         break
                     //History
                     case 1:
-                        ModalService.showAlert(title: "History", message: "Coming soon...", vc: self)
+                        let paymentHistoryTableViewController = storyBoard.instantiateViewController(withIdentifier: "PaymentHistoryTableViewController") as! PaymentHistoryTableViewController
+                        navigationController?.pushViewController(paymentHistoryTableViewController, animated: true)
                         break
                     default:break
                 }

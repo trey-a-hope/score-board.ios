@@ -71,6 +71,10 @@
 		0CFC24641F4DEB7F003F97B5 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CFC24631F4DEB7F003F97B5 /* Game.swift */; };
 		A212AE1B1FE0C23500A5E50A /* OtherProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A212AE1A1FE0C23500A5E50A /* OtherProfileViewController.swift */; };
 		A2185CF01FCE68270024BB3E /* StripeAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2185CEF1FCE68270024BB3E /* StripeAPIClient.swift */; };
+		A2290B321FECBA500009B37C /* FollowerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2290B301FECBA500009B37C /* FollowerCell.swift */; };
+		A2290B331FECBA500009B37C /* FollowerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2290B311FECBA500009B37C /* FollowerCell.xib */; };
+		A28EF3E41FFD9FDE00F1F51C /* PaymentMethodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28EF3E31FFD9FDE00F1F51C /* PaymentMethodViewController.swift */; };
+		A28EF3E61FFDA20100F1F51C /* PaymentHistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28EF3E51FFDA20100F1F51C /* PaymentHistoryTableViewController.swift */; };
 		A2A07FD11FE37A2A0083F32F /* FollowingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A07FD01FE37A2A0083F32F /* FollowingsViewController.swift */; };
 		A2DCF9081FE3680300DA2767 /* FollowersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2DCF9071FE3680300DA2767 /* FollowersViewController.swift */; };
 		A755D61690469DFE9676903E /* Pods_ScoreBoard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF29027401D1C20BACED85FA /* Pods_ScoreBoard.framework */; };
@@ -173,6 +177,10 @@
 		89959AB906071806CD41F907 /* Pods-ScoreBoardTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScoreBoardTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ScoreBoardTests/Pods-ScoreBoardTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A212AE1A1FE0C23500A5E50A /* OtherProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherProfileViewController.swift; sourceTree = "<group>"; };
 		A2185CEF1FCE68270024BB3E /* StripeAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripeAPIClient.swift; sourceTree = "<group>"; };
+		A2290B301FECBA500009B37C /* FollowerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerCell.swift; sourceTree = "<group>"; };
+		A2290B311FECBA500009B37C /* FollowerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FollowerCell.xib; sourceTree = "<group>"; };
+		A28EF3E31FFD9FDE00F1F51C /* PaymentMethodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodViewController.swift; sourceTree = "<group>"; };
+		A28EF3E51FFDA20100F1F51C /* PaymentHistoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentHistoryTableViewController.swift; sourceTree = "<group>"; };
 		A2A07FD01FE37A2A0083F32F /* FollowingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowingsViewController.swift; sourceTree = "<group>"; };
 		A2DCF9071FE3680300DA2767 /* FollowersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowersViewController.swift; sourceTree = "<group>"; };
 		CC3D9AD44F81710204E0503B /* Pods-ScoreBoardUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScoreBoardUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ScoreBoardUITests/Pods-ScoreBoardUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -214,7 +222,6 @@
 			isa = PBXGroup;
 			children = (
 				0C3ABE8B1F4F28D800AE5CF9 /* SearchViewController.swift */,
-				0C5A07311F7EDEF700492992 /* SearchItem.swift */,
 			);
 			name = Search;
 			sourceTree = "<group>";
@@ -248,6 +255,7 @@
 		0C5F3A431F4E162800516CFB /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				A28EF3E21FFD9F9600F1F51C /* Payments */,
 				0C5F3A441F4E163200516CFB /* SettingsTableViewController.swift */,
 				0C628C9F1F81BF4F0044C469 /* ChangeEmailViewController.swift */,
 				0C628CA11F81C33F0044C469 /* ChangePasswordViewController.swift */,
@@ -329,7 +337,6 @@
 		0C98D2301F5FAF0B00D8BBAD /* Bets */ = {
 			isa = PBXGroup;
 			children = (
-				0C98D2321F5FAF2600D8BBAD /* BetCell.swift */,
 			);
 			name = Bets;
 			sourceTree = "<group>";
@@ -396,7 +403,6 @@
 			children = (
 				0CC563701F4DF9070088057C /* HomeTabBarController.swift */,
 				0C03B4431F4EAE090020FB2A /* HomeViewController.swift */,
-				0CEA32481F8320D10002B05C /* UserCell.swift */,
 			);
 			name = Home;
 			sourceTree = "<group>";
@@ -405,10 +411,8 @@
 			isa = PBXGroup;
 			children = (
 				0CC563721F4DFD480088057C /* GamesViewController.swift */,
-				0C43D0531F4E33C100C285A5 /* GameTableViewCell.swift */,
 				0C72DE441F4F7ABF00361234 /* FullGameViewController.swift */,
 				0C3D90781F852E33009169FB /* TakeGameViewController.swift */,
-				0CADB0381F890FD900200F7C /* GameCell.swift */,
 			);
 			name = Games;
 			sourceTree = "<group>";
@@ -465,11 +469,18 @@
 		A2185CE81FCE65A70024BB3E /* XIBs */ = {
 			isa = PBXGroup;
 			children = (
-				0C5A07321F7EDEF700492992 /* SearchItem.xib */,
-				0CEA32491F8320D10002B05C /* UserCell.xib */,
-				0C43D0541F4E33C100C285A5 /* GameTableViewCell.xib */,
-				0CADB0391F890FD900200F7C /* GameCell.xib */,
+				0C98D2321F5FAF2600D8BBAD /* BetCell.swift */,
 				0C98D2331F5FAF2600D8BBAD /* BetCell.xib */,
+				A2290B301FECBA500009B37C /* FollowerCell.swift */,
+				A2290B311FECBA500009B37C /* FollowerCell.xib */,
+				0CADB0381F890FD900200F7C /* GameCell.swift */,
+				0CADB0391F890FD900200F7C /* GameCell.xib */,
+				0C43D0531F4E33C100C285A5 /* GameTableViewCell.swift */,
+				0C43D0541F4E33C100C285A5 /* GameTableViewCell.xib */,
+				0C5A07311F7EDEF700492992 /* SearchItem.swift */,
+				0C5A07321F7EDEF700492992 /* SearchItem.xib */,
+				0CEA32481F8320D10002B05C /* UserCell.swift */,
+				0CEA32491F8320D10002B05C /* UserCell.xib */,
 			);
 			name = XIBs;
 			sourceTree = "<group>";
@@ -480,6 +491,15 @@
 				A2185CEF1FCE68270024BB3E /* StripeAPIClient.swift */,
 			);
 			name = Stripe;
+			sourceTree = "<group>";
+		};
+		A28EF3E21FFD9F9600F1F51C /* Payments */ = {
+			isa = PBXGroup;
+			children = (
+				A28EF3E31FFD9FDE00F1F51C /* PaymentMethodViewController.swift */,
+				A28EF3E51FFDA20100F1F51C /* PaymentHistoryTableViewController.swift */,
+			);
+			name = Payments;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -616,6 +636,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0C6DC59B1F4DD9F200F9A061 /* LaunchScreen.storyboard in Resources */,
+				A2290B331FECBA500009B37C /* FollowerCell.xib in Resources */,
 				0C5A07341F7EDEF700492992 /* SearchItem.xib in Resources */,
 				0C43D0561F4E33C100C285A5 /* GameTableViewCell.xib in Resources */,
 				0C98D2351F5FAF2600D8BBAD /* BetCell.xib in Resources */,
@@ -878,10 +899,13 @@
 				0C58471A1F9664BA00ADB902 /* SearchBarContainerView.swift in Sources */,
 				0CF611661F62EA5A00A46EB0 /* GMPalette.swift in Sources */,
 				0C3ABE8C1F4F28D800AE5CF9 /* SearchViewController.swift in Sources */,
+				A28EF3E61FFDA20100F1F51C /* PaymentHistoryTableViewController.swift in Sources */,
 				0C98D22F1F5FA86C00D8BBAD /* Bet.swift in Sources */,
 				0CEA324A1F8320D10002B05C /* UserCell.swift in Sources */,
 				0CA5BF331F5F1BB7009D0236 /* NBATeam.swift in Sources */,
+				A28EF3E41FFD9FDE00F1F51C /* PaymentMethodViewController.swift in Sources */,
 				0C71C82D1F4F58790028D814 /* ConnectionManager.swift in Sources */,
+				A2290B321FECBA500009B37C /* FollowerCell.swift in Sources */,
 				0C6DC5931F4DD9F200F9A061 /* LoginViewController.swift in Sources */,
 				0C03B4441F4EAE090020FB2A /* HomeViewController.swift in Sources */,
 				0C03B4401F4E76F40020FB2A /* ValidityService.swift in Sources */,

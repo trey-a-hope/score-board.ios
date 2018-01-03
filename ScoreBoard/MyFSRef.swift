@@ -277,7 +277,14 @@ class MyFSRef {
         }
     }
     
-    class func followUser(myUserId: String, myFollowings: [String], theirUserId: String, theirFollowers: [String]) -> Promise<Void> {
+    /// Make this user become a follower of the user specified.
+    /// - parameter myUserId - String       : Current user id.
+    /// - parameter myFollowings - [String] : Array of userIds that the current user follows.
+    /// - parameter theirUserId - String    : Recepient user id.
+    /// - parameter myFollowings - [String] : Array of userIds that follow the recepient user.
+    /// - returns: Void
+    /// - throws: No error.
+    static func followUser(myUserId: String, myFollowings: [String], theirUserId: String, theirFollowers: [String]) -> Promise<Void> {
         return Promise{ fulfill, reject in
             db.collection("Users").document(myUserId).updateData([
                 "followings" : myFollowings
@@ -293,8 +300,11 @@ class MyFSRef {
         }
     }
     
-    //UPDATE USER INFORMATION
-    class func updateUser(user: User) -> Promise<Void> {
+    /// Update a user's information from the edit profile page.
+    /// - parameter user - User : User information.
+    /// - returns: Void
+    /// - throws: No error.
+    static func updateUser(user: User) -> Promise<Void> {
         return Promise { fulfill, reject in
             db.collection("Users").document(user.id).updateData([
                 "userName"      : user.userName,

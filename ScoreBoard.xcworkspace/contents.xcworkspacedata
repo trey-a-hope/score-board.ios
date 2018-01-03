@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:PaymentHistoryTableViewController.swift">
+   </FileRef>
+   <FileRef
       location = "group:ScoreBoard.xcodeproj">
    </FileRef>
    <FileRef
