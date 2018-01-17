@@ -262,14 +262,14 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ipE-eU-HXl" userLabel="Divider">
-                                                <rect key="frame" x="20" y="178" width="335" height="2"/>
+                                                <rect key="frame" x="20" y="178" width="335" height="1"/>
                                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="2" id="QiD-7a-Buq"/>
+                                                    <constraint firstAttribute="height" constant="1" id="QiD-7a-Buq"/>
                                                 </constraints>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="roN-Fg-z8n">
-                                                <rect key="frame" x="0.0" y="190" width="375" height="100"/>
+                                                <rect key="frame" x="0.0" y="189" width="375" height="100"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Cd-UR-dRq">
                                                         <rect key="frame" x="0.0" y="0.0" width="125" height="100"/>
@@ -356,20 +356,20 @@
                                                 </constraints>
                                             </stackView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bnA-Bn-Dse" userLabel="Divider">
-                                                <rect key="frame" x="20" y="299.5" width="335" height="2"/>
+                                                <rect key="frame" x="20" y="298.5" width="335" height="1"/>
                                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="2" id="SIc-Ha-jwc"/>
+                                                    <constraint firstAttribute="height" constant="1" id="SIc-Ha-jwc"/>
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" layoutMarginsFollowReadableWidth="YES" text="My Bets - 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jst-pp-UfV">
-                                                <rect key="frame" x="20" y="331.5" width="157.5" height="29"/>
+                                                <rect key="frame" x="20" y="329.5" width="157.5" height="29"/>
                                                 <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="20"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BhF-pB-ono">
-                                                <rect key="frame" x="20" y="380.5" width="335" height="200"/>
+                                                <rect key="frame" x="20" y="378.5" width="335" height="200"/>
                                                 <subviews>
                                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="3x0-Lw-O4c">
                                                         <rect key="frame" x="-20" y="12" width="375" height="175"/>
@@ -415,13 +415,13 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Games - 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pyr-UH-z4l">
-                                                <rect key="frame" x="20" y="610.5" width="157.5" height="28.5"/>
+                                                <rect key="frame" x="20" y="608.5" width="157.5" height="28.5"/>
                                                 <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="20"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jjY-0a-CQj">
-                                                <rect key="frame" x="20" y="659" width="335" height="200"/>
+                                                <rect key="frame" x="20" y="657" width="335" height="200"/>
                                                 <subviews>
                                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Yy2-a9-ukp">
                                                         <rect key="frame" x="-20" y="12.5" width="375" height="175"/>
@@ -461,13 +461,13 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bets Won - 0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g1U-dp-sdx">
-                                                <rect key="frame" x="197.5" y="331.5" width="157.5" height="28.5"/>
+                                                <rect key="frame" x="197.5" y="329.5" width="157.5" height="28.5"/>
                                                 <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="20"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Games Won - 0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hnn-e6-030">
-                                                <rect key="frame" x="197.5" y="610.5" width="157.5" height="28.5"/>
+                                                <rect key="frame" x="197.5" y="608.5" width="157.5" height="28.5"/>
                                                 <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="20"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -3011,14 +3011,14 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6t2-su-V4m" userLabel="Divider">
-                                                <rect key="frame" x="20" y="182.5" width="335" height="2"/>
+                                                <rect key="frame" x="20" y="182.5" width="335" height="1"/>
                                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="2" id="hfr-sc-dlA"/>
+                                                    <constraint firstAttribute="height" constant="1" id="hfr-sc-dlA"/>
                                                 </constraints>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="8kq-vw-Bqt">
-                                                <rect key="frame" x="0.0" y="194.5" width="375" height="100"/>
+                                                <rect key="frame" x="0.0" y="193.5" width="375" height="100"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nui-1q-p9J">
                                                         <rect key="frame" x="0.0" y="0.0" width="125" height="100"/>
@@ -3105,20 +3105,20 @@
                                                 </constraints>
                                             </stackView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Gk-Re-l3t" userLabel="Divider">
-                                                <rect key="frame" x="20" y="304" width="335" height="2"/>
+                                                <rect key="frame" x="20" y="303" width="335" height="1"/>
                                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="2" id="OX9-T6-gZn"/>
+                                                    <constraint firstAttribute="height" constant="1" id="OX9-T6-gZn"/>
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" layoutMarginsFollowReadableWidth="YES" text="Their Bets - 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dpS-uN-D2X">
-                                                <rect key="frame" x="20" y="336" width="157.5" height="29"/>
+                                                <rect key="frame" x="20" y="334" width="157.5" height="29"/>
                                                 <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="20"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kOs-j6-bDM">
-                                                <rect key="frame" x="20" y="385" width="335" height="200"/>
+                                                <rect key="frame" x="20" y="383" width="335" height="200"/>
                                                 <subviews>
                                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="7Qj-Me-wVQ">
                                                         <rect key="frame" x="-20" y="12" width="375" height="175"/>
@@ -3164,13 +3164,13 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Their Games - 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KEm-qk-IpT">
-                                                <rect key="frame" x="20" y="615" width="157.5" height="28.5"/>
+                                                <rect key="frame" x="20" y="613" width="157.5" height="28.5"/>
                                                 <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="20"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N0B-PP-Ri7">
-                                                <rect key="frame" x="20" y="663.5" width="335" height="200"/>
+                                                <rect key="frame" x="20" y="661.5" width="335" height="200"/>
                                                 <subviews>
                                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Zdz-vV-MYe">
                                                         <rect key="frame" x="-20" y="12.5" width="375" height="175"/>
@@ -3228,13 +3228,13 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bets Won - 0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RNZ-aH-EEv">
-                                                <rect key="frame" x="197.5" y="336" width="157.5" height="28.5"/>
+                                                <rect key="frame" x="197.5" y="334" width="157.5" height="28.5"/>
                                                 <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="20"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Games Won - 0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xfK-7w-s06">
-                                                <rect key="frame" x="197.5" y="615" width="157.5" height="28.5"/>
+                                                <rect key="frame" x="197.5" y="613" width="157.5" height="28.5"/>
                                                 <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="20"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>

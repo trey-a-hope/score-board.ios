@@ -1,16 +1,5 @@
-//import UIKit
-//
-//class FollowingsViewController: UIViewController {
-//    @IBOutlet private weak var tableView    : UITableView!
-//
-//    override func viewDidLoad(){
-//        super.viewDidLoad()
-//    }
-//}
-//
-
+import Toaster
 import UIKit
-
 
 class FollowingsViewController: UIViewController {
     @IBOutlet private weak var tableView    : UITableView!
@@ -85,7 +74,9 @@ extension FollowingsViewController : UITableViewDataSource, UITableViewDelegate 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let user: User = followings[indexPath.row]
         
-        ModalService.showAlert(title: user.userName, message: "Coming Soon...", vc: self)
+        let otherProfileViewController = storyBoard.instantiateViewController(withIdentifier: "OtherProfileViewController") as! OtherProfileViewController
+        otherProfileViewController.userId = user.id
+        navigationController!.pushViewController(otherProfileViewController, animated: true)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -96,14 +87,6 @@ extension FollowingsViewController : UITableViewDataSource, UITableViewDelegate 
             cell.userName.text = user.userName
             cell.userImage.round(borderWidth: 0, borderColor: UIColor.black)
             cell.userImage.kf.setImage(with: URL(string: user.imageDownloadUrl))
-            cell.unfollowBtn.addTarget(self, action: #selector(unfollow), for: .touchUpInside)
-            cell.followBtn.addTarget(self, action: #selector(follow), for: .touchUpInside)
-            
-            if me.followings.contains(user.id) {
-                cell.unfollowBtn.isHidden = false
-            } else {
-                cell.followBtn.isHidden = false
-            }
             
             return cell
         }
@@ -121,6 +104,50 @@ extension FollowingsViewController : UITableViewDataSource, UITableViewDelegate 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
     {
         return Constants.FOLLOWER_CELL_HEIGHT
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt: IndexPath) -> [UITableViewRowAction]? {
+        let user: User = followings[editActionsForRowAt.row]
+        
+        //Message button.
+        let message = UITableViewRowAction(style: .normal, title: "Message") { action, index in
+            ModalService.showAlert(title: "Message " + user.userName, message: "Coming Soon...", vc: self)
+        }
+        message.backgroundColor = GMColor.deepPurple500Color()
+        
+        //Follower button.
+        let follow: UITableViewRowAction!
+        
+        //Unfollow user.
+        if me.followings.contains(user.id) {
+            follow = UITableViewRowAction(style: .normal, title: "Unfollow") { action, index in
+                self.me.followings  = self.me.followings.filter { $0 != user.id }
+                user.followers      = user.followers.filter { $0 != self.me.id }
+                
+                MyFSRef.followUser(myUserId: self.me.id, myFollowings: self.me.followings, theirUserId: user.id, theirFollowers: user.followers)
+                    .then{ () -> Void in
+                        Toast(text: "You unfollowed " + user.userName).show()
+                        self.tableView.reloadRows(at: [ editActionsForRowAt ], with: .none)
+                    }.always{}
+            }
+            follow.backgroundColor = GMColor.red500Color()
+        }
+            //Follow user.
+        else{
+            follow = UITableViewRowAction(style: .normal, title: "Follow") { action, index in
+                self.me.followings.append(user.id)
+                user.followers.append(self.me.id)
+                
+                MyFSRef.followUser(myUserId: self.me.id, myFollowings: self.me.followings, theirUserId: user.id, theirFollowers: user.followers)
+                    .then{ () -> Void in
+                        Toast(text: "You followed " + user.userName).show()
+                        self.tableView.reloadRows(at: [ editActionsForRowAt ], with: .none)
+                    }.always{}
+            }
+            follow.backgroundColor = GMColor.blue500Color()
+        }
+        
+        return [ follow, message ]
     }
 }
 

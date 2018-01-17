@@ -183,8 +183,11 @@ class OtherProfileViewController: UIViewController {
         navigationController?.pushViewController(followingsViewController, animated: true)
     }
     
+    /// Follows/unfollows a user.
+    /// - returns: Void
+    /// - throws: No error.
     @IBAction private func updateUserFollowing() -> Void {
-        //If following user...
+        //If following user, unfollow them.
         if me.followings.contains(otherUser.id) {
             me.followings       = me.followings.filter { $0 != otherUser.id }
             otherUser.followers = otherUser.followers.filter { $0 != me.id }

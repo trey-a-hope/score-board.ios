@@ -269,7 +269,6 @@
 			isa = PBXGroup;
 			children = (
 				0C6DC58F1F4DD9F200F9A061 /* ScoreBoard */,
-				0C6DC5A41F4DD9F200F9A061 /* ScoreBoardTests */,
 				0C6DC5AF1F4DD9F200F9A061 /* ScoreBoardUITests */,
 				0C6DC58E1F4DD9F200F9A061 /* Products */,
 				35C4308B9F9DA553E72013AF /* Pods */,
@@ -481,6 +480,7 @@
 				0C5A07321F7EDEF700492992 /* SearchItem.xib */,
 				0CEA32481F8320D10002B05C /* UserCell.swift */,
 				0CEA32491F8320D10002B05C /* UserCell.xib */,
+				0C6DC5A41F4DD9F200F9A061 /* ScoreBoardTests */,
 			);
 			name = XIBs;
 			sourceTree = "<group>";

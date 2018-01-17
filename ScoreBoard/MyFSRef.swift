@@ -5,19 +5,51 @@ import FirebaseStorage
 import PromiseKit
 
 class MyFSRef {
-    private class var db: Firestore {
-        return Firestore.firestore()
+    private static var db: Firestore { return Firestore.firestore() }
+    
+    private static var notificationService: NotificationService { return NotificationService() }
+    
+    private static var storageRef: StorageReference { return Storage.storage().reference() }
+    
+    /// Updates a property for all objects in a table. Example, updating an "email" property for all users.
+    /// - parameter table - String      : Name of table.
+    /// - parameter property - String   : Property to be updated.
+    /// - parameter value - String      : Value to be assigned to said property.
+    /// - returns: Void
+    /// - throws: No error.
+    public static func updatePropertiesOnTable(table: String, property: String, value: String) -> Promise<Void> {
+        return Promise{ fulfill, reject in
+            db.collection(table).getDocuments(completion: { (col, err) in
+                for doc in (col?.documents)! {
+                    let data: [String:Any]  = doc.data()
+                    let id  : String        = data["id"] as! String
+                    db.collection(table).document(id).updateData([
+                        property: value
+                        ])
+                }
+                fulfill(())
+            })
+        }
     }
     
-    private class var notificationService: NotificationService{
-        return NotificationService()
-    }
-    
-    private class var storageRef: StorageReference {
-        // Get a reference to the storage service using the default Firebase App
-        let storage = Storage.storage()
-        // Create a storage reference from our storage service
-        return storage.reference()
+    /// Removes a property from all objects in a table. Example, removing an "email" property from all users.
+    /// - parameter table - String      : Name of table.
+    /// - parameter property - String   : Property to be removed.
+    /// - returns: Void
+    /// - throws: No error.
+    public static func deletePropertyFromObjects(table: String, property: String) -> Promise<Void> {
+        return Promise{ fulfill, reject in
+            db.collection(table).getDocuments(completion: { (col, err) in
+                for doc in (col?.documents)! {
+                    let data: [String:Any]  = doc.data()
+                    let id  : String        = data["id"] as! String
+                    db.collection(table).document(id).updateData([
+                        property: FieldValue.delete()
+                        ])
+                }
+                fulfill(())
+            })
+        }
     }
     
     //     ____           _
@@ -26,8 +58,11 @@ class MyFSRef {
     //    | |_) | |  __/ | |_  \__ \
     //    |____/   \___|  \__| |___/
     
-    //RETURN ALL BETS FOR A GAME
-    class func getBetsForGame(gameId: String) -> Promise<[Bet]> {
+    /// Return all bets for a game.
+    /// - parameter gameId - String : Id of the game.
+    /// - returns: [Bet]            : All bets for that game.
+    /// - throws: No error.
+    static func getBetsForGame(gameId: String) -> Promise<[Bet]> {
         return Promise{ fulfill, reject in
             db.collection("Bets").whereField("gameId", isEqualTo: gameId).getDocuments(completion: { (collection, error) in
                 if let error = error { reject(error) }
@@ -42,8 +77,11 @@ class MyFSRef {
         }
     }
     
-    //RETURN ALL BETS FOR A USER
-    class func getBetsForUser(userId: String) -> Promise<[Bet]> {
+    /// Return all bets for a user.
+    /// - parameter userId - String : Id of the user.
+    /// - returns: [Bet]            : All bets for that user.
+    /// - throws: No error.
+    static func getBetsForUser(userId: String) -> Promise<[Bet]> {
         return Promise{ fulfill, reject in
             db.collection("Bets").whereField("userId", isEqualTo: userId).getDocuments(completion: { (collection, error) in
                 if let error = error { reject(error) }
@@ -491,7 +529,6 @@ class MyFSRef {
     }
 }
 
-//DATA EXTRACTION METHODS
 extension MyFSRef {
     class func extractUserData(userSnapshot: DocumentSnapshot) -> User {
         let value   : [String:Any]  = userSnapshot.data()

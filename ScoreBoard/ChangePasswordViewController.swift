@@ -3,29 +3,19 @@ import Material
 import UIKit
 
 class ChangePasswordViewController : UIViewController {
-    @IBOutlet weak var newPassword: TextField!
-    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    @IBOutlet private weak var newPassword  : TextField!
+    @IBOutlet private weak var spinner      : UIActivityIndicatorView!
     
-    var saveBtn: FABButton!
-    var user: User!
+    private var saveBtn: FABButton!
+    private var user: User!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        prepareFabButton()
         getUserInformation()
     }
     
-    func prepareFabButton() -> Void {
-        saveBtn = FABButton(image: Icon.check, tintColor: .white)
-        saveBtn.pulseColor = .white
-        saveBtn.backgroundColor = Color.orange.base
-        saveBtn.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(updatePassword)))
-        view.layout(saveBtn)
-            .width(65)
-            .height(65)
-            .bottomRight(bottom: 35, right: 35)
-    }
+
     
     func getUserInformation() -> Void {
         spinner.startAnimating()
@@ -41,8 +31,20 @@ class ChangePasswordViewController : UIViewController {
         }
     }
     
-    func initUI() -> Void {
+    /// Initialize all components needed for UI.
+    /// - returns: Void
+    /// - throws: No error.
+    private func initUI() -> Void {
         hideKeyboardWhenTappedAround()
+        
+        saveBtn = FABButton(image: Icon.check, tintColor: .white)
+        saveBtn.pulseColor = .white
+        saveBtn.backgroundColor = Color.orange.base
+        saveBtn.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(updatePassword)))
+        view.layout(saveBtn)
+            .width(65)
+            .height(65)
+            .bottomRight(bottom: 35, right: 35)
     }
     
     @objc func updatePassword() -> Void {

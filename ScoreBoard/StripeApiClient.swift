@@ -18,8 +18,11 @@ class StripeAPIClient {
     //    | |___  | |_| | \__ \ | |_  | (_) | | | | | | | |  __/ | |    \__ \
     //     \____|  \__,_| |___/  \__|  \___/  |_| |_| |_|  \___| |_|    |___/
     
-    //Creates a new customer object.
-    class func createCustomer(email: String) -> Promise<DataResponse<String>> {
+    /// Creates a new customer object.
+    /// - parameter email - String : Email of new customer.
+    /// - returns: DataResponse<String> : Response from api call.
+    /// - throws: No error.
+    public static func createCustomer(email: String) -> Promise<DataResponse<String>> {
         return Promise{ fulfill, reject in
             let params = [
                 "apiKey"    : testSecretKey,
@@ -33,8 +36,11 @@ class StripeAPIClient {
         }
     }
     
-    //Retrieves the details of an existing customer. You need only supply the unique customer identifier that was returned upon customer creation.
-    class func retrieveCustomer(customerId: String) -> Promise<DataResponse<String>> {
+    /// Retrieves the details of an existing customer. You need only supply the unique customer identifier that was returned upon customer creation.
+    /// - parameter reject - String : Id of the customer.
+    /// - returns: DataResponse<String> : Response from api call.
+    /// - throws: No error.
+    public static func retrieveCustomer(customerId: String) -> Promise<DataResponse<String>> {
         return Promise{ fulfill, reject in
             let params = [
                 "apiKey"    : testSecretKey,
@@ -48,8 +54,10 @@ class StripeAPIClient {
         }
     }
     
-    //Returns a list of your customers. The customers are returned sorted by creation date, with the most recent customers appearing first.
-    class func listAllCustomers() -> Promise<DataResponse<String>> {
+    /// Returns a list of your customers. The customers are returned sorted by creation date, with the most recent customers appearing first.
+    /// - returns: DataResponse<String> : Response from api call.
+    /// - throws: No error.
+    public static func listAllCustomers() -> Promise<DataResponse<String>> {
         return Promise{ fulfill, reject in
             let params = [
                 "apiKey" : testSecretKey

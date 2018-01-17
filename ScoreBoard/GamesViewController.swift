@@ -165,6 +165,10 @@ extension GamesViewController : UITableViewDataSource, UITableViewDelegate {
         return [share]
     }
 
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
+    {
+        return Constants.GAME_CELL_HEIGHT
+    }
 }
 
 
