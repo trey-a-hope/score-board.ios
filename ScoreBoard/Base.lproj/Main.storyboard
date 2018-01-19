@@ -131,6 +131,9 @@
                             </imageView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ra5-5m-ECf" customClass="TextField" customModule="Material">
                                 <rect key="frame" x="36" y="318.5" width="303" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="HsH-cw-N7a"/>
+                                </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
@@ -145,7 +148,7 @@
                                 <rect key="frame" x="36" y="378.5" width="303" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Password"/>
                                 </userDefinedRuntimeAttributes>
@@ -187,25 +190,25 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="Wee-X1-Ja0" firstAttribute="top" secondItem="spr-Bh-2FP" secondAttribute="bottom" constant="50" id="1QO-ks-3r9"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="5a7-ud-ntn" secondAttribute="bottom" constant="30" id="3a9-RS-yul"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Wee-X1-Ja0" secondAttribute="trailing" constant="20" id="3tZ-rJ-eXK"/>
                             <constraint firstAttribute="trailingMargin" secondItem="1Uf-dp-aF3" secondAttribute="trailing" constant="20" id="8MF-Zt-aRp"/>
                             <constraint firstItem="yOd-Sv-HSX" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="BFa-JE-LGK"/>
                             <constraint firstItem="Wee-X1-Ja0" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="20" id="FtA-oh-T04"/>
                             <constraint firstItem="Ra5-5m-ECf" firstAttribute="top" secondItem="Bjx-3c-O9P" secondAttribute="bottom" constant="20" id="HEV-BC-mgo"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="1Uf-dp-aF3" secondAttribute="bottom" constant="258.5" id="J5E-I6-9aV" customClass="KeyboardLayoutConstraint" customModule="ScoreBoard" customModuleProvider="target"/>
                             <constraint firstItem="Ra5-5m-ECf" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="JhC-Fn-Hie"/>
                             <constraint firstItem="1Uf-dp-aF3" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="20" id="NyE-Zj-a1t"/>
                             <constraint firstItem="Bjx-3c-O9P" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="30" id="OUc-CE-pbL"/>
                             <constraint firstItem="yOd-Sv-HSX" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="PRX-E4-deo"/>
                             <constraint firstItem="5a7-ud-ntn" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="SmK-9e-0SQ"/>
                             <constraint firstItem="spr-Bh-2FP" firstAttribute="top" secondItem="1Uf-dp-aF3" secondAttribute="bottom" constant="20" id="Vsp-3z-Hkq"/>
+                            <constraint firstItem="5a7-ud-ntn" firstAttribute="top" secondItem="Wee-X1-Ja0" secondAttribute="bottom" constant="85.5" id="WSx-WG-pmS"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Ra5-5m-ECf" secondAttribute="trailing" constant="20" id="YY3-eq-qqQ"/>
                             <constraint firstItem="Bjx-3c-O9P" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="YvB-5Z-EHS"/>
                             <constraint firstItem="Ra5-5m-ECf" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="20" id="gb2-jn-Kpp"/>
-                            <constraint firstItem="1Uf-dp-aF3" firstAttribute="top" secondItem="Ra5-5m-ECf" secondAttribute="bottom" constant="30" id="hWK-2B-P4X"/>
                             <constraint firstAttribute="trailingMargin" secondItem="spr-Bh-2FP" secondAttribute="trailing" constant="20" id="mM3-42-6sB"/>
-                            <constraint firstItem="Ra5-5m-ECf" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="qPg-iv-5rh"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Ra5-5m-ECf" secondAttribute="bottom" constant="318.5" id="xQ3-a5-wbZ" customClass="KeyboardLayoutConstraint" customModule="ScoreBoard" customModuleProvider="target"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Login" id="SAa-6w-HtX"/>

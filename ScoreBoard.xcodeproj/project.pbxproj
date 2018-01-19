@@ -73,6 +73,7 @@
 		A2185CF01FCE68270024BB3E /* StripeAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2185CEF1FCE68270024BB3E /* StripeAPIClient.swift */; };
 		A2290B321FECBA500009B37C /* FollowerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2290B301FECBA500009B37C /* FollowerCell.swift */; };
 		A2290B331FECBA500009B37C /* FollowerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2290B311FECBA500009B37C /* FollowerCell.xib */; };
+		A28CB28E2011AC4B008DD01B /* KeyboardLayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28CB28D2011AC4B008DD01B /* KeyboardLayoutConstraint.swift */; };
 		A28EF3E41FFD9FDE00F1F51C /* PaymentMethodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28EF3E31FFD9FDE00F1F51C /* PaymentMethodViewController.swift */; };
 		A28EF3E61FFDA20100F1F51C /* PaymentHistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28EF3E51FFDA20100F1F51C /* PaymentHistoryTableViewController.swift */; };
 		A2A07FD11FE37A2A0083F32F /* FollowingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A07FD01FE37A2A0083F32F /* FollowingsViewController.swift */; };
@@ -179,6 +180,7 @@
 		A2185CEF1FCE68270024BB3E /* StripeAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripeAPIClient.swift; sourceTree = "<group>"; };
 		A2290B301FECBA500009B37C /* FollowerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerCell.swift; sourceTree = "<group>"; };
 		A2290B311FECBA500009B37C /* FollowerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FollowerCell.xib; sourceTree = "<group>"; };
+		A28CB28D2011AC4B008DD01B /* KeyboardLayoutConstraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardLayoutConstraint.swift; sourceTree = "<group>"; };
 		A28EF3E31FFD9FDE00F1F51C /* PaymentMethodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodViewController.swift; sourceTree = "<group>"; };
 		A28EF3E51FFDA20100F1F51C /* PaymentHistoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentHistoryTableViewController.swift; sourceTree = "<group>"; };
 		A2A07FD01FE37A2A0083F32F /* FollowingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowingsViewController.swift; sourceTree = "<group>"; };
@@ -235,6 +237,7 @@
 				0CF611671F62EA7600A46EB0 /* GMColor.swift */,
 				0CD96A051F65A1A400B183C8 /* JSONSerializer.swift */,
 				0C5847191F9664BA00ADB902 /* SearchBarContainerView.swift */,
+				A28CB28D2011AC4B008DD01B /* KeyboardLayoutConstraint.swift */,
 			);
 			name = Miscellaneous;
 			sourceTree = "<group>";
@@ -915,6 +918,7 @@
 				0C0D60BD1F7EA412001338F5 /* State.swift in Sources */,
 				0C6DC5911F4DD9F200F9A061 /* AppDelegate.swift in Sources */,
 				A2DCF9081FE3680300DA2767 /* FollowersViewController.swift in Sources */,
+				A28CB28E2011AC4B008DD01B /* KeyboardLayoutConstraint.swift in Sources */,
 				0CD969FD1F6501EB00B183C8 /* CropperViewController.swift in Sources */,
 				0CB0D2C41F9E6A930012A2CE /* SearchUserViewController.swift in Sources */,
 				A2185CF01FCE68270024BB3E /* StripeAPIClient.swift in Sources */,

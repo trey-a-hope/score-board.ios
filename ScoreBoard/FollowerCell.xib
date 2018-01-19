@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -32,12 +33,21 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_arrow_back_white" translatesAutoresizingMaskIntoConstraints="NO" id="yW7-ie-X3p">
+                        <rect key="frame" x="224" y="5" width="60" height="60"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="60" id="cqU-Ro-w02"/>
+                            <constraint firstAttribute="height" constant="60" id="d4D-9o-hL7"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="pqw-M6-ala" firstAttribute="leading" secondItem="2j2-M4-4VN" secondAttribute="trailing" constant="10" id="1t5-am-jvg"/>
                     <constraint firstItem="2j2-M4-4VN" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="S29-h6-KfI"/>
                     <constraint firstItem="pqw-M6-ala" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="cPu-Mn-9xB"/>
+                    <constraint firstItem="yW7-ie-X3p" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="h6h-lO-o4t"/>
                     <constraint firstItem="2j2-M4-4VN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="i3K-Zd-1oq"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="yW7-ie-X3p" secondAttribute="trailing" constant="20" id="zJb-ll-fC6"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
@@ -48,4 +58,7 @@
             <point key="canvasLocation" x="26" y="55"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="ic_arrow_back_white" width="24" height="24"/>
+    </resources>
 </document>
