@@ -57,12 +57,78 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ScoreBoard/PaymentMethodViewController.swift"
-            timestampString = "536716041.02445"
+            filePath = "ScoreBoard/StripeAPIClient.swift"
+            timestampString = "538199357.011966"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "8"
-            endingLineNumber = "8">
+            startingLineNumber = "220"
+            endingLineNumber = "220"
+            landmarkName = "deleteCard(customerId:cardId:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ScoreBoard/StripeAPIClient.swift"
+            timestampString = "538199357.012473"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "98"
+            endingLineNumber = "98"
+            landmarkName = "updateCustomer(customerId:description:token:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ScoreBoard/PaymentUpdateMethodViewController.swift"
+            timestampString = "538198421.66871"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "116"
+            endingLineNumber = "116"
+            landmarkName = "submit()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ScoreBoard.PaymentUpdateMethodViewController.submit() -&gt; ()"
+                  moduleName = "ScoreBoard"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/treyhope/Desktop/Projects/scoreboard.ios/ScoreBoard/PaymentUpdateMethodViewController.swift"
+                  timestampString = "538108034.57833"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "114"
+                  endingLineNumber = "114"
+                  offsetFromSymbolStart = "2452">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;__ObjC.STPToken&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in ScoreBoard.PaymentUpdateMethodViewController.submit() -&gt; ()"
+                  moduleName = "ScoreBoard"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/treyhope/Desktop/Projects/scoreboard.ios/ScoreBoard/PaymentUpdateMethodViewController.swift"
+                  timestampString = "538108034.584144"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "115"
+                  endingLineNumber = "115"
+                  offsetFromSymbolStart = "28">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

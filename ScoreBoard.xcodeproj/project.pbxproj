@@ -78,6 +78,10 @@
 		A28EF3E61FFDA20100F1F51C /* PaymentHistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28EF3E51FFDA20100F1F51C /* PaymentHistoryTableViewController.swift */; };
 		A2A07FD11FE37A2A0083F32F /* FollowingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A07FD01FE37A2A0083F32F /* FollowingsViewController.swift */; };
 		A2DCF9081FE3680300DA2767 /* FollowersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2DCF9071FE3680300DA2767 /* FollowersViewController.swift */; };
+		A2F4495120122CB30051C6C9 /* PaymentUpdateMethodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F4495020122CB30051C6C9 /* PaymentUpdateMethodViewController.swift */; };
+		A2F4495320122EEF0051C6C9 /* PaymentHistoryDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F4495220122EEF0051C6C9 /* PaymentHistoryDetailsViewController.swift */; };
+		A2F4495A2012300B0051C6C9 /* PaymentChargeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F449582012300B0051C6C9 /* PaymentChargeCell.swift */; };
+		A2F4495B2012300B0051C6C9 /* PaymentChargeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2F449592012300B0051C6C9 /* PaymentChargeCell.xib */; };
 		A755D61690469DFE9676903E /* Pods_ScoreBoard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF29027401D1C20BACED85FA /* Pods_ScoreBoard.framework */; };
 		D7D9B3CA8B5C1DB7189CD507 /* Pods_ScoreBoardTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF323F9559AE5C4B2D76CFC0 /* Pods_ScoreBoardTests.framework */; };
 		FD7572DA6A799A75C0558789 /* Pods_ScoreBoardUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 125A389106492EB412D82C4D /* Pods_ScoreBoardUITests.framework */; };
@@ -185,6 +189,10 @@
 		A28EF3E51FFDA20100F1F51C /* PaymentHistoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentHistoryTableViewController.swift; sourceTree = "<group>"; };
 		A2A07FD01FE37A2A0083F32F /* FollowingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowingsViewController.swift; sourceTree = "<group>"; };
 		A2DCF9071FE3680300DA2767 /* FollowersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowersViewController.swift; sourceTree = "<group>"; };
+		A2F4495020122CB30051C6C9 /* PaymentUpdateMethodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentUpdateMethodViewController.swift; sourceTree = "<group>"; };
+		A2F4495220122EEF0051C6C9 /* PaymentHistoryDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentHistoryDetailsViewController.swift; sourceTree = "<group>"; };
+		A2F449582012300B0051C6C9 /* PaymentChargeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentChargeCell.swift; sourceTree = "<group>"; };
+		A2F449592012300B0051C6C9 /* PaymentChargeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentChargeCell.xib; sourceTree = "<group>"; };
 		CC3D9AD44F81710204E0503B /* Pods-ScoreBoardUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScoreBoardUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ScoreBoardUITests/Pods-ScoreBoardUITests.release.xcconfig"; sourceTree = "<group>"; };
 		DF323F9559AE5C4B2D76CFC0 /* Pods_ScoreBoardTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ScoreBoardTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF29027401D1C20BACED85FA /* Pods_ScoreBoard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ScoreBoard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -292,6 +300,7 @@
 		0C6DC58F1F4DD9F200F9A061 /* ScoreBoard */ = {
 			isa = PBXGroup;
 			children = (
+				0C6DC5A41F4DD9F200F9A061 /* ScoreBoardTests */,
 				0CC5843C1F844BD2009E72DB /* Admin */,
 				0C6DC5901F4DD9F200F9A061 /* AppDelegate.swift */,
 				0C6DC5971F4DD9F200F9A061 /* Assets.xcassets */,
@@ -471,6 +480,8 @@
 		A2185CE81FCE65A70024BB3E /* XIBs */ = {
 			isa = PBXGroup;
 			children = (
+				A2F449582012300B0051C6C9 /* PaymentChargeCell.swift */,
+				A2F449592012300B0051C6C9 /* PaymentChargeCell.xib */,
 				0C98D2321F5FAF2600D8BBAD /* BetCell.swift */,
 				0C98D2331F5FAF2600D8BBAD /* BetCell.xib */,
 				A2290B301FECBA500009B37C /* FollowerCell.swift */,
@@ -483,7 +494,6 @@
 				0C5A07321F7EDEF700492992 /* SearchItem.xib */,
 				0CEA32481F8320D10002B05C /* UserCell.swift */,
 				0CEA32491F8320D10002B05C /* UserCell.xib */,
-				0C6DC5A41F4DD9F200F9A061 /* ScoreBoardTests */,
 			);
 			name = XIBs;
 			sourceTree = "<group>";
@@ -501,6 +511,8 @@
 			children = (
 				A28EF3E31FFD9FDE00F1F51C /* PaymentMethodViewController.swift */,
 				A28EF3E51FFDA20100F1F51C /* PaymentHistoryTableViewController.swift */,
+				A2F4495020122CB30051C6C9 /* PaymentUpdateMethodViewController.swift */,
+				A2F4495220122EEF0051C6C9 /* PaymentHistoryDetailsViewController.swift */,
 			);
 			name = Payments;
 			sourceTree = "<group>";
@@ -648,6 +660,7 @@
 				0C6DC5981F4DD9F200F9A061 /* Assets.xcassets in Resources */,
 				0C6DC5961F4DD9F200F9A061 /* Main.storyboard in Resources */,
 				0C6C20461F676C30000AB4F3 /* GoogleService-Info.plist in Resources */,
+				A2F4495B2012300B0051C6C9 /* PaymentChargeCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -891,6 +904,7 @@
 				0CD96A011F65020300B183C8 /* CustomImageCropperOverlayView.swift in Sources */,
 				0CC563791F4DFEC70088057C /* SignupViewController.swift in Sources */,
 				0C5F3A381F4E0EBB00516CFB /* ConversionService.swift in Sources */,
+				A2F4495A2012300B0051C6C9 /* PaymentChargeCell.swift in Sources */,
 				0CCF23B31F87C80A008E0854 /* AdminTableViewController.swift in Sources */,
 				0CD96A041F65A11500B183C8 /* NotificationService.swift in Sources */,
 				0CAB26DA1F770D6D00B8EBC1 /* MessagesViewController.swift in Sources */,
@@ -916,6 +930,7 @@
 				0C03B4421F4E809C0020FB2A /* User.swift in Sources */,
 				0C75B6411F8455D8000DDD66 /* MyFSRef.swift in Sources */,
 				0C0D60BD1F7EA412001338F5 /* State.swift in Sources */,
+				A2F4495120122CB30051C6C9 /* PaymentUpdateMethodViewController.swift in Sources */,
 				0C6DC5911F4DD9F200F9A061 /* AppDelegate.swift in Sources */,
 				A2DCF9081FE3680300DA2767 /* FollowersViewController.swift in Sources */,
 				A28CB28E2011AC4B008DD01B /* KeyboardLayoutConstraint.swift in Sources */,
@@ -923,6 +938,7 @@
 				0CB0D2C41F9E6A930012A2CE /* SearchUserViewController.swift in Sources */,
 				A2185CF01FCE68270024BB3E /* StripeAPIClient.swift in Sources */,
 				0CC563731F4DFD480088057C /* GamesViewController.swift in Sources */,
+				A2F4495320122EEF0051C6C9 /* PaymentHistoryDetailsViewController.swift in Sources */,
 				A212AE1B1FE0C23500A5E50A /* OtherProfileViewController.swift in Sources */,
 				0CC563751F4DFD9A0088057C /* ModalService.swift in Sources */,
 				0C5F3A451F4E163200516CFB /* SettingsTableViewController.swift in Sources */,

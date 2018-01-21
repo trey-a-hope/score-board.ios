@@ -536,6 +536,7 @@ extension MyFSRef {
         
         user.id                 = value["id"] as! String
         user.uid                = value["uid"] as! String
+        user.customerId         = value["customerId"] as! String
         user.points             = value["points"] as! Int
         user.betsWon            = value["betsWon"] as! Int
         user.gamesWon           = value["gamesWon"] as! Int

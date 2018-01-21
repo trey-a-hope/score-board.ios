@@ -9,7 +9,7 @@ class StripeAPIClient {
         return "pk_test_Dl5CsuVlvuAg3fG8vVCRrKbC"
     }
     private class var baseURL: String {
-        return "http://camp-central.com/StripeAPIProcedures"
+        return "http://es.tr3umphant-designs.com/assets/stripe"
     }
     
     //      ____                 _
@@ -29,7 +29,7 @@ class StripeAPIClient {
                 "email"     : email
             ]
             
-            Alamofire.request(baseURL + "/Customer/CreateCustomer.php", method: .post, parameters: params)
+            Alamofire.request(baseURL + "/customer/createCustomer.php", method: .post, parameters: params)
                 .responseString  { response in
                     fulfill(response)
             }
@@ -47,7 +47,7 @@ class StripeAPIClient {
                 "customerId": customerId
             ]
             
-            Alamofire.request(baseURL + "/Customer/RetrieveCustomer.php", method: .post, parameters: params)
+            Alamofire.request(baseURL + "/customer/retrieveCustomer.php", method: .post, parameters: params)
                 .responseString  { response in
                     fulfill(response)
             }
@@ -63,30 +63,35 @@ class StripeAPIClient {
                 "apiKey" : testSecretKey
             ]
             
-            Alamofire.request(baseURL + "/Customer/ListAllCustomers.php", method: .post, parameters: params)
+            Alamofire.request(baseURL + "/customer/listAllCustomers.php", method: .post, parameters: params)
                 .responseString  { response in
                     fulfill(response)
             }
         }
     }
     
-    //Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
-    class func deleteCustomer(customerId: String) -> Promise<DataResponse<String>> {
+    
+    /// Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
+    /// - returns: DataResponse<String> : Response from api call.
+    /// - throws: No error.
+    public static func deleteCustomer(customerId: String) -> Promise<DataResponse<String>> {
         return Promise{ fulfill, reject in
             let params = [
                 "apiKey"    : testSecretKey,
                 "customerId": customerId
             ]
             
-            Alamofire.request(baseURL + "/Customer/DeleteCustomer.php", method: .post, parameters: params)
+            Alamofire.request(baseURL + "/customer/deleteCustomer.php", method: .post, parameters: params)
                 .responseString  { response in
                     fulfill(response)
             }
         }
     }
     
-    //Updates the specified customer by setting the values of the parameters passed.
-    class func updateCustomer(customerId: String, description: String, token: String) -> Promise<DataResponse<String>> {
+    /// Updates the specified customer by setting the values of the parameters passed.
+    /// - returns: DataResponse<String> : Response from api call.
+    /// - throws: No error.
+    public static func updateCustomer(customerId: String, description: String, token: String) -> Promise<DataResponse<String>> {
         return Promise{ fulfill, reject in
             
             //NOTE: Any parameters left empty will not be changed.
@@ -98,7 +103,7 @@ class StripeAPIClient {
                 "token"         : token
             ]
             
-            Alamofire.request(baseURL + "/Customer/UpdateCustomer.php", method: .post, parameters: params)
+            Alamofire.request(baseURL + "/customer/updateCustomer.php", method: .post, parameters: params)
                 .responseString  { response in
                     fulfill(response)
             }
@@ -123,7 +128,7 @@ class StripeAPIClient {
                 "customerId"    : customerId
                 ] as [String : Any]
             
-            Alamofire.request(baseURL + "/Charges/CreateCharge.php", method: .post, parameters: params)
+            Alamofire.request(baseURL + "/charges/createCharge.php", method: .post, parameters: params)
                 .responseString  { response in
                     fulfill(response)
             }
@@ -139,7 +144,7 @@ class StripeAPIClient {
                 "chargeId"      : chargeId
             ]
             
-            Alamofire.request(baseURL + "/Charges/RetrieveCharge.php", method: .post, parameters: params)
+            Alamofire.request(baseURL + "/charges/retrieveCharge.php", method: .post, parameters: params)
                 .responseString  { response in
                     fulfill(response)
             }
@@ -155,7 +160,7 @@ class StripeAPIClient {
                 "chargeId"      : chargeId
             ]
             
-            Alamofire.request(baseURL + "/Charges/CaptureCharge.php", method: .post, parameters: params)
+            Alamofire.request(baseURL + "/charges/captureCharge.php", method: .post, parameters: params)
                 .responseString  { response in
                     fulfill(response)
             }
@@ -172,7 +177,7 @@ class StripeAPIClient {
                 "description"   : description
             ]
             
-            Alamofire.request(baseURL + "/Charges/UpdateCharge.php", method: .post, parameters: params)
+            Alamofire.request(baseURL + "/charges/updateCharge.php", method: .post, parameters: params)
                 .responseString  { response in
                     fulfill(response)
             }
@@ -188,7 +193,7 @@ class StripeAPIClient {
                 "customerId"    : customerId
             ]
             
-            Alamofire.request(baseURL + "/Charges/ListAllCharges.php", method: .post, parameters: params)
+            Alamofire.request(baseURL + "/charges/listAllCharges.php", method: .post, parameters: params)
                 .responseString  { response in
                     fulfill(response)
             }
@@ -217,7 +222,7 @@ class StripeAPIClient {
                 "cardId"    : cardId
             ]
             
-            Alamofire.request(baseURL + "/Cards/DeleteCard.php", method: .post, parameters: params)
+            Alamofire.request(baseURL + "/cards/deleteCard.php", method: .post, parameters: params)
                 .responseString  { response in
                     fulfill(response)
             }

@@ -1,19 +1,23 @@
-import UIKit
 import Firebase
+import Stripe
+import UIKit
 import UserNotifications
-
-//https://makeappicon.com/ (for icons)
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     
     var window: UIWindow?
     let gcmMessageIDKey = "gcm.message_id"
+    let STRIPE_PUBLISHABLE_KEY: String = "pk_test_Dl5CsuVlvuAg3fG8vVCRrKbC"
+    let STRIPE_SECRET_KEY: String = "sk_test_IM9ti8gurtw7BjCPCtm9hRar"
     let userDefaults = UserDefaults.standard
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         FirebaseApp.configure()
+        
+        //Set api key.
+        Stripe.setDefaultPublishableKey(STRIPE_PUBLISHABLE_KEY)
 
         if #available(iOS 10.0, *) {
             let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
