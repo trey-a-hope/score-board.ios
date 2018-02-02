@@ -107,8 +107,8 @@ extension GamesViewController : UITableViewDataSource, UITableViewDelegate {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "GameTableViewCell", for: indexPath as IndexPath) as? GameTableViewCell{
             let game: Game = games[indexPath.row]
             
-            let homeTeam: NBATeam = NBATeamService.instance.teams.filter({ $0.id == game.homeTeamId }).first!
-            let awayTeam: NBATeam = NBATeamService.instance.teams.filter({ $0.id == game.awayTeamId }).first!
+            let homeTeam = NBATeam.all.filter({ $0.name == game.homeTeam }).first!
+            let awayTeam = NBATeam.all.filter({ $0.name == game.awayTeam }).first!
 
             cell.title.text = homeTeam.name + " vs. " + awayTeam.name
             

@@ -9,7 +9,6 @@ class AddGameViewController : UIViewController {
     
     private let homeTeamPickerView                  : UIPickerView  = UIPickerView()
     private let awayTeamPickerView                  : UIPickerView  = UIPickerView()
-    private var teamOptions                         : [NBATeam]     = NBATeamService.instance.teams
     
     private var saveBtn                             : FABButton!
     private let defaultStore                        : Firestore     = Firestore.firestore()
@@ -53,12 +52,12 @@ class AddGameViewController : UIViewController {
             .then{ () -> Void in
                 let game        : Game      = Game()
 
-                let homeTeam    : NBATeam   = self.teamOptions[self.homeTeamPickerView.selectedRow(inComponent: 0)]
-                let awayTeam    : NBATeam   = self.teamOptions[self.awayTeamPickerView.selectedRow(inComponent: 0)]
+                let homeTeam = NBATeam.all[self.homeTeamPickerView.selectedRow(inComponent: 0)]
+                let awayTeam = NBATeam.all[self.awayTeamPickerView.selectedRow(inComponent: 0)]
 
-                game.homeTeamId             = homeTeam.id
-                game.awayTeamId             = awayTeam.id
-                game.starts                 = self.datePicker.date
+                game.homeTeam   = homeTeam.name
+                game.awayTeam   = awayTeam.name
+                game.starts = self.datePicker.date
 
                 MyFSRef.createGame(game: game)
                     .then{ (id) -> Void in
@@ -83,7 +82,7 @@ extension AddGameViewController : UIPickerViewDataSource, UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         switch pickerView {
             case homeTeamPickerView, awayTeamPickerView:
-                return teamOptions.count
+                return NBATeam.all.count
             default:return 1
         }
     }
@@ -91,7 +90,7 @@ extension AddGameViewController : UIPickerViewDataSource, UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         switch pickerView {
             case homeTeamPickerView, awayTeamPickerView:
-                return teamOptions[row].city + " " + teamOptions[row].name
+                return NBATeam.all[row].city + " " + NBATeam.all[row].name
             default:return "Null"
         }
     }
@@ -99,9 +98,9 @@ extension AddGameViewController : UIPickerViewDataSource, UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch pickerView {
             case homeTeamPickerView:
-                homeTeam.text = teamOptions[row].name
+                homeTeam.text = NBATeam.all[row].name
             case awayTeamPickerView:
-                awayTeam.text = teamOptions[row].name
+                awayTeam.text = NBATeam.all[row].name
             default:break
         }
     }

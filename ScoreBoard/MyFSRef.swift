@@ -96,17 +96,20 @@ class MyFSRef {
         }
     }
     
-    //CREATE NEW BET
-    class func createBet(bet: Bet) -> Promise<String> {
+    /// Create a new bet for a game.
+    /// - parameter bet - Bet : Bet to be created.
+    /// - returns: String - Id of new bet.
+    /// - throws: No error.
+    static func createBet(bet: Bet) -> Promise<String> {
         return Promise{ fulfill, reject in
             
             var ref: DocumentReference? = nil
             
             let data: [String : Any] = [
                 "id"                    : "",
-                "homeTeamId"            : bet.homeTeamId,
+                "homeTeam"              : bet.homeTeam,
                 "homeDigit"             : bet.homeDigit,
-                "awayTeamId"            : bet.awayTeamId,
+                "awayTeam"              : bet.awayTeam,
                 "awayDigit"             : bet.awayDigit,
                 "userId"                : bet.userId,
                 "gameId"                : bet.gameId,
@@ -142,8 +145,11 @@ class MyFSRef {
     
 
     
-    //RETURN A GAME THAT MATCHES ID
-    class func getGame(gameId: String) -> Promise<Game> {
+    /// Get a game by its id.
+    /// - parameter gameId - String : Id of game.
+    /// - returns: Game - Game to be fetched.
+    /// - throws: No error.
+    static func getGame(gameId: String) -> Promise<Game> {
         return Promise{ fulfill, reject in
             db.collection("Games").document(gameId).getDocument(completion: { (gameDoc, err) in
                 if let err = err { reject(err) }
@@ -239,9 +245,9 @@ class MyFSRef {
             let data: [String : Any] = [
                 "id"                    : "",
                 "status"                : 0,
-                "homeTeamId"            : game.homeTeamId,
+                "homeTeam"              : game.homeTeam,
                 "homeTeamScore"         : 0,
-                "awayTeamId"            : game.awayTeamId,
+                "awayTeam"              : game.awayTeam,
                 "awayTeamScore"         : 0,
                 "starts"                : String(describing: game.starts!),
                 "timestamp"             : String(describing: Date())
@@ -473,6 +479,26 @@ class MyFSRef {
         }
     }
     
+    /// Updates a user's notifications.
+    /// - parameter userId - String : Id of user.
+    /// - parameter notifications - [String:Bool] : Array of notifications.
+    /// - returns: Void
+    /// - throws: No error.
+    public static func updateNotifications(id: String, notifications: [String:Bool]) -> Promise<Void> {
+        return Promise { fulfill, reject in
+            
+            db.collection("Users").document(id).updateData([
+                "notifications" : notifications
+            ]){ err in
+                if let err = err {
+                    reject(err)
+                } else {
+                    fulfill(())
+                }
+            }
+        }
+    }
+    
     //CREATE A NEW USER
     class func createUser(user: User) -> Promise<String> {
         return Promise{ fulfill, reject in
@@ -489,7 +515,10 @@ class MyFSRef {
                 "imageDownloadUrl"  : "https://web.usask.ca/images/profile.jpg", //upload own "unwknown" image url.
                 "followers"         : [],
                 "followings"        : [],
-                "timestamp"         : String(describing: Date())
+                "timestamp"         : String(describing: Date()),
+                "notifications"     : [
+                    "newMessage"    : true
+                ]
             ]
             
             //Add game - I pray they come up with a better solution for referencing the ref id, this is tacky
@@ -545,6 +574,7 @@ extension MyFSRef {
         user.imageDownloadUrl   = value["imageDownloadUrl"] as! String
         user.followers          = value["followers"] as! [String]
         user.followings         = value["followings"] as! [String]
+        user.notifications      = value["notifications"] as! [String:Bool]
         user.phoneNumber        = value["phoneNumber"] as? String
         user.fcmToken           = value["fcmToken"] as? String
         user.city               = value["city"] as? String
@@ -562,9 +592,9 @@ extension MyFSRef {
         bet.userId      = value["userId"] as! String
         bet.gameId      = value["gameId"] as! String
         bet.homeDigit   = value["homeDigit"] as! Int
-        bet.homeTeamId  = value["homeTeamId"] as! Int
+        bet.homeTeam    = value["homeTeam"] as! String
         bet.awayDigit   = value["awayDigit"] as! Int
-        bet.awayTeamId  = value["awayTeamId"] as! Int
+        bet.awayTeam    = value["awayTeam"] as! String
         bet.timestamp   = ConversionService.timestampToDate(timestamp: value["timestamp"] as! String)
         
         return bet
@@ -575,9 +605,9 @@ extension MyFSRef {
         let game    : Game          = Game()
         
         game.id             = gameData["id"] as! String
-        game.homeTeamId     = gameData["homeTeamId"] as! Int
+        game.homeTeam       = gameData["homeTeam"] as! String
         game.homeTeamScore  = gameData["homeTeamScore"] as! Int
-        game.awayTeamId     = gameData["awayTeamId"] as! Int
+        game.awayTeam       = gameData["awayTeam"] as! String
         game.awayTeamScore  = gameData["awayTeamScore"] as! Int
         game.status         = gameData["status"] as! Int
         game.starts         = ConversionService.timestampToDate(timestamp: gameData["starts"] as! String)

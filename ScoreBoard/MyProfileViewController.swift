@@ -282,16 +282,16 @@ extension MyProfileViewController: UICollectionViewDataSource {
                 
                 let bet: Bet = myBets[indexPath.row]
                 
-                let homeTeam: NBATeam = NBATeamService.instance.teams.filter({ $0.id == bet.homeTeamId }).first!
-                let awayTeam: NBATeam = NBATeamService.instance.teams.filter({ $0.id == bet.awayTeamId }).first!
+                let ht = NBATeam.all.filter({ $0.name == bet.homeTeam }).first!
+                let at = NBATeam.all.filter({ $0.name == bet.awayTeam }).first!
                 
                 betCell.userName.text = me.userName
                 betCell.userImage.kf.setImage(with: URL(string: me.imageDownloadUrl))
                 betCell.userImage.round(borderWidth: 1, borderColor: UIColor.black)
-                betCell.homeTeamImage.kf.setImage(with: URL(string: homeTeam.imageDownloadUrl))
+                betCell.homeTeamImage.kf.setImage(with: URL(string: ht.imageDownloadUrl))
                 betCell.homeTeamImage.round(borderWidth: 1, borderColor: UIColor.black)
                 betCell.homeTeamDigit.text = String(describing: bet.homeDigit!)
-                betCell.awayTeamImage.kf.setImage(with: URL(string: awayTeam.imageDownloadUrl))
+                betCell.awayTeamImage.kf.setImage(with: URL(string: at.imageDownloadUrl))
                 betCell.awayTeamImage.round(borderWidth: 1, borderColor: UIColor.black)
                 betCell.awayTeamDigit.text = String(describing: bet.awayDigit!)
                 betCell.posted.text = ConversionService.timeAgoSinceDate(date: bet.timestamp)
@@ -305,14 +305,14 @@ extension MyProfileViewController: UICollectionViewDataSource {
                 
                 let game: Game = myGames[indexPath.row]
 
-                let homeTeam: NBATeam = NBATeamService.instance.teams.filter({ $0.id == game.homeTeamId }).first!
-                let awayTeam: NBATeam = NBATeamService.instance.teams.filter({ $0.id == game.awayTeamId }).first!
+                let ht = NBATeam.all.filter({ $0.name == game.homeTeam }).first!
+                let at = NBATeam.all.filter({ $0.name == game.awayTeam }).first!
                 
                 gameCell.userName.text = me.userName
-                gameCell.homeTeamImage.kf.setImage(with: URL(string: homeTeam.imageDownloadUrl))
+                gameCell.homeTeamImage.kf.setImage(with: URL(string: ht.imageDownloadUrl))
                 gameCell.homeTeamImage.round(borderWidth: 1, borderColor: UIColor.black)
                 gameCell.homeTeamScore.text = String(describing: game.homeTeamScore!)
-                gameCell.awayTeamImage.kf.setImage(with: URL(string: awayTeam.imageDownloadUrl))
+                gameCell.awayTeamImage.kf.setImage(with: URL(string: at.imageDownloadUrl))
                 gameCell.awayTeamImage.round(borderWidth: 1, borderColor: UIColor.black)
                 gameCell.awayTeamScore.text = String(describing: game.awayTeamScore!)
                 gameCell.potAmount.text = String(format: "$%.02f", game.potAmount)

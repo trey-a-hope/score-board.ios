@@ -49,7 +49,7 @@ class SearchViewController: UIViewController {
     
     func initUI() -> Void {
         //Set teams
-        for team in NBATeamService.instance.teams {
+        for team in NBATeam.all {
             let teamItem: Item = Item()
             teamItem.imageDownloadUrl = team.imageDownloadUrl
             teamItem.name = team.city + " " + team.name
@@ -71,6 +71,7 @@ class SearchViewController: UIViewController {
         searchController.searchBar.delegate = self
         
         automaticallyAdjustsScrollViewInsets = false
+        
     }
 }
 
@@ -88,8 +89,8 @@ extension SearchViewController : UISearchResultsUpdating {
                     for game in result.0 {
                         //Only return occupied games
                         if game.userId != nil {
-                            let homeTeam: NBATeam = NBATeamService.instance.teams.filter{ $0.id == game.homeTeamId }.first!
-                            let awayTeam: NBATeam = NBATeamService.instance.teams.filter{ $0.id == game.awayTeamId }.first!
+                            let homeTeam = NBATeam.all.filter{ $0.name == game.homeTeam }.first!
+                            let awayTeam = NBATeam.all.filter{ $0.name == game.awayTeam! }.first!
                             
                             let gameItem: Item = Item()
                             gameItem.id = game.id

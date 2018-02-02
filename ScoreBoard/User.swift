@@ -18,4 +18,5 @@ class User {
     var followings          : [String]!
     var followers           : [String]!
     var timestamp           : Date!
+    var notifications       : [String:Bool]!
 }

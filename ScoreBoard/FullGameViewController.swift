@@ -46,8 +46,8 @@ class FullGameViewController: UIViewController {
     
     var gameId: String!
     var gameOwner: User!
-    var homeTeam: NBATeam!
-    var awayTeam: NBATeam!
+    var homeTeam: String!
+    var awayTeam: String!
     var game: Game!
     var bets: [Bet] = [Bet]()
     
@@ -104,8 +104,8 @@ class FullGameViewController: UIViewController {
                         self.gameOwner = user
                         
                         //Set home team and away team
-                        self.homeTeam = NBATeamService.instance.teams.filter({ $0.id == self.game.homeTeamId }).first!
-                        self.awayTeam = NBATeamService.instance.teams.filter({ $0.id == self.game.awayTeamId }).first!
+                        self.homeTeam = NBATeam.all.filter({ $0.name == self.game.homeTeam }).first!.name
+                        self.awayTeam = NBATeam.all.filter({ $0.name == self.game.awayTeam }).first!.name
                         
                         //Set a user to each bet
                         if self.bets.isEmpty {
@@ -131,27 +131,30 @@ class FullGameViewController: UIViewController {
     }
     
     func setUI() -> Void {
+        let ht = NBATeam.all.filter { $0.name == homeTeam }.first!
+        let at = NBATeam.all.filter { $0.name == awayTeam }.first!
+        
         //Home Team Info
         homeTeamPreDigit.text = String(describing: game.homeTeamScore / 10)
         homeTeamPostDigit.text = String(describing: game.homeTeamScore % 10)
         homeTeamImage.round(borderWidth: 0, borderColor: UIColor.black)
-        homeTeamImage.kf.setImage(with: URL(string: homeTeam!.imageDownloadUrl))
+        homeTeamImage.kf.setImage(with: URL(string: ht.imageDownloadUrl))
         newBetHomeTeamImage.round(borderWidth: 0, borderColor: UIColor.black)
-        newBetHomeTeamImage.kf.setImage(with: URL(string: homeTeam!.imageDownloadUrl))
-        homeTeamCity.text = "Home - " + homeTeam!.city
-        homeTeamName.text = homeTeam!.name
-        homeTeamView.backgroundColor = homeTeam!.backgroundColor
+        newBetHomeTeamImage.kf.setImage(with: URL(string: ht.imageDownloadUrl))
+        homeTeamCity.text = "Home - " + ht.city
+        homeTeamName.text = ht.name
+        homeTeamView.backgroundColor = ht.color
         
         //Away Team Info
         awayTeamPreDigit.text = String(describing: game.awayTeamScore / 10)
         awayTeamPostDigit.text = String(describing: game.awayTeamScore % 10)
         awayTeamImage.round(borderWidth: 0, borderColor: UIColor.black)
-        awayTeamImage.kf.setImage(with: URL(string: (awayTeam!.imageDownloadUrl)!))
+        awayTeamImage.kf.setImage(with: URL(string: at.imageDownloadUrl))
         newBetAwayTeamImage.round(borderWidth: 0, borderColor: UIColor.black)
-        newBetAwayTeamImage.kf.setImage(with: URL(string: awayTeam!.imageDownloadUrl))
-        awayTeamCity.text = "Away - " + awayTeam!.city
-        awayTeamName.text = awayTeam!.name
-        awayTeamView.backgroundColor = awayTeam!.backgroundColor
+        newBetAwayTeamImage.kf.setImage(with: URL(string: at.imageDownloadUrl))
+        awayTeamCity.text = "Away - " + at.city
+        awayTeamName.text = at.name
+        awayTeamView.backgroundColor = at.color
         
         //Game owner
         gameOwnerImage.round(borderWidth: 0, borderColor: UIColor.black)
@@ -270,6 +273,9 @@ class FullGameViewController: UIViewController {
     }
     
     @IBAction func submitAction(_ sender: UIButton) {
+        let ht = NBATeam.all.filter { $0.name != homeTeam }.first!
+        let at = NBATeam.all.filter { $0.name != awayTeam }.first!
+        
         if game.userId == SessionManager.getUserId() {
             ModalService.showAlert(title: "Sorry", message: "You can only place bets on games you do not own.", vc: self)
         }
@@ -287,7 +293,7 @@ class FullGameViewController: UIViewController {
             }else{
                 //Prompt user's bet before submitting.
                 let title: String = "Place Bet"
-                let message: String = "You are betting that the " + homeTeam!.name + " score will end with " + String(describing: newBetHomeDigit) + ", and the " + awayTeam!.name + " score will end with " + String(describing: newBetAwayDigit) + ". " + String(format: "$%.02f", game.betPrice) + " will be charged to your card."
+                let message: String = "You are betting that the " + ht.name + " score will end with " + String(describing: newBetHomeDigit) + ", and the " + at.name + " score will end with " + String(describing: newBetAwayDigit) + ". " + String(format: "$%.02f", game.betPrice) + " will be charged to your card."
 
                 ModalService.showConfirm(title: title, message: message, vc: self)
                     .then{() -> Void in
@@ -296,8 +302,8 @@ class FullGameViewController: UIViewController {
                         let bet: Bet = Bet()
                         bet.userId = SessionManager.getUserId()
                         bet.gameId = self.gameId
-                        bet.homeTeamId = self.homeTeam.id
-                        bet.awayTeamId = self.awayTeam.id
+                        bet.homeTeam = ht.name
+                        bet.awayTeam = at.name
                         bet.homeDigit = newBetHomeDigit
                         bet.awayDigit = newBetAwayDigit
                         
@@ -394,6 +400,19 @@ extension FullGameViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if bets.isEmpty {
+            let messageLabel = UILabel(frame: CGRect(x: 0, y: 0, width: collectionView.bounds.size.width, height: collectionView.bounds.size.height))
+            messageLabel.text = "No Bets Yet"
+            messageLabel.textColor = .black
+            messageLabel.numberOfLines = 0;
+            messageLabel.textAlignment = .center;
+//            messageLabel.font = UIFont(name: "TrebuchetMS", size: 15)
+            messageLabel.sizeToFit()
+            collectionView.backgroundView = messageLabel
+        }else{
+            collectionView.backgroundView = nil
+        }
+        
         return bets.count
     }
     
@@ -414,6 +433,9 @@ extension FullGameViewController: UICollectionViewDataSource {
         
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as? BetCell{
             
+            let ht = NBATeam.all.filter { $0.name != homeTeam }.first!
+            let at = NBATeam.all.filter { $0.name != awayTeam }.first!
+            
             let selectedBet: Bet = bets[indexPath.row]
             
             //If the current score is this bet, add yellow tint to background
@@ -426,10 +448,10 @@ extension FullGameViewController: UICollectionViewDataSource {
             cell.userName.text = selectedBet.user.userName
             cell.userImage.kf.setImage(with: URL(string: selectedBet.user.imageDownloadUrl))
             cell.userImage.round(borderWidth: 1, borderColor: UIColor.black)
-            cell.homeTeamImage.kf.setImage(with: URL(string: homeTeam!.imageDownloadUrl))
+            cell.homeTeamImage.kf.setImage(with: URL(string: ht.imageDownloadUrl))
             cell.homeTeamImage.round(borderWidth: 1, borderColor: UIColor.black)
             cell.homeTeamDigit.text = String(describing: selectedBet.homeDigit!)
-            cell.awayTeamImage.kf.setImage(with: URL(string: awayTeam!.imageDownloadUrl))
+            cell.awayTeamImage.kf.setImage(with: URL(string: at.imageDownloadUrl))
             cell.awayTeamImage.round(borderWidth: 1, borderColor: UIColor.black)
             cell.awayTeamDigit.text = String(describing: selectedBet.awayDigit!)
             cell.posted.text = ConversionService.timeAgoSinceDate(date: selectedBet.timestamp)

@@ -48,7 +48,6 @@
 		0C9F18AA1F81C6C7009543A6 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9F18A91F81C6C7009543A6 /* AboutViewController.swift */; };
 		0C9F18AC1F81C6E9009543A6 /* SupportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9F18AB1F81C6E9009543A6 /* SupportViewController.swift */; };
 		0CA5BF301F5F1B13009D0236 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA5BF2F1F5F1B13009D0236 /* Constants.swift */; };
-		0CA5BF331F5F1BB7009D0236 /* NBATeam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA5BF321F5F1BB7009D0236 /* NBATeam.swift */; };
 		0CAB26DA1F770D6D00B8EBC1 /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CAB26D91F770D6D00B8EBC1 /* MessagesViewController.swift */; };
 		0CADB03A1F890FD900200F7C /* GameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CADB0381F890FD900200F7C /* GameCell.swift */; };
 		0CADB03B1F890FD900200F7C /* GameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0CADB0391F890FD900200F7C /* GameCell.xib */; };
@@ -73,9 +72,12 @@
 		A2185CF01FCE68270024BB3E /* StripeAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2185CEF1FCE68270024BB3E /* StripeAPIClient.swift */; };
 		A2290B321FECBA500009B37C /* FollowerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2290B301FECBA500009B37C /* FollowerCell.swift */; };
 		A2290B331FECBA500009B37C /* FollowerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2290B311FECBA500009B37C /* FollowerCell.xib */; };
+		A241A54B2023E67F004CE4AD /* FormProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A241A54A2023E67F004CE4AD /* FormProtocol.swift */; };
+		A241A54D20247B94004CE4AD /* NotificationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A241A54C20247B94004CE4AD /* NotificationsTableViewController.swift */; };
 		A28CB28E2011AC4B008DD01B /* KeyboardLayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28CB28D2011AC4B008DD01B /* KeyboardLayoutConstraint.swift */; };
 		A28EF3E41FFD9FDE00F1F51C /* PaymentMethodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28EF3E31FFD9FDE00F1F51C /* PaymentMethodViewController.swift */; };
 		A28EF3E61FFDA20100F1F51C /* PaymentHistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28EF3E51FFDA20100F1F51C /* PaymentHistoryTableViewController.swift */; };
+		A29852F1201940E600596FD2 /* Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29852F0201940E600596FD2 /* Structs.swift */; };
 		A2A07FD11FE37A2A0083F32F /* FollowingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A07FD01FE37A2A0083F32F /* FollowingsViewController.swift */; };
 		A2DCF9081FE3680300DA2767 /* FollowersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2DCF9071FE3680300DA2767 /* FollowersViewController.swift */; };
 		A2F4495120122CB30051C6C9 /* PaymentUpdateMethodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F4495020122CB30051C6C9 /* PaymentUpdateMethodViewController.swift */; };
@@ -152,7 +154,6 @@
 		0C9F18A91F81C6C7009543A6 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		0C9F18AB1F81C6E9009543A6 /* SupportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportViewController.swift; sourceTree = "<group>"; };
 		0CA5BF2F1F5F1B13009D0236 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		0CA5BF321F5F1BB7009D0236 /* NBATeam.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NBATeam.swift; sourceTree = "<group>"; };
 		0CAB26D91F770D6D00B8EBC1 /* MessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
 		0CADB0381F890FD900200F7C /* GameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCell.swift; sourceTree = "<group>"; };
 		0CADB0391F890FD900200F7C /* GameCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameCell.xib; sourceTree = "<group>"; };
@@ -184,9 +185,12 @@
 		A2185CEF1FCE68270024BB3E /* StripeAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripeAPIClient.swift; sourceTree = "<group>"; };
 		A2290B301FECBA500009B37C /* FollowerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerCell.swift; sourceTree = "<group>"; };
 		A2290B311FECBA500009B37C /* FollowerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FollowerCell.xib; sourceTree = "<group>"; };
+		A241A54A2023E67F004CE4AD /* FormProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormProtocol.swift; sourceTree = "<group>"; };
+		A241A54C20247B94004CE4AD /* NotificationsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsTableViewController.swift; sourceTree = "<group>"; };
 		A28CB28D2011AC4B008DD01B /* KeyboardLayoutConstraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardLayoutConstraint.swift; sourceTree = "<group>"; };
 		A28EF3E31FFD9FDE00F1F51C /* PaymentMethodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodViewController.swift; sourceTree = "<group>"; };
 		A28EF3E51FFDA20100F1F51C /* PaymentHistoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentHistoryTableViewController.swift; sourceTree = "<group>"; };
+		A29852F0201940E600596FD2 /* Structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Structs.swift; sourceTree = "<group>"; };
 		A2A07FD01FE37A2A0083F32F /* FollowingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowingsViewController.swift; sourceTree = "<group>"; };
 		A2DCF9071FE3680300DA2767 /* FollowersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowersViewController.swift; sourceTree = "<group>"; };
 		A2F4495020122CB30051C6C9 /* PaymentUpdateMethodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentUpdateMethodViewController.swift; sourceTree = "<group>"; };
@@ -239,13 +243,13 @@
 		0C5F3A3B1F4E0F2100516CFB /* Miscellaneous */ = {
 			isa = PBXGroup;
 			children = (
+				A241A5482023E63F004CE4AD /* Colors */,
 				0CD969FB1F6501D200B183C8 /* Image Cropping */,
 				0C5F3A391F4E0EFD00516CFB /* Extensions.swift */,
-				0CF611651F62EA5A00A46EB0 /* GMPalette.swift */,
-				0CF611671F62EA7600A46EB0 /* GMColor.swift */,
 				0CD96A051F65A1A400B183C8 /* JSONSerializer.swift */,
 				0C5847191F9664BA00ADB902 /* SearchBarContainerView.swift */,
 				A28CB28D2011AC4B008DD01B /* KeyboardLayoutConstraint.swift */,
+				A29852F0201940E600596FD2 /* Structs.swift */,
 			);
 			name = Miscellaneous;
 			sourceTree = "<group>";
@@ -272,6 +276,7 @@
 				0C628CA11F81C33F0044C469 /* ChangePasswordViewController.swift */,
 				0C9F18A91F81C6C7009543A6 /* AboutViewController.swift */,
 				0C9F18AB1F81C6E9009543A6 /* SupportViewController.swift */,
+				A241A54C20247B94004CE4AD /* NotificationsTableViewController.swift */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -300,28 +305,22 @@
 		0C6DC58F1F4DD9F200F9A061 /* ScoreBoard */ = {
 			isa = PBXGroup;
 			children = (
-				0C6DC5A41F4DD9F200F9A061 /* ScoreBoardTests */,
-				0CC5843C1F844BD2009E72DB /* Admin */,
+				A241A5492023E670004CE4AD /* Protocols */,
+				0CD96A021F659DE100B183C8 /* ScoreBoard.entitlements */,
+				0C6C20451F676C30000AB4F3 /* GoogleService-Info.plist */,
+				0C6DC59C1F4DD9F200F9A061 /* Info.plist */,
 				0C6DC5901F4DD9F200F9A061 /* AppDelegate.swift */,
 				0C6DC5971F4DD9F200F9A061 /* Assets.xcassets */,
-				0CC5636F1F4DF8ED0088057C /* Authentication */,
-				0C98D2301F5FAF0B00D8BBAD /* Bets */,
 				0CA5BF2E1F5F1B07009D0236 /* Constants */,
 				0CA5BF311F5F1B81009D0236 /* Enums */,
-				0CFC245D1F4DEAA2003F97B5 /* Games */,
-				0C6C20451F676C30000AB4F3 /* GoogleService-Info.plist */,
-				0CFC245C1F4DE7F8003F97B5 /* Home */,
-				0C6DC59C1F4DD9F200F9A061 /* Info.plist */,
 				0C6DC5991F4DD9F200F9A061 /* LaunchScreen.storyboard */,
 				0C6DC5941F4DD9F200F9A061 /* Main.storyboard */,
 				0C5F3A3B1F4E0F2100516CFB /* Miscellaneous */,
 				0CFC24621F4DEB77003F97B5 /* Models */,
-				0C5F3A401F4E15C600516CFB /* Profile */,
-				0CD96A021F659DE100B183C8 /* ScoreBoard.entitlements */,
-				0C3ABE8A1F4F28C000AE5CF9 /* Search */,
+				0C6DC5A41F4DD9F200F9A061 /* ScoreBoardTests */,
 				0CFC245F1F4DEAE8003F97B5 /* Services */,
-				0C5F3A431F4E162800516CFB /* Settings */,
 				A2185CEA1FCE673C0024BB3E /* Stripe */,
+				A241A5472023E5D0004CE4AD /* Views */,
 				A2185CE81FCE65A70024BB3E /* XIBs */,
 			);
 			path = ScoreBoard;
@@ -345,13 +344,6 @@
 			path = ScoreBoardUITests;
 			sourceTree = "<group>";
 		};
-		0C98D2301F5FAF0B00D8BBAD /* Bets */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Bets;
-			sourceTree = "<group>";
-		};
 		0CA5BF2E1F5F1B07009D0236 /* Constants */ = {
 			isa = PBXGroup;
 			children = (
@@ -363,7 +355,6 @@
 		0CA5BF311F5F1B81009D0236 /* Enums */ = {
 			isa = PBXGroup;
 			children = (
-				0CA5BF321F5F1BB7009D0236 /* NBATeam.swift */,
 				0C0D60BA1F7EA355001338F5 /* UIPickerViewOptions.swift */,
 				0C0D60BC1F7EA412001338F5 /* State.swift */,
 			);
@@ -504,6 +495,37 @@
 				A2185CEF1FCE68270024BB3E /* StripeAPIClient.swift */,
 			);
 			name = Stripe;
+			sourceTree = "<group>";
+		};
+		A241A5472023E5D0004CE4AD /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0CC5636F1F4DF8ED0088057C /* Authentication */,
+				0CFC245D1F4DEAA2003F97B5 /* Games */,
+				0CFC245C1F4DE7F8003F97B5 /* Home */,
+				0C5F3A401F4E15C600516CFB /* Profile */,
+				0C3ABE8A1F4F28C000AE5CF9 /* Search */,
+				0C5F3A431F4E162800516CFB /* Settings */,
+				0CC5843C1F844BD2009E72DB /* Admin */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		A241A5482023E63F004CE4AD /* Colors */ = {
+			isa = PBXGroup;
+			children = (
+				0CF611651F62EA5A00A46EB0 /* GMPalette.swift */,
+				0CF611671F62EA7600A46EB0 /* GMColor.swift */,
+			);
+			name = Colors;
+			sourceTree = "<group>";
+		};
+		A241A5492023E670004CE4AD /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				A241A54A2023E67F004CE4AD /* FormProtocol.swift */,
+			);
+			name = Protocols;
 			sourceTree = "<group>";
 		};
 		A28EF3E21FFD9F9600F1F51C /* Payments */ = {
@@ -919,7 +941,6 @@
 				A28EF3E61FFDA20100F1F51C /* PaymentHistoryTableViewController.swift in Sources */,
 				0C98D22F1F5FA86C00D8BBAD /* Bet.swift in Sources */,
 				0CEA324A1F8320D10002B05C /* UserCell.swift in Sources */,
-				0CA5BF331F5F1BB7009D0236 /* NBATeam.swift in Sources */,
 				A28EF3E41FFD9FDE00F1F51C /* PaymentMethodViewController.swift in Sources */,
 				0C71C82D1F4F58790028D814 /* ConnectionManager.swift in Sources */,
 				A2290B321FECBA500009B37C /* FollowerCell.swift in Sources */,
@@ -929,10 +950,12 @@
 				0CFC24641F4DEB7F003F97B5 /* Game.swift in Sources */,
 				0C03B4421F4E809C0020FB2A /* User.swift in Sources */,
 				0C75B6411F8455D8000DDD66 /* MyFSRef.swift in Sources */,
+				A241A54D20247B94004CE4AD /* NotificationsTableViewController.swift in Sources */,
 				0C0D60BD1F7EA412001338F5 /* State.swift in Sources */,
 				A2F4495120122CB30051C6C9 /* PaymentUpdateMethodViewController.swift in Sources */,
 				0C6DC5911F4DD9F200F9A061 /* AppDelegate.swift in Sources */,
 				A2DCF9081FE3680300DA2767 /* FollowersViewController.swift in Sources */,
+				A241A54B2023E67F004CE4AD /* FormProtocol.swift in Sources */,
 				A28CB28E2011AC4B008DD01B /* KeyboardLayoutConstraint.swift in Sources */,
 				0CD969FD1F6501EB00B183C8 /* CropperViewController.swift in Sources */,
 				0CB0D2C41F9E6A930012A2CE /* SearchUserViewController.swift in Sources */,
@@ -943,6 +966,7 @@
 				0CC563751F4DFD9A0088057C /* ModalService.swift in Sources */,
 				0C5F3A451F4E163200516CFB /* SettingsTableViewController.swift in Sources */,
 				0CC563711F4DF9070088057C /* HomeTabBarController.swift in Sources */,
+				A29852F1201940E600596FD2 /* Structs.swift in Sources */,
 				0C0D60BB1F7EA355001338F5 /* UIPickerViewOptions.swift in Sources */,
 				0C5F3A421F4E15D900516CFB /* MyProfileViewController.swift in Sources */,
 				0C5F3A3A1F4E0EFD00516CFB /* Extensions.swift in Sources */,

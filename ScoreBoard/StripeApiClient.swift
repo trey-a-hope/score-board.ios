@@ -29,7 +29,7 @@ class StripeAPIClient {
                 "email"     : email
             ]
             
-            Alamofire.request(baseURL + "/customer/createCustomer.php", method: .post, parameters: params)
+            Alamofire.request(baseURL + "/customers/createCustomer.php", method: .post, parameters: params)
                 .responseString  { response in
                     fulfill(response)
             }
@@ -47,7 +47,7 @@ class StripeAPIClient {
                 "customerId": customerId
             ]
             
-            Alamofire.request(baseURL + "/customer/retrieveCustomer.php", method: .post, parameters: params)
+            Alamofire.request(baseURL + "/customers/retrieveCustomer.php", method: .post, parameters: params)
                 .responseString  { response in
                     fulfill(response)
             }
@@ -63,7 +63,7 @@ class StripeAPIClient {
                 "apiKey" : testSecretKey
             ]
             
-            Alamofire.request(baseURL + "/customer/listAllCustomers.php", method: .post, parameters: params)
+            Alamofire.request(baseURL + "/customers/listAllCustomers.php", method: .post, parameters: params)
                 .responseString  { response in
                     fulfill(response)
             }
@@ -81,7 +81,7 @@ class StripeAPIClient {
                 "customerId": customerId
             ]
             
-            Alamofire.request(baseURL + "/customer/deleteCustomer.php", method: .post, parameters: params)
+            Alamofire.request(baseURL + "/customers/deleteCustomer.php", method: .post, parameters: params)
                 .responseString  { response in
                     fulfill(response)
             }
@@ -103,7 +103,7 @@ class StripeAPIClient {
                 "token"         : token
             ]
             
-            Alamofire.request(baseURL + "/customer/updateCustomer.php", method: .post, parameters: params)
+            Alamofire.request(baseURL + "/customers/updateCustomer.php", method: .post, parameters: params)
                 .responseString  { response in
                     fulfill(response)
             }

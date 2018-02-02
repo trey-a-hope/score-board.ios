@@ -96,10 +96,10 @@ extension UpdateGameViewController : UITableViewDataSource, UITableViewDelegate 
         if let cell = tableView.dequeueReusableCell(withIdentifier: "GameTableViewCell", for: indexPath as IndexPath) as? GameTableViewCell{
             let game: Game = games[indexPath.row]
             
-            let homeTeam: NBATeam = NBATeamService.instance.teams.filter({ $0.id == game.homeTeamId }).first!
-            let awayTeam: NBATeam = NBATeamService.instance.teams.filter({ $0.id == game.awayTeamId }).first!
+            let ht = NBATeam.all.filter({ $0.name == game.homeTeam }).first!
+            let at = NBATeam.all.filter({ $0.name == game.awayTeam }).first!
             
-            cell.title.text = homeTeam.name + " vs. " + awayTeam.name
+            cell.title.text = ht.name + " vs. " + at.name
             cell.potAmount.text = "(Pot Amount Will Go Here)"
             cell.betCount.text = "(Bet Count Will Go Here)"
             
@@ -117,9 +117,9 @@ extension UpdateGameViewController : UITableViewDataSource, UITableViewDelegate 
             }
             
             cell.homeTeamImage.round(borderWidth: 0, borderColor: UIColor.black)
-            cell.homeTeamImage.kf.setImage(with: URL(string: homeTeam.imageDownloadUrl))
+            cell.homeTeamImage.kf.setImage(with: URL(string: ht.imageDownloadUrl))
             cell.awayTeamImage.round(borderWidth: 0, borderColor: UIColor.black)
-            cell.awayTeamImage.kf.setImage(with: URL(string: awayTeam.imageDownloadUrl))
+            cell.awayTeamImage.kf.setImage(with: URL(string: at.imageDownloadUrl))
             
             return cell
         }

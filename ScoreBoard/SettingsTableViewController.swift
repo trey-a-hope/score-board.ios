@@ -35,12 +35,10 @@ class SettingsTableViewController: UITableViewController {
                     case 0:
                         let aboutViewController = storyBoard.instantiateViewController(withIdentifier: "AboutViewController") as! AboutViewController
                         navigationController?.pushViewController(aboutViewController, animated: true)
-                        break
                     //Support
                     case 1:
                         let supportViewController = storyBoard.instantiateViewController(withIdentifier: "SupportViewController") as! SupportViewController
                         navigationController?.pushViewController(supportViewController, animated: true)
-                        break
                     default: break
                 }
             //Account
@@ -50,16 +48,14 @@ class SettingsTableViewController: UITableViewController {
                     case 0:
                         let changeEmailViewController = storyBoard.instantiateViewController(withIdentifier: "ChangeEmailViewController") as! ChangeEmailViewController
                         navigationController?.pushViewController(changeEmailViewController, animated: true)
-                        break
                     //Change Password
                     case 1:
                         let changePasswordViewController = storyBoard.instantiateViewController(withIdentifier: "ChangePasswordViewController") as! ChangePasswordViewController
                         navigationController?.pushViewController(changePasswordViewController, animated: true)
-                        break
                     //Notifications
                     case 2:
-                        ModalService.showAlert(title: "Notifications", message: "Coming Soon...", vc: self)
-                        break
+                        let notificationsTableViewController = storyBoard.instantiateViewController(withIdentifier: "NotificationsTableViewController") as! NotificationsTableViewController
+                        navigationController?.pushViewController(notificationsTableViewController, animated: true)
                     //Log Out
                     case 3:
                         ModalService.showConfirm(title: "Log out", message: "Are you sure?", vc: self)
@@ -67,7 +63,6 @@ class SettingsTableViewController: UITableViewController {
                                 SessionManager.signOut()
                                 _ = self.navigationController?.popViewController(animated: true)
                             }.always{}
-                        break
                     //Delete Account
                     case 4:
                         ModalService.showConfirm(title: "Delete Account", message: "Before you can delete your account, you must wait for any games you currently own to finish.", vc: self)
@@ -79,10 +74,8 @@ class SettingsTableViewController: UITableViewController {
                                         ModalService.showAlert(title: "Error", message: error.localizedDescription, vc: self)
                                     }.always {}
                             }.always{}
-                        break
                     default:break
                 }
-                break
             //Payment
             case 2:
                 switch (indexPath.row) {
@@ -90,15 +83,12 @@ class SettingsTableViewController: UITableViewController {
                     case 0:
                         let paymentMethodViewController = storyBoard.instantiateViewController(withIdentifier: "PaymentMethodViewController") as! PaymentMethodViewController
                         navigationController?.pushViewController(paymentMethodViewController, animated: true)
-                        break
                     //History
                     case 1:
                         let paymentHistoryTableViewController = storyBoard.instantiateViewController(withIdentifier: "PaymentHistoryTableViewController") as! PaymentHistoryTableViewController
                         navigationController?.pushViewController(paymentHistoryTableViewController, animated: true)
-                        break
                     default:break
                 }
-                break
             default: break
         }
     }
