@@ -11,7 +11,7 @@ class StripeAPIClient {
     private class var baseURL: String {
         return "http://es.tr3umphant-designs.com/assets/stripe"
     }
-    
+     
     //      ____                 _
     //     / ___|  _   _   ___  | |_    ___    _ __ ___     ___   _ __   ___
     //    | |     | | | | / __| | __|  / _ \  | '_ ` _ \   / _ \ | '__| / __|
