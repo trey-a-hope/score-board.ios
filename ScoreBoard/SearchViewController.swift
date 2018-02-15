@@ -78,60 +78,61 @@ class SearchViewController: UIViewController {
 extension SearchViewController : UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         if let searchText = searchController.searchBar.text, !searchText.isEmpty {
-            //Clear list on each text query.
-            games.removeAll()
-            users.removeAll()
-            
-            //Fetch games, users, and teams.
-            when(fulfilled: MyFSRef.getAllGames(), MyFSRef.getUsersFromSearch(category: "userName", search: searchText, numberOfUsers: 25))
-                .then{ (result) -> Void in
-                    //Set games
-                    for game in result.0 {
-                        //Only return occupied games
-                        if game.userId != nil {
-                            let homeTeam = NBATeam.all.filter{ $0.name == game.homeTeam }.first!
-                            let awayTeam = NBATeam.all.filter{ $0.name == game.awayTeam! }.first!
-                            
-                            let gameItem: Item = Item()
-                            gameItem.id = game.id
-                            gameItem.imageDownloadUrl = homeTeam.imageDownloadUrl
-                            gameItem.name = homeTeam.name + " vs. " + awayTeam.name
-                            gameItem.group = self.categories[0]
-                            gameItem.gameOwnerId = game.userId
-                            self.games.append(gameItem)
-                        }
-                    }
-                    //Sort game items
-                    self.games = self.games.sorted(by: { $0.name < $1.name })
-                    //Remove any duplicates
-                    self.games = self.removeDuplicates(array: self.games)
-                    //Filter on search
-                    self.filteredGames = self.games.filter({
-                        $0.name.range(of: searchText, options: .caseInsensitive) != nil
-                    })
-                    
-                    //Set users
-                    for user in result.1 {
-                        let userItem: Item = Item()
-                        userItem.id = user.id
-                        userItem.imageDownloadUrl = user.imageDownloadUrl
-                        userItem.name = user.userName
-                        userItem.group = self.categories[1]
-                        self.users.append(userItem)
-                    }
-                    //Sort users by name
-                    self.users = self.users.sorted(by: { $0.name.lowercased() < $1.name.lowercased() })
-                    //Remove any duplicates
-                    self.users = self.removeDuplicates(array: self.users)
-                    //Filter on search
-                    self.filteredUsers = self.users
-                    
-                    //Remove any duplicates
-                    //Filter on search
-                    self.filteredTeams = self.teams.filter({
-                        $0.name.range(of: searchText, options: .caseInsensitive) != nil
-                    })
-                }.always{}
+            ModalService.showAlert(title: "TODO: Search...", message: "Coming Soon...", vc: self)
+//            //Clear list on each text query.
+//            games.removeAll()
+//            users.removeAll()
+//
+//            //Fetch games, users, and teams.
+//            when(fulfilled: MyFSRef.getAllGames(), MyFSRef.getUsersFromSearch(category: "userName", search: searchText, numberOfUsers: 25))
+//                .then{ (result) -> Void in
+//                    //Set games
+//                    for game in result.0 {
+//                        //Only return occupied games
+//                        if game.userId != nil {
+//                            let homeTeam = NBATeam.all.filter{ $0.name == game.homeTeam }.first!
+//                            let awayTeam = NBATeam.all.filter{ $0.name == game.awayTeam! }.first!
+//
+//                            let gameItem: Item = Item()
+//                            gameItem.id = game.id
+//                            gameItem.imageDownloadUrl = homeTeam.imageDownloadUrl
+//                            gameItem.name = homeTeam.name + " vs. " + awayTeam.name
+//                            gameItem.group = self.categories[0]
+//                            gameItem.gameOwnerId = game.userId
+//                            self.games.append(gameItem)
+//                        }
+//                    }
+//                    //Sort game items
+//                    self.games = self.games.sorted(by: { $0.name < $1.name })
+//                    //Remove any duplicates
+//                    self.games = self.removeDuplicates(array: self.games)
+//                    //Filter on search
+//                    self.filteredGames = self.games.filter({
+//                        $0.name.range(of: searchText, options: .caseInsensitive) != nil
+//                    })
+//
+//                    //Set users
+//                    for user in result.1 {
+//                        let userItem: Item = Item()
+//                        userItem.id = user.id
+//                        userItem.imageDownloadUrl = user.imageDownloadUrl
+//                        userItem.name = user.userName
+//                        userItem.group = self.categories[1]
+//                        self.users.append(userItem)
+//                    }
+//                    //Sort users by name
+//                    self.users = self.users.sorted(by: { $0.name.lowercased() < $1.name.lowercased() })
+//                    //Remove any duplicates
+//                    self.users = self.removeDuplicates(array: self.users)
+//                    //Filter on search
+//                    self.filteredUsers = self.users
+//
+//                    //Remove any duplicates
+//                    //Filter on search
+//                    self.filteredTeams = self.teams.filter({
+//                        $0.name.range(of: searchText, options: .caseInsensitive) != nil
+//                    })
+//                }.always{}
         } else {
             filteredGames.removeAll()
             filteredUsers.removeAll()

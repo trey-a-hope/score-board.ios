@@ -1,23 +1,24 @@
 import Firebase
+import FirebaseFirestore
 import UIKit
 
 class GamesViewController: UIViewController {
-    @IBOutlet private weak var tableView        : UITableView!
+    @IBOutlet private weak var tableView : UITableView!
     @IBOutlet private weak var segmentedControl : UISegmentedControl!
+
+    private var allGames : [Game] = [Game]()
+    private var games : [Game] = [Game]()
     
-    private var allGames                        : [Game] = [Game]()
-    private var games                           : [Game] = [Game]()
-    
-    private lazy var refreshControl: UIRefreshControl = {
+    internal lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(GamesViewController.getGames), for: UIControlEvents.valueChanged)
+        refreshControl.addTarget(self, action: #selector(GamesViewController.getAllGames), for: UIControlEvents.valueChanged)
         return refreshControl
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         initUI()
-        getGames()
+        getAllGames()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,14 +47,14 @@ class GamesViewController: UIViewController {
         segmentedControl.addTarget(self, action: #selector(sectionGames), for:.allEvents)
     }
     
-    @objc func getGames() -> Void {
+    @objc func getAllGames() -> Void {
         MyFSRef.getAllGames()
             .then{ (games) -> Void in
                 self.allGames = games
                 self.sectionGames()
             }.always {
                 self.refreshControl.endRefreshing()
-            }
+        }
     }
     
     @objc func sectionGames() -> Void {
@@ -87,14 +88,14 @@ extension GamesViewController : UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let game: Game = games[indexPath.row]
-
-        //Game taken
-        if game.userId != nil {
+        
+        //Game Taken
+        if let _ = game.userId {
             let fullGameViewController = storyBoard.instantiateViewController(withIdentifier: "FullGameViewController") as! FullGameViewController
             fullGameViewController.gameId = game.id
             navigationController?.pushViewController(fullGameViewController, animated: true)
         }
-        //Game empty
+        //Game Empty
         else{
             let takeGameViewController = self.storyBoard.instantiateViewController(withIdentifier: "TakeGameViewController") as! TakeGameViewController
             takeGameViewController.gameId = game.id
@@ -151,7 +152,7 @@ extension GamesViewController : UITableViewDataSource, UITableViewDelegate {
         
         //Share button.
         let share = UITableViewRowAction(style: .normal, title: "Share") { action, index in
-            let textToShare = "Check out this game I'm betting on in ScorBord!"
+            let textToShare = "Check out this game I'm betting on in ScorBord! \(game.homeTeam) vs. \(game.awayTeam)"
             if let myWebsite = NSURL(string: "www.google.com") {
                 let objectsToShare = [textToShare, myWebsite] as [Any]
                 let activityViewController = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)

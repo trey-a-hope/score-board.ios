@@ -17,7 +17,7 @@ class MyFSRef {
     /// - parameter value - String      : Value to be assigned to said property.
     /// - returns: Void
     /// - throws: No error.
-    public static func updatePropertiesOnTable(table: String, property: String, value: String) -> Promise<Void> {
+    static func updatePropertiesOnTable(table: String, property: String, value: String) -> Promise<Void> {
         return Promise{ fulfill, reject in
             db.collection(table).getDocuments(completion: { (col, err) in
                 for doc in (col?.documents)! {
@@ -37,7 +37,7 @@ class MyFSRef {
     /// - parameter property - String   : Property to be removed.
     /// - returns: Void
     /// - throws: No error.
-    public static func deletePropertyFromObjects(table: String, property: String) -> Promise<Void> {
+    static func deletePropertyFromObjects(table: String, property: String) -> Promise<Void> {
         return Promise{ fulfill, reject in
             db.collection(table).getDocuments(completion: { (col, err) in
                 for doc in (col?.documents)! {
@@ -158,8 +158,10 @@ class MyFSRef {
         }
     }
     
-    //RETURNS ALL GAMES : TODO: DELETE THIS!
-    class func getAllGames() -> Promise<[Game]> {
+    /// Returns all games, (note, only used for admin purposes).
+    /// - returns: [Game] - All games in database.
+    /// - throws: No error.
+    static func getAllGames() -> Promise<[Game]> {
         var games: [Game] = [Game]()
         return Promise{ fulfill, reject in
             db.collection("Games").getDocuments(completion: { (collection, err) in
@@ -174,7 +176,11 @@ class MyFSRef {
         }
     }
     
-    class func getGamesByStatus(status: Int) -> Promise<[Game]> {
+    /// Get a game by its status.
+    /// - parameter status - Int : Pre, Active, Post statuses.
+    /// - returns: [Game] -> Array of games found.
+    /// - throws: No error.
+    static func getGamesByStatus(status: Int) -> Promise<[Game]> {
         var games: [Game] = [Game]()
         return Promise{ fulfill, reject in
             db.collection("Games").whereField("status", isEqualTo: status).getDocuments(completion: { (collection, err) in
@@ -189,8 +195,11 @@ class MyFSRef {
         }
     }
     
-    //RETURNS ALL GAMES FOR A USER
-    class func getGamesForUser(userId: String)-> Promise<[Game]> {
+    /// Get all games for a user.
+    /// - parameter userId - Int : Id of user.
+    /// - returns: [Game] -> Array of games found.
+    /// - throws: No error.
+    static func getGamesForUser(userId: String)-> Promise<[Game]> {
         var games: [Game] = [Game]()
         return Promise{ fulfill, reject in
             db.collection("Games").whereField("userId", isEqualTo: userId).getDocuments(completion: { (collection, err) in
@@ -203,8 +212,14 @@ class MyFSRef {
         }
     }
     
-    //LINK A USER TO A GAME
-    class func takeGame(gameId: String, potAmount: Double, betPrice: Double, userId: String) -> Promise<Void> {
+    /// Link a user to a game, (the user owns this game).
+    /// - parameter gameId - String : Id of the game.
+    /// - parameter potAmount - Double : Total winnings for this game.
+    /// - parameter betPrice - Double : Cost of each bet for other users.
+    /// - parameter userId - String : Id of the user taking over the game.
+    /// - returns: Void -> Nothing
+    /// - throws: No error.
+    static func takeGame(gameId: String, potAmount: Double, betPrice: Double, userId: String) -> Promise<Void> {
         return Promise{ fulfill, reject in
             db.collection("Games").document(gameId).updateData([
                 "userId"    : userId,
@@ -220,8 +235,14 @@ class MyFSRef {
         }
     }
     
-    //Update the score and active code
-    class func updateGame(gameId: String, status: Int, homeTeamScore: Int, awayTeamScore: Int) -> Promise<Void> {
+    /// Updates a game's status, home team score, or away team score.
+    /// - parameter gameId - String : Id of the game.
+    /// - parameter status - Int : Pre, Active, Post statuses.
+    /// - parameter homeTeamScore - Int : Home team's current score.
+    /// - parameter awayTeamScore - Int : Away team's current score.
+    /// - returns: Void -> Nothing
+    /// - throws: No error.
+    static func updateGame(gameId: String, status: Int, homeTeamScore: Int, awayTeamScore: Int) -> Promise<Void> {
         return Promise{ fulfill, reject in
             db.collection("Games").document(gameId).updateData([
                 "status"                : status,
@@ -237,8 +258,11 @@ class MyFSRef {
         }
     }
     
-    //CREATE A NEW GAME
-    class func createGame(game: Game) -> Promise<String> {
+    /// Creates a new game to for betting.
+    /// - parameter game - Game : New game being added.
+    /// - returns: gameId - String : Id of newly added game.
+    /// - throws: No error.
+    static func createGame(game: Game) -> Promise<String> {
         return Promise{ fulfill, reject in
             var ref: DocumentReference? = nil
             
@@ -280,8 +304,11 @@ class MyFSRef {
     //     \___/  |___/  \___| |_|    |___/
     
     
-    //DELETE USER FROM AUTHENTICATION, DATABASE, AND STORAGE
-    class func deleteUser(userId: String) -> Promise<Void> {
+    /// Deletes a user from authentication, database, and storage.
+    /// - parameter userId - String : Id of user.
+    /// - returns: Void -> Nothing
+    /// - throws: No error.
+    static func deleteUser(userId: String) -> Promise<Void> {
         //TODO: Delete all bets when a user deletes their account.
         return Promise { fulfill, reject in
             Auth.auth().currentUser?.delete(completion: { (err) in
@@ -307,8 +334,12 @@ class MyFSRef {
         }
     }
     
-    //UPDATE USER EMAIL
-    class func updateUserEmail(userId: String, email: String) -> Promise<Void> {
+    /// Updates a user's email.
+    /// - parameter userId - String : Id of user.
+    /// - parameter email - String : Updated email.
+    /// - returns: Void -> Nothing
+    /// - throws: No error.
+    static func updateUserEmail(userId: String, email: String) -> Promise<Void> {
         return Promise { fulfill, reject in
             db.collection("Users").document(userId).updateData([
                 "email" : email
@@ -365,8 +396,12 @@ class MyFSRef {
         }
     }
     
-    //UPDATE PROFILE PICTURE
-    class func updateProfilePicture(userId: String, image: UIImage) -> Promise<Void> {
+    /// Updates a user's profile picture.
+    /// - parameter userId - String : Id of user.
+    /// - parameter image - UIImage : Profile image.
+    /// - returns: Void -> Nothing
+    /// - throws: No error.
+    static func updateProfilePicture(userId: String, image: UIImage) -> Promise<Void> {
         return Promise { fulfill, reject in
             let data: Data = UIImageJPEGRepresentation(image, 0.8)!
             let filePath = "Images/Users/" + userId
@@ -393,8 +428,11 @@ class MyFSRef {
         }
     }
     
-    //RETURNS USER THAT MATCHES ID
-    class func getUserById(id: String) -> Promise<User> {
+    /// Returns a user by their id.
+    /// - parameter userId - String : Id of user.
+    /// - returns: User : User found.
+    /// - throws: No error.
+    static func getUserById(id: String) -> Promise<User> {
         return Promise{ fulfill, reject in
             db.collection("Users").document(id).getDocument(completion: { (document, error) in
                 if let error = error { reject(error) }
@@ -403,8 +441,11 @@ class MyFSRef {
         }
     }
     
-    //RETURNS USER THAT MATCHES EMAIL
-    class func getUserByEmail(email: String) -> Promise<User> {
+    /// Returns a user by their email.
+    /// - parameter email - String : Email of user.
+    /// - returns: User : User found.
+    /// - throws: No error.
+    static func getUserByEmail(email: String) -> Promise<User> {
         return Promise{ fulfill, reject in
             db.collection("Users").whereField("email", isEqualTo: email).getDocuments(completion: { (collection, error) in
                 if let error = error { reject(error) }
@@ -413,11 +454,16 @@ class MyFSRef {
         }
     }
     
-    //RETURNS A SPECIFIED AMOUNT OF USERS BY CATEGORY
-    class func getTopUsers(category: String, numberOfUsers: Int) -> Promise<[User]> {
+    /// Returns the top users of a specific category, (i.e. points, games won, bets won, etc.).
+    /// - parameter category - String : Category that the search is held against.
+    /// - parameter numberOfUsers - Int : The desired amount of users to bring back.
+    /// - returns: [User] : Users found.
+    /// - throws: No error.
+    static func getTopUsers(category: String, numberOfUsers: Int) -> Promise<[User]> {
         return Promise { fulfill, reject in
             db.collection("Users").order(by: category).limit(to: numberOfUsers).getDocuments(completion: { (collection, error) in
                 if let error = error { reject(error) }
+                
                 var users: [User] = [User]()
                 for document in (collection?.documents)! {
                     users.append(extractUserData(userSnapshot: document))
@@ -428,8 +474,13 @@ class MyFSRef {
         }
     }
     
-    //RETURN A SPECIFIED AMOUNT OF USERS BASED ON A SEARCH STRING
-    class func getUsersFromSearch(category: String, search: String, numberOfUsers: Int) -> Promise<[User]> {
+    /// Returns a group of users from a search query.
+    /// - parameter category - String : Category that the search is held against.
+    /// - parameter search - String : Search value.
+    /// - parameter numberOfUsers - Int : The desired amount of users to bring back.
+    /// - returns: [User] : Users found.
+    /// - throws: No error.
+    static func getUsersFromSearch(category: String, search: String, numberOfUsers: Int) -> Promise<[User]> {
             return Promise { fulfill, reject in
                 //            The character \uf8ff used in the query is a very high code point in the Unicode range (it is a Private Usage Area [PUA] code). Because it is after most regular characters in Unicode, the query matches all values that start with queryText.
                 //            In this way, searching by "Fre" I could get the records having "Fred, Freddy, Frey" as value in "userName" property from the database.
@@ -446,8 +497,11 @@ class MyFSRef {
             }
         }
     
-    //UPDATES THE CURRENT USER'S FCM TOKEN
-    class func updateUserFCMToken(userId: String) -> Promise<Void> {
+    /// Updates a user's Firecloud Messaging Token.
+    /// - parameter userId - String : Id of user.
+    /// - returns: Void -> Nothing.
+    /// - throws: No error.
+    static func updateUserFCMToken(userId: String) -> Promise<Void> {
         return Promise { fulfill, reject in
             if let fcmToken = Messaging.messaging().fcmToken {
                 db.collection("Users").document(userId).updateData([
@@ -464,8 +518,11 @@ class MyFSRef {
         }
     }
     
-    //RETURNS A USER'S FCM TOKEN FOR PUSH NOTIFICATIONS
-    class func getUserFCMToken(userId: String) -> Promise<String> {
+    /// Returns a user's Firecloud Messaging Token.
+    /// - parameter userId - String : Id of user.
+    /// - returns: String - fcm token of user.
+    /// - throws: No error.
+    static func getUserFCMToken(userId: String) -> Promise<String> {
         return Promise { fulfill, reject in
             db.collection("Users").document(userId).getDocument(completion: { (document, error) in
                 let value = document!.data()
@@ -484,7 +541,7 @@ class MyFSRef {
     /// - parameter notifications - [String:Bool] : Array of notifications.
     /// - returns: Void
     /// - throws: No error.
-    public static func updateNotifications(id: String, notifications: [String:Bool]) -> Promise<Void> {
+    static func updateNotifications(id: String, notifications: [String:Bool]) -> Promise<Void> {
         return Promise { fulfill, reject in
             
             db.collection("Users").document(id).updateData([
@@ -499,8 +556,11 @@ class MyFSRef {
         }
     }
     
-    //CREATE A NEW USER
-    class func createUser(user: User) -> Promise<String> {
+    /// Creates a new user.
+    /// - parameter user - User : User being added.
+    /// - returns: Void
+    /// - throws: No error.
+    static func createUser(user: User) -> Promise<String> {
         return Promise{ fulfill, reject in
             var ref: DocumentReference? = nil
 
@@ -556,10 +616,12 @@ class MyFSRef {
             }
         }
     }
-}
 
-extension MyFSRef {
-    class func extractUserData(userSnapshot: DocumentSnapshot) -> User {
+    /// Converts a user document snapshot into a user object.
+    /// - parameter userSnapshot - DocumentSnapshot : Firestore snapshot of the document.
+    /// - returns: User
+    /// - throws: No error.
+    static func extractUserData(userSnapshot: DocumentSnapshot) -> User {
         let value   : [String:Any]  = userSnapshot.data()
         let user    : User          = User()
         
@@ -584,7 +646,11 @@ extension MyFSRef {
         return user
     }
     
-    class func extractBetData(betSnapshot: DocumentSnapshot) -> Bet {
+    /// Converts a bet document snapshot into a bet object.
+    /// - parameter betSnapshot - DocumentSnapshot : Firestore snapshot of the document.
+    /// - returns: Bet
+    /// - throws: No error.
+    static func extractBetData(betSnapshot: DocumentSnapshot) -> Bet {
         let value   : [String:Any]  = betSnapshot.data()
         let bet     : Bet           = Bet()
         
@@ -600,7 +666,11 @@ extension MyFSRef {
         return bet
     }
     
-    class func extractGameData(gameDoc: DocumentSnapshot) -> Game {
+    /// Converts a game document snapshot into a game object.
+    /// - parameter gameSnapshot - DocumentSnapshot : Firestore snapshot of the document.
+    /// - returns: Game
+    /// - throws: No error.
+    static func extractGameData(gameDoc: DocumentSnapshot) -> Game {
         let gameData: [String:Any]  = gameDoc.data()
         let game    : Game          = Game()
         

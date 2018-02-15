@@ -305,18 +305,18 @@
 		0C6DC58F1F4DD9F200F9A061 /* ScoreBoard */ = {
 			isa = PBXGroup;
 			children = (
-				A241A5492023E670004CE4AD /* Protocols */,
-				0CD96A021F659DE100B183C8 /* ScoreBoard.entitlements */,
-				0C6C20451F676C30000AB4F3 /* GoogleService-Info.plist */,
-				0C6DC59C1F4DD9F200F9A061 /* Info.plist */,
 				0C6DC5901F4DD9F200F9A061 /* AppDelegate.swift */,
 				0C6DC5971F4DD9F200F9A061 /* Assets.xcassets */,
 				0CA5BF2E1F5F1B07009D0236 /* Constants */,
 				0CA5BF311F5F1B81009D0236 /* Enums */,
+				0C6C20451F676C30000AB4F3 /* GoogleService-Info.plist */,
+				0C6DC59C1F4DD9F200F9A061 /* Info.plist */,
 				0C6DC5991F4DD9F200F9A061 /* LaunchScreen.storyboard */,
 				0C6DC5941F4DD9F200F9A061 /* Main.storyboard */,
 				0C5F3A3B1F4E0F2100516CFB /* Miscellaneous */,
 				0CFC24621F4DEB77003F97B5 /* Models */,
+				A241A5492023E670004CE4AD /* Protocols */,
+				0CD96A021F659DE100B183C8 /* ScoreBoard.entitlements */,
 				0C6DC5A41F4DD9F200F9A061 /* ScoreBoardTests */,
 				0CFC245F1F4DEAE8003F97B5 /* Services */,
 				A2185CEA1FCE673C0024BB3E /* Stripe */,

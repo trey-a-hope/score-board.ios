@@ -2,16 +2,10 @@ import Alamofire
 import PromiseKit
 
 class StripeAPIClient {
-    private class var testSecretKey: String {
-        return "sk_test_IM9ti8gurtw7BjCPCtm9hRar"
-    }
-    private class var testPublishableKey: String {
-        return "pk_test_Dl5CsuVlvuAg3fG8vVCRrKbC"
-    }
-    private class var baseURL: String {
-        return "http://es.tr3umphant-designs.com/assets/stripe"
-    }
-     
+    private class var testSecretKey: String { return "sk_test_IM9ti8gurtw7BjCPCtm9hRar" }
+    private class var testPublishableKey: String { return "pk_test_Dl5CsuVlvuAg3fG8vVCRrKbC" }
+    private class var baseURL: String { return "http://es.tr3umphant-designs.com/assets/stripe" }
+    
     //      ____                 _
     //     / ___|  _   _   ___  | |_    ___    _ __ ___     ___   _ __   ___
     //    | |     | | | | / __| | __|  / _ \  | '_ ` _ \   / _ \ | '__| / __|

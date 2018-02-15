@@ -14,7 +14,7 @@ class UpdateGameViewController : UIViewController {
     
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(GamesViewController.getGames), for: UIControlEvents.valueChanged)
+        refreshControl.addTarget(self, action: #selector(UpdateGameViewController.getGames), for: UIControlEvents.valueChanged)
         return refreshControl
     }()
     
