@@ -1,6 +1,6 @@
 import UIKit
 
-struct NBATeam {
+struct NBATeams {
     //Atlanta Hawks
     static let Hawks = (id: 1, name: "Hawks", city: "Atlanta", conference: "Southeast", imageDownloadUrl: "https://firebasestorage.googleapis.com/v0/b/project-4262310415987696317.appspot.com/o/Images%2FNBATeams%2FHawks.png?alt=media&token=db513f9a-6f96-4d47-8a64-8de603aa89b5", color: UIColor().hexStringToUIColor(hex: "E03A3E"), url: "http://www.nba.com/teams/hawks")
     //Boston Celtics

@@ -15,4 +15,7 @@ struct Constants {
     //UITableView Cell Height
     static let FOLLOWER_CELL_HEIGHT : CGFloat = CGFloat(70)
     static let GAME_CELL_HEIGHT     : CGFloat = CGFloat(100)
+    
+    //New User
+    static let DEFAULT_IMAGE_URL: String = "http://www.techweez.com/wp-content/uploads/2017/07/NO-IMAGE.png"
 }

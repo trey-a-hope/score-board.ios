@@ -101,8 +101,8 @@ extension EvaluateGameViewController : UITableViewDataSource, UITableViewDelegat
         if let cell = tableView.dequeueReusableCell(withIdentifier: "GameTableViewCell", for: indexPath as IndexPath) as? GameTableViewCell{
             let game: Game = games[indexPath.row]
             
-            let ht = NBATeam.all.filter{ $0.name == game.homeTeam }.first!
-            let at = NBATeam.all.filter{ $0.name == game.awayTeam }.first!
+            let ht = NBATeams.all.filter{ $0.name == game.homeTeam }.first!
+            let at = NBATeams.all.filter{ $0.name == game.awayTeam }.first!
             
             cell.title.text = ht.name + " vs. " + at.name
             cell.potAmount.text = "(Pot Amount Will Go Here)"

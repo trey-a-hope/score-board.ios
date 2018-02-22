@@ -10,7 +10,7 @@ class EditProfileViewController: UIViewController {
     @IBOutlet weak var gender: UISegmentedControl!
     
     let statePickerView: UIPickerView = UIPickerView()
-    let stateOptions: [String] = UIPickerViewOptions.states
+    let stateOptions: [String] = States.all.map{ $0.abbreviation }
     var saveBtn: FABButton!
     var user: User!
     

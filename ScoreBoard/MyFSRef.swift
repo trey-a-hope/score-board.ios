@@ -497,6 +497,28 @@ class MyFSRef {
             }
         }
     
+    /// Returns a group of games from a search query.
+    /// - parameter category - String : Category that the search is held against.
+    /// - parameter search - String : Search value.
+    /// - parameter numberOfGames - Int : The desired amount of games to bring back.
+    /// - returns: [Game] : Games found.
+    /// - throws: No error.
+    static func getGamesFromSearch(category: String, search: String, numberOfGames: Int) -> Promise<[Game]> {
+        return Promise { fulfill, reject in
+            //            The character \uf8ff used in the query is a very high code point in the Unicode range (it is a Private Usage Area [PUA] code). Because it is after most regular characters in Unicode, the query matches all values that start with queryText.
+            //            In this way, searching by "Fre" I could get the records having "Fred, Freddy, Frey" as value in "userName" property from the database.
+            db.collection("Games").order(by: category).start(at: [search]).end(at: [search + "\u{f8ff}"]).limit(to: numberOfGames).getDocuments(completion: { (collection, error) in
+                if let error = error { reject(error) }
+                
+                var games: [Game] = [Game]()
+                for document in (collection?.documents)! {
+                    games.append(extractGameData(gameDoc: document))
+                }
+                fulfill(games)
+            })
+        }
+    }
+    
     /// Updates a user's Firecloud Messaging Token.
     /// - parameter userId - String : Id of user.
     /// - returns: Void -> Nothing.

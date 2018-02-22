@@ -104,8 +104,8 @@ class FullGameViewController: UIViewController {
                         self.gameOwner = user
                         
                         //Set home team and away team
-                        self.homeTeam = NBATeam.all.filter({ $0.name == self.game.homeTeam }).first!.name
-                        self.awayTeam = NBATeam.all.filter({ $0.name == self.game.awayTeam }).first!.name
+                        self.homeTeam = NBATeams.all.filter({ $0.name == self.game.homeTeam }).first!.name
+                        self.awayTeam = NBATeams.all.filter({ $0.name == self.game.awayTeam }).first!.name
                         
                         //Set a user to each bet
                         if self.bets.isEmpty {
@@ -131,8 +131,8 @@ class FullGameViewController: UIViewController {
     }
     
     func setUI() -> Void {
-        let ht = NBATeam.all.filter { $0.name == homeTeam }.first!
-        let at = NBATeam.all.filter { $0.name == awayTeam }.first!
+        let ht = NBATeams.all.filter { $0.name == homeTeam }.first!
+        let at = NBATeams.all.filter { $0.name == awayTeam }.first!
         
         //Home Team Info
         homeTeamPreDigit.text = String(describing: game.homeTeamScore / 10)
@@ -273,8 +273,8 @@ class FullGameViewController: UIViewController {
     }
     
     @IBAction func submitAction(_ sender: UIButton) {
-        let ht = NBATeam.all.filter { $0.name != homeTeam }.first!
-        let at = NBATeam.all.filter { $0.name != awayTeam }.first!
+        let ht = NBATeams.all.filter { $0.name != homeTeam }.first!
+        let at = NBATeams.all.filter { $0.name != awayTeam }.first!
         
         if game.userId == SessionManager.getUserId() {
             ModalService.showAlert(title: "Sorry", message: "You can only place bets on games you do not own.", vc: self)
@@ -433,8 +433,8 @@ extension FullGameViewController: UICollectionViewDataSource {
         
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as? BetCell{
             
-            let ht = NBATeam.all.filter { $0.name != homeTeam }.first!
-            let at = NBATeam.all.filter { $0.name != awayTeam }.first!
+            let ht = NBATeams.all.filter { $0.name != homeTeam }.first!
+            let at = NBATeams.all.filter { $0.name != awayTeam }.first!
             
             let selectedBet: Bet = bets[indexPath.row]
             

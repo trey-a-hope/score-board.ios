@@ -52,8 +52,8 @@ class AddGameViewController : UIViewController {
             .then{ () -> Void in
                 let game        : Game      = Game()
 
-                let homeTeam = NBATeam.all[self.homeTeamPickerView.selectedRow(inComponent: 0)]
-                let awayTeam = NBATeam.all[self.awayTeamPickerView.selectedRow(inComponent: 0)]
+                let homeTeam = NBATeams.all[self.homeTeamPickerView.selectedRow(inComponent: 0)]
+                let awayTeam = NBATeams.all[self.awayTeamPickerView.selectedRow(inComponent: 0)]
 
                 game.homeTeam   = homeTeam.name
                 game.awayTeam   = awayTeam.name
@@ -82,7 +82,7 @@ extension AddGameViewController : UIPickerViewDataSource, UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         switch pickerView {
             case homeTeamPickerView, awayTeamPickerView:
-                return NBATeam.all.count
+                return NBATeams.all.count
             default:return 1
         }
     }
@@ -90,7 +90,7 @@ extension AddGameViewController : UIPickerViewDataSource, UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         switch pickerView {
             case homeTeamPickerView, awayTeamPickerView:
-                return NBATeam.all[row].city + " " + NBATeam.all[row].name
+                return NBATeams.all[row].city + " " + NBATeams.all[row].name
             default:return "Null"
         }
     }
@@ -98,9 +98,9 @@ extension AddGameViewController : UIPickerViewDataSource, UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch pickerView {
             case homeTeamPickerView:
-                homeTeam.text = NBATeam.all[row].name
+                homeTeam.text = NBATeams.all[row].name
             case awayTeamPickerView:
-                awayTeam.text = NBATeam.all[row].name
+                awayTeam.text = NBATeams.all[row].name
             default:break
         }
     }

@@ -987,15 +987,20 @@
                                 <rect key="frame" x="0.0" y="76" width="375" height="542"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
-                            <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Search games, teams, and users." translatesAutoresizingMaskIntoConstraints="NO" id="UkO-Hb-Vy8">
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="o89-a4-WhT">
+                                <rect key="frame" x="177" y="323" width="20" height="20"/>
+                            </activityIndicatorView>
+                            <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Search users and NBA teams." translatesAutoresizingMaskIntoConstraints="NO" id="UkO-Hb-Vy8">
                                 <rect key="frame" x="0.0" y="20" width="375" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="o89-a4-WhT" firstAttribute="centerX" secondItem="wX4-jp-tIh" secondAttribute="centerX" id="2ez-xM-axF"/>
                             <constraint firstAttribute="trailing" secondItem="VPj-s5-Wq2" secondAttribute="trailing" id="9hb-Yg-4PH"/>
                             <constraint firstAttribute="trailing" secondItem="UkO-Hb-Vy8" secondAttribute="trailing" id="Bt9-ug-IE8"/>
+                            <constraint firstItem="o89-a4-WhT" firstAttribute="centerY" secondItem="wX4-jp-tIh" secondAttribute="centerY" id="E9W-if-YUy"/>
                             <constraint firstItem="UkO-Hb-Vy8" firstAttribute="leading" secondItem="wX4-jp-tIh" secondAttribute="leading" id="EB8-WJ-lX3"/>
                             <constraint firstItem="UkO-Hb-Vy8" firstAttribute="top" secondItem="uJx-vG-he2" secondAttribute="bottom" id="Fre-G9-3SD"/>
                             <constraint firstItem="VPj-s5-Wq2" firstAttribute="top" secondItem="UkO-Hb-Vy8" secondAttribute="bottom" id="YqL-CV-7sd"/>
@@ -1005,6 +1010,8 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="" id="a2i-8o-bF3"/>
                     <connections>
+                        <outlet property="searchBar" destination="UkO-Hb-Vy8" id="fkP-HX-zqe"/>
+                        <outlet property="spinner" destination="o89-a4-WhT" id="moG-kM-t0Y"/>
                         <outlet property="tableView" destination="VPj-s5-Wq2" id="cKF-L2-QNW"/>
                     </connections>
                 </viewController>

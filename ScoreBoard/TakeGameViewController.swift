@@ -39,8 +39,8 @@ class TakeGameViewController: UIViewController {
     func initUI() -> Void {
         hideKeyboardWhenTappedAround()
         
-        let homeTeam = NBATeam.all.filter({ $0.name == game.homeTeam }).first!
-        let awayTeam = NBATeam.all.filter({ $0.name == game.awayTeam }).first!
+        let homeTeam = NBATeams.all.filter({ $0.name == game.homeTeam }).first!
+        let awayTeam = NBATeams.all.filter({ $0.name == game.awayTeam }).first!
         
         homeTeamLabel.text = homeTeam.name
         homeTeamImage.round(borderWidth: 0, borderColor: UIColor.black)

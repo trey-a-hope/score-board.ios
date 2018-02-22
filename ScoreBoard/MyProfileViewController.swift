@@ -147,7 +147,7 @@ class MyProfileViewController : UIViewController {
         
         //Location
         if let _ = me.city, let _ = me.stateId {
-            locationLabel.text = me.city + ", " + StateService.getStateAbbreviation(me.stateId)
+            locationLabel.text = me.city + ", " + States.all.filter{ $0.id == me.stateId }.first!.abbreviation
         }else{
             locationLabel.text = "No location"
         }
@@ -282,8 +282,8 @@ extension MyProfileViewController: UICollectionViewDataSource {
                 
                 let bet: Bet = myBets[indexPath.row]
                 
-                let ht = NBATeam.all.filter({ $0.name == bet.homeTeam }).first!
-                let at = NBATeam.all.filter({ $0.name == bet.awayTeam }).first!
+                let ht = NBATeams.all.filter({ $0.name == bet.homeTeam }).first!
+                let at = NBATeams.all.filter({ $0.name == bet.awayTeam }).first!
                 
                 betCell.userName.text = me.userName
                 betCell.userImage.kf.setImage(with: URL(string: me.imageDownloadUrl))
@@ -305,8 +305,8 @@ extension MyProfileViewController: UICollectionViewDataSource {
                 
                 let game: Game = myGames[indexPath.row]
 
-                let ht = NBATeam.all.filter({ $0.name == game.homeTeam }).first!
-                let at = NBATeam.all.filter({ $0.name == game.awayTeam }).first!
+                let ht = NBATeams.all.filter({ $0.name == game.homeTeam }).first!
+                let at = NBATeams.all.filter({ $0.name == game.awayTeam }).first!
                 
                 gameCell.userName.text = me.userName
                 gameCell.homeTeamImage.kf.setImage(with: URL(string: ht.imageDownloadUrl))
