@@ -83,7 +83,7 @@ class SearchViewController: UIViewController {
                 
                 //Teams
                 for team in NBATeams.all {
-                    if team.name.lowercased().range(of:searchText.lowercased()) != nil {
+                    if team.name.lowercased().range(of:searchText.lowercased()) != nil || team.city.lowercased().range(of:searchText.lowercased()) != nil {
                         let teamItem: Item = Item()
                         teamItem.imageDownloadUrl = team.imageDownloadUrl
                         teamItem.name = team.name
